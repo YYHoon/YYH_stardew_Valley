@@ -1,6 +1,5 @@
 #pragma once
 #include "image.h"
-#include "Transform.h"
 static image* _backBuffer = IMAGEMANAGER->addImage("backBuffer", WINSIZEX, WINSIZEY);
 
 class gameNode
@@ -12,7 +11,6 @@ private:
 public:
 	gameNode();
 	virtual ~gameNode();
-	Transform transform;
 	//HRESULT는 마이크로소프트 전용 디버깅 반환자 인데
 	//S_OK, E_FAIL, SUCCDED 등으로 출력창에 
 	//제대로 초기화가 잘됐는지 아닌지를 보여준다
