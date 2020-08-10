@@ -10,8 +10,6 @@
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 using namespace std;
 
-
-
 class playGround : public gameNode
 {
 private:
