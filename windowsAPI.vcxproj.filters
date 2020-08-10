@@ -61,6 +61,15 @@
     <Filter Include="playGround\Inventory">
       <UniqueIdentifier>{44e8cb5a-88eb-49f8-8295-14942f36229d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\UI">
+      <UniqueIdentifier>{99384303-3a4a-4222-9b0f-208ac62c5fbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\MaptoolScene">
+      <UniqueIdentifier>{0b12715c-901b-41f9-ada0-e9f3d535c4f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Main">
+      <UniqueIdentifier>{3b44e037-4d74-47f7-9608-8a21d60bd382}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -162,11 +171,20 @@
     <ClInclude Include="AllDefine.h">
       <Filter>playGround\All</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>playGround</Filter>
-    </ClInclude>
     <ClInclude Include="Inventory.h">
       <Filter>playGround\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>2DGameFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MapToolScene.h">
+      <Filter>playGround\MaptoolScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>playGround\Main</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -248,11 +266,20 @@
     <ClCompile Include="progressBar.cpp">
       <Filter>2DGameFramework\progressBar</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>playGround</Filter>
-    </ClCompile>
     <ClCompile Include="Inventory.cpp">
       <Filter>playGround\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>2DGameFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MapToolScene.cpp">
+      <Filter>playGround\MaptoolScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>playGround\Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
