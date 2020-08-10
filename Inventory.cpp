@@ -39,7 +39,7 @@ void Inventory::update()
 
 		for (_viInvenDynamicRC = _vInvenDynamicRC.begin(); _viInvenDynamicRC != _vInvenDynamicRC.end(); ++_viInvenDynamicRC)
 		{
-			for (int InventoryIndex = 0; InventoryIndex < 12; InventoryIndex++)
+			for (int InventoryIndex = 0; InventoryIndex < 12; InventoryIndex++) 
 			{
 				if (PtInRect(&_inventoryRC[InventoryIndex], _ptMouse))
 				{
@@ -102,7 +102,7 @@ void Inventory::render()
 					_vInvenDynamicRC.push_back(_inventoryRC[InventoryIndex]);
 				}
 
-				cout << "1" <<endl;
+				//cout << "1" <<endl;
 			}
 			break;
 			case 2:		//제작 탭
@@ -118,13 +118,13 @@ void Inventory::render()
 					IMAGEMANAGER->findImage("UI_Inventory_Craft_bot")->render(getMemDC(), IMAGECOOR);
 				}
 
-				_menuUpRC = RectMake(1170, 233, 32, 35);									//제작 탭에서 아래 화살표
+				_menuUpRC = RectMake(1170, 233, 32, 35);									//제작 탭에서 위 화살표
 				_menuDownRC = RectMake(1170, 464, 32, 35);									//제작 탭에서 아래 화살표
 
 				_vInvenDynamicRC.push_back(_menuUpRC);
 				_vInvenDynamicRC.push_back(_menuDownRC);
 
-				cout << "2" << endl;
+				//cout << "2" << endl;
 			}
 			break;
 			case 3:		//키 알림 탭
@@ -133,7 +133,7 @@ void Inventory::render()
 
 				IMAGEMANAGER->findImage("UI_Inventory_KeyInfo")->render(getMemDC(), IMAGECOOR);
 
-				cout << "3" << endl;
+				//cout << "3" << endl;
 			}
 			break;
 			case 4:		//게임 종료탭
@@ -145,7 +145,7 @@ void Inventory::render()
 				_titleRC = RectMake(665, 334, 272, 96);										//종료탭에서 [타이틀 메뉴로] 버튼
 				_closeRC = RectMake(699, 470, 204, 96);										//종료탭에서 [게임 종료] 버튼
 
-				cout << "4" << endl;
+				//cout << "4" << endl;
 			}
 			break;
 		}
@@ -201,7 +201,7 @@ void Inventory::render()
 	//}
 	//
 	//Rectangle(getMemDC(), _closeRC);
-
+	//
 	//Rectangle(getMemDC(), _menuUpRC);
 	//Rectangle(getMemDC(), _menuDownRC);
 

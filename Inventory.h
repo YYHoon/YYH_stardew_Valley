@@ -1,6 +1,5 @@
 #pragma once
 #include "gameNode.h"
-#include "AllDefine.h"
 #include <vector>
 
 class Inventory : public gameNode
