@@ -2,7 +2,6 @@
 #include "gameNode.h"
 #include "AllDefine.h"
 #include "AllEnum.h"
-#include "Player.h"
 #include <iostream>
 
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
@@ -13,8 +12,8 @@ using namespace std;
 class playGround : public gameNode
 {
 private:
-	Player* player;
-
+	int _strength;
+	char* _intel;
 public:
 	playGround();
 	~playGround();

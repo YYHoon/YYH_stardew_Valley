@@ -162,9 +162,6 @@
     <ClInclude Include="Vector2.h">
       <Filter>playGround</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>playGround</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -246,9 +243,6 @@
       <Filter>2DGameFramework\progressBar</Filter>
     </ClCompile>
     <ClCompile Include="Vector2.cpp">
-      <Filter>playGround</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
       <Filter>playGround</Filter>
     </ClCompile>
   </ItemGroup>
