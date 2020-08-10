@@ -11,43 +11,45 @@ keyManager::~keyManager()
 
 HRESULT keyManager::init()
 {
-	for (int i = 0; i < KEYMAX; i++)
-	{
-		this->getKeyUp().set(i, false);
-	}
+	_KeyPast.reset();
+	_keyCurrent.reset();
 
 	return S_OK;
+}
+
+void keyManager::update()
+{
+	_KeyPast = _keyCurrent;
 }
 
 void keyManager::release()
 {
 }
 
-bool keyManager::isOnceKeyDown(int key)
+bool keyManager::isOnceKeyDown(const int& key)
 {
 	if (GetAsyncKeyState(key) & 0x8000)
 	{
-		if (!this->getKeyDown()[key])
+		if (!_KeyPast[key])
 		{
-			this->setKeyDown(key, true);
+			_keyCurrent.set(key, true);
 
 			return true;
 		}
 	}
-	else this->setKeyDown(key, false);
+	else _keyCurrent.set(key, false);
 
 	return false;
 }
 
-bool keyManager::isOnceKeyUp(int key)
+bool keyManager::isOnceKeyUp(const int& key)
 {
-	if (GetAsyncKeyState(key) & 0x8000) this->setKeyUp(key, true);
+	if (GetAsyncKeyState(key) & 0x8000) _keyCurrent.set(key, true);
 	else
 	{
-		if (this->getKeyUp()[key])
+		if (_KeyPast[key])
 		{
-			this->setKeyUp(key, false);
-
+			_keyCurrent.set(key, false);
 			return true;
 		}
 	}
@@ -55,14 +57,14 @@ bool keyManager::isOnceKeyUp(int key)
 	return false;
 }
 
-bool keyManager::isStayKeyDown(int key)
+bool keyManager::isStayKeyDown(const int& key)
 {
 	if (GetAsyncKeyState(key) & 0x8000) return true;
 
 	return false;
 }
 
-bool keyManager::isToggleKey(int key)
+bool keyManager::isToggleKey(const int& key)
 {
 	if (GetKeyState(key) & 0x0001) return true;
 

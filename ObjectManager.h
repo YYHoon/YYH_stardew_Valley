@@ -1,27 +1,20 @@
 #pragma once
-enum Type 
-{
-	PLAYER,
-	ENEMY,
-	END
-};
 
 class ObjectManager
 {
-	unordered_map<Type,vector<class GameObject*>> mObjectList;
-	typedef unordered_map<Type, vector<class GameObject*>>::iterator ObjectListIter;
+	unordered_map<string,vector<class GameObject*>> _vObjectList;
+	typedef unordered_map<string, vector<class GameObject*>>::iterator ObjectListIter;
 
 public:
 	static ObjectManager* GetInstance();
 	void Release();
-	void Updater();
+	void Update();
 	void Render();
 
-	void AddGameObject(Type objectType,class GameObject* newObject);
-	void RemoveGameObject(Type objectType,class GameObject* deleteObject);
+	void AddGameObject(string objectType,class GameObject* newObject);
+	void RemoveGameObject(string objectType,class GameObject* deleteObject);
 
-	GameObject* FindObject(Type objectType, string findObject);
-	vector<GameObject*> FindObjects(Type objectType, string findObject);
-	vector<GameObject*> GetObjectList(Type objectType);
+	GameObject* FindObject(string objectType, string findObject);
+	vector<GameObject*> FindObjects(string objectType, string findObject);
+	vector<GameObject*>& GetObjectList(string objectType);
 };
-

@@ -8,6 +8,7 @@ enum class RenderType
 	ALPHARENDER,
 	KEYANIRENDER,
 	KEYANIALPHARENDER,
+	RECTANGLE,
 	END
 };
 
@@ -17,7 +18,7 @@ struct TagZOrder
 	RenderType RenderType;
 	image* Img;
 	animation* ani;
-	//MYRECT Rect;
+	TTYONE_UTIL::MYRECT Rect;
 	string KeyName;
 	float DextX, DextY;
 	int FrameX, FrameY;
@@ -38,6 +39,7 @@ public:
 	void ZOrderPush(HDC hdc, RenderType type, image* img, float DestX, float DestY,animation* ani, float ShadowZ);
 	void ZOrderPush(HDC hdc, RenderType type, image* img, float DestX, float DestY, animation* ani,string KeyName, float ShadowZ);
 	void ZOrderPush(HDC hdc, RenderType type, image* img, float DestX, float DestY, animation* ani, float ShadowZ, int alpha);
+	void ZOrderPush(HDC hdc, RenderType type, TTYONE_UTIL::MYRECT rc, float DestX, float DestY, float ShadowZ);
 	void MergeZOrder(vector<TagZOrder>& vMerge, int left, int right);
 	void MergeSortZOrder(vector<TagZOrder>& vMerge,int left,int right, int mid);
 	void ZOrderRender();

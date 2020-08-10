@@ -15,24 +15,24 @@ playGround::~playGround()
 HRESULT playGround::init()
 {
 	gameNode::init(true);
-	
-
+	//player = new Player;
+	//player->Init();
+	//OBJECTMANAGER->AddGameObject("PLAYER", player);
+	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
 	return S_OK;
 }
 
 //메모리 해제
 void playGround::release()
 {
-	
+	OBJECTMANAGER->Release();
 }
 
 //연산
 void playGround::update()
 {
 	gameNode::update();
-	
-
-
+	OBJECTMANAGER->Update();
 }
 
 //그리기 전용
@@ -40,8 +40,8 @@ void playGround::render()
 {	
 	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 	//=================================================
-
-
+	OBJECTMANAGER->Render();
+	ZORDER->ZOrderRender();
 	//=============================================
 	_backBuffer->render(getHDC(), 0, 0);
 }

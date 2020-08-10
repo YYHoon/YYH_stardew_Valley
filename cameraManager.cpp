@@ -140,7 +140,13 @@ void cameraManager::rectangle(HDC hdc, TTYONE_UTIL::MYRECT mrec)
 	RECT rect = { getRelativeX(mrec.left), getRelativeY(mrec.top), getRelativeX(mrec.right), getRelativeY(mrec.bottom) };
 	Rectangle(hdc, rect);
 }
-
+void cameraManager::rectangle(HDC hdc, TTYONE_UTIL::MYRECT mrec, float destX, float destY)
+{
+	float newX = getRelativeX(destX);
+	float newY = getRelativeY(destY);
+	RECT rect = { getRelativeX(mrec.left), getRelativeY(mrec.top), getRelativeX(mrec.right), getRelativeY(mrec.bottom) };
+	Rectangle(hdc, rect	,destX,destY);
+}
 // 동그라미 그리기 MYRECT 사용
 void cameraManager::ellipse(HDC hdc, TTYONE_UTIL::MYRECT mrec)
 {

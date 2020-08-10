@@ -49,7 +49,11 @@ inline void Rectangle(HDC hdc, RECT& rc)
 {
 	Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
 }
-
+//left, top 기준으로 사각형그린다(뿌려줄DC, 기준점 X, 기준점 Y, 가로크기, 세로크기)
+inline void Rectangle(HDC hdc, RECT& rc, int destX,int destY)
+{
+	Rectangle(hdc, destX,destY, rc.right+destY,rc.bottom+destY);
+}
 
 
 //left, top 기준으로 사각형그린다(뿌려줄DC, 기준점 X, 기준점 Y, 가로크기, 세로크기)

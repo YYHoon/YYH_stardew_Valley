@@ -76,6 +76,18 @@ void Zorder::ZOrderPush(HDC hdc, RenderType type, image* img, float DestX, float
 	vZList.push_back(ZPush);
 }
 
+void Zorder::ZOrderPush(HDC hdc, RenderType type, TTYONE_UTIL::MYRECT rc, float DestX, float DestY, float ShadowZ)
+{
+	TagZOrder ZPush;
+	ZPush.Hdc = hdc;
+	ZPush.RenderType = type;
+	ZPush.DextX = DestX;
+	ZPush.DextY = DestY;
+	ZPush.Rect = rc;
+	ZPush.ShadowZ = ShadowZ;
+	vZList.push_back(ZPush);
+}
+
 void Zorder::MergeZOrder(vector<TagZOrder>& vMerge, int left, int right)
 {
 	if (left >= right) return;
@@ -128,6 +140,9 @@ void Zorder::ZOrderRender()
 			break;
 		case RenderType::KEYANIALPHARENDER:
 			CAMERAMANAGER->KeyAnialphaRender(vZList[i].Hdc, vZList[i].Img, vZList[i].DextX, vZList[i].DextY, vZList[i].ani,vZList[i].alpha);
+			break;
+		case RenderType::RECTANGLE:
+			CAMERAMANAGER->rectangle(vZList[i].Hdc, vZList[i].Rect,vZList[i].DextX,vZList[i].DextY);
 			break;
 		case RenderType::END:
 			break;

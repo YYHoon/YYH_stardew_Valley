@@ -38,6 +38,7 @@ public:
 	float getRelativeY(float y);
 
 	void rectangle(HDC hdc, TTYONE_UTIL::MYRECT rect);
+	void rectangle(HDC hdc, TTYONE_UTIL::MYRECT mrec, float destX, float destY);
 	void ellipse(HDC hdc, TTYONE_UTIL::MYRECT rect);
 
 	void render(HDC hdc, image* img);

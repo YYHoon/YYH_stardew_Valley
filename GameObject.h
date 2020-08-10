@@ -1,13 +1,16 @@
 #pragma once
-class GameObject
+#include"gameNode.h"
+class GameObject : public gameNode
 {
 protected:
-	Synthesize(string, mName, Name)
-	Synthesize(POINT_FLOAT, mPosition, Position)
-	Synthesize(POINT_FLOAT, mSize, Size)
-	Synthesize(MYRECT, mRect, Rect)
-	Synthesize(bool, mActive, Active)
-
+	Synthesize(string, _name, Name)
+	Synthesize(string, _type, Type)
+	Synthesize(Vector2, _position, Position)
+	Synthesize(Vector2, _size, Size)
+	Synthesize(TTYONE_UTIL::MYRECT, _rect, Rect)
+	Synthesize(RECT, _rc, Rc)
+	Synthesize(bool, _active, Active)
+	image* img;
 
 public:
 
