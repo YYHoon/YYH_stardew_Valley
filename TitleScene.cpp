@@ -24,25 +24,10 @@ HRESULT TitleScene::init()
 	_MaptoolButtonRc = RectMake(866, 600, _MaptoolButton->getFrameWidth(), _MaptoolButton->getFrameHeight());
 	_ExitButtonRc = RectMake(1086, 600, _ExitButton->getFrameWidth(), _ExitButton->getFrameHeight());
 
-	_Brid = IMAGEMANAGER->findImage("TitleBrid");
-	_BridRc = RectMake(1600, 500, _Brid->getFrameWidth(), _Brid->getFrameHeight());
-
-	_Brid2 = IMAGEMANAGER->findImage("TitleBrid");
-	_BridRc2 = RectMake(1650, 200, _Brid2->getFrameWidth(), _Brid2->getFrameHeight());
-
-	_Brid3 = IMAGEMANAGER->findImage("TitleBrid");
-	_BridRc3 = RectMake(1700, 650, _Brid3->getFrameWidth(), _Brid3->getFrameHeight());
-
-	int bridArrAni[] = { 0,1,2,3 };
-	KEYANIMANAGER->addArrayFrameAnimation("aBrid", "TitleBrid", bridArrAni, 4, 10, true);
-	_BridAni = KEYANIMANAGER->findAnimation("aBrid");
-	_BridAni->start();
-
-
-	_startButtonIndex = _exitButtonIndex = _mouseIndex = _LoadButtonIndex = 0;
-
 	ShowCursor(false);
 	_Mouse = IMAGEMANAGER->findImage("mouse");
+
+	_startButtonIndex = _exitButtonIndex = _mouseIndex = _LoadButtonIndex = 0;
 	return S_OK;
 }
 
@@ -50,7 +35,7 @@ void TitleScene::release()
 {
 	//SAFE_DELETE(_TitleBackGround); SAFE_DELETE(_Title);  
 	//SAFE_DELETE(_StartButton);     SAFE_DELETE(_ExitButton);
-	//SAFE_DELETE(_LoadButton);		 SAFE_DELETE(_MaptoolButton);
+	//SAFE_DELETE(_LoadButton); 
 }
 
 void TitleScene::update()
@@ -106,38 +91,11 @@ void TitleScene::update()
 	{
 		_exitButtonIndex = 0;
 	}
-
-	_BridRc.left -= 5;
-	_BridRc.right -= 5;
-	_BridRc2.left -= 5;
-	_BridRc2.right -= 5;
-	_BridRc3.left -= 5;
-	_BridRc3.right -= 5;
-
-	if (_BridRc.right < 0)
-	{
-		_BridRc = RectMake(1600, RND->getInt(600) + 200, _Brid->getFrameWidth(), _Brid->getFrameHeight());
-	}
-	if (_BridRc2.right < 0)
-	{
-		_BridRc2 = RectMake(1650, RND->getInt(600) + 200, _Brid2->getFrameWidth(), _Brid2->getFrameHeight());
-	}
-	if (_BridRc3.right < 0)
-	{		
-		_BridRc3 = RectMake(1700, RND->getInt(600) + 200, _Brid3->getFrameWidth(), _Brid3->getFrameHeight());
-	}
-
-	KEYANIMANAGER->update();
 }
 
 void TitleScene::render()
 {
 	_TitleBackGround->render(getMemDC(), 0, 0);
-
-	_Brid->aniRender(getMemDC(), _BridRc.left, _BridRc.top,_BridAni);
-	_Brid2->aniRender(getMemDC(), _BridRc2.left, _BridRc2.top, _BridAni);
-	_Brid3->aniRender(getMemDC(), _BridRc3.left, _BridRc3.top, _BridAni);
-
 	_Title->render(getMemDC(), 500, 107);
 
 	_StartButton->frameRender(getMemDC(), _StartButtonRc.left, _StartButtonRc.top,0, _startButtonIndex);
