@@ -2,6 +2,9 @@
 #include "gameNode.h"
 #include "AllDefine.h"
 #include "AllEnum.h"
+#include "tankScene.h"
+#include "ToolItemManager.h"
+
 #include <iostream>
 
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
@@ -12,8 +15,7 @@ using namespace std;
 class playGround : public gameNode
 {
 private:
-	
-	
+	ToolItemManager* _toolItem;
 
 public:
 	playGround();
