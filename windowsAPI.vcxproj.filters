@@ -58,12 +58,6 @@
     <Filter Include="playGround\All">
       <UniqueIdentifier>{7411425b-0986-4b37-9518-806bbd17f157}</UniqueIdentifier>
     </Filter>
-    <Filter Include="playGround\연습">
-      <UniqueIdentifier>{bda4e8a1-6605-4f0a-8371-2eae2477f3fb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\연습\타일">
-      <UniqueIdentifier>{81be5cdb-9be6-4b01-947e-dede15fc6fbf}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -168,30 +162,6 @@
     <ClInclude Include="Vector2.h">
       <Filter>playGround</Filter>
     </ClInclude>
-    <ClInclude Include="Pickax.h">
-      <Filter>playGround\연습</Filter>
-    </ClInclude>
-    <ClInclude Include="ToolItem.h">
-      <Filter>playGround\연습</Filter>
-    </ClInclude>
-    <ClInclude Include="tileNode.h">
-      <Filter>playGround\연습\타일</Filter>
-    </ClInclude>
-    <ClInclude Include="tileMap.h">
-      <Filter>playGround\연습\타일</Filter>
-    </ClInclude>
-    <ClInclude Include="tank.h">
-      <Filter>playGround\연습\타일</Filter>
-    </ClInclude>
-    <ClInclude Include="tankScene.h">
-      <Filter>playGround\연습\타일</Filter>
-    </ClInclude>
-    <ClInclude Include="Axe.h">
-      <Filter>playGround\연습</Filter>
-    </ClInclude>
-    <ClInclude Include="ToolItemManager.h">
-      <Filter>playGround\연습</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -274,27 +244,6 @@
     </ClCompile>
     <ClCompile Include="Vector2.cpp">
       <Filter>playGround</Filter>
-    </ClCompile>
-    <ClCompile Include="Pickax.cpp">
-      <Filter>playGround\연습</Filter>
-    </ClCompile>
-    <ClCompile Include="ToolItem.cpp">
-      <Filter>playGround\연습</Filter>
-    </ClCompile>
-    <ClCompile Include="tileMap.cpp">
-      <Filter>playGround\연습\타일</Filter>
-    </ClCompile>
-    <ClCompile Include="tank.cpp">
-      <Filter>playGround\연습\타일</Filter>
-    </ClCompile>
-    <ClCompile Include="tankScene.cpp">
-      <Filter>playGround\연습\타일</Filter>
-    </ClCompile>
-    <ClCompile Include="Axe.cpp">
-      <Filter>playGround\연습</Filter>
-    </ClCompile>
-    <ClCompile Include="ToolItemManager.cpp">
-      <Filter>playGround\연습</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

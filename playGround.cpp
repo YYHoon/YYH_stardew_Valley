@@ -15,9 +15,7 @@ playGround::~playGround()
 HRESULT playGround::init()
 {
 	gameNode::init(true);
-	SCENEMANAGER->addScene("ÅÊÅ©¾À", new tankScene);
-	SCENEMANAGER->changeScene("ÅÊÅ©¾À");
-	_toolItem = new ToolItemManager;
+	
 
 	return S_OK;
 }
@@ -32,9 +30,7 @@ void playGround::release()
 void playGround::update()
 {
 	gameNode::update();
-	SCENEMANAGER->update();
 	
-	_toolItem->Action("Pickax");
 
 
 }
@@ -45,7 +41,6 @@ void playGround::render()
 	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 	//=================================================
 
-	SCENEMANAGER->render();
 
 	//=============================================
 	_backBuffer->render(getHDC(), 0, 0);
