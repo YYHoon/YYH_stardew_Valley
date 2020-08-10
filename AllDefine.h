@@ -12,3 +12,5 @@
 
 //////////////////////////////
 #define IMAGECOOR 376, 126
+
+#define TILESIZE 64	//타일 사이즈

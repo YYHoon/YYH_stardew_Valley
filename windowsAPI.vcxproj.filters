@@ -70,6 +70,12 @@
     <Filter Include="playGround\Main">
       <UniqueIdentifier>{3b44e037-4d74-47f7-9608-8a21d60bd382}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\Tool">
+      <UniqueIdentifier>{5d1e1aba-b969-4503-8cbf-dd95ad940ef2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Player">
+      <UniqueIdentifier>{3441593c-ad95-4d89-85f1-fc98a6e7274e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -186,6 +192,24 @@
     <ClInclude Include="TestScene.h">
       <Filter>playGround\Main</Filter>
     </ClInclude>
+    <ClInclude Include="Axe.h">
+      <Filter>playGround\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Pickax.h">
+      <Filter>playGround\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolItem.h">
+      <Filter>playGround\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolItemManager.h">
+      <Filter>playGround\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>playGround\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>playGround\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -280,6 +304,24 @@
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
       <Filter>playGround\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Axe.cpp">
+      <Filter>playGround\Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Pickax.cpp">
+      <Filter>playGround\Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolItem.cpp">
+      <Filter>playGround\Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolItemManager.cpp">
+      <Filter>playGround\Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>playGround\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>playGround\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
