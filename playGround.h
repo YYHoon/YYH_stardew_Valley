@@ -4,6 +4,8 @@
 #include "AllEnum.h"
 #include <iostream>
 
+#include "Inventory.h"
+
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 using namespace std;
 
@@ -14,6 +16,11 @@ class playGround : public gameNode
 private:
 	int _strength;
 	char* _intel;
+
+
+	Inventory* _Inv;
+
+
 public:
 	playGround();
 	~playGround();

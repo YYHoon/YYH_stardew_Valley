@@ -9,3 +9,6 @@
 //////////////////////////////
 #define RadToDeg (float)180/PI        // 라디안 -> 디그리
 #define DegToRad (float)PI/180		  // 디그리 -> 라디안
+
+//////////////////////////////
+#define IMAGECOOR 376, 126

@@ -58,6 +58,9 @@
     <Filter Include="playGround\All">
       <UniqueIdentifier>{7411425b-0986-4b37-9518-806bbd17f157}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\Inventory">
+      <UniqueIdentifier>{44e8cb5a-88eb-49f8-8295-14942f36229d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -162,6 +165,9 @@
     <ClInclude Include="Vector2.h">
       <Filter>playGround</Filter>
     </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>playGround\Inventory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -244,6 +250,9 @@
     </ClCompile>
     <ClCompile Include="Vector2.cpp">
       <Filter>playGround</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>playGround\Inventory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
