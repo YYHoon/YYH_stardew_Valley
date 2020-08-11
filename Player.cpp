@@ -1,17 +1,22 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "State.h"
+#include "DummyMap.h"
 
 HRESULT Player::init()
 {
+	IMAGEMANAGER->addImage("playerShadow", "image/PlayerShadow.bmp", 60, 60, true, RGB(255, 0, 255));
+
 	_info.name = "Dos";
+	_info.shadowImg = IMAGEMANAGER->findImage("playerShadow");
 	_info.position = Vector2(10, 10);
 	_info.direction = PLAYER_DIRECTION::UP;
 	_info.equipment = TOOLS::AXE;
 	_state = make_shared<PlayerIdle>(this);
 	_state->Init();
-	_info.position = Vector2(WINSIZEX / 2, WINSIZEY / 2);
-	_info.collision.centerSet(_info.position.x, _info.position.y, _info.img->getFrameWidth(), _info.img->getFrameHeight());
+	_info.position = Vector2(WINSIZEX / 2 + 100, WINSIZEY / 2);
+	_info.shadowCollision.centerSet(_info.position.x, _info.position.y, _info.img->getFrameWidth(), _info.img->getFrameHeight());
+	_info.collision.centerSet(_info.position.x, _info.position.y + 150, _info.img->getFrameWidth(), _info.img->getFrameHeight());
 	_info.maxHP = 100;
 	_info.maxStamina = 100;
 	_info.HP = 100;
@@ -31,7 +36,8 @@ void Player::update()
 	else if (KEYMANAGER->isOnceKeyDown('5'))ChangeEquipment(TOOLS::ITEM);
 	else if (KEYMANAGER->isOnceKeyDown('6'))ChangeEquipment(TOOLS::SWORD);
 	else if (KEYMANAGER->isOnceKeyDown('7'))ChangeEquipment(TOOLS::PICK);
-	
+
+	CheckTiles();
 	_state->Update();
 	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
@@ -41,7 +47,7 @@ void Player::update()
 
 void Player::render()
 {
-	_info.collision.render(getMemDC());
+	_info.shadowImg->render(getMemDC(), _info.shadowCollision.left, _info.shadowCollision.top);
 	_info.img->aniRender(getMemDC(), _info.collision.left, _info.collision.top, _info.anim);
 	
 }
@@ -60,25 +66,65 @@ void Player::ChangeState(shared_ptr<State> state)
 
 void Player::Move()
 {
-	if ( _state->GetStateName() == "move" || _state->GetStateName() == "itemMove")
+	if (_state->GetStateName() == "move" || _state->GetStateName() == "itemMove")
 	{
-		switch (_info.direction)
+		cout << isCollision(_map->GetTiles(_tileIndex).rc, _info.shadowCollision) << endl;
+		if (!_map->GetTiles(_tileIndex).collision||!isCollision(_map->GetTiles(_tileIndex).rc,_info.shadowCollision))
 		{
-		case PLAYER_DIRECTION::UP:
-			_info.position.y -= _info.velocity;
-			break;
-		case PLAYER_DIRECTION::DOWN:
-			_info.position.y += _info.velocity;
-			break;
-		case PLAYER_DIRECTION::RIGHT:
-			_info.position.x += _info.velocity;
-			break;
-		case PLAYER_DIRECTION::LEFT:
-			_info.position.x -= _info.velocity;
-			break;
-		default:
-			break;
+
+			switch (_info.direction)
+			{
+			case PLAYER_DIRECTION::UP:
+				_info.position.y -= _info.velocity;
+				break;
+			case PLAYER_DIRECTION::DOWN:
+				_info.position.y += _info.velocity;
+				break;
+			case PLAYER_DIRECTION::RIGHT:
+				_info.position.x += _info.velocity;
+				break;
+			case PLAYER_DIRECTION::LEFT:
+				_info.position.x -= _info.velocity;
+				break;
+			default:
+				break;
+			}
 		}
 	}
-	_info.collision.centerSet(_info.position.x, _info.position.y, _info.img->getFrameWidth(), _info.img->getFrameHeight());
+
+	_info.shadowCollision.centerSet(_info.position.x, _info.position.y, _info.shadowImg->getWidth(), _info.shadowImg->getHeight());
+	_info.collision.centerSet(_info.position.x, _info.position.y - 50, _info.img->getFrameWidth(), _info.img->getFrameHeight());
+}
+
+void Player::CheckTiles()
+{
+	int allTiles = _map->GetHorizon() * _map->GetVertical();
+	_playerTileX = _info.position.x / 64;
+	_playerTileY = _info.position.y / 64;
+
+	switch (_info.direction)
+	{
+	case PLAYER_DIRECTION::UP:
+		_tileIndex = (_playerTileX + _playerTileY * _map->GetHorizon()) - 20;
+		if (_tileIndex <= 0 || _tileIndex >= allTiles)_tileIndex = 0;
+		cout << _tileIndex << endl;
+		break;
+	case PLAYER_DIRECTION::DOWN:
+		_tileIndex = (_playerTileX + _playerTileY * _map->GetHorizon()) + 20;
+		if (_tileIndex <= 0 || _tileIndex >= allTiles)_tileIndex = 0;
+		cout << _tileIndex << endl;
+		break;
+	case PLAYER_DIRECTION::RIGHT:
+		_tileIndex = (_playerTileX + _playerTileY * _map->GetVertical()) + 1;
+		if (_tileIndex <= 0 || _tileIndex >= allTiles)_tileIndex = 0;
+		cout << _tileIndex << endl;
+		break;
+	case PLAYER_DIRECTION::LEFT:
+		_tileIndex = (_playerTileX + _playerTileY * _map->GetVertical()) - 1;
+		if (_tileIndex <= 0 || _tileIndex >= allTiles)_tileIndex = 0;
+		cout << _tileIndex << endl;
+		break;
+	default:
+		break;
+	}
 }

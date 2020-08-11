@@ -3,7 +3,7 @@
 #include "Vector2.h"
 
 class State;
-
+class DummyMap;
 
 
 class Player : public gameNode
@@ -13,9 +13,11 @@ private:
 	{
 		string name;
 		image* img;
+		image* shadowImg;
 		animation* anim;
 		Vector2 position;
 		MYRECT collision;
+		MYRECT shadowCollision;
 		PLAYER_DIRECTION direction;
 		TOOLS equipment;
 		int maxHP;
@@ -28,9 +30,14 @@ private:
 	};
 
 private:
+	DummyMap* _map;
 	NecessaryInfo _info;
 	PLAYER_ACTION _action;
 	shared_ptr<State> _state;
+	Vector2 _mousePt;
+	int _tileIndex;
+	int _playerTileX, _playerTileY;
+	
 	bool _isKeyDown;
 	
 	//class inven;
@@ -49,6 +56,7 @@ public:
 	PLAYER_ACTION GetAction() { return _action; }
 	PLAYER_DIRECTION GetDirection() { return _info.direction; }
 	TOOLS GetEquip() { return _info.equipment; }
+	int GetTileIndex() { return _tileIndex; }
 
 	void SetName(string Name) { _info.name = Name; }
 	void SetImg(string imgName) { _info.img = IMAGEMANAGER->findImage(imgName); }
@@ -70,7 +78,11 @@ public:
 
 public:
 	void ChangeState(shared_ptr<State> state);
-	void Move();
 	void ChangeEquipment(TOOLS equip) { _info.equipment = equip; }
+	void Move();
+	void CheckTiles();
+	void SetMapMemoryAddressLink(DummyMap* map) { _map = map; }
+	
+
 };
 
