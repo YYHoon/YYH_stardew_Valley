@@ -2,24 +2,22 @@
 #include "gameNode.h"
 #include "AllDefine.h"
 #include "AllEnum.h"
+#include "TitleScene.h"
+#include "TestScene.h"
+#include "MapToolScene.h"
 #include <iostream>
-
-#include "Inventory.h"
 
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 using namespace std;
 
-
-
 class playGround : public gameNode
 {
 private:
-	int _strength;
-	char* _intel;
 
-
+	TitleScene* _TitleScene;
+	TestScene* _Tset;
+	MapToolScene* _MaptoolScene;
 	Inventory* _Inv;
-
 
 public:
 	playGround();
