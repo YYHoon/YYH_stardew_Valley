@@ -18,8 +18,8 @@ HRESULT progressBar::init(float x, float y, int width, int height)
 
 	_rcProgress = RectMake(x, y, width, height);
 
-	_progressBarTop = IMAGEMANAGER->addImage("LoadingFrontBar", "Image/UI/ProgressBarTop.bmp", width, height, true, RGB(255, 0, 255));
-	_progressBarBottom = IMAGEMANAGER->addImage("LoadingBackBar", "Image/UI/ProgressBarBotttom.bmp", width, height, true, RGB(255, 0, 255));
+	_progressBarTop = IMAGEMANAGER->addImage("LoadingFrontBar", "Image/ProgressBarTop.bmp", width, height, true, RGB(255, 0, 255));
+	_progressBarBottom = IMAGEMANAGER->addImage("LoadingBackBar", "Image/ProgressBarBotttom.bmp", width, height, true, RGB(255, 0, 255));
 
 	//뒤에 깔리는 게이지의 가로크기를 기준으로 삼는다
 	_width = _progressBarBottom->getWidth();
