@@ -66,6 +66,7 @@ void TitleScene::update()
 			SCENEMANAGER->changeScene("LOADING");
 			SOUNDMANAGER->play("MenuSelect");
 			SOUNDMANAGER->stop("TitleSound");
+			//SCENEMANAGER->changeScene("Dummy");
 		}
 	}
 	else

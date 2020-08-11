@@ -158,6 +158,7 @@ namespace TTYONE_UTIL
 	//사각형이 사각형이랑 충돌했누?
 	bool isCollision(const MYRECT& rc1, const MYRECT& rc2);
 	bool isCollision(const RECT& rc1, const RECT& rc2);
+	bool isCollision(const RECT& rc1, const MYRECT& rc2);
 
 	//원과 원이 충돌했누?
 	bool isCollision(const MYCIRCLE& cir1, const MYCIRCLE& cir2);

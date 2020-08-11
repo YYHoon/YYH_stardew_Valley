@@ -216,6 +216,9 @@
     <ClInclude Include="LoadingScene.h">
       <Filter>playGround\UI</Filter>
     </ClInclude>
+    <ClInclude Include="DummyMap.h">
+      <Filter>playGround\Main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -331,6 +334,9 @@
     </ClCompile>
     <ClCompile Include="LoadingScene.cpp">
       <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="DummyMap.cpp">
+      <Filter>playGround\Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

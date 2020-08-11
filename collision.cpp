@@ -98,6 +98,15 @@ namespace TTYONE_UTIL
 		return false;
 	}
 
+	bool isCollision(const RECT& rc1, const MYRECT& rc2)
+	{
+		if ((rc1.left <= rc2.right && rc1.right >= rc2.left) &&
+			(rc1.top <= rc2.bottom && rc1.bottom >= rc2.top)) return true;
+		return false;
+	}
+	
+	
+
 	//원과 원이 충돌했누?
 	bool isCollision(const MYCIRCLE & cir1, const MYCIRCLE & cir2)
 	{
