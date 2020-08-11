@@ -76,6 +76,9 @@
     <Filter Include="playGround\Player">
       <UniqueIdentifier>{3441593c-ad95-4d89-85f1-fc98a6e7274e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\Environment">
+      <UniqueIdentifier>{712c9a02-75f0-4b16-8ff9-f27758122b5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -219,6 +222,15 @@
     <ClInclude Include="DummyMap.h">
       <Filter>playGround\Main</Filter>
     </ClInclude>
+    <ClInclude Include="Environment.h">
+      <Filter>playGround\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialog.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Store.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -337,6 +349,15 @@
     </ClCompile>
     <ClCompile Include="DummyMap.cpp">
       <Filter>playGround\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Environment.cpp">
+      <Filter>playGround\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialog.cpp">
+      <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Store.cpp">
+      <Filter>playGround\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

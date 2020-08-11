@@ -3,6 +3,7 @@
 #include "Inventory.h"
 #include <fstream>
 #include <string>
+#include "Environment.h"
 #include <vector>
 
 class TestScene : public gameNode
@@ -35,11 +36,16 @@ private:
 	bool _StoreOpen;  //상점
 
 //-------------------------다이얼로그_더미--------------------------------
+
 	image* _ChatWindow;      	 //대화창 이미지
 	image* _TalkingNpcImage;     //대화전용NPC 도트이미지
 	image* _TalkingNpcPortrait;  //대화전용NPC 초상화
 	image* _TalkingXBox;		 //대화창 우측하단에 있는거 별다른 효과없음
-	//animation* _TalkingXBoxAni;
+
+	/// <summary>
+	Inventory* _Inv;
+	Environment* _env;
+	/// </summary>
 
 	RECT _TalkingNpcImageRc; //대화용NPC 이미지용
 	RECT _TalkingNpc;	     //대화용NPC 대화가능영역
@@ -65,4 +71,5 @@ public:
 	virtual void update();
 	virtual void render();
 	virtual void Draw();
+
 };

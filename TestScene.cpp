@@ -24,6 +24,13 @@ HRESULT TestScene::init()
 		_StoreItem[i] = IMAGEMANAGER->findImage("StoreItme");
 	}
 
+	/// <summary>
+	_Inv = new Inventory;
+	_Inv->init();
+
+	_env = new Environment;
+	_env->init();
+	/// </summary>
 	_StoreInfo = IMAGEMANAGER->findImage("StoreInfo");
 	_StoreNPC = IMAGEMANAGER->findImage("StoreOwnerDot");
 	_CloseButton = IMAGEMANAGER->findImage("CloseButton");
@@ -65,6 +72,10 @@ void TestScene::update()
 {
 	_inv->update();
 	_mouseIndex = 0;
+	/// <summary>
+	_Inv->update();
+	_env->update();
+	/// </summary>
 	if (KEYMANAGER->isStayKeyDown(VK_UP) && !_StoreOpen && !_Talking)
 	{
 		_TestP.top -= 3;
@@ -75,11 +86,13 @@ void TestScene::update()
 		_TestP.top += 3;
 		_TestP.bottom += 3;
 	}
+
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT) && !_StoreOpen && !_Talking)
 	{
 		_TestP.left -= 3;
 		_TestP.right -= 3;
 	}
+
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT) && !_StoreOpen && !_Talking)
 	{
 		_TestP.left += 3;
@@ -236,8 +249,11 @@ void TestScene::render()
 	DeleteObject(OldFont2);
 
 	
-
+	/// <summary>
+	_env->render();
 	_inv->render();
+	/// </summary>
+	
 	_Mouse->frameRender(getMemDC(), _ptMouse.x, _ptMouse.y, _mouseIndex, 0);
 }
 
@@ -249,4 +265,8 @@ void TestScene::Draw()
 	_StoreItem[2]->frameRender(getMemDC(), _Item[2].left, _Item[2].top, 0, _StoreItmeFrameY3);
 	_StoreItem[3]->frameRender(getMemDC(), _Item[3].left, _Item[3].top, 0, _StoreItmeFrameY4);
 	//_StoreItem[4]->frameRender(getMemDC(), _Item[4].left, _Item[4].top, 0, _StoreItmeFrameY5);
+
+	/// <summary>
+	_Inv->render();
+	/// </summary>
 }

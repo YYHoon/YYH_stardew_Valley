@@ -15,14 +15,6 @@ playGround::~playGround()
 HRESULT playGround::init()
 {
 	gameNode::init(true);
-
-	_Inv = new Inventory;
-	_Inv->init();
-
-	imginit();
-	_LoadingScene = new LoadingScene;
-	_LoadingScene->init();
-
 	imginit();
 	soundinit();
 
@@ -30,7 +22,6 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("테스트", _Tset = new TestScene);
 	SCENEMANAGER->addScene("맵툴", _MaptoolScene = new MapToolScene);
 	SCENEMANAGER->addScene("LOADING", _LoadingScene = new LoadingScene);
-
 	SCENEMANAGER->addScene("Dummy", _dummy = new DummyMap);
 
 
@@ -52,6 +43,9 @@ void playGround::update()
 {
 	gameNode::update();
 	SCENEMANAGER->update();
+	OBJECTMANAGER->Update();
+	KEYANIMANAGER->update();
+
 }
 
 //그리기 전용
@@ -62,6 +56,10 @@ void playGround::render()
 
 	SCENEMANAGER->render();
 
+	/////////////////////////////////
+	TIMEMANAGER->render(getMemDC());
+	//////////////////////////////////
+	ZORDER->ZOrderRender();
 	//=============================================
 	_backBuffer->render(getHDC(), 0, 0);
 }
@@ -78,6 +76,7 @@ void playGround::imginit()
 	IMAGEMANAGER->addFrameImage("TitleBrid", "image/타이틀/Brid(400x69).bmp", 400, 69, 4, 1, true, MAGENTA);
 
 	//UI
+
 	IMAGEMANAGER->addFrameImage("mouse", "image/마우스.bmp", 360, 60, 6, 1, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("SpingSunny", "image/봄_맑음20T(3800x162).bmp", 3800, 162, 19, 1, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("SpingRain", "image/봄_비20T(3800x162).bmp", 3800, 162, 19, 1, true, MAGENTA);
@@ -89,6 +88,20 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("QuickSlotSelect", "image/퀵스선택.bmp", 64, 64, true, MAGENTA);
 	IMAGEMANAGER->addImage("UpArrow", "image/위화살표.bmp", 40, 44, true, MAGENTA);
 	IMAGEMANAGER->addImage("DownArrow", "image/아래화살표.bmp", 40, 44, true, MAGENTA);
+
+	//환경
+	IMAGEMANAGER->addImage("Environment_Clock", "Image/Environment/Environment_Clock.bmp", 284, 160, true, MAGENTA);
+
+	//인벤토리
+	IMAGEMANAGER->addImage("Inventory_BG", "Image/Inventory/Inventory_BG.bmp", 1600, 900, false, BLACK);
+	IMAGEMANAGER->addImage("UI_Inventory_Day", "Image/Inventory/UI_Inventory_Day.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("UI_Inventory_Night", "Image/Inventory/UI_Inventory_Night.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("UI_Inventory_Craft_top", "Image/Inventory/UI_Inventory_Craft_top.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("UI_Inventory_Craft_bot", "Image/Inventory/UI_Inventory_Craft_bot.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("UI_Inventory_KeyInfo", "Image/Inventory/UI_Inventory_KeyInfo.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("UI_Inventory_Game_Close", "Image/Inventory/UI_Inventory_Game_Close.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("Inventory_Close", "Image/Inventory/Inventory_Close.bmp", 44, 44, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("UI_Inventory_Trashcan", "Image/Inventory/UI_Inventory_Trashcan.bmp", 184, 71, 4, 1, true, MAGENTA);
 
 	//상점관련
 	IMAGEMANAGER->addFrameImage("StoreOwnerPortrait", "image/상점/상점주인_초상화(420x630).bmp", 420, 630, 2, 3, true, MAGENTA);
@@ -105,6 +118,10 @@ void playGround::imginit()
 
 	//대화창관련
 	IMAGEMANAGER->addImage("ChatBox", "image/대화창2.bmp", 900, 312, true, MAGENTA);
+	IMAGEMANAGER->addImage("CloseButton", "image/닫기버튼.bmp", 44, 44, true, MAGENTA);
+
+	//대화창관련
+	IMAGEMANAGER->addImage("ChatWindow", "image/대화창2.bmp", 900, 312, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("RightButton", "image/대화창_우측하단(330x33).bmp", 330, 33, 11, 1, true, WHITE);
 
 	//대화테스트용 이미지입니다 무시하세요
@@ -122,7 +139,6 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("Fish", "image/낚시/물고기.bmp", 28, 28, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishBox", "image/낚시/상자.bmp", 28, 34, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishRare", "image/낚시/레어물고기.bmp", 28, 29, true, MAGENTA);
-
 	/////MapTool
 	IMAGEMANAGER->addImage("CloseButton", "image/닫기버튼.bmp", 44, 44, true, MAGENTA);
 

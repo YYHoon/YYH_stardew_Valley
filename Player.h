@@ -6,6 +6,7 @@ class State;
 class DummyMap;
 
 
+
 class Player : public gameNode
 {
 private:
@@ -39,6 +40,7 @@ private:
 	int _actTileIndex;
 	int _playerTileX, _playerTileY;
 	
+
 	bool _isKeyDown;
 	
 	//class inven;
@@ -83,6 +85,5 @@ public:
 	void Move();
 	void CheckTiles();
 	void SetMapMemoryAddressLink(DummyMap* map) { _map = map; }
-
 };
 

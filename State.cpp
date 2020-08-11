@@ -439,6 +439,7 @@ void PlayerFelling::Init()
 {
 	_player->SetImg("player");
 	_name = "Acting";
+
 	int rightFelling[] = { 33,34,35,36 };
 	KEYANIMANAGER->addArrayFrameAnimation("right_Felling_Player", "player", rightFelling, 4, 10, false);
 	int leftFelling[] = { 38,39,40,41,42 };
@@ -487,6 +488,7 @@ void PlayerPlowing::Init()
 {
 	_name = "Acting";
 
+
 	int downPlowing[] = { 48,49,50 };
 	KEYANIMANAGER->addArrayFrameAnimation("down_Plowing_Player", "player", downPlowing, 3, 10, false);
 	int upPlowing[] = { 51,52,53,54 };
@@ -533,6 +535,7 @@ PlayerMining::PlayerMining(Player* pPlayer) :
 
 void PlayerMining::Init()
 {
+
 	_name = "Acting";
 
 	int downMining[] = { 168,169,170, 171, 172,173,174 };
@@ -582,6 +585,7 @@ PlayerSwing::PlayerSwing(Player* pPlayer) : State(pPlayer) {}
 void PlayerSwing::Init()
 {
 	_name = "Acting";
+
 
 	int downSickleSwing[] = { 65,66,67,68,69,70 };
 	KEYANIMANAGER->addArrayFrameAnimation("down_SickleSwing_Player", "player", downSickleSwing, 6, 10, false);

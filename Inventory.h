@@ -21,35 +21,33 @@ private:
 	viInvenDynamicRC	_viInvenDynamicRC;
 	viInvenIndexRC		_viInvenIndexRC;
 
-	////////////////////////////////////////
-	RECT _inventoryCloseRC;	// Static RC  //
-	RECT _invenTabRC[5];	// Static RC  //
-	////////////////////////////////////////
-	RECT _titleRC;			// Dynamic RC //
-	RECT _closeRC;			// Dynamic RC //
-	RECT _menuDownRC;		// Dynamic RC //
-	RECT _menuUpRC;			// Dynamic RC //
-	////////////////////////////////////////
-	RECT _inventoryRC[12];	// Index RC   //
-	////////////////////////////////////////
+	//////////////////////////////////////////
+	RECT _inventoryCloseRC;	// Static RC    //
+	RECT _invenTabRC[5];	// Static RC    //
+	//////////////////////////////////////////
+	RECT _titleRC;			// Dynamic RC   //
+	RECT _closeRC;			// Dynamic RC   //
+	RECT _menuDownRC;		// Dynamic RC   //
+	RECT _menuUpRC;			// Dynamic RC   //
+	//////////////////////////////////////////
+	RECT _indexRC[12];	    // Index RC     //
+//	RECT _inventoryRC[12];  // Inventory RC //
+	//////////////////////////////////////////
 
-	int _tabNum;
-	int _craftTabNum;
-	bool _isInventoryOpen;
+	int  _tabNum;			//인벤토리 탭의 번호
+	int  _craftTabNum;		//제작 페이지 번호
+	bool _isInventoryOpen;	//인벤토리가 열려있는가?
 
 public:
-	Inventory()		{};
-	~Inventory()	{};
+	Inventory()  {};
+	~Inventory() {};
 
-	HRESULT init();
-	void release();
-	void update();
-	void render();
+	virtual HRESULT init();
+	virtual void release();
+	virtual void update();
+	virtual void render();
 
-	void InventoryImageInit();
-
-	vector<RECT>	getVInvenIndexRC()			{ return _vInvenIndexRC; }
-	vector<RECT>::iterator	getViInvenIndexRC() { return _viInvenIndexRC; }
+	vector<RECT>	getVInvenIndexRC() { return _vInvenIndexRC; }
 
 };
 
