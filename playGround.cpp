@@ -15,6 +15,11 @@ playGround::~playGround()
 HRESULT playGround::init()
 {
 	gameNode::init(true);
+	//POINT _CameraMouse = PointMake(_ptMouse.x + CAMERAMANAGER->getL(), _ptMouse.y + CAMERAMANAGER->getT()); ¸¶¿ì½º Ä«¸Þ¶ó À§Ä¡
+
+	_Inv = new Inventory;
+	_Inv->init();
+
 	imginit();
 	soundinit();
 
@@ -25,7 +30,7 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("Dummy", _dummy = new DummyMap);
 
 
-	SCENEMANAGER->changeScene("Å¸ÀÌÆ²È­¸é");
+	SCENEMANAGER->changeScene("Dummy");
 
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
@@ -151,6 +156,17 @@ void playGround::imginit()
 
 	// Player
 	IMAGEMANAGER->addFrameImage("player", "image/Player.bmp", 3000, 4500, 12, 18, true, RGB(255, 0, 255));
+
+	//³¬½Ã
+	IMAGEMANAGER->addImage("FishingGague", "image/³¬½Ã/³¬½Ã°ÔÀÌÁö.bmp", 12, 485, true, MAGENTA);
+	IMAGEMANAGER->addImage("FishingMiniGame", "image/³¬½Ã/³¬½Ã¹Ì´Ï°ÔÀÓ.bmp", 128, 505, true, MAGENTA);
+	IMAGEMANAGER->addImage("FishingBar", "image/³¬½Ã/³¬½Ã¹Ù.bmp", 34, 96, true, MAGENTA);
+	IMAGEMANAGER->addImage("FishingStart", "image/³¬½Ã/³¬½Ã½ÃÀÛ.bmp", 120, 49, true, MAGENTA);
+	IMAGEMANAGER->addImage("FishingPower", "image/³¬½Ã/³¬½ÃÃÖ´ëÆÄ¿ö´øÁü.bmp", 100, 36, true, MAGENTA);
+	IMAGEMANAGER->addImage("FishingRareFish", "image/³¬½Ã/·¹¾î¹°°í±â.bmp", 28, 29, true, MAGENTA);
+	IMAGEMANAGER->addImage("FishingFish", "image/³¬½Ã/¹°°í±â.bmp", 28, 28, true, MAGENTA);
+	IMAGEMANAGER->addImage("FishingBox", "image/³¬½Ã/»óÀÚ.bmp", 28, 34, true, MAGENTA);
+	IMAGEMANAGER->addImage("FishingBack", "image/³¬½Ã/³¬½Ã¸»Ç³¼±.bmp", 200, 604, true, MAGENTA);
 }
 
 void playGround::soundinit()

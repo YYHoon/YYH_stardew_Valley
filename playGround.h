@@ -7,7 +7,6 @@
 #include "TestScene.h"
 #include "MapToolScene.h"
 #include "DummyMap.h"
-
 #include <iostream>
 
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")

@@ -2,19 +2,19 @@
 #include "ToolItem.h"
 
 
-class Pickax : public ToolItem
+class WaterSpray:public ToolItem
 {
 private:
-	
+
 
 public:
-	Pickax();
-	~Pickax() {};
+	WaterSpray() {};
+	virtual ~WaterSpray() {};
+
 
 	void Init() override;
 	void Action() override;
 	void ReAction() override;
-
 
 };
 

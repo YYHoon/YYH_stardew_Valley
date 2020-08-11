@@ -25,6 +25,10 @@ HRESULT Player::init()
 	_info.money = 500;
 	_info.velocity = 10.0f;
 	_isKeyDown = false;
+	
+	_tool = new ToolItemManager;
+	_test = new MiniGame;//미니게임 테스트용
+
 	return S_OK;
 }
 
@@ -37,12 +41,24 @@ void Player::update()
 	else if (KEYMANAGER->isOnceKeyDown('5'))ChangeEquipment(TOOLS::ITEM);
 	else if (KEYMANAGER->isOnceKeyDown('6'))ChangeEquipment(TOOLS::SWORD);
 	else if (KEYMANAGER->isOnceKeyDown('7'))ChangeEquipment(TOOLS::PICK);
+
 	CheckTiles();
+
+	
+	//===========미니게임 테스트용
+	if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
+	{
+		_test->InitKeyDown(_info.direction,_info.position);
+	}
+	if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON))_test->InitKeyUp();
+	//=========================
+
 
 	_state->Update();
 	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
 	KEYANIMANAGER->update();
+	//_tool->Action("Pickax");
 
 }
 

@@ -40,7 +40,6 @@ private:
 
 	RECT _draw;
 	RECT _sampleArea;
-
 	RECT _terrainBtn;
 	RECT _treeBtn;
 	RECT _buildingBtn;
@@ -56,6 +55,7 @@ private:
 
 	bool _drag;
 	bool _isLeftClick;
+
 	vector<tagTile>				_vtiles;
 	vector<tagTile>::iterator	_vitiles;
 

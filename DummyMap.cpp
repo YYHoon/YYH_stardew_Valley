@@ -17,6 +17,10 @@ HRESULT DummyMap::init()
 	return S_OK;
 }
 //Point _CameraMouse = PointMake(_ptMouse.x + CAMERAMANAGER->getL(), _ptMouse.y + CAMERAMANAGER->getT()
+	//_player->SetMapMemoryAddressLink(this);
+
+
+
 void DummyMap::update()
 {
 	_player->update();
@@ -24,11 +28,11 @@ void DummyMap::update()
 
 void DummyMap::render()
 {
-	for (int i = 0; i < _tiles->GetTile().size(); ++i)
-	{
-		IMAGEMANAGER->findImage("Terrain")->frameRender(getMemDC(), _tiles->GetTile()[i].rc.left,
-			_tiles->GetTile()[i].rc.top, _tiles->GetTile()[i].terrainframeX, _tiles->GetTile()[i].terrainframeY);
-	}
+	//for (int i = 0; i < _tiles->GetTile().size(); ++i)
+	//{
+	//	IMAGEMANAGER->findImage("Terrain")->frameRender(getMemDC(), _tiles->GetTile()[i].rc.left,
+	//		_tiles->GetTile()[i].rc.top, _tiles->GetTile()[i].terrainframeX, _tiles->GetTile()[i].terrainframeY);
+	//}
 	_player->render();
 	_mouseImg->frameRender(getMemDC(), _ptMouse.x, _ptMouse.y, 0, 0);
 }

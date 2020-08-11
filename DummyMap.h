@@ -9,7 +9,6 @@ class DummyMap : public gameNode
 private:
 	MapToolScene* _tiles;
 	Player* _player;
-
 	image* _mouseImg;
 
 public:
@@ -20,5 +19,7 @@ public:
 	tagTile GetTiles(int index);
 	int GetVertical();
 	int GetHorizon();
+	MapToolScene* GetTiles() { return _tiles; }
+
 };
 

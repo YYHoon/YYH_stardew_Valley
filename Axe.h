@@ -10,6 +10,10 @@ public:
 	Axe();
 	virtual ~Axe() { ; }
 
+
+	void Init() override;
 	void Action() override;
+	void ReAction() override;
+
 };
 
