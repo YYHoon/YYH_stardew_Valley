@@ -13,8 +13,13 @@ HRESULT MapToolScene::init()
 {
 	_Mouse = IMAGEMANAGER->findImage("mouse");
 
-	_vertical = 20;
-	_horizontal = 20;
+	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, TILESIZE*50-900, TILESIZE * 50);
+
+	_vertical = 100;
+	_horizontal = 100;
+
+	_currentTile.terrainframeX = 0;
+	_currentTile.terrainframeY = 0;
 
 	_sampleArea = RectMake(WINSIZEX - 650, 100 + TILESIZE, 550, 600);
 	_terrainBtn = RectMake(939, 59, 99, 41);
@@ -82,6 +87,24 @@ void MapToolScene::update()
 		SCENEMANAGER->changeScene("타이틀화면");
 	}
 
+
+	if (KEYMANAGER->isStayKeyDown('A'))
+	{
+		CAMERAMANAGER->setX(CAMERAMANAGER->getX() - 10);
+	}
+	if (KEYMANAGER->isStayKeyDown('D'))
+	{
+		CAMERAMANAGER->setX(CAMERAMANAGER->getX() + 10);
+	}
+	if (KEYMANAGER->isStayKeyDown('W'))
+	{
+		CAMERAMANAGER->setY(CAMERAMANAGER->getY() - 10);
+	}
+	if (KEYMANAGER->isStayKeyDown('S'))
+	{
+		CAMERAMANAGER->setY(CAMERAMANAGER->getY() + 10);
+	}
+
 	for (int i = 0; i < _vtiles.size(); ++i)
 	{
 		if (PtInRect(&_vtiles[i].rc, _ptMouse))
@@ -113,8 +136,8 @@ void MapToolScene::update()
 	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
 	{
 		_drag = true;
-		_Ex.x = _ptMouse.x - 1;
-		_Ex.y = _ptMouse.y - 1;
+		_Ex.x = _ptMouse.x + CAMERAMANAGER->getX() - 800 - 1;
+		_Ex.y = _ptMouse.y + CAMERAMANAGER->getY() - 450 - 1;
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_RBUTTON))
 	{
@@ -129,38 +152,38 @@ void MapToolScene::update()
 
 	//렉트의 너비, 높이 값이 음수가 될 경우 렉트충돌이 되지않아서
 	//상황마다 바꿔준다
-
+	POINT _CameraMouse = PointMake(_ptMouse.x + CAMERAMANAGER->getL(), _ptMouse.y + CAMERAMANAGER->getT());
 	if (_drag)
 	{
-		if (_Ex.x < _ptMouse.x)
+		if (_Ex.x < _CameraMouse.x)
 		{
 			_draw.left = _Ex.x;
 			_draw.top = _Ex.y;
-			_draw.right = _ptMouse.x;
-			_draw.bottom = _ptMouse.y;
+			_draw.right = _CameraMouse.x;
+			_draw.bottom = _CameraMouse.y;
 		}
-		else if (_Ex.x > _ptMouse.x)
+		else if (_Ex.x > _CameraMouse.x)
 		{
-			_draw.left = _ptMouse.x;
+			_draw.left = _CameraMouse.x;
 			_draw.top = _Ex.y;
 			_draw.right = _Ex.x;
-			_draw.bottom = _ptMouse.y;
+			_draw.bottom = _CameraMouse.y;
 		}
-		if (_Ex.y > _ptMouse.y)
+		if (_Ex.y > _CameraMouse.y)
 		{
 
-			if (_Ex.x > _ptMouse.x)
+			if (_Ex.x > _CameraMouse.x)
 			{
-				_draw.left = _ptMouse.x;
-				_draw.top = _ptMouse.y;
+				_draw.left = _CameraMouse.x;
+				_draw.top = _CameraMouse.y;
 				_draw.right = _Ex.x;
 				_draw.bottom = _Ex.y;
 			}
 			else
 			{
 				_draw.left = _Ex.x;
-				_draw.top = _ptMouse.y;
-				_draw.right = _ptMouse.x;
+				_draw.top = _CameraMouse.y;
+				_draw.right = _CameraMouse.x;
 				_draw.bottom = _Ex.y;
 			}
 		}
@@ -169,15 +192,21 @@ void MapToolScene::update()
 
 void MapToolScene::render()
 {
-	for (int i = 0; i < _vtiles.size(); ++i)
+	for (int i = 0; i < 16; i++)
 	{
-		int cullyX = _vtiles[i].rc.left / TILESIZE;
-		int cullyY = _vtiles[i].rc.top / TILESIZE;
+		for (int j = 0; j < 16; j++)
+		{
+			if (i < _vtiles.size() && j < _vtiles.size())
+			{
+				int cullX = CAMERAMANAGER->getL() / TILESIZE;
+				int cullY = CAMERAMANAGER->getT() / TILESIZE;
 
-		IMAGEMANAGER->findImage("Terrain")->frameRender(getMemDC(),
-			_vtiles[i].rc.left, _vtiles[i].rc.top,
-			_vtiles[i].terrainframeX, _vtiles[i].terrainframeY);
-
+				int index = (i + cullY) * _horizontal + (j + cullX);
+				CAMERAMANAGER->frameRender(getMemDC(), IMAGEMANAGER->findImage("Terrain"),
+					_vtiles[index].rc.left, _vtiles[index].rc.top,
+					_vtiles[index].terrainframeX, _vtiles[index].terrainframeY);
+			}
+		}
 	}
 
 	for (int i = 0; i < _vtiles.size(); ++i)
@@ -190,9 +219,6 @@ void MapToolScene::render()
 		if (_vtiles[i].object == MAPOBJECT::BUILDING)
 		{
 			ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, IMAGEMANAGER->findImage("House"), _vtiles[i].rc.left - TILESIZE * 8, _vtiles[i].rc.top - TILESIZE * 8, _vtiles[i].objectframeX, _vtiles[i].objectframeY, _vtiles[i].rc.bottom);
-			//IMAGEMANAGER->findImage("House")->frameRender(getMemDC(),
-			//	_vtiles[i].rc.left - TILESIZE * 8, _vtiles[i].rc.top - TILESIZE * 8,
-			//	_vtiles[i].objectframeX, _vtiles[i].objectframeY);
 		}
 	}
 	for (int i = 0; i < _vtiles.size(); ++i)
@@ -204,12 +230,7 @@ void MapToolScene::render()
 
 		if (_vtiles[i].object != MAPOBJECT::BUILDING)
 		{
-			ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, IMAGEMANAGER->findImage("Tree"), _vtiles[i].rc.left - TILESIZE, _vtiles[i].rc.top - TILESIZE * 5,
-				_vtiles[i].objectframeX, _vtiles[i].objectframeY, _vtiles[i].rc.bottom);
-			//IMAGEMANAGER->findImage("Tree")->frameRender(getMemDC(),
-			//	_vtiles[i].rc.left - TILESIZE, _vtiles[i].rc.top - TILESIZE * 5,
-			//	_vtiles[i].objectframeX, _vtiles[i].objectframeY);
-
+			ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, IMAGEMANAGER->findImage("Tree"), _vtiles[i].rc.left - TILESIZE, _vtiles[i].rc.top - TILESIZE * 5, _vtiles[i].objectframeX, _vtiles[i].objectframeY, _vtiles[i].rc.bottom);
 		}
 	}
 	ZORDER->ZOrderRender();
@@ -238,8 +259,8 @@ void MapToolScene::render()
 	IMAGEMANAGER->render("Line", getMemDC(), _Line.x, _Line.y);
 
 	Rectangle(getMemDC(), _draw);
+	//CAMERAMANAGER->frameRender(getMemDC(),_Mouse,_ptMouse.x,_ptMouse.y,0,0);
 	_Mouse->frameRender(getMemDC(), _ptMouse.x, _ptMouse.y, 0, 0);
-
 }
 
 void MapToolScene::SetUp()
@@ -320,6 +341,7 @@ void MapToolScene::SetSample(string img)
 
 void MapToolScene::SetMap_L()
 {
+	POINT _CameraMouse = PointMake(_ptMouse.x + CAMERAMANAGER->getL(), _ptMouse.y + CAMERAMANAGER->getT());
 	for (int i = 0; i < 15 * 5; ++i)
 	{
 		if (PtInRect(&_sampleTile[i].rc, _ptMouse))
@@ -339,7 +361,7 @@ void MapToolScene::SetMap_L()
 	}
 	for (int i = 0; i < _vtiles.size(); ++i)
 	{
-		if (PtInRect(&_vtiles[i].rc, _ptMouse))
+		if (PtInRect(&_vtiles[i].rc, _CameraMouse))
 		{
 			if (_ptMouse.x < WINSIZEX - IMAGEMANAGER->findImage("Window")->getWidth())
 			{

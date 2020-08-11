@@ -2,19 +2,18 @@
 #include "ToolItem.h"
 
 
-class Pickax : public ToolItem
+class Homi:public ToolItem
 {
 private:
-	
 
 public:
-	Pickax();
-	~Pickax() {};
+	Homi() {};
+	virtual ~Homi() {};
+
 
 	void Init() override;
 	void Action() override;
 	void ReAction() override;
-
 
 };
 

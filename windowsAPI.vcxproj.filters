@@ -76,6 +76,18 @@
     <Filter Include="playGround\Player">
       <UniqueIdentifier>{3441593c-ad95-4d89-85f1-fc98a6e7274e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\TestDummy">
+      <UniqueIdentifier>{bdd243c6-97ca-4508-845e-e17b9793facd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Tool\JustImpact">
+      <UniqueIdentifier>{3c03e804-9e68-4134-add7-34ee984a8592}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Tool\SlashImpact">
+      <UniqueIdentifier>{6b411a57-06e5-445e-adf5-ecaa54b4f0a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Tool\Fishing">
+      <UniqueIdentifier>{3d72addf-40ce-47bb-b944-ce8375127576}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -192,12 +204,6 @@
     <ClInclude Include="TestScene.h">
       <Filter>playGround\Main</Filter>
     </ClInclude>
-    <ClInclude Include="Axe.h">
-      <Filter>playGround\Tool</Filter>
-    </ClInclude>
-    <ClInclude Include="Pickax.h">
-      <Filter>playGround\Tool</Filter>
-    </ClInclude>
     <ClInclude Include="ToolItem.h">
       <Filter>playGround\Tool</Filter>
     </ClInclude>
@@ -209,6 +215,33 @@
     </ClInclude>
     <ClInclude Include="State.h">
       <Filter>playGround\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="DummyMap.h">
+      <Filter>playGround\TestDummy</Filter>
+    </ClInclude>
+    <ClInclude Include="FishingRod.h">
+      <Filter>playGround\Tool\Fishing</Filter>
+    </ClInclude>
+    <ClInclude Include="Axe.h">
+      <Filter>playGround\Tool\JustImpact</Filter>
+    </ClInclude>
+    <ClInclude Include="Homi.h">
+      <Filter>playGround\Tool\JustImpact</Filter>
+    </ClInclude>
+    <ClInclude Include="Pickax.h">
+      <Filter>playGround\Tool\JustImpact</Filter>
+    </ClInclude>
+    <ClInclude Include="Sickle.h">
+      <Filter>playGround\Tool\SlashImpact</Filter>
+    </ClInclude>
+    <ClInclude Include="Sword.h">
+      <Filter>playGround\Tool\SlashImpact</Filter>
+    </ClInclude>
+    <ClInclude Include="WaterSpray.h">
+      <Filter>playGround\Tool\JustImpact</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGame.h">
+      <Filter>playGround\Tool\Fishing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -305,12 +338,6 @@
     <ClCompile Include="TestScene.cpp">
       <Filter>playGround\Main</Filter>
     </ClCompile>
-    <ClCompile Include="Axe.cpp">
-      <Filter>playGround\Tool</Filter>
-    </ClCompile>
-    <ClCompile Include="Pickax.cpp">
-      <Filter>playGround\Tool</Filter>
-    </ClCompile>
     <ClCompile Include="ToolItem.cpp">
       <Filter>playGround\Tool</Filter>
     </ClCompile>
@@ -322,6 +349,33 @@
     </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>playGround\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="DummyMap.cpp">
+      <Filter>playGround\TestDummy</Filter>
+    </ClCompile>
+    <ClCompile Include="FishingRod.cpp">
+      <Filter>playGround\Tool\Fishing</Filter>
+    </ClCompile>
+    <ClCompile Include="Axe.cpp">
+      <Filter>playGround\Tool\JustImpact</Filter>
+    </ClCompile>
+    <ClCompile Include="Homi.cpp">
+      <Filter>playGround\Tool\JustImpact</Filter>
+    </ClCompile>
+    <ClCompile Include="Pickax.cpp">
+      <Filter>playGround\Tool\JustImpact</Filter>
+    </ClCompile>
+    <ClCompile Include="Sickle.cpp">
+      <Filter>playGround\Tool\SlashImpact</Filter>
+    </ClCompile>
+    <ClCompile Include="Sword.cpp">
+      <Filter>playGround\Tool\SlashImpact</Filter>
+    </ClCompile>
+    <ClCompile Include="WaterSpray.cpp">
+      <Filter>playGround\Tool\JustImpact</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGame.cpp">
+      <Filter>playGround\Tool\Fishing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

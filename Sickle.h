@@ -1,15 +1,15 @@
 #pragma once
 #include "ToolItem.h"
 
-
-class Pickax : public ToolItem
+class Sickle:public ToolItem
 {
 private:
-	
+
 
 public:
-	Pickax();
-	~Pickax() {};
+
+	Sickle() {};
+	virtual ~Sickle() {};
 
 	void Init() override;
 	void Action() override;

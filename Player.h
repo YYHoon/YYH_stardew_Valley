@@ -1,6 +1,8 @@
 #pragma once
 #include "gameNode.h"
 #include "Vector2.h"
+#include "ToolItemManager.h"
+#include "MiniGame.h"//미니게임 테스트용
 
 class State;
 
@@ -28,6 +30,9 @@ private:
 	};
 
 private:
+	ToolItemManager* _tool;
+	MiniGame* _test;//미니게임 테스트용
+
 	NecessaryInfo _info;
 	PLAYER_ACTION _action;
 	shared_ptr<State> _state;
@@ -67,6 +72,7 @@ public:
 	void SetDecreaseVelocity(float Velocity) { _info.velocity -= Velocity; }
 	void SetIncreaseVelocity(float Velocity) { _info.velocity += Velocity; }
 	void SetVelocity(float Velocity) { _info.velocity = Velocity; }
+	//void SetMapMemoryAddressLink()
 
 public:
 	void ChangeState(shared_ptr<State> state);
