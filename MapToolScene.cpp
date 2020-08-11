@@ -479,8 +479,8 @@ void MapToolScene::SetMap_R()
 
 void MapToolScene::Save()
 {
-	tagTile saveTile[401];
-	for (int i = 0; i < 400; i++)
+	tagTile saveTile[10001];
+	for (int i = 0; i < 10000; i++)
 	{
 		saveTile[i] = _vtiles[i];
 	}
@@ -499,17 +499,17 @@ void MapToolScene::Save()
 
 void MapToolScene::Load()
 {
-	tagTile saveTile[401];
+	tagTile saveTile[10001];
 	HANDLE file;
 	DWORD read;
 
 	file = CreateFile("map.map", GENERIC_READ, NULL, NULL,
 		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
-	ReadFile(file, saveTile, sizeof(tagTile) * 400, &read, NULL);
+	ReadFile(file, saveTile, sizeof(tagTile) * 10000, &read, NULL);
 
 	CloseHandle(file);
-	for (int i = 0; i < 400; i++)
+	for (int i = 0; i < 10000; i++)
 	{
 		_vtiles[i] = saveTile[i];
 	}
