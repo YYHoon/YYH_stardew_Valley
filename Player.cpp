@@ -57,7 +57,6 @@ void Player::update()
 	_state->Update();
 	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
-	KEYANIMANAGER->update();
 	//_tool->Action("Pickax");
 
 }

@@ -137,7 +137,6 @@ void TitleScene::update()
 		_BridRc3 = RectMake(1700, RND->getInt(600) + 200, _Brid3->getFrameWidth(), _Brid3->getFrameHeight());
 	}
 
-	KEYANIMANAGER->update();
 }
 
 void TitleScene::render()
