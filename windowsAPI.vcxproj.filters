@@ -210,6 +210,12 @@
     <ClInclude Include="State.h">
       <Filter>playGround\Player</Filter>
     </ClInclude>
+    <ClInclude Include="AllUi.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingScene.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -322,6 +328,9 @@
     </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>playGround\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingScene.cpp">
+      <Filter>playGround\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

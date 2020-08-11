@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="AllDefine.h" />
     <ClInclude Include="AllEnum.h" />
+    <ClInclude Include="AllUi.h" />
     <ClInclude Include="animation.h" />
     <ClInclude Include="Axe.h" />
     <ClInclude Include="cameraManager.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="keyAniManager.h" />
     <ClInclude Include="keyManager.h" />
+    <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="MapToolScene.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Pickax.h" />
@@ -215,6 +217,7 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="keyAniManager.cpp" />
     <ClCompile Include="keyManager.cpp" />
+    <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="MapToolScene.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Pickax.cpp" />
