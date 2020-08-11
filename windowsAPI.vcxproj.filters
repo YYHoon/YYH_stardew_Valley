@@ -210,6 +210,9 @@
     <ClInclude Include="State.h">
       <Filter>playGround\Player</Filter>
     </ClInclude>
+    <ClInclude Include="DummyMap.h">
+      <Filter>playGround\Main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -322,6 +325,9 @@
     </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>playGround\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="DummyMap.cpp">
+      <Filter>playGround\Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

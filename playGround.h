@@ -5,6 +5,7 @@
 #include "TitleScene.h"
 #include "TestScene.h"
 #include "MapToolScene.h"
+#include "DummyMap.h"
 #include <iostream>
 
 #include "Inventory.h"
@@ -18,6 +19,7 @@ private:
 
 	TitleScene* _TitleScene;
 	TestScene* _Tset;
+	DummyMap* _dummy;
 	MapToolScene* _MaptoolScene;
 	Inventory* _Inv;
 

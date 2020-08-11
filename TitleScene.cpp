@@ -60,7 +60,7 @@ void TitleScene::update()
 		_startButtonIndex = 1;
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
-			SCENEMANAGER->changeScene("Å×½ºÆ®");
+			SCENEMANAGER->changeScene("Dummy");
 		}
 	}
 	else

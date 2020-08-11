@@ -36,6 +36,7 @@ private:
 	shared_ptr<State> _state;
 	Vector2 _mousePt;
 	int _tileIndex;
+	int _actTileIndex;
 	int _playerTileX, _playerTileY;
 	
 	bool _isKeyDown;
@@ -56,7 +57,7 @@ public:
 	PLAYER_ACTION GetAction() { return _action; }
 	PLAYER_DIRECTION GetDirection() { return _info.direction; }
 	TOOLS GetEquip() { return _info.equipment; }
-	int GetTileIndex() { return _tileIndex; }
+	int GetTileIndex() { return _actTileIndex; }
 
 	void SetName(string Name) { _info.name = Name; }
 	void SetImg(string imgName) { _info.img = IMAGEMANAGER->findImage(imgName); }
@@ -82,7 +83,6 @@ public:
 	void Move();
 	void CheckTiles();
 	void SetMapMemoryAddressLink(DummyMap* map) { _map = map; }
-	
 
 };
 

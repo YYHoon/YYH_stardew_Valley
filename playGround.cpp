@@ -28,11 +28,12 @@ HRESULT playGround::init()
 	_TitleScene = new TitleScene;
 	_Tset = new TestScene;
 	_MaptoolScene = new MapToolScene;
+	_dummy = new DummyMap;
 
 	SCENEMANAGER->addScene("타이틀화면", _TitleScene);
 	SCENEMANAGER->addScene("테스트", _Tset);
 	SCENEMANAGER->addScene("맵툴", _MaptoolScene);
-
+	SCENEMANAGER->addScene("Dummy", _dummy);
 
 	SCENEMANAGER->changeScene("타이틀화면");
 
