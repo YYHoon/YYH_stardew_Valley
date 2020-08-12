@@ -240,7 +240,7 @@ void MapToolScene::render()
 
 				if (_vtiles[index].terrain == TERRAIN::WATER)
 				{
-					if (_vtiles[index].terrainframeX > 2)_vtiles[index].terrainframeX = -1;
+					if (_vtiles[index].terrainframeX == 3)_vtiles[index].terrainframeX = -1;
 					_vtiles[index].terrainframeX++;
 				}
 			
@@ -784,14 +784,11 @@ void MapToolScene::Auto()
 			switch (_vtiles[index].autoIndex)
 			{
 			case 255:
-			case 10:
-			case 5:
 				_vtiles[index].terrainframeX = RND->getFromIntTo(0, 6);
 				_vtiles[index].terrainframeY = 2;
 				_vtiles[index].terrain = TERRAIN::GRASS;
 				break;
 				//오른쪽
-			case 8:
 			case 205:
 			case 221:
 			case 237:
@@ -801,7 +798,6 @@ void MapToolScene::Auto()
 				_vtiles[index].terrain = TERRAIN::GRASS;
 				break;
 				//왼쪽
-			case 2:
 			case 55:
 			case 183:
 			case 119:
@@ -811,7 +807,6 @@ void MapToolScene::Auto()
 				_vtiles[index].terrain = TERRAIN::GRASS;
 				break;
 				//위
-			case 4:
 			case 100:
 			case 110:
 			case 126:
@@ -822,7 +817,6 @@ void MapToolScene::Auto()
 				_vtiles[index].terrain = TERRAIN::GRASS;
 				break;
 				//아래
-			case 1:
 			case 145:
 			case 155:
 			case 187:
@@ -917,6 +911,47 @@ void MapToolScene::Auto()
 			case 175:
 				_vtiles[index].terrainframeX = 5;
 				_vtiles[index].terrainframeY = 3;
+				_vtiles[index].terrain = TERRAIN::GRASS;
+				break;
+
+				//위로 1칸
+			case 111:
+				_vtiles[index].terrainframeX = 4;
+				_vtiles[index].terrainframeY = 4;
+				_vtiles[index].terrain = TERRAIN::GRASS;
+				break;
+
+				//가로
+			case 10:
+				_vtiles[index].terrainframeX = 6;
+				_vtiles[index].terrainframeY = 4;
+				_vtiles[index].terrain = TERRAIN::GRASS;
+				break;
+				//세로
+			case 5:
+				_vtiles[index].terrainframeX = 6;
+				_vtiles[index].terrainframeY = 3;
+				_vtiles[index].terrain = TERRAIN::GRASS;
+				break;
+
+			case 1:
+				_vtiles[index].terrainframeX = 6;
+				_vtiles[index].terrainframeY = 5;
+				_vtiles[index].terrain = TERRAIN::GRASS;
+				break;
+			case 2:
+				_vtiles[index].terrainframeX = 5;
+				_vtiles[index].terrainframeY = 6;
+				_vtiles[index].terrain = TERRAIN::GRASS;
+				break;
+			case 4:
+				_vtiles[index].terrainframeX = 6;
+				_vtiles[index].terrainframeY = 6;
+				_vtiles[index].terrain = TERRAIN::GRASS;
+				break;
+			case 8:
+				_vtiles[index].terrainframeX = 4;
+				_vtiles[index].terrainframeY = 6;
 				_vtiles[index].terrain = TERRAIN::GRASS;
 				break;
 			}
