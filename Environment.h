@@ -14,9 +14,11 @@ class Environment : public gameNode
 private:
 	int _alphaValue;			//알파값
 
-	float _defaultTime = 860;
-	float _defaultDelay = 7.3f;
-	float _defaultRatio;
+	/// 원본 게임에서의 시계 각도(Percentage)
+	float _originalTime = 860;
+	float _originalDelay = 7.96296f;
+	float _originalRatio;
+	/// </summary>
 
 	float _clockCalculate;		//시간 계산
 	float _currentTimeSec;		//현재 시간

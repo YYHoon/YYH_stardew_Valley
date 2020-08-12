@@ -9,10 +9,9 @@ HRESULT Environment::init()
 	_isGamePause = false;
 
 	/// <summary>
-	//_defaultRatio = (_defaultDelay * 100) / _defaultTime;
-	//cout << "DefaultRatio : " << _defaultRatio << endl;
+	_originalRatio = ((_originalDelay * 100) / _originalTime) ;
+	cout << "OriginalRatio : " << _originalRatio << "%" << endl;
 	/// </summary>
-	
 
 	//_clockCalculate = ()/REALTIMEMAX;
 
@@ -45,47 +44,51 @@ void Environment::update()
 
 	!_isGamePause ? _realTimeSecond += _elapsedTime : _realTimeSecond += 0;
 
-	//ClockHand
 	if (!_isGamePause)
 	{
+		//ClockHand
+		/////////////////////////////////////<Test>
 		for (int i = 0; i < _currentTimeSec; i++)
 		{
-			_clockValue + i;
-
+			_clockValue += i;
 		}
+
 		if (_clockHand.angle <= PI / 2)
 		{
 			_clockHand.angle -= CLOCKMOVEDANGLE;
 		}
 
-		if (_clockValue >= CLOCKMAX)
+		//cout << "_currentTimeSec : " << _currentTimeSec << endl;
+
+		if (/*_clockValue >= CLOCKMAX*/ _clockHand.angle < PI / 2)
 		{
 			_clockValue = 0;
 			_clockHand.angle = -PI / 2;
 		}
-	}
 
-	_clockHand.End.x = cosf(_clockHand.angle) * _clockHand.length + _clockHand.center.x;
-	_clockHand.End.y = -sinf(_clockHand.angle) * _clockHand.length + _clockHand.center.y;
+		_clockHand.End.x = cosf(_clockHand.angle) * _clockHand.length + _clockHand.center.x;
+		_clockHand.End.y = -sinf(_clockHand.angle) * _clockHand.length + _clockHand.center.y;
+		/////////////////////////////////////</Test>
 
-	/// AlphaRender
-	if (_realTimeSecond >= REALTIMEHALF)
-	{
-		if (timeUpdate(TIMEMANAGER->getElapsedTime() * 60))
+		/// AlphaRender
+		if (_realTimeSecond >= REALTIMEHALF)
 		{
-			_alphaValue++;
+			if (timeUpdate(TIMEMANAGER->getElapsedTime() * 60))
+			{
+				_alphaValue++;
 
-			if (_alphaValue > ALPHAVALUEMAX) _alphaValue = ALPHAVALUEMAX;
+				if (_alphaValue > ALPHAVALUEMAX) _alphaValue = ALPHAVALUEMAX;
 
-			/// <summary>
-			///cout << "AlphaValue : " << _alphaValue << endl;
-			/// </summary>
-		}
+				/// <summary>
+				///cout << "AlphaValue : " << _alphaValue << endl;
+				/// </summary>
+			}
 
-		if (_realTimeSecond > REALTIMEMAX)
-		{
-			_alphaValue = 0;
-			_realTimeSecond = 0;
+			if (_realTimeSecond > REALTIMEMAX)
+			{
+				_alphaValue = 0;
+				_realTimeSecond = 0;
+			}
 		}
 	}
 
@@ -97,5 +100,5 @@ void Environment::render()
 
 	IMAGEMANAGER->findImage("Environment_Clock")->render(getMemDC(), 1300, 12);
 
-	LineMake(getMemDC(), _clockHand.center.x, _clockHand.center.y, _clockHand.End.x, _clockHand.End.y);
+	//LineMake(getMemDC(), _clockHand.center.x, _clockHand.center.y, _clockHand.End.x, _clockHand.End.y);
 }
