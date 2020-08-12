@@ -7,10 +7,11 @@ class Player;
 class DummyMap : public gameNode
 {
 private:
-	MapToolScene* _tiles;
 	Player* _player;
 	image* _mouseImg;
-	vector<tagTile> test;
+	vector<tagTile> map;
+	MapToolScene* _load;
+
 public:
 	HRESULT init();
 	void update();
@@ -19,7 +20,7 @@ public:
 	tagTile GetTiles(int index);
 	int GetVertical();
 	int GetHorizon();
-	MapToolScene* GetTiles() { return _tiles; }
+	MapToolScene* GetTiles() { return _load; }
 
 };
 

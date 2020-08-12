@@ -30,7 +30,7 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("Dummy", _dummy = new DummyMap);
 
 
-	SCENEMANAGER->changeScene("Dummy");
+	SCENEMANAGER->changeScene("¸ÊÅø");
 
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
@@ -148,6 +148,9 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("CloseButton", "image/´Ý±â¹öÆ°.bmp", 44, 44, true, MAGENTA);
 
 	IMAGEMANAGER->addFrameImage("Terrain", "image/mapTool/Terrain.bmp", 0, 0, 448, 448, 448 / TILESIZE, 448 / TILESIZE, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("Wall", "image/mapTool/Wall.bmp", 0, 0, 512, 448, 512 / TILESIZE, 448 / TILESIZE, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("Wall", "image/mapTool/Wall.bmp", 0, 0, 512, 448, 512 / TILESIZE, 448 / TILESIZE, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("HoeTile", "image/mapTool/HoeTile.bmp", 0, 0, 384, 384, 384 / TILESIZE, 384 / TILESIZE, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("Tree", "image/mapTool/Tree.bmp", 0, 0, 578, 384, 3, 1, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("House", "image/mapTool/House.bmp", 0, 0, 576, 576, 1, 1, true, MAGENTA);
 	IMAGEMANAGER->addImage("Line", "image/mapTool/Line.bmp", 64, 64, true, MAGENTA);

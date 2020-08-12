@@ -4,6 +4,8 @@
 enum class CRTSELECT
 {
 	TERRAINDRAW,
+	WALLDRAW,
+	HOETILEDRAW,
 	TREEDRAW,
 	BUILDINGDRAW,
 	ENEMYDRAW,
@@ -18,7 +20,6 @@ enum class TERRAIN
 	GRASS,
 	BOUNDARY,
 	WATER,
-	WALL,
 	END
 };
 enum class MAPOBJECT
@@ -26,13 +27,18 @@ enum class MAPOBJECT
 	TREE1,
 	TREE2,
 	TREE3,
+	HOETILE,
+	HOETILE_WET,
+	WEED,
+	ROCK,
+	BRANCH,
+	WALL,
 	BUILDING,
 	ENEMY,
 	NONE
 };
 
 // Player
-
 enum class PLAYER_STATE
 {
 	IDLE,
