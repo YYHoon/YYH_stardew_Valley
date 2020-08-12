@@ -97,6 +97,9 @@
     <Filter Include="playGround\Scene\UI">
       <UniqueIdentifier>{151bdc01-3c7f-4316-aa8c-18a92546d601}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\Map">
+      <UniqueIdentifier>{82b9d5c8-58a9-4923-a608-e03e75b5697b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -270,6 +273,12 @@
     <ClInclude Include="TitleScene.h">
       <Filter>playGround\Scene\UI</Filter>
     </ClInclude>
+    <ClInclude Include="MapMain.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapFarm.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -418,6 +427,15 @@
     </ClCompile>
     <ClCompile Include="TitleScene.cpp">
       <Filter>playGround\Scene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MapMain.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapTool + SaveLoad.cpp">
+      <Filter>playGround\Scene\MaptoolScene</Filter>
+    </ClCompile>
+    <ClCompile Include="MapFarm.cpp">
+      <Filter>playGround\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -82,6 +82,9 @@ public:
 	void Load();
 	void Auto();
 
+	void Save(string fileName,int mapSizeX, int mapSizeY,vector<tagTile> tile);
+	vector<tagTile> Load(string fileName, int mapSizeX, int mapSizeY);
+
 	TERRAIN TerrainSelect(int frameX, int frameY);
 	MAPOBJECT ObjectSelect(int frameX, int frameY);
 

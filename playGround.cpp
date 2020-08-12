@@ -28,9 +28,10 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("맵툴", _MaptoolScene = new MapToolScene);
 	SCENEMANAGER->addScene("LOADING", _LoadingScene = new LoadingScene);
 	SCENEMANAGER->addScene("Dummy", _dummy = new DummyMap);
+	SCENEMANAGER->addScene("map", map = new MapFarm);
 
 
-	SCENEMANAGER->changeScene("타이틀화면");
+	SCENEMANAGER->changeScene("map");
 
 
 
