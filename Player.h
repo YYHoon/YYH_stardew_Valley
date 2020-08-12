@@ -1,8 +1,11 @@
 #pragma once
 #include "gameNode.h"
 #include "Vector2.h"
+#include "ToolItemManager.h"
+#include "MiniGame.h"//미니게임 테스트용
 
 class State;
+class DummyMap;
 
 
 
@@ -13,9 +16,11 @@ private:
 	{
 		string name;
 		image* img;
+		image* shadowImg;
 		animation* anim;
 		Vector2 position;
 		MYRECT collision;
+		MYRECT shadowCollision;
 		PLAYER_DIRECTION direction;
 		TOOLS equipment;
 		int maxHP;
@@ -28,9 +33,23 @@ private:
 	};
 
 private:
+
+	/// <summary>
+	ToolItemManager* _tool;
+	MiniGame* _test;//미니게임 테스트용
+	/// </summary>
+	DummyMap* _map;
+	
+
 	NecessaryInfo _info;
 	PLAYER_ACTION _action;
 	shared_ptr<State> _state;
+	Vector2 _mousePt;
+	int _tileIndex;
+	int _actTileIndex;
+	int _playerTileX, _playerTileY;
+	
+
 	bool _isKeyDown;
 	
 	//class inven;
@@ -49,6 +68,7 @@ public:
 	PLAYER_ACTION GetAction() { return _action; }
 	PLAYER_DIRECTION GetDirection() { return _info.direction; }
 	TOOLS GetEquip() { return _info.equipment; }
+	int GetTileIndex() { return _actTileIndex; }
 
 	void SetName(string Name) { _info.name = Name; }
 	void SetImg(string imgName) { _info.img = IMAGEMANAGER->findImage(imgName); }
@@ -67,10 +87,13 @@ public:
 	void SetDecreaseVelocity(float Velocity) { _info.velocity -= Velocity; }
 	void SetIncreaseVelocity(float Velocity) { _info.velocity += Velocity; }
 	void SetVelocity(float Velocity) { _info.velocity = Velocity; }
+	//void SetMapMemoryAddressLink()
 
 public:
 	void ChangeState(shared_ptr<State> state);
-	void Move();
 	void ChangeEquipment(TOOLS equip) { _info.equipment = equip; }
+	void Move();
+	void CheckTiles();
+	void SetMapMemoryAddressLink(DummyMap* map) { _map = map; }
 };
 

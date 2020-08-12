@@ -1,14 +1,17 @@
 #include"stdafx.h"
 #include "Pickax.h"
-//#include"tank.h"
 
 Pickax::Pickax()
 {
 
+}
+
+void Pickax::Init()
+{
 	_name = "Pickax";
 	_tag = "ToolItem";
 	_dmage = 1;
-
+	_impactIndex;
 }
 
 void Pickax::Action()
@@ -18,8 +21,13 @@ void Pickax::Action()
 	{
 
 		Vector2 mouse(_ptMouse);
-		mouse = mouse / TILESIZE;
-		cout << mouse.x << endl;
-		cout << mouse.y << endl;
+		mouse.x = mouse.x / TILESIZE;
+		mouse.y = mouse.y / TILESIZE;
+		cout << (int)mouse.x << endl;
+		cout << (int)mouse.y << endl;
 	}
+}
+
+void Pickax::ReAction()
+{
 }

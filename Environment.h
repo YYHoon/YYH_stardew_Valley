@@ -13,18 +13,36 @@ class Environment : public gameNode
 {
 private:
 	int _alphaValue;			//알파값
-	int _alphaCount;			//알파렌더 속도 조절
 
-	float _clockCalculrate;		//뭐였지
+	float _defaultTime = 860;
+	float _defaultDelay = 7.3f;
+	float _defaultRatio;
+
+	float _clockCalculate;		//시간 계산
+	float _currentTimeSec;		//현재 시간
 
 	float _elapsedTime;			//연산용 시간
 	float _realTimeSecond;		//현실시간(초)
 
-	bool _inGameTimeRunning;
+	bool _isGamePause;			//게임 시간이 돌아가면
 
-	tagClockHand _clockHand;
-	int _clockCount;			//시계의 카운트
+	tagClockHand _clockHand;	//시계침 struct
 	int _clockValue;			//시계 값(현재 시계침의 위치)
+
+
+	float _delay;
+	float _count;
+
+	bool timeUpdate(const float count)
+	{
+		_count += count;
+		if (_count >= _delay)
+		{
+			_count -= _delay;
+			return true;
+		}
+		return false;
+	}
 
 public:
 	Environment()	{};

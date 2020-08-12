@@ -438,7 +438,8 @@ PlayerFelling::PlayerFelling(Player* pPlayer) : State(pPlayer) {}
 void PlayerFelling::Init()
 {
 	_player->SetImg("player");
-	_name = "Felling";
+	_name = "Acting";
+
 	int rightFelling[] = { 33,34,35,36 };
 	KEYANIMANAGER->addArrayFrameAnimation("right_Felling_Player", "player", rightFelling, 4, 10, false);
 	int leftFelling[] = { 38,39,40,41,42 };
@@ -485,7 +486,8 @@ PlayerPlowing::PlayerPlowing(Player* pPlayer) : State(pPlayer) {}
 
 void PlayerPlowing::Init()
 {
-	_name = "plowing";
+	_name = "Acting";
+
 
 	int downPlowing[] = { 48,49,50 };
 	KEYANIMANAGER->addArrayFrameAnimation("down_Plowing_Player", "player", downPlowing, 3, 10, false);
@@ -533,7 +535,8 @@ PlayerMining::PlayerMining(Player* pPlayer) :
 
 void PlayerMining::Init()
 {
-	_name = "mining";
+
+	_name = "Acting";
 
 	int downMining[] = { 168,169,170, 171, 172,173,174 };
 	KEYANIMANAGER->addArrayFrameAnimation("down_mining_Player", "player", downMining, 7, 10, false);
@@ -581,7 +584,8 @@ PlayerSwing::PlayerSwing(Player* pPlayer) : State(pPlayer) {}
 
 void PlayerSwing::Init()
 {
-	_name = "swing";
+	_name = "Acting";
+
 
 	int downSickleSwing[] = { 65,66,67,68,69,70 };
 	KEYANIMANAGER->addArrayFrameAnimation("down_SickleSwing_Player", "player", downSickleSwing, 6, 10, false);
@@ -702,6 +706,8 @@ PlayerWatering::PlayerWatering(Player* pPlayer) : State(pPlayer) {}
 
 void PlayerWatering::Init()
 {
+	_name = "Acting";
+
 	int rightWatering[] = { 90,91,92,93,94, 93, 94, 93, 94, 93, 94 };
 	KEYANIMANAGER->addArrayFrameAnimation("right_Watering_Player", "player", rightWatering, 11, 10, false);
 	int downWatering[] = { 96,97,98,99,100,101,102,103,104,105,106, 107 };

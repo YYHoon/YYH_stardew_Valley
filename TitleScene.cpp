@@ -41,8 +41,11 @@ HRESULT TitleScene::init()
 
 	_startButtonIndex = _exitButtonIndex = _mouseIndex = _LoadButtonIndex = 0;
 
-	ShowCursor(true);
+	ShowCursor(false);
 	_Mouse = IMAGEMANAGER->findImage("mouse");
+
+	SOUNDMANAGER->play("TitleSound");
+
 	return S_OK;
 }
 
@@ -60,7 +63,11 @@ void TitleScene::update()
 		_startButtonIndex = 1;
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
-			SCENEMANAGER->changeScene("테스트");
+			SCENEMANAGER->changeScene("LOADING");
+			SOUNDMANAGER->play("MenuSelect");
+			SOUNDMANAGER->stop("TitleSound");
+			//SCENEMANAGER->changeScene("Dummy");
+			//SCENEMANAGER->changeScene("테스트");
 		}
 	}
 	else
@@ -74,6 +81,7 @@ void TitleScene::update()
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
 			//이어하기로화면전환!
+			SOUNDMANAGER->play("MenuSelect");
 		}
 	}
 	else
@@ -87,6 +95,8 @@ void TitleScene::update()
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
 			SCENEMANAGER->changeScene("맵툴");
+			SOUNDMANAGER->play("MenuSelect");
+			SOUNDMANAGER->stop("TitleSound");
 		}
 	}
 	else
@@ -127,7 +137,6 @@ void TitleScene::update()
 		_BridRc3 = RectMake(1700, RND->getInt(600) + 200, _Brid3->getFrameWidth(), _Brid3->getFrameHeight());
 	}
 
-	KEYANIMANAGER->update();
 }
 
 void TitleScene::render()

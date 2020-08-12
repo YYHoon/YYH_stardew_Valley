@@ -5,15 +5,15 @@
 class Pickax : public ToolItem
 {
 private:
-	int _dmage;
-	Vector2 _impactIndex;
+	
 
 public:
 	Pickax();
 	~Pickax() {};
 
+	void Init() override;
 	void Action() override;
-	
+	void ReAction() override;
 
 
 };

@@ -3,9 +3,12 @@
 #include "ToolItem.h"
 #include "Pickax.h"
 #include "Axe.h"
-
-//벡터는 한가지형태밖에담지못함 따라서 아이템을찍어낸 부모형태를담고 
-//그부모형태중 이름에따라 기능을 다르게할필요가 있음
+#include "FishingRod.h"
+#include "MiniGame.h"
+#include "Homi.h"
+#include "WaterSpray.h"
+#include "Sickle.h"
+#include "Sword.h"
 
 
 class ToolItemManager
@@ -14,6 +17,13 @@ private:
 	vector<ToolItem*> _toolList;
 	Pickax* _pickax;
 	Axe* _axe;
+	FishingRod* _fishingRod;
+	Homi* _homi;
+	WaterSpray* _waterSpray;
+	Sickle* _sickle;
+	Sword* _sword;
+	MiniGame* _miniGame;
+
 public:
 	ToolItemManager();
 	virtual ~ToolItemManager() {};
@@ -23,6 +33,12 @@ public:
 	//bool SearchToolList(string name);
 	 
 	void Action(string name);
+	Vector2 GetImpactIndexCenter(string name);
+	Vector2 GetImpactIndexLeft(string name);
+	Vector2 GetImpactIndexRight(string name);
 
+	virtual inline void SetImpactIndex(string name, Vector2 index);
+	virtual inline void SetImpactIndex(string name, Vector2 Center, Vector2 left, Vector2 right);
+	
 };
 
