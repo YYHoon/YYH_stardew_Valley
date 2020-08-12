@@ -10,6 +10,9 @@ struct tagTile
 	int terrainframeY;
 	int objectframeX;
 	int objectframeY;
+	int wetframeX;
+	int wetframeY;
+	int autoIndex;
 	bool collision;
 };
 struct tagSampleTile
@@ -26,17 +29,18 @@ struct tagCurrentTile
 	int terrainframeX;
 	int terrainframeY;
 };
+
 class MapToolScene : public gameNode
 {
 private:
 	image* _Mouse;
 	CRTSELECT _crtSelect;
 
-	tagSampleTile _sampleTile[15 * 5];
+	tagSampleTile _sampleTile[15 * 8];
 	tagCurrentTile _currentTile;
 
 	Vector2 _Line;
-	Vector2 _Ex;   // 마우스 드래그 시작 좌표
+	Vector2 _Ex;	// 마우스 드래그 시작 좌표
 
 	RECT _draw;
 	RECT _sampleArea;
@@ -50,11 +54,11 @@ private:
 	RECT _eraserBtn;
 	RECT _exitBtn;
 
-	int _horizontal;	//가로
-	int _vertical;		//세로
+	int _count;
+	int _horizontal;	//가로 타일
+	int _vertical;		//세로 타일
 
 	bool _drag;
-	bool _isLeftClick;
 
 	vector<tagTile>				_vtiles;
 	vector<tagTile>::iterator	_vitiles;
@@ -75,11 +79,13 @@ public:
 	void SetMap_R();
 	void Save();
 	void Load();
+	void Auto();
 
 	TERRAIN TerrainSelect(int frameX, int frameY);
 	MAPOBJECT ObjectSelect(int frameX, int frameY);
 
 	vector<tagTile> GetTile() { return _vtiles; }
+
 	int GetVertical() { return _vertical; }
 	int GetHorizontal() { return _horizontal; }
 
