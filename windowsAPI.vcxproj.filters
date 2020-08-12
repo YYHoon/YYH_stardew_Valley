@@ -64,12 +64,6 @@
     <Filter Include="playGround\UI">
       <UniqueIdentifier>{99384303-3a4a-4222-9b0f-208ac62c5fbc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="playGround\MaptoolScene">
-      <UniqueIdentifier>{0b12715c-901b-41f9-ada0-e9f3d535c4f7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\Main">
-      <UniqueIdentifier>{3b44e037-4d74-47f7-9608-8a21d60bd382}</UniqueIdentifier>
-    </Filter>
     <Filter Include="playGround\Tool">
       <UniqueIdentifier>{5d1e1aba-b969-4503-8cbf-dd95ad940ef2}</UniqueIdentifier>
     </Filter>
@@ -79,6 +73,9 @@
     <Filter Include="playGround\Environment">
       <UniqueIdentifier>{712c9a02-75f0-4b16-8ff9-f27758122b5c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\TestDummy">
+      <UniqueIdentifier>{bdd243c6-97ca-4508-845e-e17b9793facd}</UniqueIdentifier>
+    </Filter>
     <Filter Include="playGround\Tool\JustImpact">
       <UniqueIdentifier>{3c03e804-9e68-4134-add7-34ee984a8592}</UniqueIdentifier>
     </Filter>
@@ -87,6 +84,18 @@
     </Filter>
     <Filter Include="playGround\Tool\Fishing">
       <UniqueIdentifier>{3d72addf-40ce-47bb-b944-ce8375127576}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Scene">
+      <UniqueIdentifier>{1ef23774-c13b-4ba1-a268-c9cbec780224}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Scene\MaptoolScene">
+      <UniqueIdentifier>{0b12715c-901b-41f9-ada0-e9f3d535c4f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Scene\Main">
+      <UniqueIdentifier>{3b44e037-4d74-47f7-9608-8a21d60bd382}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Scene\UI">
+      <UniqueIdentifier>{151bdc01-3c7f-4316-aa8c-18a92546d601}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -195,14 +204,11 @@
     <ClInclude Include="Vector2.h">
       <Filter>2DGameFramework</Filter>
     </ClInclude>
-    <ClInclude Include="TitleScene.h">
-      <Filter>playGround\UI</Filter>
-    </ClInclude>
     <ClInclude Include="MapToolScene.h">
-      <Filter>playGround\MaptoolScene</Filter>
+      <Filter>playGround\Scene\MaptoolScene</Filter>
     </ClInclude>
     <ClInclude Include="TestScene.h">
-      <Filter>playGround\Main</Filter>
+      <Filter>playGround\Scene\Main</Filter>
     </ClInclude>
     <ClInclude Include="ToolItem.h">
       <Filter>playGround\Tool</Filter>
@@ -219,11 +225,8 @@
     <ClInclude Include="AllUi.h">
       <Filter>playGround\UI</Filter>
     </ClInclude>
-    <ClInclude Include="LoadingScene.h">
-      <Filter>playGround\UI</Filter>
-    </ClInclude>
     <ClInclude Include="DummyMap.h">
-      <Filter>playGround\Main</Filter>
+      <Filter>playGround\Scene\Main</Filter>
     </ClInclude>
     <ClInclude Include="Environment.h">
       <Filter>playGround\Environment</Filter>
@@ -260,6 +263,12 @@
     </ClInclude>
     <ClInclude Include="MiniGame.h">
       <Filter>playGround\Tool\Fishing</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingScene.h">
+      <Filter>playGround\Scene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>playGround\Scene\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -347,14 +356,11 @@
     <ClCompile Include="Vector2.cpp">
       <Filter>2DGameFramework</Filter>
     </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
-      <Filter>playGround\UI</Filter>
-    </ClCompile>
     <ClCompile Include="MapToolScene.cpp">
-      <Filter>playGround\MaptoolScene</Filter>
+      <Filter>playGround\Scene\MaptoolScene</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
-      <Filter>playGround\Main</Filter>
+      <Filter>playGround\Scene\Main</Filter>
     </ClCompile>
     <ClCompile Include="ToolItem.cpp">
       <Filter>playGround\Tool</Filter>
@@ -368,11 +374,8 @@
     <ClCompile Include="State.cpp">
       <Filter>playGround\Player</Filter>
     </ClCompile>
-    <ClCompile Include="LoadingScene.cpp">
-      <Filter>playGround\UI</Filter>
-    </ClCompile>
     <ClCompile Include="DummyMap.cpp">
-      <Filter>playGround\Main</Filter>
+      <Filter>playGround\Scene\Main</Filter>
     </ClCompile>
     <ClCompile Include="Environment.cpp">
       <Filter>playGround\Environment</Filter>
@@ -409,6 +412,12 @@
     </ClCompile>
     <ClCompile Include="MiniGame.cpp">
       <Filter>playGround\Tool\Fishing</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingScene.cpp">
+      <Filter>playGround\Scene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>playGround\Scene\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -30,7 +30,8 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("Dummy", _dummy = new DummyMap);
 
 
-	SCENEMANAGER->changeScene("Dummy");
+	SCENEMANAGER->changeScene("타이틀화면");
+
 
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
@@ -81,7 +82,6 @@ void playGround::imginit()
 	IMAGEMANAGER->addFrameImage("TitleBrid", "image/타이틀/Brid(400x69).bmp", 400, 69, 4, 1, true, MAGENTA);
 
 	//UI
-
 	IMAGEMANAGER->addFrameImage("mouse", "image/마우스.bmp", 360, 60, 6, 1, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("SpingSunny", "image/봄_맑음20T(3800x162).bmp", 3800, 162, 19, 1, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("SpingRain", "image/봄_비20T(3800x162).bmp", 3800, 162, 19, 1, true, MAGENTA);
@@ -119,21 +119,18 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("PotatoSeed", "image/상점/potatoSeed.bmp", 56, 56, true, MAGENTA);
 	IMAGEMANAGER->addImage("sugarRadishSeed", "image/상점/sugarRadishSeed.bmp", 56, 56, true, MAGENTA);
 	IMAGEMANAGER->addImage("당근씨앗", "image/상점/당근씨앗.bmp", 56, 56, true, MAGENTA);
-	IMAGEMANAGER->addImage("CloseButton", "image/닫기버튼.bmp", 44, 44, true, MAGENTA);
+
 
 	//대화창관련
 	IMAGEMANAGER->addImage("ChatBox", "image/대화창2.bmp", 900, 312, true, MAGENTA);
 	IMAGEMANAGER->addImage("CloseButton", "image/닫기버튼.bmp", 44, 44, true, MAGENTA);
-
-	//대화창관련
-	IMAGEMANAGER->addImage("ChatWindow", "image/대화창2.bmp", 900, 312, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("RightButton", "image/대화창_우측하단(330x33).bmp", 330, 33, 11, 1, true, WHITE);
 
-	//대화테스트용 이미지입니다 무시하세요
+	//테스트용 이미지입니다 무시하세요
 	IMAGEMANAGER->addFrameImage("말랑카우", "image/말랑카우.bmp", 200, 300, 4, 6, true, MAGENTA);
 	IMAGEMANAGER->addImage("와츄고너두", "image/초상화용.bmp", 209, 200, true, MAGENTA);
 	IMAGEMANAGER->addImage("초상화", "image/powerCow.bmp", 209, 200, true, MAGENTA);
-
+	IMAGEMANAGER->addImage("퀵스텟1", "image/ItemTest/Item_Sickle.bmp", 64, 64, true, MAGENTA);
 	//낚시관련
 	IMAGEMANAGER->addImage("FishingPowerMax", "image/낚시/낚시최대파워던짐.bmp", 100, 36, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishingStart", "image/낚시/낚시시작.bmp", 120, 49, true, MAGENTA);
@@ -144,6 +141,7 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("Fish", "image/낚시/물고기.bmp", 28, 28, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishBox", "image/낚시/상자.bmp", 28, 34, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishRare", "image/낚시/레어물고기.bmp", 28, 29, true, MAGENTA);
+	
 	/////MapTool
 	IMAGEMANAGER->addImage("CloseButton", "image/닫기버튼.bmp", 44, 44, true, MAGENTA);
 

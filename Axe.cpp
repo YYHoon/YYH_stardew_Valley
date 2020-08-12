@@ -11,7 +11,7 @@ void Axe::Init()
 	_name = "Axe";
 	_tag = "ToolItem";
 	_dmage = 1;
-	
+
 }
 
 void Axe::Action()
@@ -31,3 +31,4 @@ void Axe::Action()
 void Axe::ReAction()
 {
 }
+

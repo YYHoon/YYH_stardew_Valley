@@ -17,6 +17,7 @@ HRESULT Player::init()
 	_info.position = Vector2(WINSIZEX / 2 + 100, WINSIZEY / 2);
 	_info.shadowCollision.centerSet(_info.position.x, _info.position.y, _info.img->getFrameWidth(), _info.img->getFrameHeight());
 	_info.collision.centerSet(_info.position.x, _info.position.y + 150, _info.img->getFrameWidth(), _info.img->getFrameHeight());
+
 	_info.maxHP = 100;
 	_info.maxStamina = 100;
 	_info.HP = 100;
@@ -55,11 +56,9 @@ void Player::update()
 		_tool->Action("Axe");
 	}
 
-
 	_state->Update();
 	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
-
 	//_tool->Action("Pickax");
 
 }
@@ -89,7 +88,6 @@ void Player::Move()
 {
 	if (_state->GetStateName() == "move" || _state->GetStateName() == "itemMove")
 	{
-
 		switch (_info.direction)
 		{
 		case PLAYER_DIRECTION::UP:
@@ -138,9 +136,6 @@ void Player::CheckTiles()
 	int allTiles = _map->GetMapSize();
 	_playerTileX = _info.position.x / 64;
 	_playerTileY = _info.position.y / 64;
-
-
-
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		_mousePt.x = _ptMouse.x;

@@ -7,8 +7,6 @@
 class ToolItem
 {
 protected:
-
-
 	string _name;
 	string _tag;
 	int _dmage;
@@ -32,6 +30,7 @@ public:
 	virtual inline string GetTag() { return _tag; }
 	virtual inline void SetTag(string tag) { _tag = tag; }
 
+	
 	//데미지
 	virtual inline int GetDmage() { return _dmage; }
 	virtual inline void SetDmage(int dmg) { _dmage = dmg; }
@@ -63,16 +62,10 @@ public:
 	//타일속성 주고받는곳
 	
 	virtual inline MAPOBJECT GetMapObject() { return _mapObject; }
-
 	virtual inline void SetMapObject(MAPOBJECT mapobj) { _mapObject = mapobj; }
-
-
-
 	virtual void Init() = 0;
 	virtual void Action() = 0;
 	virtual void ReAction() = 0;
-
-
 	inline void SetNowMapMemoryAddressLink(DummyMap* dmap) { _dummy = dmap; }
 };
 

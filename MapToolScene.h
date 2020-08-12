@@ -60,6 +60,7 @@ private:
 
 	bool _drag;
 
+
 	vector<tagTile>				_vtiles;
 	vector<tagTile>::iterator	_vitiles;
 
@@ -85,9 +86,7 @@ public:
 	MAPOBJECT ObjectSelect(int frameX, int frameY);
 
 	vector<tagTile> GetTile() { return _vtiles; }
-
 	int GetVertical() { return _vertical; }
 	int GetHorizontal() { return _horizontal; }
-
 	void SetTileTerrain(int x, int y, TERRAIN terrain);
 };

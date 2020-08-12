@@ -15,6 +15,7 @@ HRESULT MapToolScene::init()
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, TILESIZE*50-900, TILESIZE * 50);
 
+
 	_vertical = 100;
 	_horizontal = 100;
 
@@ -106,6 +107,7 @@ void MapToolScene::update()
 
 
 	if (KEYMANAGER->isStayKeyDown('A'))
+
 	{
 		CAMERAMANAGER->setX(CAMERAMANAGER->getX() - 10);
 	}
@@ -173,7 +175,6 @@ void MapToolScene::update()
 			_draw.top = _Ex.y;
 			_draw.right = _CameraMouse.x;
 			_draw.bottom = _CameraMouse.y;
-
 		}
 		else if (_Ex.x > _CameraMouse.x)
 		{
@@ -244,6 +245,7 @@ void MapToolScene::render()
 					_vtiles[index].terrainframeX++;
 				}
 			
+
 			}
 		}
 	}
@@ -285,6 +287,7 @@ void MapToolScene::render()
 					_vtiles[index].rc.left, _vtiles[index].rc.top,
 					_vtiles[index].objectframeX, _vtiles[index].objectframeY);
 			}
+
 		}
 	}
 	for (int i = 0; i < 16; i++)
@@ -340,6 +343,7 @@ void MapToolScene::render()
 					_vtiles[index].rc.left - TILESIZE, _vtiles[index].rc.top - TILESIZE * 5,
 					_vtiles[index].objectframeX, _vtiles[index].objectframeY, _vtiles[index].rc.bottom+1);
 			}
+
 		}
 	}
 	ZORDER->ZOrderRender();

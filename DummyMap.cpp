@@ -11,7 +11,7 @@ HRESULT DummyMap::init()
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
-	
+
 
 	_mouseImg = IMAGEMANAGER->findImage("mouse");
 	test = _tiles->GetTile();
@@ -70,6 +70,7 @@ tagTile DummyMap::GetTiles(int index)
 void DummyMap::SetMapObject(int tileIndex, MAPOBJECT obj)
 {
 	test[tileIndex].object = obj;
+
 }
 
 int DummyMap::GetVertical()

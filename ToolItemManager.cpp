@@ -12,7 +12,6 @@ void ToolItemManager::Init()
 	{
 		_axe = new Axe;
 		//_axe->Init();
-
 		_toolList.push_back(_axe);
 	}
 	if (_pickax == nullptr)

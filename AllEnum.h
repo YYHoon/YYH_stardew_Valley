@@ -37,7 +37,7 @@ enum class MAPOBJECT
 	ENEMY,
 	NONE
 };
-
+//--------------------------------------------------------------
 // Player
 enum class PLAYER_STATE
 {

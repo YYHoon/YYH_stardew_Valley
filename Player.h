@@ -3,7 +3,6 @@
 #include "Vector2.h"
 #include "ToolItemManager.h"
 
-
 class State;
 class DummyMap;
 

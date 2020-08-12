@@ -25,10 +25,7 @@ private:
 	Sword* _sword;
 	MiniGame* _miniGame;
 
-
 	DummyMap* _nowTileMap;
-	
-
 public:
 	ToolItemManager();
 	virtual ~ToolItemManager() {};
@@ -46,6 +43,6 @@ public:
 	virtual inline void SetImpactIndex(string name, int Center, int left, int right);
 	
 	inline void GetNowTileMapMemoyrAddressLink(DummyMap* scene) { _nowTileMap = scene; }
-
+	
 };
 
