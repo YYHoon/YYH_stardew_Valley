@@ -6,7 +6,10 @@ Vector2 Vector2::down = Vector2(0, 1);
 Vector2 Vector2::left = Vector2(-1, 0);
 Vector2 Vector2::right = Vector2(1, 0);
 Vector2 Vector2::one = Vector2(1, -1);
-
+Vector2 Vector2::upRight = Vector2(1, -1);
+Vector2 Vector2::upLeft = Vector2(-1, -1);
+Vector2 Vector2::downRight = Vector2(1, 1);
+Vector2 Vector2::downLeft = Vector2(-1, 1);
 
 Vector2 Vector2::operator-(Vector2 to)
 {
@@ -137,7 +140,7 @@ Vector2 Vector2::Nomalized()
 
 	//this->x /= size;
 	//this->y /= size;
-
+	
 
 	const float SquareSum = x * x + y * y;
 	if (SquareSum > 0)

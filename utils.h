@@ -4,11 +4,11 @@
 #define PI2 PI * 2
 
 //각도별 회전프레임 셋팅을 편하게 하기 위한 매크로
-#define PI8 float(PI / 8.0f)
-#define PI16 float(PI / 16.0f)
-#define PI32 float(PI / 32.0f)
-#define PI64 float(PI / 64.0f)
-#define PI128 float(PI / 128.0f)
+#define PI8 float(PI / 8.0f) //45
+#define PI16 float(PI / 16.0f) // 22.5
+#define PI32 float(PI / 32.0f) // 11.25
+#define PI64 float(PI / 64.0f) // 5.625
+#define PI128 float(PI / 128.0f) // 2.8125
 
 
 #define FLOAT_EPSILON 0.001f	//실수의 가장 작은 단위를 지칭하는 그리스어가 엡실론

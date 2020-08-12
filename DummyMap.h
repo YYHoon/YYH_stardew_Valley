@@ -11,6 +11,9 @@ private:
 	Player* _player;
 	image* _mouseImg;
 	vector<tagTile> test;
+
+	int _vertical;
+	int _horizon;
 public:
 	HRESULT init();
 	void update();
@@ -21,6 +24,7 @@ public:
 	int GetVertical();
 	int GetHorizon();
 	MapToolScene* GetTiles() { return _tiles; }
+	int GetMapSize() { return test.size(); }
 
 };
 

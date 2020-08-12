@@ -74,10 +74,10 @@ void DummyMap::SetMapObject(int tileIndex, MAPOBJECT obj)
 
 int DummyMap::GetVertical()
 {
-	return _tiles->GetVertical();
+	return 100;
 }
 
 int DummyMap::GetHorizon()
 {
-	return _tiles->GetHorizontal();
+	return 100;
 }
