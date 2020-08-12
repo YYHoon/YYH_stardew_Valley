@@ -63,15 +63,15 @@ void DummyMap::render()
 
 tagTile DummyMap::GetTiles(int index)
 {
-	return _tiles->GetTile()[index];
+	return test[index];
 }
 
 int DummyMap::GetVertical()
 {
-	return _tiles->GetVertical();
+	return 100;
 }
 
 int DummyMap::GetHorizon()
 {
-	return _tiles->GetHorizontal();
+	return 100;
 }
