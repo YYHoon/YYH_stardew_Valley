@@ -24,6 +24,13 @@ HRESULT TestScene::init()
 		_StoreItem[i] = IMAGEMANAGER->findImage("StoreItme");
 	}
 
+	/// <summary>
+	_Inv = new Inventory;
+	_Inv->init();
+
+	_env = new Environment;
+	_env->init();
+	/// </summary>
 	_StoreInfo = IMAGEMANAGER->findImage("StoreInfo");
 	_StoreNPC = IMAGEMANAGER->findImage("StoreOwnerDot");
 	_CloseButton = IMAGEMANAGER->findImage("CloseButton");
@@ -39,9 +46,10 @@ HRESULT TestScene::init()
 	}
 	_StoreOpen = false; //상점열었누~
 
-	//다이얼로그 실험하는 용도인거
+
+//-------------------------다이얼로그 실험하는 용도인거--------------------
 	_ChatWindow = IMAGEMANAGER->findImage("ChatBox");
-	//_TalkingXBox = IMAGEMANAGER->findImage("RightButton");
+	_TalkingXBox = IMAGEMANAGER->findImage("RightButton");
 	_TalkingNpcImage = IMAGEMANAGER->findImage("말랑카우");
 	_TalkingNpcPortrait = IMAGEMANAGER->findImage("초상화");
 
@@ -65,6 +73,11 @@ void TestScene::update()
 {
 	_inv->update();
 	_mouseIndex = 0;
+	/// <summary>
+	_Inv->update();
+	_env->update();
+	/// </summary>
+
 	if (KEYMANAGER->isStayKeyDown(VK_UP) && !_StoreOpen && !_Talking)
 	{
 		_TestP.top -= 3;
@@ -75,16 +88,19 @@ void TestScene::update()
 		_TestP.top += 3;
 		_TestP.bottom += 3;
 	}
+
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT) && !_StoreOpen && !_Talking)
 	{
 		_TestP.left -= 3;
 		_TestP.right -= 3;
 	}
+
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT) && !_StoreOpen && !_Talking)
 	{
 		_TestP.left += 3;
 		_TestP.right += 3;
 	}
+
 
 	RECT temp;
 	if (IntersectRect(&temp, &_TestP, &_StoreNpcOpen) && !_StoreOpen)
@@ -112,13 +128,11 @@ void TestScene::update()
 	_StoreItmeFrameY2 = 0;
 	_StoreItmeFrameY3 = 0;
 	_StoreItmeFrameY4 = 0;
-	_StoreItmeFrameY5 = 0;
 
 	if (PtInRect(&_Item[0], _ptMouse)) _StoreItmeFrameY = 1;
 	if (PtInRect(&_Item[1], _ptMouse)) _StoreItmeFrameY2 = 1;
 	if (PtInRect(&_Item[2], _ptMouse)) _StoreItmeFrameY3 = 1;
 	if (PtInRect(&_Item[3], _ptMouse)) _StoreItmeFrameY4 = 1;
-	if (PtInRect(&_Item[4], _ptMouse)) _StoreItmeFrameY5 = 1;
 //-------------------------------------------------------------------	
 
 	if (IntersectRect(&temp, &_TestP, &_TalkingNpc) && !_Talking)
@@ -130,6 +144,7 @@ void TestScene::update()
 		}
 	}
 
+///////////////////////파일입출력이용_다이얼로그_기본틀?////////////////////////
 	ifstream readFlie;
 	readFlie.open("Dialogue/TEST.txt");
 
@@ -176,12 +191,14 @@ void TestScene::update()
 		_stringNum = 0;
 		_txtOutTest.clear();
 	}
+///////////////////////////////////////////////////////////////////////////
 
 }
 
 void TestScene::render()
 {
 	SetBkMode(getMemDC(), 1);
+	SetTextColor(getMemDC(), BLACK);
 
 	Rectangle(getMemDC(), _StoreNpcOpen);
 	Rectangle(getMemDC(), _TalkingNpc);
@@ -190,10 +207,14 @@ void TestScene::render()
 	Rectangle(getMemDC(), _TestP);
 	_StoreNPC->frameRender(getMemDC(), _StoreNpcRect.left, _StoreNpcRect.top,0,0);
 	_TalkingNpcImage->frameRender(getMemDC(), _TalkingNpcImageRc.left, _TalkingNpcImageRc.top, 0, 0);
-	/*for (int i = 0; i < 20; i++)
-	{
-		Rectangle(getMemDC(), _Item[i]);	
-	}*/
+
+
+	/// <summary>
+	_env->render();
+	_inv->render();
+	/// </summary>
+
+
 
 	HFONT font1, oldFont1;
 	font1 = CreateFont(40, 0, 0, 0, 300, false, false, false,
@@ -215,13 +236,14 @@ void TestScene::render()
 		Draw();
 		_CloseButton->render(getMemDC(), _CloseRc.left, _CloseRc.top);
 	}
-		//DeleteObject(oldFont1);
+		DeleteObject(oldFont1);
 	
+//---------------------다이얼로그_연습----------------------------------------
 
 	HFONT TalkingOnlyFont, OldFont2;
 
 	TalkingOnlyFont = CreateFont(50,0,0,0,300, false, false,false,  DEFAULT_CHARSET, OUT_STRING_PRECIS, 
-		CLIP_DEFAULT_PRECIS, PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
+					  CLIP_DEFAULT_PRECIS, PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
 	OldFont2 = (HFONT)SelectObject(getMemDC(), TalkingOnlyFont);
 
 	if (_Talking && !_StoreOpen)
@@ -230,15 +252,22 @@ void TestScene::render()
 
 		_ChatWindow->render(getMemDC(), 400, 580);
 		_TalkingNpcPortrait->render(getMemDC(), 1010, 611);
-		DrawText(getMemDC(), TEXT(_txtOutTest.c_str()), _stringNum, &_TxtBoxRC, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
+		DrawText(getMemDC(), TEXT(_txtOutTest.c_str()), _stringNum, &_TxtBoxRC, DT_LEFT | DT_WORDBREAK | DT_VCENTER); //대사입출력한거
 		TextOut(getMemDC(), 1035, 820, "대화시험소", strlen("대화시험소"));
 	}
+
 	DeleteObject(OldFont2);
 
-	
+//------------------------------------------------------------------------------
 
-	_inv->render();
+
 	_Mouse->frameRender(getMemDC(), _ptMouse.x, _ptMouse.y, _mouseIndex, 0);
+	char mo[200];
+	char mo2[200];
+	sprintf_s(mo, "마우스의 X좌표:%d", _ptMouse.x);
+	sprintf_s(mo2, "마우스의 Y좌표:%d", _ptMouse.y);
+	TextOut(getMemDC(), 50, 90, mo, strlen(mo));
+	TextOut(getMemDC(), 50, 120, mo2, strlen(mo2));
 }
 
 void TestScene::Draw()
@@ -248,5 +277,8 @@ void TestScene::Draw()
 	_StoreItem[1]->frameRender(getMemDC(), _Item[1].left, _Item[1].top, 0, _StoreItmeFrameY2);
 	_StoreItem[2]->frameRender(getMemDC(), _Item[2].left, _Item[2].top, 0, _StoreItmeFrameY3);
 	_StoreItem[3]->frameRender(getMemDC(), _Item[3].left, _Item[3].top, 0, _StoreItmeFrameY4);
-	//_StoreItem[4]->frameRender(getMemDC(), _Item[4].left, _Item[4].top, 0, _StoreItmeFrameY5);
+
+	/// <summary>
+	_Inv->render();
+	/// </summary>
 }

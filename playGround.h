@@ -3,9 +3,11 @@
 #include "AllDefine.h"
 #include "AllEnum.h"
 #include "AllUi.h"
+#include "TitleScene.h"
+#include "TestScene.h"
+#include "MapToolScene.h"
+#include "DummyMap.h"
 #include <iostream>
-
-#include "Inventory.h"
 
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 using namespace std;
@@ -13,10 +15,11 @@ using namespace std;
 class playGround : public gameNode
 {
 private:
-
 	TitleScene* _TitleScene;
 	TestScene* _Tset;
+	DummyMap* _dummy;
 	MapToolScene* _MaptoolScene;
+
 	LoadingScene* _LoadingScene;
 
 	Inventory* _Inv;

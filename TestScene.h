@@ -1,9 +1,11 @@
 #pragma once
 #include "gameNode.h"
 #include "Inventory.h"
-#include <fstream>
+#include "Environment.h"
 #include <string>
+#include <fstream>	//파일입출력 할때 필요
 #include <vector>
+#include <queue>
 
 class TestScene : public gameNode
 {
@@ -20,7 +22,6 @@ private:
 	image* _CloseButton;     //닫기버튼
 	image* _BlackWindow;     //알파먹일거
 
-	RECT _StoreItemRc[20];   //상점 아이템진열좌표 및 충돌처리용
 	RECT _CloseRc;			 //닫기버튼
 	RECT _StoreNpcRect;		 //npc이미지사용전용
 	RECT _StoreNpcOpen;		 //이영역 내에서만 기능을 활성화시킬수있음(상점)
@@ -30,16 +31,20 @@ private:
 	int _StoreItmeFrameY2;
 	int _StoreItmeFrameY3;
 	int _StoreItmeFrameY4;
-	int _StoreItmeFrameY5;
 
 	bool _StoreOpen;  //상점
 
 //-------------------------다이얼로그_더미--------------------------------
+
 	image* _ChatWindow;      	 //대화창 이미지
 	image* _TalkingNpcImage;     //대화전용NPC 도트이미지
 	image* _TalkingNpcPortrait;  //대화전용NPC 초상화
 	image* _TalkingXBox;		 //대화창 우측하단에 있는거 별다른 효과없음
-	//animation* _TalkingXBoxAni;
+
+	/// <summary>
+	Inventory* _Inv;
+	Environment* _env;
+	/// </summary>
 
 	RECT _TalkingNpcImageRc; //대화용NPC 이미지용
 	RECT _TalkingNpc;	     //대화용NPC 대화가능영역
@@ -51,7 +56,6 @@ private:
 	bool _Talking;			 //대화를 하는중인가
 	int _stringNum;			 //strin.~.at()에서 사용~
 
-//-------------------------------------------------------------------------
 
 	RECT _TestP;	  //테스트용더미
 	int _mouseIndex;  //마우스 이미지 프레임
@@ -65,4 +69,5 @@ public:
 	virtual void update();
 	virtual void render();
 	virtual void Draw();
+
 };
