@@ -79,9 +79,6 @@
     <Filter Include="playGround\Environment">
       <UniqueIdentifier>{712c9a02-75f0-4b16-8ff9-f27758122b5c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="playGround\TestDummy">
-      <UniqueIdentifier>{bdd243c6-97ca-4508-845e-e17b9793facd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="playGround\Tool\JustImpact">
       <UniqueIdentifier>{3c03e804-9e68-4134-add7-34ee984a8592}</UniqueIdentifier>
     </Filter>

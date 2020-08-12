@@ -2,7 +2,7 @@
 #include "gameNode.h"
 #include "Vector2.h"
 #include "ToolItemManager.h"
-#include "MiniGame.h"//미니게임 테스트용
+
 
 class State;
 class DummyMap;
@@ -36,7 +36,7 @@ private:
 
 	/// <summary>
 	ToolItemManager* _tool;
-	MiniGame* _test;//미니게임 테스트용
+
 	/// </summary>
 	DummyMap* _map;
 	

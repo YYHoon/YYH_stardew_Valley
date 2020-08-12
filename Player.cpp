@@ -25,10 +25,12 @@ HRESULT Player::init()
 	_info.money = 500;
 	_info.velocity = 10.0f;
 	_isKeyDown = false;
-	
 	_tool = new ToolItemManager;
-	_test = new MiniGame;//미니게임 테스트용
-
+	_tool->GetNowTileMapMemoyrAddressLink(_map);
+	_tool->Init();
+	cout << _map << endl;
+	
+	cout << _tool << endl;
 	return S_OK;
 }
 
@@ -45,14 +47,13 @@ void Player::update()
 	CheckTiles();
 
 	
-	//===========미니게임 테스트용
-	if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
+	
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
-		_test->InitKeyDown(_info.direction,_info.position);
+		_tool->SetImpactIndex("Axe",_actTileIndex);
+		
+		_tool->Action("Axe");
 	}
-	if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON))_test->InitKeyUp();
-	//=========================
-
 
 	_state->Update();
 	Move();
