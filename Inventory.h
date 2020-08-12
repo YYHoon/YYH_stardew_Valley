@@ -3,6 +3,15 @@
 
 #include <vector>
 
+
+struct tagQuickSlot
+{
+	image* Image;
+	string Keyname;
+	RECT RC;
+	int X, Y;
+};
+
 class Inventory : public gameNode
 {
 private:
@@ -36,8 +45,6 @@ private:
 	//////////////////////////////////////////
 
 	int _invenOpenX, _invenOpenY;
-	int _invenCloseUX, _invenCloseUY;
-	int _invenCloseDX, _invenCloseDY;
 
 	int  _tabNum;			//인벤토리 탭의 번호
 	int  _craftTabNum;		//제작 페이지 번호
@@ -45,17 +52,15 @@ private:
 
 /////////////////////////QuickSlot///////////////////////////
 
-	image* _quickSlot;			//퀵슬롯 
-	image* _quickSlotSelect;	//퀵슬롯선택한거 보는것
-
-	RECT _quickSlotSelectRc;	//퀵슬롯선택 사각형
+	tagQuickSlot _quickSlot;			//퀵슬롯
+	tagQuickSlot _quickSlotSelect;		//퀵슬롯선택 사각형
 
 	int _quickSlotY;		//퀵슬롯 Y축 위치
 	int _quickSlotSelectRcX, _quickSlotSelectRcY; //퀵슬롯선택X,Y축
 
-///-------------------테스트용 이미지들---------------------///
-	image* _testImage;
-	image* _testImage2;
+	int _selecRcX, _selecRcY;
+
+
 
 public:
 	Inventory()  {};

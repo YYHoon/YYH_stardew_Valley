@@ -9,7 +9,7 @@ HRESULT Environment::init()
 	_isGamePause = false;
 
 	/// <summary>
-	_originalRatio = ((_originalDelay * 100) / _originalTime) ;
+	_originalRatio = ((_originalDelay * 100) / _originalTime);
 	cout << "OriginalRatio : " << _originalRatio << "%" << endl;
 	/// </summary>
 
@@ -17,10 +17,10 @@ HRESULT Environment::init()
 
 	_currentTimeSec = 0;
 	_clockValue = 0;
-	_clockHand.angle = -PI / 2;
-	_clockHand.length = 72;
-	_clockHand.center.x = 1385.5f;
-	_clockHand.center.y = 90;
+	_clockHand.Angle = -PI / 2;
+	_clockHand.Length = 72;
+	_clockHand.Center.x = 1385.5f;
+	_clockHand.Center.y = 90;
 
 	_delay = ALPHADELAY;
 
@@ -53,21 +53,21 @@ void Environment::update()
 			_clockValue += i;
 		}
 
-		if (_clockHand.angle <= PI / 2)
+		if (_clockHand.Angle <= PI / 2)
 		{
-			_clockHand.angle -= CLOCKMOVEDANGLE;
+			_clockHand.Angle -= CLOCKMOVEDANGLE;
 		}
 
 		//cout << "_currentTimeSec : " << _currentTimeSec << endl;
 
-		if (/*_clockValue >= CLOCKMAX*/ _clockHand.angle < PI / 2)
+		if (/*_clockValue >= CLOCKMAX*/ _clockHand.Angle < PI / 2)
 		{
 			_clockValue = 0;
-			_clockHand.angle = -PI / 2;
+			_clockHand.Angle = -PI / 2;
 		}
 
-		_clockHand.End.x = cosf(_clockHand.angle) * _clockHand.length + _clockHand.center.x;
-		_clockHand.End.y = -sinf(_clockHand.angle) * _clockHand.length + _clockHand.center.y;
+		_clockHand.End.x = cosf(_clockHand.Angle) * _clockHand.Length + _clockHand.Center.x;
+		_clockHand.End.y = -sinf(_clockHand.Angle) * _clockHand.Length + _clockHand.Center.y;
 		/////////////////////////////////////</Test>
 
 		/// AlphaRender
@@ -100,5 +100,5 @@ void Environment::render()
 
 	IMAGEMANAGER->findImage("Environment_Clock")->render(getMemDC(), 1300, 12);
 
-	//LineMake(getMemDC(), _clockHand.center.x, _clockHand.center.y, _clockHand.End.x, _clockHand.End.y);
+	LineMake(getMemDC(), _clockHand.Center.x, _clockHand.Center.y, _clockHand.End.x, _clockHand.End.y);
 }

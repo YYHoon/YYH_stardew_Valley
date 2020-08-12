@@ -14,15 +14,11 @@ HRESULT TestScene::init()
 	_inv = new Inventory;
 	_inv->init();
 
+
+	_store = new Store;
+	_store->init();
+
 	_Mouse = IMAGEMANAGER->findImage("mouse");
-
-	_StoreWindow = IMAGEMANAGER->findImage("StoreWindow");
-	_StorePortrait = IMAGEMANAGER->findImage("StoreOwnerPortrait");
-
-	for (int i = 0; i < 20; i++)
-	{
-		_StoreItem[i] = IMAGEMANAGER->findImage("StoreItme");
-	}
 
 	/// <summary>
 	_Inv = new Inventory;
@@ -30,20 +26,11 @@ HRESULT TestScene::init()
 
 	_env = new Environment;
 	_env->init();
-	/// </summary>
-	_StoreInfo = IMAGEMANAGER->findImage("StoreInfo");
-	_StoreNPC = IMAGEMANAGER->findImage("StoreOwnerDot");
-	_CloseButton = IMAGEMANAGER->findImage("CloseButton");
 
+
+	_CloseButton = IMAGEMANAGER->findImage("CloseButton");
 	_CloseRc = RectMake(1400, 30, _CloseButton->getWidth(), _CloseButton->getHeight());
 
-	_StoreNpcRect = RectMake(WINSIZEX / 2, WINSIZEY / 2 - 100, _StoreNPC->getFrameWidth(), _StoreNPC->getFrameHeight());
-	_StoreNpcOpen = RectMakeCenter(_StoreNpcRect.left + 25, _StoreNpcRect.top + 50, 200, 200);
-
-	for (int i = 0; i < 20; i++) 
-	{
-		_Item.push_back(RectMake(378, 68 + i * 104, 1041, 104));
-	}
 	_StoreOpen = false; //상점열었누~
 
 
@@ -80,32 +67,32 @@ void TestScene::update()
 
 	if (KEYMANAGER->isStayKeyDown(VK_UP) && !_StoreOpen && !_Talking)
 	{
-		_TestP.top -= 3;
-		_TestP.bottom -= 3;
+		_TestP.top -= 5;
+		_TestP.bottom -= 5;
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN) && !_StoreOpen && !_Talking)
 	{
-		_TestP.top += 3;
-		_TestP.bottom += 3;
+		_TestP.top += 5;
+		_TestP.bottom += 5;
 	}
 
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT) && !_StoreOpen && !_Talking)
 	{
-		_TestP.left -= 3;
-		_TestP.right -= 3;
+		_TestP.left -= 5;
+		_TestP.right -= 5;
 	}
 
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT) && !_StoreOpen && !_Talking)
 	{
-		_TestP.left += 3;
-		_TestP.right += 3;
+		_TestP.left += 5;
+		_TestP.right += 5;
 	}
 
 
 	RECT temp;
-	if (IntersectRect(&temp, &_TestP, &_StoreNpcOpen) && !_StoreOpen)
+	if (IntersectRect(&temp, &_TestP, &_store->getStoreNpcOpen()) && !_StoreOpen)
 	{
-		if (PtInRect(&_StoreNpcRect, _ptMouse))
+		if (PtInRect(&_store->getStoreNpcRect(), _ptMouse))
 		{
 			_mouseIndex = 1;
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) _StoreOpen = true;
@@ -123,17 +110,7 @@ void TestScene::update()
 		_Talking = false;
 	}
 
-//-------------------------------------------------------------------
-	_StoreItmeFrameY = 0;
-	_StoreItmeFrameY2 = 0;
-	_StoreItmeFrameY3 = 0;
-	_StoreItmeFrameY4 = 0;
-
-	if (PtInRect(&_Item[0], _ptMouse)) _StoreItmeFrameY = 1;
-	if (PtInRect(&_Item[1], _ptMouse)) _StoreItmeFrameY2 = 1;
-	if (PtInRect(&_Item[2], _ptMouse)) _StoreItmeFrameY3 = 1;
-	if (PtInRect(&_Item[3], _ptMouse)) _StoreItmeFrameY4 = 1;
-//-------------------------------------------------------------------	
+	_store->update();
 
 	if (IntersectRect(&temp, &_TestP, &_TalkingNpc) && !_Talking)
 	{
@@ -200,12 +177,11 @@ void TestScene::render()
 	SetBkMode(getMemDC(), 1);
 	SetTextColor(getMemDC(), BLACK);
 
-	Rectangle(getMemDC(), _StoreNpcOpen);
+	_store->render();
 	Rectangle(getMemDC(), _TalkingNpc);
 	Rectangle(getMemDC(), _TalkingNpcImageRc);
 
 	Rectangle(getMemDC(), _TestP);
-	_StoreNPC->frameRender(getMemDC(), _StoreNpcRect.left, _StoreNpcRect.top,0,0);
 	_TalkingNpcImage->frameRender(getMemDC(), _TalkingNpcImageRc.left, _TalkingNpcImageRc.top, 0, 0);
 
 
@@ -214,29 +190,12 @@ void TestScene::render()
 	_inv->render();
 	/// </summary>
 
-
-
-	HFONT font1, oldFont1;
-	font1 = CreateFont(40, 0, 0, 0, 300, false, false, false,
-		DEFAULT_CHARSET,
-		OUT_STRING_PRECIS,
-		CLIP_DEFAULT_PRECIS,
-		PROOF_QUALITY,
-		DEFAULT_PITCH | FF_SWISS,
-		TEXT("Sandoll 미생"));
-		oldFont1 = (HFONT)SelectObject(getMemDC(), font1);
 	if (_StoreOpen && !_Talking)
 	{
 		_BlackWindow->alphaRender(getMemDC(), 0, 0, 200);
-		_StoreWindow->render(getMemDC(), 350, 50);
-		_StorePortrait->frameRender(getMemDC(), 140, 50, 0, 0);
-		_StoreInfo->render(getMemDC(), 100, 260);
-		RECT rcText = RectMake(110, 270, 230, 200);
-		DrawText(getMemDC(), TEXT("어서와, 여기는 상점이야 물건은없지만!"), 38, &rcText, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
-		Draw();
+		_store->OpenStoreRender();
 		_CloseButton->render(getMemDC(), _CloseRc.left, _CloseRc.top);
 	}
-		DeleteObject(oldFont1);
 	
 //---------------------다이얼로그_연습----------------------------------------
 
@@ -262,12 +221,6 @@ void TestScene::render()
 
 
 	_Mouse->frameRender(getMemDC(), _ptMouse.x, _ptMouse.y, _mouseIndex, 0);
-	//char mo[200];
-	//char mo2[200];
-	//sprintf_s(mo, "마우스의 X좌표:%d", _ptMouse.x);
-	//sprintf_s(mo2, "마우스의 Y좌표:%d", _ptMouse.y);
-	//TextOut(getMemDC(), 50, 90, mo, strlen(mo));
-	//TextOut(getMemDC(), 50, 120, mo2, strlen(mo2));
 }
 
 void TestScene::Draw()

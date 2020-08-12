@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "playGround.h"
 
-//2020.08.12 <04:09>
 
 playGround::playGround()
 {

@@ -3,10 +3,10 @@
 
 struct tagClockHand
 {
-	POINT center;	//중점
+	POINT Center;	//중점
 	POINT End;		//시계침 끝점
-	int length;		//시계침 길이
-	float angle;	//시계침 각도
+	int Length;		//시계침 길이
+	float Angle;	//시계침 각도
 };
 
 class Environment : public gameNode
@@ -47,8 +47,8 @@ private:
 	}
 
 public:
-	Environment()	{};
-	~Environment()	{};
+	Environment() {};
+	~Environment() {};
 
 	HRESULT init();
 	void release();

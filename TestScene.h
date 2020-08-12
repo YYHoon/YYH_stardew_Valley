@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "Inventory.h"
 #include "Environment.h"
+#include "Store.h"
 #include <string>
 #include <fstream>	//파일입출력 할때 필요
 #include <vector>
@@ -12,10 +13,11 @@ class TestScene : public gameNode
 private:
 	image* _Mouse; //마우스 이미지 ->씬마다 한번씩만 이미지 물려주시고 랜더에 좌표는 _ptmouseX, _ptmouseY  써주새요
 	Inventory* _inv;
+	Store* _store;
 
 	image* _StoreWindow;	 //상점창
 	image* _StorePortrait;	//상점주인초상화
-	image* _StoreItem[20];		//상점 아이템
+	image* _StoreItem[4];		//상점 아이템
 	image* _StoreInfo;		//상점소개문창
 	image* _StoreNPC;      //상점npc도트이미지
 
