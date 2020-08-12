@@ -1,10 +1,11 @@
 #pragma once
 #include "gameNode.h"
 #include "Inventory.h"
-#include <fstream>
-#include <string>
 #include "Environment.h"
+#include <string>
+#include <fstream>	//파일입출력 할때 필요
 #include <vector>
+#include <queue>
 
 class TestScene : public gameNode
 {
@@ -14,14 +15,13 @@ private:
 
 	image* _StoreWindow;	 //상점창
 	image* _StorePortrait;	//상점주인초상화
-	image* _StoreItem[20];		//상점 아이템
+	image* _StoreItem[4];		//상점 아이템
 	image* _StoreInfo;		//상점소개문창
 	image* _StoreNPC;      //상점npc도트이미지
 
 	image* _CloseButton;     //닫기버튼
 	image* _BlackWindow;     //알파먹일거
 
-	RECT _StoreItemRc[20];   //상점 아이템진열좌표 및 충돌처리용
 	RECT _CloseRc;			 //닫기버튼
 	RECT _StoreNpcRect;		 //npc이미지사용전용
 	RECT _StoreNpcOpen;		 //이영역 내에서만 기능을 활성화시킬수있음(상점)
@@ -31,7 +31,6 @@ private:
 	int _StoreItmeFrameY2;
 	int _StoreItmeFrameY3;
 	int _StoreItmeFrameY4;
-	int _StoreItmeFrameY5;
 
 	bool _StoreOpen;  //상점
 
@@ -57,7 +56,6 @@ private:
 	bool _Talking;			 //대화를 하는중인가
 	int _stringNum;			 //strin.~.at()에서 사용~
 
-//-------------------------------------------------------------------------
 
 	RECT _TestP;	  //테스트용더미
 	int _mouseIndex;  //마우스 이미지 프레임

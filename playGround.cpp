@@ -30,7 +30,7 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("Dummy", _dummy = new DummyMap);
 
 
-	SCENEMANAGER->changeScene("Dummy");
+	SCENEMANAGER->changeScene("Å×½ºÆ®");
 
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
@@ -81,7 +81,6 @@ void playGround::imginit()
 	IMAGEMANAGER->addFrameImage("TitleBrid", "image/Å¸ÀÌÆ²/Brid(400x69).bmp", 400, 69, 4, 1, true, MAGENTA);
 
 	//UI
-
 	IMAGEMANAGER->addFrameImage("mouse", "image/¸¶¿ì½º.bmp", 360, 60, 6, 1, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("SpingSunny", "image/º½_¸¼À½20T(3800x162).bmp", 3800, 162, 19, 1, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("SpingRain", "image/º½_ºñ20T(3800x162).bmp", 3800, 162, 19, 1, true, MAGENTA);
@@ -124,26 +123,15 @@ void playGround::imginit()
 	//´ëÈ­Ã¢°ü·Ã
 	IMAGEMANAGER->addImage("ChatBox", "image/´ëÈ­Ã¢2.bmp", 900, 312, true, MAGENTA);
 	IMAGEMANAGER->addImage("CloseButton", "image/´Ý±â¹öÆ°.bmp", 44, 44, true, MAGENTA);
-
-	//´ëÈ­Ã¢°ü·Ã
-	IMAGEMANAGER->addImage("ChatWindow", "image/´ëÈ­Ã¢2.bmp", 900, 312, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("RightButton", "image/´ëÈ­Ã¢_¿ìÃøÇÏ´Ü(330x33).bmp", 330, 33, 11, 1, true, WHITE);
 
-	//´ëÈ­Å×½ºÆ®¿ë ÀÌ¹ÌÁöÀÔ´Ï´Ù ¹«½ÃÇÏ¼¼¿ä
+	//Å×½ºÆ®¿ë ÀÌ¹ÌÁöÀÔ´Ï´Ù ¹«½ÃÇÏ¼¼¿ä
 	IMAGEMANAGER->addFrameImage("¸»¶ûÄ«¿ì", "image/¸»¶ûÄ«¿ì.bmp", 200, 300, 4, 6, true, MAGENTA);
-	IMAGEMANAGER->addImage("¿ÍÃò°í³ÊµÎ", "image/ÃÊ»óÈ­¿ë.bmp", 209, 200, true, MAGENTA);
 	IMAGEMANAGER->addImage("ÃÊ»óÈ­", "image/powerCow.bmp", 209, 200, true, MAGENTA);
+	IMAGEMANAGER->addImage("Äü½ºÅÝ1", "image/ItemTest/Item_Sickle.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Äü½ºÅÝ2", "image/ItemTest/Item_Knife.bmp", 64, 64, true, MAGENTA);
 
-	//³¬½Ã°ü·Ã
-	IMAGEMANAGER->addImage("FishingPowerMax", "image/³¬½Ã/³¬½ÃÃÖ´ëÆÄ¿ö´øÁü.bmp", 100, 36, true, MAGENTA);
-	IMAGEMANAGER->addImage("FishingStart", "image/³¬½Ã/³¬½Ã½ÃÀÛ.bmp", 120, 49, true, MAGENTA);
-	IMAGEMANAGER->addImage("FishingBackGrond", "image/³¬½Ã/³¬½Ã¸»Ç³¼±.bmp", 200, 604, true, MAGENTA);
-	IMAGEMANAGER->addImage("FishingMiniGame", "image/³¬½Ã/³¬½Ã¹Ì´Ï°ÔÀÓ.bmp", 128, 505, true, MAGENTA);
-	IMAGEMANAGER->addImage("FishingGauge", "image/³¬½Ã/³¬½Ã°ÔÀÌÁö.bmp", 12, 486, true, MAGENTA);
-	IMAGEMANAGER->addImage("FishingGaugeBar", "image/³¬½Ã/³¬½Ã¹Ù.bmp", 34, 96, true, MAGENTA);
-	IMAGEMANAGER->addImage("Fish", "image/³¬½Ã/¹°°í±â.bmp", 28, 28, true, MAGENTA);
-	IMAGEMANAGER->addImage("FishBox", "image/³¬½Ã/»óÀÚ.bmp", 28, 34, true, MAGENTA);
-	IMAGEMANAGER->addImage("FishRare", "image/³¬½Ã/·¹¾î¹°°í±â.bmp", 28, 29, true, MAGENTA);
+
 	/////MapTool
 	IMAGEMANAGER->addImage("CloseButton", "image/´Ý±â¹öÆ°.bmp", 44, 44, true, MAGENTA);
 
@@ -167,6 +155,7 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("FishingFish", "image/³¬½Ã/¹°°í±â.bmp", 28, 28, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishingBox", "image/³¬½Ã/»óÀÚ.bmp", 28, 34, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishingBack", "image/³¬½Ã/³¬½Ã¸»Ç³¼±.bmp", 200, 604, true, MAGENTA);
+
 }
 
 void playGround::soundinit()
