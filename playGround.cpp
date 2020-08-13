@@ -27,17 +27,13 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("테스트", _Tset = new TestScene);
 	SCENEMANAGER->addScene("맵툴", _MaptoolScene = new MapToolScene);
 	SCENEMANAGER->addScene("LOADING", _LoadingScene = new LoadingScene);
-	SCENEMANAGER->addScene("Dummy", _dummy = new DummyMap);
 	MapFarm* _farm;
 	MapHome* _home;
 	MapTest* _test;
 	SCENEMANAGER->addScene("FARM", _farm = new MapFarm);
 	SCENEMANAGER->addScene("HOME", _home = new MapHome);
 	SCENEMANAGER->addScene("Test", _test = new MapTest);
-	SCENEMANAGER->changeScene("FARM");
-
-	SCENEMANAGER->changeScene("테스트");
-
+	SCENEMANAGER->changeScene("HOME");
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
 	return S_OK;

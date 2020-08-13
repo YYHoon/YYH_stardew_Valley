@@ -3,7 +3,6 @@
 #include "Vector2.h"
 #include "ToolItemManager.h"
 class State;
-class DummyMap;
 class MapMain;
 
 
@@ -38,7 +37,6 @@ private:
 	/// </summary>
 	string _mapName;
 	MapMain* _Map;
-	DummyMap* _map;
 	NecessaryInfo _info;
 	PLAYER_ACTION _action;
 	shared_ptr<State> _state;
@@ -94,7 +92,6 @@ public:
 	void ChangeEquipment(TOOLS equip) { _info.equipment = equip; }
 	void Move();
 	void CheckTiles();
-	void SetMapMemoryAddressLink(DummyMap* map) { _map = map; }
 	void SetMapMemoryAddressLink(MapMain* map) { _Map = map; }
 
 	void SavePlayerInfo();

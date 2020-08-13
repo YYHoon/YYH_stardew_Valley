@@ -1,6 +1,5 @@
 #pragma once
 #include "gameNode.h"
-#include"DummyMap.h"
 class MapMain;
 
 //class DummyMap;//영향끼칠 맵
@@ -18,7 +17,7 @@ protected:
 	
 
 	MAPOBJECT	_mapObject = MAPOBJECT::NONE;	//지형오브젝트의속성
-	TERRAIN _mapTeeain = TERRAIN::END;			//지형타일의 속성
+	TERRAIN _mapTeeain = TERRAIN::NONE;			//지형타일의 속성
 	MapMain* _map;//영향줄맵
 
 public:

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "State.h"
-#include "DummyMap.h"
 #include "AllMap.h"
 
 
