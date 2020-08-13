@@ -24,6 +24,10 @@ public:
 	static Vector2 left;
 	static Vector2 zero;
 	static Vector2 one;
+	static Vector2 upRight;
+	static Vector2 upLeft;
+	static Vector2 downRight;
+	static Vector2 downLeft;
 
 	static float Distance(Vector2 a, Vector2 b, bool check = true);
 	static float Dot(Vector2 lhs, Vector2 rhs);

@@ -1,6 +1,16 @@
 #pragma once
 #include "gameNode.h"
+
 #include <vector>
+
+
+struct tagQuickSlot
+{
+	image* Image;
+	string Keyname;
+	RECT RC;
+	int X, Y;
+};
 
 class Inventory : public gameNode
 {
@@ -34,9 +44,23 @@ private:
 //	RECT _inventoryRC[12];  // Inventory RC //
 	//////////////////////////////////////////
 
+	int _invenOpenX, _invenOpenY;
+
 	int  _tabNum;			//인벤토리 탭의 번호
 	int  _craftTabNum;		//제작 페이지 번호
 	bool _isInventoryOpen;	//인벤토리가 열려있는가?
+
+/////////////////////////QuickSlot///////////////////////////
+
+	tagQuickSlot _quickSlot;			//퀵슬롯
+	tagQuickSlot _quickSlotSelect;		//퀵슬롯선택 사각형
+
+	int _quickSlotY;		//퀵슬롯 Y축 위치
+	int _quickSlotSelectRcX, _quickSlotSelectRcY; //퀵슬롯선택X,Y축
+
+	int _selecRcX, _selecRcY;
+
+
 
 public:
 	Inventory()  {};
@@ -46,8 +70,7 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render();
+	virtual void quickSlotMove();
 
 	vector<RECT>	getVInvenIndexRC() { return _vInvenIndexRC; }
-
 };
-

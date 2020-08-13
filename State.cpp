@@ -6,7 +6,7 @@
 State::State(Player* pPlayer) :
 	_player(pPlayer)
 {
-	
+
 }
 
 PlayerIdle::PlayerIdle(Player* pPlayer) : State(pPlayer) {}
@@ -24,7 +24,7 @@ void PlayerIdle::Init()
 	KEYANIMANAGER->addArrayFrameAnimation("up_Idle_Player", "player", upIdle, 1, 6, false);
 	int downIdle[] = { 23 };
 	KEYANIMANAGER->addArrayFrameAnimation("down_Idle_Player", "player", downIdle, 1, 6, false);
-	
+
 	switch (_player->GetDirection())
 	{
 	case PLAYER_DIRECTION::UP:
@@ -56,6 +56,7 @@ void PlayerIdle::Update()
 
 	if (KEYMANAGER->isOnceKeyDown('W'))
 	{
+
 		_player->SetDirection(PLAYER_DIRECTION::UP);
 		_player->ChangeState(make_shared<PlayerMove>(_player));
 		return;
@@ -185,7 +186,6 @@ void PlayerItemIdle::Update()
 		_player->ChangeState(make_shared<PlayerItemMove>(_player));
 		return;
 	}
-	
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		if (_player->GetEquip() == TOOLS::ITEM)
@@ -208,6 +208,8 @@ void PlayerMove::Init()
 {
 	_player->SetImg("player");
 	_name = "move";
+	_player->SetVelocity(10.f);
+
 
 	int RightMove[] = { 1,2,3,4,5 };
 	KEYANIMANAGER->addArrayFrameAnimation("right_Move_Player", "player", RightMove, 5, 10, true);
@@ -249,21 +251,57 @@ void PlayerMove::Update()
 	{
 		if (_player->GetDirection() != PLAYER_DIRECTION::UP)
 		{
-			_player->SetAnim("up_Move_Player");
-			_player->SetDirection(PLAYER_DIRECTION::UP);
+			if (KEYMANAGER->isStayKeyDown('D'))
+			{
+				_player->SetAnim("up_Move_Player");
+				_player->SetDirection(PLAYER_DIRECTION::UP_RIGHT);
+			}
+			else if (KEYMANAGER->isStayKeyDown('A'))
+			{
+				_player->SetAnim("up_Move_Player");
+				_player->SetDirection(PLAYER_DIRECTION::UP_LEFT);
+			}
+			else
+			{
+				_player->SetAnim("up_Move_Player");
+				_player->SetDirection(PLAYER_DIRECTION::UP);
+			}
 		}
 	}
 	else if (KEYMANAGER->isStayKeyDown('D'))
 	{
 		if (_player->GetDirection() != PLAYER_DIRECTION::RIGHT)
 		{
-			_player->SetAnim("right_Move_Player");
-			_player->SetDirection(PLAYER_DIRECTION::RIGHT);
+			if (KEYMANAGER->isStayKeyDown('W'))
+			{
+				_player->SetAnim("right_Move_Player");
+				_player->SetDirection(PLAYER_DIRECTION::UP_RIGHT);
+			}
+			else if (KEYMANAGER->isStayKeyDown('S'))
+			{
+				_player->SetAnim("right_Move_Player");
+				_player->SetDirection(PLAYER_DIRECTION::DOWN_RIGHT);
+			}
+			else
+			{
+				_player->SetAnim("right_Move_Player");
+				_player->SetDirection(PLAYER_DIRECTION::RIGHT);
+			}
 		}
 	}
 	else if (KEYMANAGER->isStayKeyDown('A'))
 	{
-		if (_player->GetDirection() != PLAYER_DIRECTION::LEFT)
+		if (KEYMANAGER->isStayKeyDown('W'))
+		{
+			_player->SetAnim("left_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::UP_LEFT);
+		}
+		else if (KEYMANAGER->isStayKeyDown('S'))
+		{
+			_player->SetAnim("left_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::DOWN_LEFT);
+		}
+		else
 		{
 			_player->SetAnim("left_Move_Player");
 			_player->SetDirection(PLAYER_DIRECTION::LEFT);
@@ -271,7 +309,17 @@ void PlayerMove::Update()
 	}
 	else if (KEYMANAGER->isStayKeyDown('S'))
 	{
-		if (_player->GetDirection() != PLAYER_DIRECTION::DOWN)
+		if (KEYMANAGER->isStayKeyDown('D'))
+		{
+			_player->SetAnim("down_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::DOWN_RIGHT);
+		}
+		else if (KEYMANAGER->isStayKeyDown('A'))
+		{
+			_player->SetAnim("down_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::DOWN_LEFT);
+		}
+		else
 		{
 			_player->SetAnim("down_Move_Player");
 			_player->SetDirection(PLAYER_DIRECTION::DOWN);
@@ -318,6 +366,10 @@ void PlayerMove::Update()
 
 void PlayerMove::Release()
 {
+	if (_player->GetInfo().anim == KEYANIMANAGER->findAnimation("up_Move_Player"))_player->SetDirection(PLAYER_DIRECTION::UP);
+	else if (_player->GetInfo().anim == KEYANIMANAGER->findAnimation("down_Move_Player"))_player->SetDirection(PLAYER_DIRECTION::DOWN);
+	else if (_player->GetInfo().anim == KEYANIMANAGER->findAnimation("right_Move_Player"))_player->SetDirection(PLAYER_DIRECTION::RIGHT);
+	else if (_player->GetInfo().anim == KEYANIMANAGER->findAnimation("left_Move_Player"))_player->SetDirection(PLAYER_DIRECTION::LEFT);
 }
 
 PlayerItemMove::PlayerItemMove(Player* pPplayer) : State(pPplayer) {}
@@ -327,13 +379,13 @@ void PlayerItemMove::Init()
 	_name = "itemMove";
 	//133
 	int leftItemMove[] = { 120,121,122,123 };
-	KEYANIMANAGER->addArrayFrameAnimation("left_item_move_player", "player", leftItemMove, 4, 10, false);
+	KEYANIMANAGER->addArrayFrameAnimation("left_Item_Move_Player", "player", leftItemMove, 4, 10, false);
 	int rightItemMove[] = { 125,126,127,128 };
 	KEYANIMANAGER->addArrayFrameAnimation("right_Item_Move_Player", "player", rightItemMove, 4, 10, false);
 	int upItemMove[] = { 132,133,134,135,136,137 };
 	KEYANIMANAGER->addArrayFrameAnimation("up_Item_Move_Player", "player", upItemMove, 6, 10, false);
 	int downItmeMove[] = { 139,140,141,142 };
-	KEYANIMANAGER->addArrayFrameAnimation("down_item_move_player", "player", downItmeMove, 4, 10, false);
+	KEYANIMANAGER->addArrayFrameAnimation("down_Item_Move_Player", "player", downItmeMove, 4, 10, false);
 
 	switch (_player->GetDirection())
 	{
@@ -341,13 +393,13 @@ void PlayerItemMove::Init()
 		_player->SetAnim("up_Item_Move_Player");
 		break;
 	case PLAYER_DIRECTION::DOWN:
-		_player->SetAnim("down_item_move_player");
+		_player->SetAnim("down_Item_Move_Player");
 		break;
 	case PLAYER_DIRECTION::RIGHT:
 		_player->SetAnim("right_Item_Move_Player");
 		break;
 	case PLAYER_DIRECTION::LEFT:
-		_player->SetAnim("left_item_move_player");
+		_player->SetAnim("left_Item_Move_Player");
 		break;
 	}
 
@@ -364,7 +416,17 @@ void PlayerItemMove::Update()
 	}
 	if (KEYMANAGER->isStayKeyDown('W'))
 	{
-		if (_player->GetDirection() != PLAYER_DIRECTION::UP)
+		if (KEYMANAGER->isStayKeyDown('D'))
+		{
+			_player->SetAnim("up_Item_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::UP_RIGHT);
+		}
+		else if (KEYMANAGER->isStayKeyDown('A'))
+		{
+			_player->SetAnim("up_Item_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::UP_LEFT);
+		}
+		else
 		{
 			_player->SetAnim("up_Item_Move_Player");
 			_player->SetDirection(PLAYER_DIRECTION::UP);
@@ -372,7 +434,17 @@ void PlayerItemMove::Update()
 	}
 	else if (KEYMANAGER->isStayKeyDown('D'))
 	{
-		if (_player->GetDirection() != PLAYER_DIRECTION::RIGHT)
+		if (KEYMANAGER->isStayKeyDown('W'))
+		{
+			_player->SetAnim("right_Item_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::UP_RIGHT);
+		}
+		else if (KEYMANAGER->isStayKeyDown('S'))
+		{
+			_player->SetAnim("right_Item_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::DOWN_RIGHT);
+		}
+		else
 		{
 			_player->SetAnim("right_Item_Move_Player");
 			_player->SetDirection(PLAYER_DIRECTION::RIGHT);
@@ -380,17 +452,37 @@ void PlayerItemMove::Update()
 	}
 	else if (KEYMANAGER->isStayKeyDown('A'))
 	{
-		if (_player->GetDirection() != PLAYER_DIRECTION::LEFT)
+		if (KEYMANAGER->isStayKeyDown('W'))
 		{
-			_player->SetAnim("left_item_move_player");
+			_player->SetAnim("left_Item_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::UP_LEFT);
+		}
+		else if (KEYMANAGER->isStayKeyDown('S'))
+		{
+			_player->SetAnim("left_Item_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::DOWN_LEFT);
+		}
+		else
+		{
+			_player->SetAnim("left_Item_Move_Player");
 			_player->SetDirection(PLAYER_DIRECTION::LEFT);
 		}
 	}
 	else if (KEYMANAGER->isStayKeyDown('S'))
 	{
-		if (_player->GetDirection() != PLAYER_DIRECTION::DOWN)
+		if (KEYMANAGER->isStayKeyDown('D'))
 		{
-			_player->SetAnim("down_item_move_player");
+			_player->SetAnim("down_Item_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::DOWN_RIGHT);
+		}
+		else if (KEYMANAGER->isStayKeyDown('A'))
+		{
+			_player->SetAnim("down_Item_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::DOWN_LEFT);
+		}
+		else
+		{
+			_player->SetAnim("down_Item_Move_Player");
 			_player->SetDirection(PLAYER_DIRECTION::DOWN);
 		}
 	}
@@ -413,6 +505,10 @@ void PlayerItemMove::Update()
 
 void PlayerItemMove::Release()
 {
+	if (_player->GetInfo().anim == KEYANIMANAGER->findAnimation("up_Item_Move_Player"))_player->SetDirection(PLAYER_DIRECTION::UP);
+	else if (_player->GetInfo().anim == KEYANIMANAGER->findAnimation("down_Item_Move_Player"))_player->SetDirection(PLAYER_DIRECTION::DOWN);
+	else if (_player->GetInfo().anim == KEYANIMANAGER->findAnimation("right_Item_Move_Player"))_player->SetDirection(PLAYER_DIRECTION::RIGHT);
+	else if (_player->GetInfo().anim == KEYANIMANAGER->findAnimation("left_Item_Move_Player"))_player->SetDirection(PLAYER_DIRECTION::LEFT);
 }
 
 

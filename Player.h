@@ -2,7 +2,6 @@
 #include "gameNode.h"
 #include "Vector2.h"
 #include "ToolItemManager.h"
-#include "MiniGame.h"//미니게임 테스트용
 
 class State;
 class DummyMap;
@@ -36,16 +35,15 @@ private:
 
 	/// <summary>
 	ToolItemManager* _tool;
-	MiniGame* _test;//미니게임 테스트용
+
 	/// </summary>
 	DummyMap* _map;
-	
-
 	NecessaryInfo _info;
 	PLAYER_ACTION _action;
 	shared_ptr<State> _state;
 	Vector2 _mousePt;
-	int _tileIndex;
+	string _mapName;
+	int _tileIndex[3];
 	int _actTileIndex;
 	int _playerTileX, _playerTileY;
 	

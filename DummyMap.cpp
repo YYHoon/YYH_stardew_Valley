@@ -4,21 +4,17 @@
 
 HRESULT DummyMap::init()
 {
-	tagTile saveTile[10001];
-	HANDLE file;
-	DWORD read;
+	_tiles = new MapToolScene;
+	_tiles->init();
+	_tiles->Load();
 
-	file = CreateFile("map.map", GENERIC_READ, NULL, NULL,
-		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	_player = new Player;
+	_player->SetMapMemoryAddressLink(this);
+	_player->init();
 
-	ReadFile(file, saveTile, sizeof(tagTile) * 10000, &read, NULL);
 
-	CloseHandle(file);
-	for (int i = 0; i < 10000; i++)
-	{
-		map.push_back(saveTile[i]);
-	}
-
+	_mouseImg = IMAGEMANAGER->findImage("mouse");
+	test = _tiles->GetTile();
 	return S_OK;
 }
 //Point _CameraMouse = PointMake(_ptMouse.x + CAMERAMANAGER->getL(), _ptMouse.y + CAMERAMANAGER->getT()
@@ -28,12 +24,7 @@ HRESULT DummyMap::init()
 
 void DummyMap::update()
 {
-	for (int i = 0; i < map.size(); i++)
-		if (PtInRect(&map[i].rc, _ptMouse))
-		{
-			//cout << (int)map[i].terrain << endl;
-			//cout << (int)map[i].object << endl;
-		}
+	_player->update();
 }
 
 void DummyMap::render()
@@ -42,46 +33,47 @@ void DummyMap::render()
 	{
 		for (int j = 0; j < 25; j++)
 		{
-			if (i < map.size() && j < map.size())
+			if (i < test.size() && j < test.size())
 			{
 				int cullX = CAMERAMANAGER->getL() / TILESIZE;
 				int cullY = CAMERAMANAGER->getT() / TILESIZE;
 
 				int index = (i + cullY) * 100 + (j + cullX);
 				CAMERAMANAGER->frameRender(getMemDC(), IMAGEMANAGER->findImage("Terrain"),
-					map[index].rc.left, map[index].rc.top,
-					map[index].terrainframeX, map[index].terrainframeY);
+					test[index].rc.left, test[index].rc.top,
+					test[index].terrainframeX, test[index].terrainframeY);
 			}
 		}
 	}
-	for (int i = 0; i < map.size(); ++i)
+	
+	for (int i = 0; i < test.size(); ++i)
 	{
-		if (map[i].object == MAPOBJECT::NONE)continue;
-
-		int cullyX = map[i].rc.left / TILESIZE;
-		int cullyY = map[i].rc.top / TILESIZE;
-
-		if (map[i].object != MAPOBJECT::BUILDING)
+		if (test[i].object == MAPOBJECT::NONE)continue;
+	
+		int cullyX = test[i].rc.left / TILESIZE;
+		int cullyY = test[i].rc.top / TILESIZE;
+	
+		if (test[i].object != MAPOBJECT::BUILDING)
 		{
-			ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, IMAGEMANAGER->findImage("Tree"), map[i].rc.left - TILESIZE, map[i].rc.top - TILESIZE * 5, map[i].objectframeX, map[i].objectframeY, map[i].rc.bottom);
+			ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, IMAGEMANAGER->findImage("Tree"), test[i].rc.left - TILESIZE, test[i].rc.top - TILESIZE * 5, test[i].objectframeX, test[i].objectframeY, test[i].rc.bottom);
 		}
 	}
 	ZORDER->ZOrderRender();
-
+	_player->render();
 }
 
 tagTile DummyMap::GetTiles(int index)
 {
-	return _load->GetTile()[index];
+	return test[index];
 }
+
 
 int DummyMap::GetVertical()
 {
-	return _load->GetVertical();
+	return 100;
 }
 
 int DummyMap::GetHorizon()
 {
-	return _load->GetHorizontal();
+	return 100;
 }
-

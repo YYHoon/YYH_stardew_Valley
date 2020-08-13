@@ -7,20 +7,24 @@ class Player;
 class DummyMap : public gameNode
 {
 private:
+	MapToolScene* _tiles;
 	Player* _player;
 	image* _mouseImg;
-	vector<tagTile> map;
-	MapToolScene* _load;
+	vector<tagTile> test;
 
+	int _vertical;
+	int _horizon;
 public:
 	HRESULT init();
 	void update();
 	void render();
 
 	tagTile GetTiles(int index);
+	//0812추가한함수
 	int GetVertical();
 	int GetHorizon();
-	MapToolScene* GetTiles() { return _load; }
+	MapToolScene* GetTiles() { return _tiles; }
+	int GetMapSize() { return test.size(); }
 
 };
 

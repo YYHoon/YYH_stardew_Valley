@@ -72,6 +72,10 @@ using namespace TTYONE_UTIL;
 protected: ValueType ValueName;\
 public: inline ValueType Get##FuncName(void) const{return ValueName;}\
 public: inline void Set##FuncName(ValueType value){ValueName = value;}
+#define SynInheritance(ValueType,ValueName,FuncName) \
+protected: ValueType ValueName;\
+public: virtual inline ValueType Get##FuncName(void) const{return ValueName;}\
+public: virtual inline void Set##FuncName(ValueType value){ValueName = value;}
 //====================================
 // ## 20.05.29 ## Extern ##
 //====================================

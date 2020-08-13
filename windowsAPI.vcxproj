@@ -179,6 +179,8 @@
     <ClInclude Include="keyAniManager.h" />
     <ClInclude Include="keyManager.h" />
     <ClInclude Include="LoadingScene.h" />
+    <ClInclude Include="MapFarm.h" />
+    <ClInclude Include="MapMain.h" />
     <ClInclude Include="MapToolScene.h" />
     <ClInclude Include="MiniGame.h" />
     <ClInclude Include="ObjectManager.h" />
@@ -233,6 +235,9 @@
     <ClCompile Include="keyAniManager.cpp" />
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="LoadingScene.cpp" />
+    <ClCompile Include="MapFarm.cpp" />
+    <ClCompile Include="MapMain.cpp" />
+    <ClCompile Include="MapTool + SaveLoad.cpp" />
     <ClCompile Include="MapToolScene.cpp" />
     <ClCompile Include="MiniGame.cpp" />
     <ClCompile Include="ObjectManager.cpp" />

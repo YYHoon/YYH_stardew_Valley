@@ -16,7 +16,7 @@
 #define TILESIZE 64	//타일 사이즈
 
 /////////////////////////////
-#define LOADINGMAX 1500
+#define LOADINGMAX 1500	
 ////////////////////////////
 #define INVENIMAGECOOR 376, 126		 //인벤토리 이미지 위치 값
 #define ALPHAVALUEMAX 230			 //어두워졌을 때 최대 알파값

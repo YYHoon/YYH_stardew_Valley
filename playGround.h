@@ -7,6 +7,7 @@
 #include "TestScene.h"
 #include "MapToolScene.h"
 #include "DummyMap.h"
+#include"MapFarm.h"
 #include <iostream>
 
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
@@ -21,7 +22,7 @@ private:
 	MapToolScene* _MaptoolScene;
 
 	LoadingScene* _LoadingScene;
-
+	MapFarm* map;
 	Inventory* _Inv;
 
 public:

@@ -10,6 +10,7 @@
 #include "Sickle.h"
 #include "Sword.h"
 
+class DummyMap;
 
 class ToolItemManager
 {
@@ -24,6 +25,7 @@ private:
 	Sword* _sword;
 	MiniGame* _miniGame;
 
+	DummyMap* _nowTileMap;
 public:
 	ToolItemManager();
 	virtual ~ToolItemManager() {};
@@ -31,14 +33,16 @@ public:
 
 	
 	//bool SearchToolList(string name);
-	 
+	void Init();
 	void Action(string name);
-	Vector2 GetImpactIndexCenter(string name);
-	Vector2 GetImpactIndexLeft(string name);
-	Vector2 GetImpactIndexRight(string name);
-
-	virtual inline void SetImpactIndex(string name, Vector2 index);
-	virtual inline void SetImpactIndex(string name, Vector2 Center, Vector2 left, Vector2 right);
+	virtual	int GetImpactIndexCenter(string name);
+	virtual	int GetImpactIndexLeft(string name);
+	virtual int GetImpactIndexRight(string name);
+	
+	virtual inline void SetImpactIndex(string name, int index);
+	virtual inline void SetImpactIndex(string name, int Center, int left, int right);
+	
+	inline void GetNowTileMapMemoyrAddressLink(DummyMap* scene) { _nowTileMap = scene; }
 	
 };
 
