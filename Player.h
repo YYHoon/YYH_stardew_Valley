@@ -2,7 +2,6 @@
 #include "gameNode.h"
 #include "Vector2.h"
 #include "ToolItemManager.h"
-#include "MiniGame.h"//미니게임 테스트용
 
 class State;
 class DummyMap;
@@ -36,7 +35,7 @@ private:
 
 	/// <summary>
 	ToolItemManager* _tool;
-	MiniGame* _test;//미니게임 테스트용
+
 	/// </summary>
 	DummyMap* _map;
 	NecessaryInfo _info;
@@ -45,7 +44,7 @@ private:
 	Vector2 _mousePt;
 	string _mapName;
 	int _tileIndex[3];
-	int _actTileIndex;
+	int _actTileIndex[3];
 	int _playerTileX, _playerTileY;
 	
 
@@ -67,8 +66,7 @@ public:
 	PLAYER_ACTION GetAction() { return _action; }
 	PLAYER_DIRECTION GetDirection() { return _info.direction; }
 	TOOLS GetEquip() { return _info.equipment; }
-	int GetTileIndex() { return _actTileIndex; }
-
+	int* GetTileIndex() { return _actTileIndex; }
 	void SetName(string Name) { _info.name = Name; }
 	void SetImg(string imgName) { _info.img = IMAGEMANAGER->findImage(imgName); }
 	void SetAnim(string stringName) { _info.anim = KEYANIMANAGER->findAnimation(stringName); }
@@ -94,5 +92,8 @@ public:
 	void Move();
 	void CheckTiles();
 	void SetMapMemoryAddressLink(DummyMap* map) { _map = map; }
+
+	void SavePlayerInfo();
+	void LoadPlayerInfo();
 };
 

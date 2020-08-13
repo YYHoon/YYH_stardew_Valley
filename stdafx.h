@@ -35,6 +35,7 @@ using namespace std;
 #include "EventManager.h"
 #include "Zorder.h"
 #include "Vector2.h"
+
 using namespace TTYONE_UTIL;
 
 //MS VS버전이 올라가면서 기존의 문자열 함수의 안정성을 올리기위해
@@ -72,6 +73,10 @@ using namespace TTYONE_UTIL;
 protected: ValueType ValueName;\
 public: inline ValueType Get##FuncName(void) const{return ValueName;}\
 public: inline void Set##FuncName(ValueType value){ValueName = value;}
+#define SynInheritance(ValueType,ValueName,FuncName) \
+protected: ValueType ValueName;\
+public: virtual inline ValueType Get##FuncName(void) const{return ValueName;}\
+public: virtual inline void Set##FuncName(ValueType value){ValueName = value;}
 //====================================
 // ## 20.05.29 ## Extern ##
 //====================================

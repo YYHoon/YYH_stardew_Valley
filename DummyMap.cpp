@@ -9,8 +9,9 @@ HRESULT DummyMap::init()
 	_tiles->Load();
 
 	_player = new Player;
-	_player->init();
 	_player->SetMapMemoryAddressLink(this);
+	_player->init();
+
 
 	_mouseImg = IMAGEMANAGER->findImage("mouse");
 	test = _tiles->GetTile();
@@ -58,12 +59,17 @@ void DummyMap::render()
 		}
 	}
 	ZORDER->ZOrderRender();
-	_player->render();
 }
 
 tagTile DummyMap::GetTiles(int index)
 {
 	return test[index];
+}
+
+void DummyMap::SetMapObject(int tileIndex, MAPOBJECT obj)
+{
+	test[tileIndex].object = obj;
+
 }
 
 int DummyMap::GetVertical()
