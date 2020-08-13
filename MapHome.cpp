@@ -8,7 +8,7 @@ HRESULT MapHome::init()
 	_player->init();
 
 	_count = 0;
-	_vertical = _horizon = 50;
+	_vertical = _horizon = 30;
 	_tiles = _map->Load("mapHome.map", _vertical, _horizon);
 	return S_OK;
 }
