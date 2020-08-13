@@ -6,6 +6,7 @@ HRESULT Environment::init()
 	_alphaValue = 0;
 	_realTimeSecond = 0;
 
+
 	_isInventoryOpen = false;
 
 	/// <summary>
@@ -37,6 +38,8 @@ void Environment::update()
 {
 	_elapsedTime = TIMEMANAGER->getElapsedTime();
 	_clockCalculate += _elapsedTime;
+
+	_currentTimeSec = (int)_realTimeSecond;
 
 	if (KEYMANAGER->isOnceKeyDown('E'))
 	{
@@ -87,6 +90,7 @@ void Environment::update()
 
 		_clockHand.end.x = cosf(_clockHand.angle) * _clockHand.length + _clockHand.center.x;
 		_clockHand.end.y = -sinf(_clockHand.angle) * _clockHand.length + _clockHand.center.y;
+
 		/////////////////////////////////////</Test>
 
 		/// AlphaRender
@@ -98,7 +102,6 @@ void Environment::update()
 
 				if (_alphaValue > ALPHAVALUEMAX) _alphaValue = ALPHAVALUEMAX;
 			}
-
 			if (_realTimeSecond > REALTIMEMAX)
 			{
 				_alphaValue = 0;
@@ -115,4 +118,5 @@ void Environment::render()
 	IMAGEMANAGER->findImage("Environment_Clock")->render(getMemDC(), 1300, 12);
 
 	LineMake(getMemDC(), _clockHand.center.x, _clockHand.center.y, _clockHand.end.x, _clockHand.end.y);
+
 }

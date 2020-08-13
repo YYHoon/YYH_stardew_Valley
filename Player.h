@@ -44,7 +44,7 @@ private:
 	shared_ptr<State> _state;
 	Vector2 _mousePt;
 	int _tileIndex[3];
-	int _actTileIndex;
+	int _actTileIndex[3];
 	int _playerTileX, _playerTileY;
 	
 
@@ -66,8 +66,7 @@ public:
 	PLAYER_ACTION GetAction() { return _action; }
 	PLAYER_DIRECTION GetDirection() { return _info.direction; }
 	TOOLS GetEquip() { return _info.equipment; }
-	int GetTileIndex() { return _actTileIndex; }
-
+	int* GetTileIndex() { return _actTileIndex; }
 	void SetName(string Name) { _info.name = Name; }
 	void SetImg(string imgName) { _info.img = IMAGEMANAGER->findImage(imgName); }
 	void SetAnim(string stringName) { _info.anim = KEYANIMANAGER->findAnimation(stringName); }
@@ -94,5 +93,8 @@ public:
 	void CheckTiles();
 	void SetMapMemoryAddressLink(DummyMap* map) { _map = map; }
 	void SetMapMemoryAddressLink(MapMain* map) { _Map = map; }
+
+	void SavePlayerInfo();
+	void LoadPlayerInfo();
 };
 

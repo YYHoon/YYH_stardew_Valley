@@ -122,7 +122,6 @@ void Inventory::update()
 		quickSlotMove();
 	}
 	else _quickSlotSelect.rc = RectMake(-100,-100,0,0);
-
 }
 
 void Inventory::render()

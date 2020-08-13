@@ -81,6 +81,7 @@ void MapFarm::render()
 				CAMERAMANAGER->frameRender(getMemDC(), IMAGEMANAGER->findImage("Wall"),
 					_tiles[index].rc.left, _tiles[index].rc.top,
 					_tiles[index].objectframeX, _tiles[index].objectframeY);
+
 			}
 		}
 	}

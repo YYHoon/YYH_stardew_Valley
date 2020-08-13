@@ -59,7 +59,6 @@ void DummyMap::render()
 		}
 	}
 	ZORDER->ZOrderRender();
-	_player->render();
 }
 
 tagTile DummyMap::GetTiles(int index)

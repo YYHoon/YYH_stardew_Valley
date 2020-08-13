@@ -34,6 +34,7 @@ private:
 
 	float _delay;
 	float _count;
+
 	bool timeUpdate(const float count)
 	{
 		_count += count;

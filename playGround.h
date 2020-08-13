@@ -8,7 +8,6 @@
 #include "MapToolScene.h"
 #include "DummyMap.h"
 #include "MapManager.h"
-
 #include <iostream>
 
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")

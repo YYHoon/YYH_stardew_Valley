@@ -71,6 +71,13 @@ private:
 
 /////////////////////////</QuickSlot>///////////////////////////
 
+	int _quickSlotY;		//Äü½½·Ô YÃà À§Ä¡
+	int _quickSlotSelectRcX, _quickSlotSelectRcY; //Äü½½·Ô¼±ÅÃX,YÃà
+
+	int _selecRcX, _selecRcY;
+
+
+
 public:
 	Inventory()  {};
 	~Inventory() {};

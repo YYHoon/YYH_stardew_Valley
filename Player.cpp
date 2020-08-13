@@ -31,9 +31,6 @@ HRESULT Player::init()
 	_tool = new ToolItemManager;
 	_tool->GetNowTileMapMemoyrAddressLink(_Map);
 	_tool->Init();
-
-
-
 	return S_OK;
 }
 
@@ -53,8 +50,7 @@ void Player::update()
 	
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
-		_tool->SetImpactIndex("Axe",_actTileIndex);
-		
+		_tool->SetImpactIndex("Axe",_actTileIndex[0]);
 		_tool->Action("Axe");
 	}
 
@@ -62,21 +58,22 @@ void Player::update()
 	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
 	//_tool->Action("Pickax");
+	ZORDER->ZOrderPush(getMemDC(), RenderType::KEYANIRENDER, _info.img ,_info.collision.left, _info.collision.top, _info.anim, _info.shadowCollision.bottom);
 
 }
 
 void Player::render()
 {
 	CAMERAMANAGER->rectangle(getMemDC(), _info.shadowCollision);
-
-	_info.shadowImg->render(getMemDC(), _info.shadowCollision.left, _info.shadowCollision.top);
-	_info.img->aniRender(getMemDC(), _info.collision.left, _info.collision.top, _info.anim);
+	/*_info.shadowImg->render(getMemDC(), _info.shadowCollision.left, _info.shadowCollision.top);
+	_info.img->aniRender(getMemDC(), _info.collision.left, _info.collision.top, _info.anim);*/
 
 }
 
 void Player::release()
 {
 }
+
 
 
 void Player::ChangeState(shared_ptr<State> state)
@@ -149,63 +146,169 @@ void Player::CheckTiles()
 		/*float distance = _mousePt.Distance(_mousePt, Vector2((_Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.right - _Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.left) * 0.5,
 			(_Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.top - _Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.bottom) * 0.5), true);*/
 		float distance = getDistance(playerTileCenter.x, playerTileCenter.y, _mousePt.x, _mousePt.y);
-		if (distance > sqrtf(TILESIZE * TILESIZE * 2))
+		if (distance > sqrtf(TILESIZE * TILESIZE * 10))
 		{
 			cout << "왜 이것만 나오누?" << endl;
 			// 보는방향 찍고
+
+			if(_state->GetStateName() != "swing")
 			switch (_info.direction)
 			{
 			case PLAYER_DIRECTION::UP:
-				_actTileIndex = (_playerTileX + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
-				if (_actTileIndex <= 0 || _actTileIndex >= allTiles)_actTileIndex = 0;
+				_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
 				break;
 			case PLAYER_DIRECTION::DOWN:
-				_actTileIndex = (_playerTileX + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
-				if (_actTileIndex <= 0 || _actTileIndex >= allTiles)_actTileIndex = 0;
+				_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
 				break;
 			case PLAYER_DIRECTION::RIGHT:
-				_actTileIndex = (_playerTileX + _playerTileY * _Map->GetHorizon()) + 1;
-				if (_actTileIndex <= 0 || _actTileIndex >= allTiles)_actTileIndex = 0;
+				_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + 1;
 				break;
 			case PLAYER_DIRECTION::LEFT:
-				_actTileIndex = (_playerTileX + _playerTileY * _Map->GetHorizon()) - 1;
-				if (_actTileIndex <= 0 || _actTileIndex >= allTiles)_actTileIndex = 0;
+				_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - 1;
 				break;
 			default:
 				break;
 			}
-
+			else
+			{
+				switch (_info.direction)
+				{
+				case PLAYER_DIRECTION::UP:
+					_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+					_actTileIndex[1] = (_playerTileX - 1 + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+					_actTileIndex[2] = (_playerTileX + 1 + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+					break;
+				case PLAYER_DIRECTION::DOWN:
+					_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+					_actTileIndex[1] = (_playerTileX - 1 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+					_actTileIndex[2] = (_playerTileX + 1 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+					break;
+				case PLAYER_DIRECTION::RIGHT:
+					_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + 1;
+					_actTileIndex[1] = (_playerTileX + _playerTileY + 1 * _Map->GetHorizon()) + 1;
+					_actTileIndex[2] = (_playerTileX + _playerTileY  - 1* _Map->GetHorizon()) + 1;
+					break;
+				case PLAYER_DIRECTION::LEFT:
+					_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - 1;
+					_actTileIndex[1] = (_playerTileX + _playerTileY + 1 * _Map->GetHorizon()) - 1;
+					_actTileIndex[1] = (_playerTileX + _playerTileY - 1 * _Map->GetHorizon()) - 1;
+					break;
+				default:
+					break;
+				}
+			}
+			for (int i = 0; i < 3; ++i)
+			{
+				if (_actTileIndex[i] <= 0 || _actTileIndex[i] >= allTiles)_actTileIndex[i] = 0;
+			}
 		}
-		else if (distance < sqrtf(TILESIZE * TILESIZE * 2))
+		else if (distance < sqrtf(TILESIZE * TILESIZE * 5))
 		{
 			Vector2 chk =Vector2(floor(Vector2(_mousePt - playerTileCenter).Nomalized().x + 0.5), floor(Vector2(_mousePt - playerTileCenter).Nomalized().y + 0.5));
-			
-			if (chk == Vector2::upRight || chk == Vector2::up || chk == Vector2::upLeft)
+			if (_state->GetStateName() != "swing")
 			{
-				_info.direction = PLAYER_DIRECTION::UP;
+				if (chk == Vector2::upRight)
+				{
+					_info.direction = PLAYER_DIRECTION::UP;
+					_actTileIndex[0] = (_playerTileX + 1 + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+				}
+				else if (chk == Vector2::up)
+				{
+					_info.direction = PLAYER_DIRECTION::UP;
+					_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+				}
+				else if (chk == Vector2::upLeft)
+				{
+					_info.direction = PLAYER_DIRECTION::UP;
+					_actTileIndex[0] = (_playerTileX - 1 + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+				}
+				else if (chk == Vector2::downRight)
+				{
+					_info.direction = PLAYER_DIRECTION::DOWN;
+					_actTileIndex[0] = (_playerTileX + 1 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+				}
+				else if (chk == Vector2::down)
+				{
+					_info.direction = PLAYER_DIRECTION::DOWN;
+					_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+				}
+				else if (chk == Vector2::downLeft)
+				{
+					_info.direction = PLAYER_DIRECTION::DOWN;
+					_actTileIndex[0] = (_playerTileX - 1 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+				}
+				else if (chk == Vector2::right)
+				{
+					_info.direction = PLAYER_DIRECTION::RIGHT;
+					_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + 1;
+				}
+				else if (chk == Vector2::left)
+				{
+					_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - 1;
+					_info.direction = PLAYER_DIRECTION::LEFT;
+				}
+				if (_actTileIndex[0] <= 0 || _actTileIndex[0] >= allTiles)_actTileIndex[0] = 0;
 			}
-			else if(chk == Vector2::downRight || chk == Vector2::down || chk == Vector2::downLeft)
+			else
 			{
-				_info.direction = PLAYER_DIRECTION::DOWN;
+				if (chk == Vector2::upRight)
+				{
+					_info.direction = PLAYER_DIRECTION::UP;
+					_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+					_actTileIndex[1] = (_playerTileX + 1 + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+					_actTileIndex[2] = (_playerTileX - 1 + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+				}
+				else if (chk == Vector2::up)
+				{
+					_info.direction = PLAYER_DIRECTION::UP;
+					_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+					_actTileIndex[1] = (_playerTileX + 1 + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+					_actTileIndex[2] = (_playerTileX - 1 + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+				}
+				else if (chk == Vector2::upLeft)
+				{
+					_info.direction = PLAYER_DIRECTION::UP;
+					_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+					_actTileIndex[1] = (_playerTileX + 1 + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+					_actTileIndex[2] = (_playerTileX - 1 + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+				}
+				else if (chk == Vector2::downRight)
+				{
+					_info.direction = PLAYER_DIRECTION::DOWN;
+					_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+					_actTileIndex[1] = (_playerTileX + 1 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+					_actTileIndex[2] = (_playerTileX - 1 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+				}
+				else if (chk == Vector2::down)
+				{
+					_info.direction = PLAYER_DIRECTION::DOWN;
+					_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+					_actTileIndex[1] = (_playerTileX + 1 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+					_actTileIndex[2] = (_playerTileX - 1 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+				}
+				else if (chk == Vector2::downLeft)
+				{
+					_info.direction = PLAYER_DIRECTION::DOWN;
+					_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+					_actTileIndex[1] = (_playerTileX + 1 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+					_actTileIndex[2] = (_playerTileX - 1 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+				}
+				else if (chk == Vector2::right)
+				{
+					_info.direction = PLAYER_DIRECTION::RIGHT;
+					_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + 1;
+					_actTileIndex[1] = (_playerTileX + (_playerTileY + 1) * _Map->GetHorizon()) + 1;
+					_actTileIndex[2] = (_playerTileX + (_playerTileY - 1)* _Map->GetHorizon()) + 1;
+				}
+				else if (chk == Vector2::left)
+				{
+					_info.direction = PLAYER_DIRECTION::LEFT;
+					_actTileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - 1;
+					_actTileIndex[1] = (_playerTileX + (_playerTileY + 1) * _Map->GetHorizon()) - 1;
+					_actTileIndex[2] = (_playerTileX + (_playerTileY - 1) * _Map->GetHorizon()) - 1;
+				}
+				if (_actTileIndex[0] <= 0 || _actTileIndex[0] >= allTiles)_actTileIndex[0] = 0;
 			}
-			else if (chk == Vector2::right) 
-			{
-				_info.direction = PLAYER_DIRECTION::RIGHT;
-			}
-			else if (chk == Vector2::left)
-			{
-				_info.direction = PLAYER_DIRECTION::LEFT;
-			}
-			//_info.direction = PLAYER_DIRECTION::UP;
-			//_info.direction = PLAYER_DIRECTION::DOWN;
-			//_info.direction = PLAYER_DIRECTION::DOWN;
-			_actTileIndex = (_mousePt.x + _mousePt.y * _Map->GetHorizon());
-			if (_actTileIndex <= 0 || _actTileIndex >= allTiles)_actTileIndex = 0;
-
-		}
-		else
-		{
-
 		}
 	}
 
@@ -217,57 +320,48 @@ void Player::CheckTiles()
 		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
 		_tileIndex[1] = ((_playerTileX + 1) + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
 		_tileIndex[2] = ((_playerTileX - 1) + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
-		for (int i = 0; i < 3; ++i)
-		{
-			if (_tileIndex[i] <= 0 || _tileIndex[i] >= allTiles)_tileIndex[i] = 0;
-		}
 		break;
 	case PLAYER_DIRECTION::DOWN:
 		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
 		_tileIndex[1] = ((_playerTileX + 1) + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
 		_tileIndex[2] = ((_playerTileX - 1) + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
-		for (int i = 0; i < 3; ++i)
-		{
-			if (_tileIndex[i] <= 0 || _tileIndex[i] >= allTiles)_tileIndex[i] = 0;
-		}
 		break;
 	case PLAYER_DIRECTION::RIGHT:
 		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + 1;
 		_tileIndex[1] = (_playerTileX + (_playerTileY + 1) * _Map->GetHorizon()) + 1;
 		_tileIndex[2] = (_playerTileX + (_playerTileY - 1) * _Map->GetHorizon()) + 1;
-		for (int i = 0; i < 3; ++i)
-		{
-			if (_tileIndex[i] <= 0 || _tileIndex[i] >= allTiles)_tileIndex[i] = 0;
-		}
 		break;
 	case PLAYER_DIRECTION::LEFT:
 		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - 1;
 		_tileIndex[1] = (_playerTileX + (_playerTileY + 1) * _Map->GetHorizon()) - 1;
 		_tileIndex[2] = (_playerTileX + (_playerTileY - 1) * _Map->GetHorizon()) - 1;
-		for (int i = 0; i < 3; ++i)
-		{
-			if (_tileIndex[i] <= 0 || _tileIndex[i] >= allTiles)_tileIndex[i] = 0;
-		}
 		break;
 	case PLAYER_DIRECTION::UP_RIGHT:
 		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
 		_tileIndex[1] = ((_playerTileX + 1) + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
-		_tileIndex[2] = ((_playerTileX - 1) + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
-		for (int i = 0; i < 3; ++i)
-		{
-			if (_tileIndex[i] <= 0 || _tileIndex[i] >= allTiles)_tileIndex[i] = 0;
-		}
+		_tileIndex[2] = ((_playerTileX + 2) + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
 		break;
 	case PLAYER_DIRECTION::UP_LEFT:
 		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
-		_tileIndex[1] = (_playerTileX + (_playerTileY + 1) * _Map->GetHorizon()) - 1;
-		_tileIndex[2] = (_playerTileX + (_playerTileY - 1) * _Map->GetHorizon()) - 1;
-		for (int i = 0; i < 3; ++i)
-		{
-			if (_tileIndex[i] <= 0 || _tileIndex[i] >= allTiles)_tileIndex[i] = 0;
-		}
+		_tileIndex[1] = (_playerTileX + (_playerTileY - 1) * _Map->GetHorizon()) - _Map->GetHorizon();
+		_tileIndex[2] = (_playerTileX + (_playerTileY - 2) * _Map->GetHorizon()) - _Map->GetHorizon();
+		break;
+	case PLAYER_DIRECTION::DOWN_RIGHT:
+		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+		_tileIndex[1] = (_playerTileX + 1 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+		_tileIndex[2] = (_playerTileX + 2 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+		break;
+	case PLAYER_DIRECTION::DOWN_LEFT:
+		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+		_tileIndex[1] = (_playerTileX - 1 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+		_tileIndex[2] = (_playerTileX - 2 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+		break;
 	default:
 		break;
+	}
+	for (int i = 0; i < 3; ++i)
+	{
+		if (_tileIndex[i] <= 0 || _tileIndex[i] >= allTiles)_tileIndex[i] = 0;
 	}
 
 	for (int i = 0; i < 3; ++i)
@@ -277,39 +371,48 @@ void Player::CheckTiles()
 			switch (_info.direction)
 			{
 			case PLAYER_DIRECTION::UP:
-				_info.velocity = 0;
-				_info.position.y += 1;
+				_info.position.y += _info.velocity;
 				break;
 			case PLAYER_DIRECTION::DOWN:
-				_info.velocity = 0;
-				_info.position.y -= 1;
+				_info.position.y -= _info.velocity;
 				break;
 			case PLAYER_DIRECTION::RIGHT:
-				_info.velocity = 0;
-				_info.position.x -= 1;
+				_info.position.x -= _info.velocity;
 				break;
 			case PLAYER_DIRECTION::LEFT:
-				_info.velocity = 0;
-				_info.position.x += 1;
+				_info.position.x += _info.velocity;
 				break;
 			case PLAYER_DIRECTION::UP_RIGHT:
-				_info.velocity = 0;
+				_info.position.y += _info.velocity;
+				_info.position.x -= _info.velocity;
 				break;
 			case PLAYER_DIRECTION::UP_LEFT:
-				_info.velocity = 0;
+				_info.position.y += _info.velocity;
+				_info.position.x += _info.velocity;
 				break;
 			case PLAYER_DIRECTION::DOWN_RIGHT:
-				_info.velocity = 0;
+				_info.position.y -= _info.velocity;
+				_info.position.x -= _info.velocity;
 				break;
 			case PLAYER_DIRECTION::DOWN_LEFT:
-				_info.velocity = 0;
-				break;
-			case PLAYER_DIRECTION::END:
+				_info.position.y -= _info.velocity;
+				_info.position.x += _info.velocity;
 				break;
 			default:
 				break;
 			}
 		}
 	}
+
+}
+
+void Player::SavePlayerInfo()
+{
+
+}
+
+void Player::LoadPlayerInfo()
+{
+
 
 }
