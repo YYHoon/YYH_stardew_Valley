@@ -67,6 +67,9 @@ public:
 	PLAYER_DIRECTION GetDirection() { return _info.direction; }
 	TOOLS GetEquip() { return _info.equipment; }
 	int* GetTileIndex() { return _actTileIndex; }
+	int GetmaxStamina() { return _info.maxStamina; }
+	int GetStamina() { return _info.stamina; }
+
 	void SetName(string Name) { _info.name = Name; }
 	void SetImg(string imgName) { _info.img = IMAGEMANAGER->findImage(imgName); }
 	void SetAnim(string stringName) { _info.anim = KEYANIMANAGER->findAnimation(stringName); }

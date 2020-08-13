@@ -288,6 +288,9 @@
     <ClInclude Include="AllMap.h">
       <Filter>playGround\Map</Filter>
     </ClInclude>
+    <ClInclude Include="HpStaminaBar.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -454,6 +457,9 @@
     </ClCompile>
     <ClCompile Include="MapManager.cpp">
       <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="HpStaminaBar.cpp">
+      <Filter>playGround\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
