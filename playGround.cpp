@@ -28,13 +28,10 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("맵툴", _MaptoolScene = new MapToolScene);
 	SCENEMANAGER->addScene("LOADING", _LoadingScene = new LoadingScene);
 	SCENEMANAGER->addScene("Dummy", _dummy = new DummyMap);
-	MapFarm* _farm;
-	MapHome* _home;
-	MapTest* _test;
-	SCENEMANAGER->addScene("FARM", _farm = new MapFarm);
-	SCENEMANAGER->addScene("HOME", _home = new MapHome);
-	SCENEMANAGER->addScene("Test", _test = new MapTest);
-	SCENEMANAGER->changeScene("Test");
+	SCENEMANAGER->addScene("map", map = new MapFarm);
+
+
+	SCENEMANAGER->changeScene("테스트");
 
 
 
@@ -97,7 +94,11 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("QuickSlotSelect", "image/퀵스선택.bmp", 64, 64, true, MAGENTA);
 	IMAGEMANAGER->addImage("UpArrow", "image/위화살표.bmp", 40, 44, true, MAGENTA);
 	IMAGEMANAGER->addImage("DownArrow", "image/아래화살표.bmp", 40, 44, true, MAGENTA);
-	IMAGEMANAGER->addImage("CloseButton", "image/닫기버튼.bmp", 44, 44, true, MAGENTA);
+
+	//아이템 테스트
+	IMAGEMANAGER->addImage("axe", "image/Inventory/axe.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("cauliFlowerSeed", "image/Inventory/cauliFlowerSeed.bmp", 64, 64, true, MAGENTA);
+
 	//환경
 	IMAGEMANAGER->addImage("Environment_Clock", "Image/Environment/Environment_Clock.bmp", 284, 160, true, MAGENTA);
 
@@ -110,7 +111,7 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("UI_Inventory_KeyInfo", "Image/Inventory/UI_Inventory_KeyInfo.bmp", 848, 648, true, MAGENTA);
 	IMAGEMANAGER->addImage("UI_Inventory_Game_Close", "Image/Inventory/UI_Inventory_Game_Close.bmp", 848, 648, true, MAGENTA);
 	IMAGEMANAGER->addImage("Inventory_Close", "Image/Inventory/Inventory_Close.bmp", 44, 44, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("UI_Inventory_Trashcan", "Image/Inventory/UI_Inventory_Trashcan.bmp", 184, 71, 4, 1, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("UI_Inventory_Trashcan", "Image/Inventory/UI_Inventory_Trashcan.bmp", 368, 142, 4, 1, true, MAGENTA);
 
 	//상점관련
 	IMAGEMANAGER->addFrameImage("StoreOwnerPortrait", "image/상점/상점주인_초상화(420x630).bmp", 420, 630, 2, 3, true, MAGENTA);
@@ -147,11 +148,9 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("FishRare", "image/낚시/레어물고기.bmp", 28, 29, true, MAGENTA);
 	
 	/////MapTool
-	
+	IMAGEMANAGER->addImage("CloseButton", "image/닫기버튼.bmp", 44, 44, true, MAGENTA);
 
 	IMAGEMANAGER->addFrameImage("Terrain", "image/mapTool/Terrain.bmp", 0, 0, 448, 448, 448 / TILESIZE, 448 / TILESIZE, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("Wall", "image/mapTool/Wall.bmp", 0, 0, 512, 448, 512 / TILESIZE, 448 / TILESIZE, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("HoeTile", "image/mapTool/HoeTile.bmp", 0, 0, 384, 384, 384 / TILESIZE, 384 / TILESIZE, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("Tree", "image/mapTool/Tree.bmp", 0, 0, 578, 384, 3, 1, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("House", "image/mapTool/House.bmp", 0, 0, 576, 576, 1, 1, true, MAGENTA);
 	IMAGEMANAGER->addImage("Line", "image/mapTool/Line.bmp", 64, 64, true, MAGENTA);

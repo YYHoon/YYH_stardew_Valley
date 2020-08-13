@@ -2,8 +2,6 @@
 #include "Player.h"
 #include "State.h"
 #include "DummyMap.h"
-#include "AllMap.h"
-
 
 HRESULT Player::init()
 {
@@ -29,11 +27,11 @@ HRESULT Player::init()
 	_isKeyDown = false;
 
 	_tool = new ToolItemManager;
-	_tool->GetNowTileMapMemoyrAddressLink(_Map);
+	_tool->GetNowTileMapMemoyrAddressLink(_map);
 	_tool->Init();
-
-
-
+	cout << _map << endl;
+	
+	cout << _tool << endl;
 	return S_OK;
 }
 
@@ -135,7 +133,7 @@ void Player::Move()
 
 void Player::CheckTiles()
 {
-	int allTiles = _Map->GetMapSize();
+	int allTiles = _map->GetMapSize();
 	_playerTileX = _info.position.x / 64;
 	_playerTileY = _info.position.y / 64;
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
@@ -143,11 +141,11 @@ void Player::CheckTiles()
 		_mousePt.x = _ptMouse.x;
 		_mousePt.y = _ptMouse.y;
 
-		int playerTile = _playerTileX + _playerTileY * _Map->GetHorizon();
-		Vector2 playerTileCenter = Vector2((_Map->GetTiles(playerTile).rc.right + _Map->GetTiles(playerTile).rc.left) * 0.5, (_Map->GetTiles(playerTile).rc.bottom + _Map->GetTiles(playerTile).rc.top) * 0.5);
+		int playerTile = _playerTileX + _playerTileY * _map->GetHorizon();
+		Vector2 playerTileCenter = Vector2((_map->GetTiles(playerTile).rc.right + _map->GetTiles(playerTile).rc.left) * 0.5, (_map->GetTiles(playerTile).rc.bottom + _map->GetTiles(playerTile).rc.top) * 0.5);
 		cout << floor(Vector2( _mousePt- playerTileCenter).Nomalized().x + 0.5)<<" "<< floor(Vector2( _mousePt- playerTileCenter).Nomalized().y+0.5) << endl;
-		/*float distance = _mousePt.Distance(_mousePt, Vector2((_Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.right - _Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.left) * 0.5,
-			(_Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.top - _Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.bottom) * 0.5), true);*/
+		/*float distance = _mousePt.Distance(_mousePt, Vector2((_map->GetTiles(_playerTileX + _playerTileY * _map->GetHorizon()).rc.right - _map->GetTiles(_playerTileX + _playerTileY * _map->GetHorizon()).rc.left) * 0.5,
+			(_map->GetTiles(_playerTileX + _playerTileY * _map->GetHorizon()).rc.top - _map->GetTiles(_playerTileX + _playerTileY * _map->GetHorizon()).rc.bottom) * 0.5), true);*/
 		float distance = getDistance(playerTileCenter.x, playerTileCenter.y, _mousePt.x, _mousePt.y);
 		if (distance > sqrtf(TILESIZE * TILESIZE * 2))
 		{
@@ -156,19 +154,19 @@ void Player::CheckTiles()
 			switch (_info.direction)
 			{
 			case PLAYER_DIRECTION::UP:
-				_actTileIndex = (_playerTileX + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+				_actTileIndex = (_playerTileX + _playerTileY * _map->GetHorizon()) - _map->GetHorizon();
 				if (_actTileIndex <= 0 || _actTileIndex >= allTiles)_actTileIndex = 0;
 				break;
 			case PLAYER_DIRECTION::DOWN:
-				_actTileIndex = (_playerTileX + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+				_actTileIndex = (_playerTileX + _playerTileY * _map->GetHorizon()) + _map->GetHorizon();
 				if (_actTileIndex <= 0 || _actTileIndex >= allTiles)_actTileIndex = 0;
 				break;
 			case PLAYER_DIRECTION::RIGHT:
-				_actTileIndex = (_playerTileX + _playerTileY * _Map->GetHorizon()) + 1;
+				_actTileIndex = (_playerTileX + _playerTileY * _map->GetHorizon()) + 1;
 				if (_actTileIndex <= 0 || _actTileIndex >= allTiles)_actTileIndex = 0;
 				break;
 			case PLAYER_DIRECTION::LEFT:
-				_actTileIndex = (_playerTileX + _playerTileY * _Map->GetHorizon()) - 1;
+				_actTileIndex = (_playerTileX + _playerTileY * _map->GetHorizon()) - 1;
 				if (_actTileIndex <= 0 || _actTileIndex >= allTiles)_actTileIndex = 0;
 				break;
 			default:
@@ -199,7 +197,7 @@ void Player::CheckTiles()
 			//_info.direction = PLAYER_DIRECTION::UP;
 			//_info.direction = PLAYER_DIRECTION::DOWN;
 			//_info.direction = PLAYER_DIRECTION::DOWN;
-			_actTileIndex = (_mousePt.x + _mousePt.y * _Map->GetHorizon());
+			_actTileIndex = (_mousePt.x + _mousePt.y * _map->GetHorizon());
 			if (_actTileIndex <= 0 || _actTileIndex >= allTiles)_actTileIndex = 0;
 
 		}
@@ -214,54 +212,54 @@ void Player::CheckTiles()
 	switch (_info.direction)
 	{
 	case PLAYER_DIRECTION::UP:
-		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
-		_tileIndex[1] = ((_playerTileX + 1) + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
-		_tileIndex[2] = ((_playerTileX - 1) + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+		_tileIndex[0] = (_playerTileX + _playerTileY * _map->GetHorizon()) - _map->GetHorizon();
+		_tileIndex[1] = ((_playerTileX + 1) + _playerTileY * _map->GetHorizon()) - _map->GetHorizon();
+		_tileIndex[2] = ((_playerTileX - 1) + _playerTileY * _map->GetHorizon()) - _map->GetHorizon();
 		for (int i = 0; i < 3; ++i)
 		{
 			if (_tileIndex[i] <= 0 || _tileIndex[i] >= allTiles)_tileIndex[i] = 0;
 		}
 		break;
 	case PLAYER_DIRECTION::DOWN:
-		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
-		_tileIndex[1] = ((_playerTileX + 1) + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
-		_tileIndex[2] = ((_playerTileX - 1) + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+		_tileIndex[0] = (_playerTileX + _playerTileY * _map->GetHorizon()) + _map->GetHorizon();
+		_tileIndex[1] = ((_playerTileX + 1) + _playerTileY * _map->GetHorizon()) + _map->GetHorizon();
+		_tileIndex[2] = ((_playerTileX - 1) + _playerTileY * _map->GetHorizon()) + _map->GetHorizon();
 		for (int i = 0; i < 3; ++i)
 		{
 			if (_tileIndex[i] <= 0 || _tileIndex[i] >= allTiles)_tileIndex[i] = 0;
 		}
 		break;
 	case PLAYER_DIRECTION::RIGHT:
-		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + 1;
-		_tileIndex[1] = (_playerTileX + (_playerTileY + 1) * _Map->GetHorizon()) + 1;
-		_tileIndex[2] = (_playerTileX + (_playerTileY - 1) * _Map->GetHorizon()) + 1;
+		_tileIndex[0] = (_playerTileX + _playerTileY * _map->GetHorizon()) + 1;
+		_tileIndex[1] = (_playerTileX + (_playerTileY + 1) * _map->GetHorizon()) + 1;
+		_tileIndex[2] = (_playerTileX + (_playerTileY - 1) * _map->GetHorizon()) + 1;
 		for (int i = 0; i < 3; ++i)
 		{
 			if (_tileIndex[i] <= 0 || _tileIndex[i] >= allTiles)_tileIndex[i] = 0;
 		}
 		break;
 	case PLAYER_DIRECTION::LEFT:
-		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - 1;
-		_tileIndex[1] = (_playerTileX + (_playerTileY + 1) * _Map->GetHorizon()) - 1;
-		_tileIndex[2] = (_playerTileX + (_playerTileY - 1) * _Map->GetHorizon()) - 1;
+		_tileIndex[0] = (_playerTileX + _playerTileY * _map->GetHorizon()) - 1;
+		_tileIndex[1] = (_playerTileX + (_playerTileY + 1) * _map->GetHorizon()) - 1;
+		_tileIndex[2] = (_playerTileX + (_playerTileY - 1) * _map->GetHorizon()) - 1;
 		for (int i = 0; i < 3; ++i)
 		{
 			if (_tileIndex[i] <= 0 || _tileIndex[i] >= allTiles)_tileIndex[i] = 0;
 		}
 		break;
 	case PLAYER_DIRECTION::UP_RIGHT:
-		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
-		_tileIndex[1] = ((_playerTileX + 1) + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
-		_tileIndex[2] = ((_playerTileX - 1) + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+		_tileIndex[0] = (_playerTileX + _playerTileY * _map->GetHorizon()) - _map->GetHorizon();
+		_tileIndex[1] = ((_playerTileX + 1) + _playerTileY * _map->GetHorizon()) - _map->GetHorizon();
+		_tileIndex[2] = ((_playerTileX - 1) + _playerTileY * _map->GetHorizon()) - _map->GetHorizon();
 		for (int i = 0; i < 3; ++i)
 		{
 			if (_tileIndex[i] <= 0 || _tileIndex[i] >= allTiles)_tileIndex[i] = 0;
 		}
 		break;
 	case PLAYER_DIRECTION::UP_LEFT:
-		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
-		_tileIndex[1] = (_playerTileX + (_playerTileY + 1) * _Map->GetHorizon()) - 1;
-		_tileIndex[2] = (_playerTileX + (_playerTileY - 1) * _Map->GetHorizon()) - 1;
+		_tileIndex[0] = (_playerTileX + _playerTileY * _map->GetHorizon()) - _map->GetHorizon();
+		_tileIndex[1] = (_playerTileX + (_playerTileY + 1) * _map->GetHorizon()) - 1;
+		_tileIndex[2] = (_playerTileX + (_playerTileY - 1) * _map->GetHorizon()) - 1;
 		for (int i = 0; i < 3; ++i)
 		{
 			if (_tileIndex[i] <= 0 || _tileIndex[i] >= allTiles)_tileIndex[i] = 0;
@@ -272,7 +270,7 @@ void Player::CheckTiles()
 
 	for (int i = 0; i < 3; ++i)
 	{
-		if ((_Map->GetTiles(_tileIndex[i]).collision && isCollision(_Map->GetTiles(_tileIndex[i]).rc, _info.shadowCollision)))
+		if ((_map->GetTiles(_tileIndex[i]).collision && isCollision(_map->GetTiles(_tileIndex[i]).rc, _info.shadowCollision)))
 		{
 			switch (_info.direction)
 			{

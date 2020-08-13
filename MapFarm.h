@@ -1,8 +1,8 @@
 #pragma once
 #include "MapMain.h"
-class MapFarm : public MapMain
+class MapFarm :
+    public MapMain
 {
-private:
 
 public:
 	virtual HRESULT init();

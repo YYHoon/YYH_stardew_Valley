@@ -155,7 +155,6 @@
   <ItemGroup>
     <ClInclude Include="AllDefine.h" />
     <ClInclude Include="AllEnum.h" />
-    <ClInclude Include="AllMap.h" />
     <ClInclude Include="AllUi.h" />
     <ClInclude Include="animation.h" />
     <ClInclude Include="Axe.h" />
@@ -181,10 +180,7 @@
     <ClInclude Include="keyManager.h" />
     <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="MapFarm.h" />
-    <ClInclude Include="MapHome.h" />
     <ClInclude Include="MapMain.h" />
-    <ClInclude Include="MapManager.h" />
-    <ClInclude Include="MapTest.h" />
     <ClInclude Include="MapToolScene.h" />
     <ClInclude Include="MiniGame.h" />
     <ClInclude Include="ObjectManager.h" />
@@ -240,10 +236,7 @@
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="MapFarm.cpp" />
-    <ClCompile Include="MapHome.cpp" />
     <ClCompile Include="MapMain.cpp" />
-    <ClCompile Include="MapManager.cpp" />
-    <ClCompile Include="MapTest.cpp" />
     <ClCompile Include="MapTool + SaveLoad.cpp" />
     <ClCompile Include="MapToolScene.cpp" />
     <ClCompile Include="MiniGame.cpp" />

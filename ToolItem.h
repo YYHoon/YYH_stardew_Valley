@@ -1,7 +1,6 @@
 #pragma once
 #include "gameNode.h"
 #include"DummyMap.h"
-class MapMain;
 
 //class DummyMap;//øµ«‚≥¢ƒ• ∏ 
 
@@ -17,7 +16,7 @@ protected:
 	bool _slashSignal = false;
 
 	MAPOBJECT	_mapObject = MAPOBJECT::NONE;	//¡ˆ«¸ø¿∫Í¡ß∆Æ¿«º”º∫
-	MapMain* _map;//øµ«‚¡Ÿ∏ 
+	DummyMap* _dummy;//øµ«‚¡Ÿ∏ 
 
 public:
 	ToolItem() { ; }
@@ -67,6 +66,6 @@ public:
 	virtual void Init() = 0;
 	virtual void Action() = 0;
 	virtual void ReAction() = 0;
-	inline void SetNowMapMemoryAddressLink(MapMain* dmap) { _map = dmap; }
+	inline void SetNowMapMemoryAddressLink(DummyMap* dmap) { _dummy = dmap; }
 };
 

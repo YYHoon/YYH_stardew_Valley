@@ -6,21 +6,23 @@ HRESULT Environment::init()
 	_alphaValue = 0;
 	_realTimeSecond = 0;
 
-	_isGamePause = false;
+	_isInventoryOpen = false;
 
 	/// <summary>
-	_originalRatio = ((_originalDelay * 100) / _originalTime);
-	cout << "OriginalRatio : " << _originalRatio << "%" << endl;
+	_ratio = (_originalDelay * 100) / _originalTime;
+	//cout << "Ratio : " << _ratio << "%" << endl;
 	/// </summary>
 
-	//_clockCalculate = ()/REALTIMEMAX;
+	_clockCalculate = 0;
+
+	_clockHand.count = 0;
 
 	_currentTimeSec = 0;
-	_clockValue = 0;
-	_clockHand.Angle = -PI / 2;
-	_clockHand.Length = 72;
-	_clockHand.Center.x = 1385.5f;
-	_clockHand.Center.y = 90;
+	_clockHand.value = 0;
+	_clockHand.angle = -PI / 2;
+	_clockHand.length = 72;
+	_clockHand.center.x = 1385.5f;
+	_clockHand.center.y = 90;
 
 	_delay = ALPHADELAY;
 
@@ -34,54 +36,67 @@ void Environment::release()
 void Environment::update()
 {
 	_elapsedTime = TIMEMANAGER->getElapsedTime();
-
-	_currentTimeSec = (int)_realTimeSecond;
+	_clockCalculate += _elapsedTime;
 
 	if (KEYMANAGER->isOnceKeyDown('E'))
 	{
-		!_isGamePause ? _isGamePause = true : _isGamePause = false;
+		if (!_isInventoryOpen)
+		{
+			_isInventoryOpen = true;
+		}
+		else
+		{
+			_isInventoryOpen = false;
+		}
 	}
 
-	!_isGamePause ? _realTimeSecond += _elapsedTime : _realTimeSecond += 0;
+	if (!_isInventoryOpen) _realTimeSecond += _elapsedTime;
+	else _realTimeSecond += 0;
 
-	if (!_isGamePause)
+	if (!_isInventoryOpen)
 	{
 		//ClockHand
 		/////////////////////////////////////<Test>
-		for (int i = 0; i < _currentTimeSec; i++)
+
+		///////////////////<↓↓↓↓시간 계산 현재 20초 기준 차후 수식으로 고칠 것↓↓↓↓>///////////////////
+		if (_clockCalculate >= 0.1669f)
 		{
-			_clockValue += i;
+			_clockHand.count++;
+
+			if (_clockHand.count == 1)
+			{
+				_clockHand.value++;
+				_clockCalculate = 0;
+				_clockHand.count = 0;
+			}
+
+			if (_clockHand.angle <= PI / 2)
+			{
+				_clockHand.angle -= CLOCKMOVEDANGLE;
+			}
+		}
+		///////////////////<↑↑↑↑시간 계산 현재 20초 기준 차후 수식으로 고칠 것↑↑↑↑>///////////////////
+
+		//	cout << "ClockValue : " << _clockHand.value << endl;
+
+		if (_clockHand.value >= CLOCKTIMEMAX)
+		{
+			_clockHand.value = 0;
+			_clockHand.angle = -PI / 2;
 		}
 
-		if (_clockHand.Angle <= PI / 2)
-		{
-			_clockHand.Angle -= CLOCKMOVEDANGLE;
-		}
-
-		//cout << "_currentTimeSec : " << _currentTimeSec << endl;
-
-		if (/*_clockValue >= CLOCKMAX*/ _clockHand.Angle < PI / 2)
-		{
-			_clockValue = 0;
-			_clockHand.Angle = -PI / 2;
-		}
-
-		_clockHand.End.x = cosf(_clockHand.Angle) * _clockHand.Length + _clockHand.Center.x;
-		_clockHand.End.y = -sinf(_clockHand.Angle) * _clockHand.Length + _clockHand.Center.y;
+		_clockHand.end.x = cosf(_clockHand.angle) * _clockHand.length + _clockHand.center.x;
+		_clockHand.end.y = -sinf(_clockHand.angle) * _clockHand.length + _clockHand.center.y;
 		/////////////////////////////////////</Test>
 
 		/// AlphaRender
 		if (_realTimeSecond >= REALTIMEHALF)
 		{
-			if (timeUpdate(TIMEMANAGER->getElapsedTime() * 60))
+			if (timeUpdate(TIMEMANAGER->getElapsedTime() * 60) && _clockHand.value >= CLOCKTIMEHALF)
 			{
 				_alphaValue++;
 
 				if (_alphaValue > ALPHAVALUEMAX) _alphaValue = ALPHAVALUEMAX;
-
-				/// <summary>
-				///cout << "AlphaValue : " << _alphaValue << endl;
-				/// </summary>
 			}
 
 			if (_realTimeSecond > REALTIMEMAX)
@@ -91,7 +106,6 @@ void Environment::update()
 			}
 		}
 	}
-
 }
 
 void Environment::render()
@@ -100,5 +114,5 @@ void Environment::render()
 
 	IMAGEMANAGER->findImage("Environment_Clock")->render(getMemDC(), 1300, 12);
 
-	LineMake(getMemDC(), _clockHand.Center.x, _clockHand.Center.y, _clockHand.End.x, _clockHand.End.y);
+	LineMake(getMemDC(), _clockHand.center.x, _clockHand.center.y, _clockHand.end.x, _clockHand.end.y);
 }
