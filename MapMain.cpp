@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "MapMain.h"
 
+
+
 HRESULT MapMain::init()
 {
 	return S_OK;

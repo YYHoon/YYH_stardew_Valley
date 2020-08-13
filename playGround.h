@@ -7,7 +7,8 @@
 #include "TestScene.h"
 #include "MapToolScene.h"
 #include "DummyMap.h"
-#include"MapFarm.h"
+#include "MapManager.h"
+
 #include <iostream>
 
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
@@ -20,9 +21,9 @@ private:
 	TestScene* _Tset;
 	DummyMap* _dummy;
 	MapToolScene* _MaptoolScene;
-
+	MapTest* _test;
 	LoadingScene* _LoadingScene;
-	MapFarm* map;
+	MapManager* _mapManager;
 	Inventory* _Inv;
 
 public:
