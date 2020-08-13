@@ -1,29 +1,29 @@
 #include "stdafx.h"
-#include "MapFarm.h"
+#include "MapTest.h"
 
-HRESULT MapFarm::init()
+HRESULT MapTest::init()
 {
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
-
+	
 	_count = 0;
-	_vertical = _horizon = 100;
-	_tiles = _map->Load("map.map", _vertical, _horizon);
-	return S_OK;
+    _vertical = _horizon = 50;
+    _tiles = _map->Load("mpaTest.map", _vertical, _horizon);
+    return S_OK;
 }
 
-void MapFarm::release()
+void MapTest::release()
 {
 }
 
-void MapFarm::update()
+void MapTest::update()
 {
 	_count++;
 	_player->update();
 }
 
-void MapFarm::render()
+void MapTest::render()
 {
 	for (int i = 0; i < 16; i++)
 	{
@@ -163,6 +163,7 @@ void MapFarm::render()
 
 		}
 	}
-	ZORDER->ZOrderRender();
 	_player->render();
+	ZORDER->ZOrderRender();
+
 }

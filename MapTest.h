@@ -1,6 +1,6 @@
 #pragma once
 #include "MapMain.h"
-class MapFarm : public MapMain
+class MapTest : public MapMain
 {
 private:
 

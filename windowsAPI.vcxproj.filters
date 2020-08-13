@@ -279,6 +279,18 @@
     <ClInclude Include="MapFarm.h">
       <Filter>playGround\Map</Filter>
     </ClInclude>
+    <ClInclude Include="MapTest.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapHome.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapManager.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="AllMap.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -435,6 +447,15 @@
       <Filter>playGround\Scene\MaptoolScene</Filter>
     </ClCompile>
     <ClCompile Include="MapFarm.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapHome.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapTest.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapManager.cpp">
       <Filter>playGround\Map</Filter>
     </ClCompile>
   </ItemGroup>

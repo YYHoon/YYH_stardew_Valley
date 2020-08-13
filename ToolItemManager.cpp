@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ToolItemManager.h"
-
+#include "MapMain.h"
 ToolItemManager::ToolItemManager()
 {
 	

@@ -1,29 +1,29 @@
 #include "stdafx.h"
-#include "MapFarm.h"
+#include "MapHome.h"
 
-HRESULT MapFarm::init()
+HRESULT MapHome::init()
 {
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
 
 	_count = 0;
-	_vertical = _horizon = 100;
-	_tiles = _map->Load("map.map", _vertical, _horizon);
+	_vertical = _horizon = 75;
+	_tiles = _map->Load("mapHome.map", _vertical, _horizon);
 	return S_OK;
 }
 
-void MapFarm::release()
+void MapHome::release()
 {
 }
 
-void MapFarm::update()
+void MapHome::update()
 {
 	_count++;
 	_player->update();
 }
 
-void MapFarm::render()
+void MapHome::render()
 {
 	for (int i = 0; i < 16; i++)
 	{
