@@ -50,8 +50,8 @@ void Player::update()
 	
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
-		_tool->SetImpactIndex("Axe",_actTileIndex[0]);
-		_tool->Action("Axe");
+		_tool->SetImpactIndex("Pickax",_actTileIndex[0]);
+		_tool->Action("Pickax");
 	}
 
 	_state->Update();

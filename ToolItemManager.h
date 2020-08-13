@@ -4,7 +4,6 @@
 #include "Pickax.h"
 #include "Axe.h"
 #include "FishingRod.h"
-#include "MiniGame.h"
 #include "Homi.h"
 #include "WaterSpray.h"
 #include "Sickle.h"
@@ -23,7 +22,6 @@ private:
 	WaterSpray* _waterSpray;
 	Sickle* _sickle;
 	Sword* _sword;
-	MiniGame* _miniGame;
 
 	MapMain* _nowTileMap;
 public:

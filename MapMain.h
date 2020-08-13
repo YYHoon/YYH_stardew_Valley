@@ -20,6 +20,7 @@ public:
 	virtual tagTile GetTiles(int index) { return _tiles[index]; };
 	virtual void SetTiles(int index, tagTile tile) { _tiles[index] = tile; }
 	virtual void SetMapObject(int index, MAPOBJECT object) { _tiles[index].object = object; }
+	virtual void SetColl(int index, bool Coll) { _tiles[index].collision = Coll; }
 	virtual void SetPlayerAdressLink(Player* player) { _player = player; }
 	virtual int GetMapSize() { return _tiles.size(); }
 };

@@ -6,7 +6,7 @@ void FishingRod::Init()
 	_name = "FishingRod";
 	_tag = "ToolItem";
 	_dmage = 0;
-	_impactIndex;
+	_enumName = TOOLS::FISHINGROD;
 }
 
 void FishingRod::Action()
