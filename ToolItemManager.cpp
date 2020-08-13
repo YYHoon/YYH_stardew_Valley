@@ -50,10 +50,6 @@ void ToolItemManager::Init()
 		//_sword->Init();
 		_toolList.push_back(_sword);
 	}
-	if (_miniGame == nullptr)
-	{
-		_miniGame = new MiniGame;
-	}
 	for (int i = 0; i < _toolList.size(); ++i)
 	{
 		_toolList[i]->SetNowMapMemoryAddressLink(_nowTileMap);

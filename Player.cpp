@@ -53,9 +53,9 @@ void Player::update()
 	
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
-		_tool->SetImpactIndex("Axe",_actTileIndex);
+		_tool->SetImpactIndex("WaterSpray",_actTileIndex);
 		
-		_tool->Action("Axe");
+		_tool->Action("WaterSpray");
 	}
 
 	_state->Update();

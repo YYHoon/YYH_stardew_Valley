@@ -27,11 +27,11 @@ enum class MAPOBJECT
 	TREE1,
 	TREE2,
 	TREE3,
-	HOETILE,
-	HOETILE_WET,
-	WEED,
-	ROCK,
-	BRANCH,
+	HOETILE,		//³ó»ç¶¥
+	HOETILE_WET,	//Á¥Àº³ó»ç¶¥
+	WEED,			//Ç®
+	ROCK,			//µ¹
+	BRANCH,			//³ª¹µ°¡Áö
 	WALL,
 	BUILDING,
 	ENEMY,
