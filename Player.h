@@ -2,9 +2,10 @@
 #include "gameNode.h"
 #include "Vector2.h"
 #include "ToolItemManager.h"
+
 class State;
 class DummyMap;
-class MapMain;
+
 
 
 class Player : public gameNode
@@ -36,13 +37,12 @@ private:
 	ToolItemManager* _tool;
 
 	/// </summary>
-	string _mapName;
-	MapMain* _Map;
 	DummyMap* _map;
 	NecessaryInfo _info;
 	PLAYER_ACTION _action;
 	shared_ptr<State> _state;
 	Vector2 _mousePt;
+	string _mapName;
 	int _tileIndex[3];
 	int _actTileIndex;
 	int _playerTileX, _playerTileY;
@@ -67,6 +67,9 @@ public:
 	PLAYER_DIRECTION GetDirection() { return _info.direction; }
 	TOOLS GetEquip() { return _info.equipment; }
 	int GetTileIndex() { return _actTileIndex; }
+
+	int GetmaxStamina() { return _info.maxStamina; }
+	int GetStamina() { return _info.stamina; }
 
 	void SetName(string Name) { _info.name = Name; }
 	void SetImg(string imgName) { _info.img = IMAGEMANAGER->findImage(imgName); }
@@ -93,6 +96,5 @@ public:
 	void Move();
 	void CheckTiles();
 	void SetMapMemoryAddressLink(DummyMap* map) { _map = map; }
-	void SetMapMemoryAddressLink(MapMain* map) { _Map = map; }
 };
 

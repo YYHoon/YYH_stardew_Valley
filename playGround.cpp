@@ -28,14 +28,9 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("¸ÊÅø", _MaptoolScene = new MapToolScene);
 	SCENEMANAGER->addScene("LOADING", _LoadingScene = new LoadingScene);
 	SCENEMANAGER->addScene("Dummy", _dummy = new DummyMap);
-	MapFarm* _farm;
-	MapHome* _home;
-	MapTest* _test;
-	SCENEMANAGER->addScene("FARM", _farm = new MapFarm);
-	SCENEMANAGER->addScene("HOME", _home = new MapHome);
-	SCENEMANAGER->addScene("Test", _test = new MapTest);
-	SCENEMANAGER->changeScene("Test");
 
+
+	SCENEMANAGER->changeScene("Å×½ºÆ®");
 
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
@@ -97,7 +92,9 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("QuickSlotSelect", "image/Äü½º¼±ÅÃ.bmp", 64, 64, true, MAGENTA);
 	IMAGEMANAGER->addImage("UpArrow", "image/À§È­»ìÇ¥.bmp", 40, 44, true, MAGENTA);
 	IMAGEMANAGER->addImage("DownArrow", "image/¾Æ·¡È­»ìÇ¥.bmp", 40, 44, true, MAGENTA);
-	IMAGEMANAGER->addImage("CloseButton", "image/´Ý±â¹öÆ°.bmp", 44, 44, true, MAGENTA);
+	IMAGEMANAGER->addImage("ItemInfo", "image/ÀÏ¹Ý¾ÆÀÌÅÛ¼³¸í.bmp", 293, 258, true, MAGENTA);
+	IMAGEMANAGER->addImage("RecoveryItemInfo", "image/È¸º¹¾ÆÀÌÅÛ¼³¸í.bmp", 293, 258, true, MAGENTA);
+
 	//È¯°æ
 	IMAGEMANAGER->addImage("Environment_Clock", "Image/Environment/Environment_Clock.bmp", 284, 160, true, MAGENTA);
 
@@ -123,7 +120,7 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("PotatoSeed", "image/»óÁ¡/potatoSeed.bmp", 56, 56, true, MAGENTA);
 	IMAGEMANAGER->addImage("sugarRadishSeed", "image/»óÁ¡/sugarRadishSeed.bmp", 56, 56, true, MAGENTA);
 	IMAGEMANAGER->addImage("´ç±Ù¾¾¾Ñ", "image/»óÁ¡/´ç±Ù¾¾¾Ñ.bmp", 56, 56, true, MAGENTA);
-
+	IMAGEMANAGER->addImage("CloseButton", "image/´Ý±â¹öÆ°.bmp", 44, 44, true, MAGENTA);
 
 	//´ëÈ­Ã¢°ü·Ã
 	IMAGEMANAGER->addImage("ChatBox", "image/´ëÈ­Ã¢2.bmp", 900, 312, true, MAGENTA);
@@ -132,26 +129,11 @@ void playGround::imginit()
 
 	//Å×½ºÆ®¿ë ÀÌ¹ÌÁöÀÔ´Ï´Ù ¹«½ÃÇÏ¼¼¿ä
 	IMAGEMANAGER->addFrameImage("¸»¶ûÄ«¿ì", "image/¸»¶ûÄ«¿ì.bmp", 200, 300, 4, 6, true, MAGENTA);
-	IMAGEMANAGER->addImage("¿ÍÃò°í³ÊµÎ", "image/ÃÊ»óÈ­¿ë.bmp", 209, 200, true, MAGENTA);
 	IMAGEMANAGER->addImage("ÃÊ»óÈ­", "image/powerCow.bmp", 209, 200, true, MAGENTA);
-	IMAGEMANAGER->addImage("Äü½ºÅÝ1", "image/ItemTest/Item_Sickle.bmp", 64, 64, true, MAGENTA);
-	//³¬½Ã°ü·Ã
-	IMAGEMANAGER->addImage("FishingPowerMax", "image/³¬½Ã/³¬½ÃÃÖ´ëÆÄ¿ö´øÁü.bmp", 100, 36, true, MAGENTA);
-	IMAGEMANAGER->addImage("FishingStart", "image/³¬½Ã/³¬½Ã½ÃÀÛ.bmp", 120, 49, true, MAGENTA);
-	IMAGEMANAGER->addImage("FishingBackGrond", "image/³¬½Ã/³¬½Ã¸»Ç³¼±.bmp", 200, 604, true, MAGENTA);
-	IMAGEMANAGER->addImage("FishingMiniGame", "image/³¬½Ã/³¬½Ã¹Ì´Ï°ÔÀÓ.bmp", 128, 505, true, MAGENTA);
-	IMAGEMANAGER->addImage("FishingGauge", "image/³¬½Ã/³¬½Ã°ÔÀÌÁö.bmp", 12, 486, true, MAGENTA);
-	IMAGEMANAGER->addImage("FishingGaugeBar", "image/³¬½Ã/³¬½Ã¹Ù.bmp", 34, 96, true, MAGENTA);
-	IMAGEMANAGER->addImage("Fish", "image/³¬½Ã/¹°°í±â.bmp", 28, 28, true, MAGENTA);
-	IMAGEMANAGER->addImage("FishBox", "image/³¬½Ã/»óÀÚ.bmp", 28, 34, true, MAGENTA);
-	IMAGEMANAGER->addImage("FishRare", "image/³¬½Ã/·¹¾î¹°°í±â.bmp", 28, 29, true, MAGENTA);
 	
 	/////MapTool
-	
-
+	IMAGEMANAGER->addImage("CloseButton", "image/´Ý±â¹öÆ°.bmp", 44, 44, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("Terrain", "image/mapTool/Terrain.bmp", 0, 0, 448, 448, 448 / TILESIZE, 448 / TILESIZE, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("Wall", "image/mapTool/Wall.bmp", 0, 0, 512, 448, 512 / TILESIZE, 448 / TILESIZE, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("HoeTile", "image/mapTool/HoeTile.bmp", 0, 0, 384, 384, 384 / TILESIZE, 384 / TILESIZE, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("Tree", "image/mapTool/Tree.bmp", 0, 0, 578, 384, 3, 1, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("House", "image/mapTool/House.bmp", 0, 0, 576, 576, 1, 1, true, MAGENTA);
 	IMAGEMANAGER->addImage("Line", "image/mapTool/Line.bmp", 64, 64, true, MAGENTA);
@@ -171,6 +153,7 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("FishingFish", "image/³¬½Ã/¹°°í±â.bmp", 28, 28, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishingBox", "image/³¬½Ã/»óÀÚ.bmp", 28, 34, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishingBack", "image/³¬½Ã/³¬½Ã¸»Ç³¼±.bmp", 200, 604, true, MAGENTA);
+
 }
 
 void playGround::soundinit()
