@@ -55,6 +55,11 @@ void ToolItemManager::Init()
 		_toolList[i]->SetNowMapMemoryAddressLink(_nowTileMap);
 		_toolList[i]->Init();
 	}
+	for (int i = 0; i < _toolList.size(); ++i)
+	{
+		_toolList[i]->SetNowMapMemoryAddressLink(_nowTileMap);
+		_toolList[i]->Init();
+	}
 }
 
 void ToolItemManager::Action(string name)
