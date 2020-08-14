@@ -84,7 +84,7 @@ void MapToolScene::Auto()
 				switch (_vtiles[index].autoIndex)
 				{
 				case 255:
-					_vtiles[index].terrainframeX = RND->getFromIntTo(0, 6);
+					_vtiles[index].terrainframeX = 1;//RND->getFromIntTo(0, 6);
 					_vtiles[index].terrainframeY = 2;
 					_vtiles[index].terrain = TERRAIN::GRASS;
 					break;
@@ -448,6 +448,149 @@ void MapToolScene::Auto()
 					_vtiles[index].terrainframeX = 7;
 					_vtiles[index].terrainframeY = 2;
 					_vtiles[index].terrain = TERRAIN::GRASS;
+					break;
+				}
+			}
+
+			if (_vtiles[index].object == MAPOBJECT::HOETILE)
+			{
+				/////////////////  좌
+				if (_vtiles[index].rc.left / TILESIZE > 0)
+				{
+					if (_vtiles[index - 1].object == MAPOBJECT::HOETILE)
+					{
+						_vtiles[index].autoIndex += 8;
+					}
+				}
+				/////////////////  우
+				if (_vtiles[index].rc.left / TILESIZE < _vertical - 1)
+				{
+					if (_vtiles[index + 1].object == MAPOBJECT::HOETILE)
+					{
+						_vtiles[index].autoIndex += 2;
+					}
+				}
+				/////////////////  위
+				if (_vtiles[index].rc.top / TILESIZE > 0)
+				{
+					if (_vtiles[index - _vertical].object == MAPOBJECT::HOETILE)
+					{
+						_vtiles[index].autoIndex += 1;
+					}
+				}
+				/////////////////  아래
+				if (_vtiles[index].rc.top / TILESIZE < _vertical - 1)
+				{
+					if (_vtiles[index + _vertical].object == MAPOBJECT::HOETILE)
+					{
+						_vtiles[index].autoIndex += 4;
+					}
+				}
+
+				switch (_vtiles[index].autoIndex)
+				{
+				case 0 :
+					_vtiles[index].objectframeX = 0;
+					_vtiles[index].objectframeY = 0;
+					_vtiles[index].object = MAPOBJECT::HOETILE;
+					break;
+				case 15:
+					_vtiles[index].objectframeX = 5;
+					_vtiles[index].objectframeY = 3;
+					_vtiles[index].object = MAPOBJECT::HOETILE;
+					break;
+					///////////////////아래
+				case 1:
+					_vtiles[index].objectframeX = 4;
+					_vtiles[index].objectframeY = 0;
+					_vtiles[index].object = MAPOBJECT::HOETILE;
+					break;
+					////////////////////위
+				case 4:
+					_vtiles[index].objectframeX = 3;
+					_vtiles[index].objectframeY = 0;
+					_vtiles[index].object = MAPOBJECT::HOETILE;
+					break;
+					////////////////////오른
+				case 2:
+					_vtiles[index].objectframeX = 1;
+					_vtiles[index].objectframeY = 0;
+					_vtiles[index].object = MAPOBJECT::HOETILE;
+					break;
+					////////////////////왼
+				case 8:
+					_vtiles[index].objectframeX = 2;
+					_vtiles[index].objectframeY = 0;
+					_vtiles[index].object = MAPOBJECT::HOETILE;
+					break;
+
+					//////////////////////////////////////////////////////////////
+					
+					////////////////////세로
+				case 5:
+					_vtiles[index].objectframeX = 4;
+					_vtiles[index].objectframeY = 2;
+					_vtiles[index].object = MAPOBJECT::HOETILE;
+					break;
+					////////////////////가로
+				case 10:
+					_vtiles[index].objectframeX = 3;
+					_vtiles[index].objectframeY = 2;
+					_vtiles[index].object = MAPOBJECT::HOETILE;
+					break;
+
+					/////////////////////////////////////////////////////////////////
+					
+					////////////////////// ㄱ 0,1
+				case 6:
+					_vtiles[index].objectframeX = 0;
+					_vtiles[index].objectframeY = 1;
+					_vtiles[index].object = MAPOBJECT::HOETILE;
+					break;
+					////////////////////// ㄱ 1,1
+				case 12:
+					_vtiles[index].objectframeX = 1;
+					_vtiles[index].objectframeY = 1;
+					_vtiles[index].object = MAPOBJECT::HOETILE;
+					break;
+					////////////////////// ㄱ 0,2
+				case 3:
+					_vtiles[index].objectframeX = 0;
+					_vtiles[index].objectframeY = 2;
+					_vtiles[index].object = MAPOBJECT::HOETILE;
+					break;
+					////////////////////// ㄱ 1,2
+				case 9:
+					_vtiles[index].objectframeX = 1;
+					_vtiles[index].objectframeY = 2;
+					_vtiles[index].object = MAPOBJECT::HOETILE;
+					break;
+
+					//////////////////////////////////////////////////////////////////////
+
+					///////////////////////가로 위쪽
+				case 14:
+					_vtiles[index].objectframeX = 2;
+					_vtiles[index].objectframeY = 1;
+					_vtiles[index].object = MAPOBJECT::HOETILE;
+					break;
+					///////////////////////가로 아래쪽
+				case 11:
+					_vtiles[index].objectframeX = 2;
+					_vtiles[index].objectframeY = 2;
+					_vtiles[index].object = MAPOBJECT::HOETILE;
+					break;
+					///////////////////////세로 오른쪽
+				case 7:
+					_vtiles[index].objectframeX = 3;
+					_vtiles[index].objectframeY = 1;
+					_vtiles[index].object = MAPOBJECT::HOETILE;
+					break;
+					///////////////////////세로 왼쪽
+				case 13:
+					_vtiles[index].objectframeX = 4;
+					_vtiles[index].objectframeY = 1;
+					_vtiles[index].object = MAPOBJECT::HOETILE;
 					break;
 				}
 			}

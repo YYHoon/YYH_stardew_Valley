@@ -719,10 +719,7 @@ void MapToolScene::SetMap_R()
 		}
 	}
 	_draw = RectMake(0, 0, -1, -1);
-	if (_crtSelect == CRTSELECT::TERRAINDRAW)
-	{
-		Auto();
-	}
+	Auto();
 }
 
 
@@ -751,8 +748,10 @@ MAPOBJECT MapToolScene::ObjectSelect(int frameX, int frameY)
 		else return MAPOBJECT::WALL;
 		break;
 	case CRTSELECT::HOETILEDRAW:
-		if (frameX <= 4 && (frameY <= 2))return MAPOBJECT::HOETILE;
-		if (frameY >= 3)				 return MAPOBJECT::HOETILE_WET;
+		if (frameX <= 4 && frameY <= 2)	 return MAPOBJECT::HOETILE;
+		if (frameX == 5 && frameY == 3)	 return MAPOBJECT::HOETILE;
+		if (frameX <= 4 && frameY >= 3)	 return MAPOBJECT::HOETILE_WET;
+		if (frameX == 5 && frameY == 4)	 return MAPOBJECT::HOETILE_WET;
 		if (frameX == 5 && (frameY == 0))return MAPOBJECT::ROCK;
 		if (frameX == 5 && (frameY == 1))return MAPOBJECT::BRANCH;
 		if (frameX == 5 && (frameY == 2))return MAPOBJECT::WEED;
