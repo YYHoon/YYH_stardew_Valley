@@ -5,7 +5,6 @@
 class State;
 class MapMain;
 
-
 class Player : public gameNode
 {
 private:
