@@ -188,7 +188,10 @@
     <ClInclude Include="MapToolScene.h" />
     <ClInclude Include="MiniGame.h" />
     <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="Parsnip.h" />
     <ClInclude Include="Pickax.h" />
+    <ClInclude Include="Plants.h" />
+    <ClInclude Include="PlantsManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="playGround.h" />
     <ClInclude Include="progressBar.h" />
@@ -245,10 +248,15 @@
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="MapTest.cpp" />
     <ClCompile Include="MapTool + SaveLoad.cpp" />
+    <ClCompile Include="MapToolAuto.cpp" />
+    <ClCompile Include="MapToolButton.cpp" />
     <ClCompile Include="MapToolScene.cpp" />
     <ClCompile Include="MiniGame.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="Parsnip.cpp" />
     <ClCompile Include="Pickax.cpp" />
+    <ClCompile Include="Plants.cpp" />
+    <ClCompile Include="PlantsManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playGround.cpp" />
     <ClCompile Include="progressBar.cpp" />

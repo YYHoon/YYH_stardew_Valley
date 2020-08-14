@@ -14,6 +14,7 @@ struct tagTile
 	int autoIndex;
 	int hp;
 	bool collision;
+	bool wet;
 };
 struct tagSampleTile
 {
@@ -25,6 +26,7 @@ struct tagCurrentTile
 {
 	TERRAIN terrain;
 	MAPOBJECT object;
+	POS pos;
 	RECT rc;
 	int terrainframeX;
 	int terrainframeY;
@@ -66,6 +68,7 @@ private:
 
 	bool _drag;
 	bool _Window;
+	bool _saveimg;
 
 	vector<tagTile>				_vtiles;
 	vector<tagTile>::iterator	_vitiles;
@@ -86,17 +89,16 @@ public:
 	void OutToIn(int Horizontal, int Vertical);
 	void SetMap_L();
 	void SetMap_R();
-	void Save();
-	void Load();
-	void Auto();
 
-	void ImageCut(string);
+	void Auto();
+	void Button();
 
 	void Save(string fileName,int mapSizeX, int mapSizeY,vector<tagTile> tile);
 	vector<tagTile> Load(string fileName, int mapSizeX, int mapSizeY);
 
 	TERRAIN TerrainSelect(int frameX, int frameY);
 	MAPOBJECT ObjectSelect(int frameX, int frameY);
+	POS PosSelect(int frameX, int frameY);
 
 	vector<tagTile> GetTile() { return _vtiles; }
 	int GetVertical() { return _vertical; }

@@ -47,7 +47,7 @@ void Player::update()
 
 	
 	
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() != "acting")
 	{
 		_tool->SetImpactIndex("Pickax",_actTileIndex[0]);
 		_tool->Action("Pickax");
@@ -84,7 +84,7 @@ void Player::ChangeState(shared_ptr<State> state)
 
 void Player::Move()
 {
-	if (_state->GetStateName() == "move" || _state->GetStateName() == "itemMove")
+	if (_state->GetStateTagName() == "move")
 	{
 		switch (_info.direction)
 		{
@@ -121,12 +121,8 @@ void Player::Move()
 		}
 	}
 
-	_info.shadowCollision.centerSet(_info.position.x, _info.position.y, _info.shadowImg->getWidth(), _info.shadowImg->getHeight());
+	_info.shadowCollision.centerSet(_info.position.x, _info.position.y, _info.shadowImg->getWidth() - 10, _info.shadowImg->getHeight() - 10);
 	_info.collision.centerSet(_info.position.x, _info.position.y - 50, _info.img->getFrameWidth(), _info.img->getFrameHeight());
-	_info.shadowCollision.left += 2;
-	_info.shadowCollision.right -= 2;
-	_info.shadowCollision.top += 2;
-	_info.shadowCollision.bottom -= 2;
 }
 
 void Player::CheckTiles()
@@ -338,22 +334,22 @@ void Player::CheckTiles()
 	case PLAYER_DIRECTION::UP_RIGHT:
 		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
 		_tileIndex[1] = ((_playerTileX + 1) + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
-		_tileIndex[2] = ((_playerTileX + 2) + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+		_tileIndex[2] = ((_playerTileX + 1) + _playerTileY * _Map->GetHorizon());
 		break;
 	case PLAYER_DIRECTION::UP_LEFT:
 		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
-		_tileIndex[1] = (_playerTileX + (_playerTileY - 1) * _Map->GetHorizon()) - _Map->GetHorizon();
-		_tileIndex[2] = (_playerTileX + (_playerTileY - 2) * _Map->GetHorizon()) - _Map->GetHorizon();
+		_tileIndex[1] = ((_playerTileX - 1) + _playerTileY * _Map->GetHorizon()) - _Map->GetHorizon();
+		_tileIndex[2] = ((_playerTileX - 1) + _playerTileY * _Map->GetHorizon());
 		break;
 	case PLAYER_DIRECTION::DOWN_RIGHT:
 		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
-		_tileIndex[1] = (_playerTileX + 1 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
-		_tileIndex[2] = (_playerTileX + 2 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+		_tileIndex[1] = ((_playerTileX + 1) + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+		_tileIndex[2] = ((_playerTileX + 1)  + _playerTileY * _Map->GetHorizon());
 		break;
 	case PLAYER_DIRECTION::DOWN_LEFT:
 		_tileIndex[0] = (_playerTileX + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
-		_tileIndex[1] = (_playerTileX - 1 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
-		_tileIndex[2] = (_playerTileX - 2 + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+		_tileIndex[1] = ((_playerTileX - 1) + _playerTileY * _Map->GetHorizon()) + _Map->GetHorizon();
+		_tileIndex[2] = ((_playerTileX - 1) + _playerTileY * _Map->GetHorizon());
 		break;
 	default:
 		break;

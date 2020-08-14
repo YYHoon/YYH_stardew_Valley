@@ -6,7 +6,7 @@
 State::State(Player* pPlayer) :
 	_player(pPlayer)
 {
-
+	
 }
 
 PlayerIdle::PlayerIdle(Player* pPlayer) : State(pPlayer) {}
@@ -14,7 +14,8 @@ PlayerIdle::PlayerIdle(Player* pPlayer) : State(pPlayer) {}
 void PlayerIdle::Init()
 {
 	_player->SetImg("player");
-	_name = "idle";
+	_name = "none_Idle";
+	_tagName = "idle";
 
 	int rightIdle[] = { 0 };
 	KEYANIMANAGER->addArrayFrameAnimation("right_Idle_Player", "player", rightIdle, 1, 6, false);
@@ -53,10 +54,8 @@ void PlayerIdle::Update()
 		_player->ChangeState(make_shared<PlayerItemIdle>(_player));
 		return;
 	}
-
 	if (KEYMANAGER->isOnceKeyDown('W'))
 	{
-
 		_player->SetDirection(PLAYER_DIRECTION::UP);
 		_player->ChangeState(make_shared<PlayerMove>(_player));
 		return;
@@ -125,6 +124,9 @@ PlayerItemIdle::PlayerItemIdle(Player* pPlayer) : State(pPlayer) {}
 
 void PlayerItemIdle::Init()
 {
+	_tagName = "idle";
+	_name = "item_Idle";
+
 	int ItemDownIdle[] = { 116 };
 	KEYANIMANAGER->addArrayFrameAnimation("down_Item_Idle_Player", "player", ItemDownIdle, 1, 6, false);
 	int ItemLeftIdle[] = { 120 };
@@ -186,7 +188,7 @@ void PlayerItemIdle::Update()
 		_player->ChangeState(make_shared<PlayerItemMove>(_player));
 		return;
 	}
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
 	{
 		if (_player->GetEquip() == TOOLS::ITEM)
 		{
@@ -207,7 +209,8 @@ PlayerMove::PlayerMove(Player* pPlayer) : State(pPlayer) {}
 void PlayerMove::Init()
 {
 	_player->SetImg("player");
-	_name = "move";
+	_tagName = "move";
+	_name = "none_Move";
 	_player->SetVelocity(10.f);
 
 
@@ -331,7 +334,7 @@ void PlayerMove::Update()
 		return;
 	}
 
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
 	{
 		switch (_player->GetEquip())
 		{
@@ -359,9 +362,11 @@ void PlayerMove::Update()
 		default:
 			break;
 		}
+	}
+	else if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	{
 
 	}
-
 }
 
 void PlayerMove::Release()
@@ -376,7 +381,8 @@ PlayerItemMove::PlayerItemMove(Player* pPplayer) : State(pPplayer) {}
 
 void PlayerItemMove::Init()
 {
-	_name = "itemMove";
+	_tagName = "move";
+	_name = "item_Move";
 	//133
 	int leftItemMove[] = { 120,121,122,123 };
 	KEYANIMANAGER->addArrayFrameAnimation("left_Item_Move_Player", "player", leftItemMove, 4, 10, false);
@@ -533,8 +539,8 @@ PlayerFelling::PlayerFelling(Player* pPlayer) : State(pPlayer) {}
 
 void PlayerFelling::Init()
 {
-	_player->SetImg("player");
-	_name = "Acting";
+	_tagName = "acting";
+	_name = "felling";
 
 	int rightFelling[] = { 33,34,35,36 };
 	KEYANIMANAGER->addArrayFrameAnimation("right_Felling_Player", "player", rightFelling, 4, 10, false);
@@ -582,8 +588,8 @@ PlayerPlowing::PlayerPlowing(Player* pPlayer) : State(pPlayer) {}
 
 void PlayerPlowing::Init()
 {
-	_name = "Acting";
-
+	_name = "plowing";
+	_tagName = "acting";
 
 	int downPlowing[] = { 48,49,50 };
 	KEYANIMANAGER->addArrayFrameAnimation("down_Plowing_Player", "player", downPlowing, 3, 10, false);
@@ -632,7 +638,8 @@ PlayerMining::PlayerMining(Player* pPlayer) :
 void PlayerMining::Init()
 {
 
-	_name = "Acting";
+	_tagName = "acting";
+	_name = "mining";
 
 	int downMining[] = { 168,169,170, 171, 172,173,174 };
 	KEYANIMANAGER->addArrayFrameAnimation("down_mining_Player", "player", downMining, 7, 10, false);
@@ -680,8 +687,8 @@ PlayerSwing::PlayerSwing(Player* pPlayer) : State(pPlayer) {}
 
 void PlayerSwing::Init()
 {
-	_name = "Acting";
-
+	_tagName = "acting";
+	_name = "swing";
 
 	int downSickleSwing[] = { 65,66,67,68,69,70 };
 	KEYANIMANAGER->addArrayFrameAnimation("down_SickleSwing_Player", "player", downSickleSwing, 6, 10, false);
@@ -774,6 +781,7 @@ PlayerEating::PlayerEating(Player* pPlayer) : State(pPlayer) {}
 
 void PlayerEating::Init()
 {
+	_tagName = "acting";
 	_name = "eating";
 
 	int eating[] = { 192,193,194,195,196,197,198,199,200,201 };
@@ -802,7 +810,8 @@ PlayerWatering::PlayerWatering(Player* pPlayer) : State(pPlayer) {}
 
 void PlayerWatering::Init()
 {
-	_name = "Acting";
+	_tagName = "acting";
+	_name = "watering";
 
 	int rightWatering[] = { 90,91,92,93,94, 93, 94, 93, 94, 93, 94 };
 	KEYANIMANAGER->addArrayFrameAnimation("right_Watering_Player", "player", rightWatering, 11, 10, false);

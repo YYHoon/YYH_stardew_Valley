@@ -234,9 +234,6 @@
     <ClInclude Include="Store.h">
       <Filter>playGround\UI</Filter>
     </ClInclude>
-    <ClInclude Include="DummyMap.h">
-      <Filter>playGround\TestDummy</Filter>
-    </ClInclude>
     <ClInclude Include="FishingRod.h">
       <Filter>playGround\Tool\Fishing</Filter>
     </ClInclude>
@@ -287,6 +284,15 @@
     </ClInclude>
     <ClInclude Include="HpStaminaBar.h">
       <Filter>playGround\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsnip.h">
+      <Filter>playGround\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Plants.h">
+      <Filter>playGround\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="PlantsManager.h">
+      <Filter>playGround\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -401,9 +407,6 @@
     <ClCompile Include="Store.cpp">
       <Filter>playGround\UI</Filter>
     </ClCompile>
-    <ClCompile Include="DummyMap.cpp">
-      <Filter>playGround\TestDummy</Filter>
-    </ClCompile>
     <ClCompile Include="FishingRod.cpp">
       <Filter>playGround\Tool\Fishing</Filter>
     </ClCompile>
@@ -454,6 +457,21 @@
     </ClCompile>
     <ClCompile Include="HpStaminaBar.cpp">
       <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MapToolAuto.cpp">
+      <Filter>playGround\Scene\MaptoolScene</Filter>
+    </ClCompile>
+    <ClCompile Include="MapToolButton.cpp">
+      <Filter>playGround\Scene\MaptoolScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Parsnip.cpp">
+      <Filter>playGround\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Plants.cpp">
+      <Filter>playGround\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="PlantsManager.cpp">
+      <Filter>playGround\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
