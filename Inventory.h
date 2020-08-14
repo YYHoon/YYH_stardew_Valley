@@ -67,8 +67,10 @@ private:
 	Environment* _environment;
 	ToolItemManager* _toolItemManager;
 
-	vector<ToolItem*> _toolList;
-
+	vector<ToolItem*> _toolList; // 정보
+	vector <ToolItem*> _toolInven; // 값 가지고 있는것들 
+	//ToolItem* _getItem;
+	
 	RECT _trashCanRC;
 	int _trashCanFrameX;
 	int _frameCount;
@@ -92,10 +94,12 @@ public:
 	virtual void render();
 	virtual void quickSlotMove();
 
-
+	void PlayerLootItem(ToolItem* item);
+	
 	vector<RECT>	 GetVInvenIndexRC() { return _vInvenIndexRC; }
 	vector<tagInventory> GetInventory() { return _vAllInventory; }
+	vector<ToolItem*> GetInven() { return _toolInven; }
+	ToolItem* GetInvenItem(int index) { return _toolInven[index]; }
 
 	void SetMemoryLinkedTool(ToolItemManager* tool) { _toolItemManager = tool; }
-
 };

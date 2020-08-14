@@ -90,6 +90,7 @@ enum class TOOLS
 	SWORD,
 	ITEM,
 	WATERING_CAN,
+	NONE,
 	END
 };
 

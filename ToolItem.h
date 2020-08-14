@@ -7,21 +7,21 @@ class MapMain;
 class ToolItem
 {
 protected:
-	string _name;		//이름
-	string _tag;		//태그 
-	int _dmage;			//데미지
-	int _tileIndex[3]; //상호작용할 타일의 인덱스 저장할곳
+	string _name="";		//이름
+	string _tag="";		//태그 
+	int _dmage=0;			//데미지
+	int _tileIndex[3] = { 0, }; //상호작용할 타일의 인덱스 저장할곳
 	bool _justSignal = false;//단일타일상호작용툴 체크
 	bool _slashSignal = false;//범위타일상호작용 체크
-	TOOLS _enumName;		//툴아이템의 이넘값
+	TOOLS _enumName = TOOLS::NONE;		//툴아이템의 이넘값
 
 	/// <summary>
-	image* _image;
+	image* _image =nullptr;
 	/// </summary>
 
 	MAPOBJECT	_mapObject = MAPOBJECT::NONE;	//지형오브젝트의속성
 	TERRAIN _mapTeeain = TERRAIN::NONE;			//지형타일의 속성
-	MapMain* _map;//영향줄맵
+	MapMain* _map = nullptr;//영향줄맵
 
 public:
 	ToolItem() { ; }
@@ -35,13 +35,16 @@ public:
 	virtual inline string GetTag() { return _tag; }
 	virtual inline void SetTag(string tag) { _tag = tag; }
 
-	
+	virtual inline image* GetImage() { return _image; }
+	virtual inline void SetImage(image* img) { _image = img; }
+
 	//데미지
 	virtual inline int GetDmage() { return _dmage; }
 	virtual inline void SetDmage(int dmg) { _dmage = dmg; }
 
 	//툴아이템의 이넘값겟 
 	virtual inline TOOLS GetToolEnum() { return _enumName; }
+	virtual inline void SetToolEnum(TOOLS toolEnum) { _enumName = toolEnum; }
 
 	virtual inline int GetImpactTileIndexCenter() { return _tileIndex[0]; }
 	virtual inline int GetImpactTileIndexLeft() { return _tileIndex[1]; }

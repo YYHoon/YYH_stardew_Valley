@@ -25,7 +25,7 @@ HRESULT Inventory::init()
 	_trashCanFrameX = 0;
 	_trashCanRC.left = 1260;
 	_trashCanRC.top = 446;
-
+	
 //-----------------------QuickSlot-----------------------------------
 	_quickSlot.image = IMAGEMANAGER->findImage("QuickSlot");
 	_quickSlotSelect.image = IMAGEMANAGER->findImage("QuickSlotSelect");
@@ -37,12 +37,20 @@ HRESULT Inventory::init()
 
 	_toolList = _toolItemManager->GetToolItem();
 
-	for (int i= 0;i < _toolList.size(); ++i)
-	{
-		if (_toolList[0]->GetName() == "AXE") cout << "Axe" << endl;
+	_toolInven.resize(12);
 
+	for (int i = 0; i < _toolInven.size(); ++i)
+	{
+		_toolInven[i] = new Axe;
 	}
 
+	_toolInven[0] = _toolList[0];
+	_toolInven[1] = _toolList[1];
+	_toolInven[2]->SetToolEnum(TOOLS::NONE);
+	_toolInven[3]->SetToolEnum(TOOLS::NONE);
+	_toolInven[4]->SetToolEnum(TOOLS::NONE);
+	_toolInven[5]->SetToolEnum(TOOLS::NONE);
+	_toolInven[6]->SetToolEnum(TOOLS::NONE);
 	return S_OK;
 }
 
@@ -100,6 +108,8 @@ void Inventory::update()
 			{
 				if (PtInRect(&_indexRC[InventoryIndex], _ptMouse))
 				{
+
+
 					cout << InventoryIndex + 1 << endl;										//각 인벤토리 칸을 눌렀을 때
 				}
 			}
@@ -120,7 +130,6 @@ void Inventory::update()
 	{
 		_indexRC[InventoryIndex] = RectMake(_inventory.x + InventoryIndex * 64, _inventory.y, 64, 64);	//각 인벤토리 칸의 렉트
 
-		
 		_vInvenIndexRC.push_back(_indexRC[InventoryIndex]);
 	}
 
@@ -136,6 +145,8 @@ void Inventory::update()
 		_inventory.rc = RectMake(-100, -100, 0, 0);
 		
 	}
+	
+
 	///////////////////////////////////////////////////////////////////////////////////////////////// </Test>
 }
 
@@ -245,20 +256,36 @@ void Inventory::render()
 		{
 			_indexRC[InventoryIndex] = RectMake(423 + InventoryIndex * 64, 763, 64, 64);	//각 인벤토리 칸의 렉트
 			
-			for (int i = 0; i < _vAllInventory.size(); i++)
+			for (int i = 0; i < 12; i++)
 			{
-
-				if (IntersectRect(&temp, &_vAllInventory[0].rc, &_inventory.rc))
+				if (IntersectRect(&temp, &_indexRC[i], &_inventory.rc))
 				{
-					////////////////
-					////<Render>////
-					////////////////
+
 				}
 			}
 		}
-
 		_quickSlotSelect.image->render(getMemDC(), _quickSlotSelect.x, _quickSlotSelect.y);
 	}
+
+	for (int i = 0; i < _toolInven.size(); ++i)
+	{
+		if (_inventory.isInvenOpen)
+		{
+			if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
+			{
+				_toolInven[i]->GetImage()->render(getMemDC(), 416 + (i * 64), 230);
+			}
+		}
+
+		else
+		{
+			if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
+			{
+				_toolInven[i]->GetImage()->render(getMemDC(), 423 + (i * 64), 763);
+			}
+		}
+	}
+
 	/////////////////////////////////////////////////////////////////////////// <Debug_Rect>
 
 	//for (int InvenTab = 0; InvenTab < 4; InvenTab++)
@@ -280,12 +307,14 @@ void Inventory::render()
 	//Rectangle(getMemDC(), _inventory.rc);
 
 	/////////////////////////////////////////////////////////////////////////// </Debug_Rect>
+
 }
 
 void Inventory::quickSlotMove()
 {
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
+		// index = 0;
 		_quickSlotSelect.x = 423;
 		_inventory.rc.left = 417;
 	}
@@ -344,4 +373,25 @@ void Inventory::quickSlotMove()
 		_quickSlotSelect.x = 423 + 64 * 11;
 		_inventory.rc.left = 417 + 64 * 11;
 	}
+}
+
+void Inventory::PlayerLootItem(ToolItem* item)
+{
+	//for (int i = 0; i < 12; i++)
+	//{
+	//	if (_toolInven[i]->GetName() == item->GetName())
+	//	{
+	//		//if(_toolInven[i]->getnum()>10) contine;
+	//		//_toolInven[i]->setnum(+1);
+	//	}
+	//	else
+	//	{
+	//		if (_toolInven[i]->GetToolEnum()==TOOLS::NONE)
+	//		{
+	//			_toolInven[i] = item;
+	//			// _toolInven[i]->setnum(+1);
+	//			break;
+	//		}
+	//	}
+	//}
 }

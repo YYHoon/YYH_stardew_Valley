@@ -131,6 +131,8 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("Item_Knife", "image/ItemTest/Item_Knife.bmp", 64, 64, true, MAGENTA);
 	IMAGEMANAGER->addImage("Item_Pickaxe", "image/ItemTest/Item_Pickaxe.bmp", 64, 64, true, MAGENTA);
 	IMAGEMANAGER->addImage("Item_Sickle", "image/ItemTest/Item_Sickle.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("cobble", "image/Inventory/cobble.bmp", 64, 64, true, MAGENTA);
+
 
 	//테스트용 이미지입니다 무시하세요
 	IMAGEMANAGER->addFrameImage("말랑카우", "image/말랑카우.bmp", 200, 300, 4, 6, true, MAGENTA);
