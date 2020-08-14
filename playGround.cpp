@@ -33,7 +33,7 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("FARM", _farm = new MapFarm);
 	SCENEMANAGER->addScene("HOME", _home = new MapHome);
 	SCENEMANAGER->addScene("Test", _test = new MapTest);
-	SCENEMANAGER->changeScene("맵툴");
+	SCENEMANAGER->changeScene("테스트");
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
 	return S_OK;
@@ -164,6 +164,52 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("FishingBox", "image/낚시/상자.bmp", 28, 34, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishingBack", "image/낚시/낚시말풍선.bmp", 200, 604, true, MAGENTA);
 
+
+	//아이템 이미지 (x64는 인벤토리용 안붙어있으면 플레이어가 손에들고있을때)
+	IMAGEMANAGER->addImage("NormalFish(64x64)", "Image/ItemTest/Anchovy(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("NormalFish", "Image/ItemTest/Anchovy.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("RareFish(64x64)", "Image/ItemTest/Catfish(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("RareFish", "Image/ItemTest/Catfish.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("Weed(64x64)", "Image/ItemTest/Fiber(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Weed", "Image/ItemTest/Fiber.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("Kale(64x64)", "Image/ItemTest/Kale(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Kale", "Image/ItemTest/Kale.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("KaleSeed(64x64)", "Image/ItemTest/Kale_Seeds(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("KaleSeed", "Image/ItemTest/Kale_Seeds.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("Pasnip(64x64)", "Image/ItemTest/Parsnip(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Pasnip", "Image/ItemTest/Parsnip.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("PasnipSeed(64x64)", "Image/ItemTest/Parsnip_Seeds(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("PasnipSeed", "Image/ItemTest/Parsnip_Seeds.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("Potato(64x64)", "Image/ItemTest/Potato(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Potato", "Image/ItemTest/Potato.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("PotatoSeed(64x64)", "Image/ItemTest/Potato_Seeds(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("PotatoSeed", "Image/ItemTest/Potato_Seeds.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("Sap(64x64)", "Image/ItemTest/Sap(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Sap", "Image/ItemTest/Sap.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("Stone(64x64)", "Image/ItemTest/Stone(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Stone", "Image/ItemTest/Stone.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("Wood(64x64)", "Image/ItemTest/Wood(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Wood", "Image/ItemTest/Wood.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("WaterSpray(56x56)", "Image/ItemTest/watering.bmp", 56, 56, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("Axe(64x64)", "Image/ItemTest/Item_Axe.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Homi(64x64)", "Image/ItemTest/Item_Handplow.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Sword(64x64)", "Image/ItemTest/Item_Knife.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Pickax(64x64)", "Image/ItemTest/Item_Pickaxe.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Sickle(64x64)", "Image/ItemTest/Item_Sickle.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("FishingRod(64x64)", "Image/ItemTest/FishingRod(64x64).bmp", 64, 64, true, MAGENTA);
 }
 
 void playGround::soundinit()

@@ -10,10 +10,13 @@ protected:
 	string _name;		//이름
 	string _tag;		//태그
 	int _dmage;			//데미지
+	int _number;		//아이템 개수
 	int _tileIndex[3]; //상호작용할 타일의 인덱스 저장할곳
 	bool _justSignal = false;//단일타일상호작용툴 체크
 	bool _slashSignal = false;//범위타일상호작용 체크
 	TOOLS _enumName;		//툴아이템의 이넘값
+	image* _imageC;			//각 아이템의 이미지(64x64)
+	image* _imageI;			//각 아이템의 이미지
 	
 
 	MAPOBJECT	_mapObject = MAPOBJECT::NONE;	//지형오브젝트의속성
@@ -36,6 +39,14 @@ public:
 	//데미지
 	virtual inline int GetDmage() { return _dmage; }
 	virtual inline void SetDmage(int dmg) { _dmage = dmg; }
+
+	//아이템개수
+	virtual inline int GetNumber() { return _number;}
+	virtual inline void SetNumber(int num) { _number = num; }
+
+	//아이템이미지
+	virtual inline image* GetImageInven() { return _imageI; }
+	virtual inline image* GetImageChar() { return _imageC; }
 
 	//툴아이템의 이넘값겟 
 	virtual inline TOOLS GetToolEnum() { return _enumName; }
