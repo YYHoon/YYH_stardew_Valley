@@ -1,6 +1,6 @@
 #pragma once
 #include "Plants.h"
-class Parsnip : public Plants
+class ParsnipObject : public Plants
 {
 public:
 	void Init()override;
