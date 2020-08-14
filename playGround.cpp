@@ -20,7 +20,7 @@ HRESULT playGround::init()
 	imginit();
 	soundinit();
 
-	SCENEMANAGER->addScene("타이틀화면", _TitleScene = new TitleScene);
+	SCENEMANAGER->addScene("Title", _TitleScene = new TitleScene);
 	SCENEMANAGER->addScene("테스트", _Tset = new TestScene);
 	SCENEMANAGER->addScene("맵툴", _MaptoolScene = new MapToolScene);
 	SCENEMANAGER->addScene("LOADING", _LoadingScene = new LoadingScene);

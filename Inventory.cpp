@@ -26,6 +26,7 @@ HRESULT Inventory::init()
 	_trashCanRC.left = 1260;
 	_trashCanRC.top = 446;
 	
+	
 //-----------------------QuickSlot-----------------------------------
 	_quickSlot.image = IMAGEMANAGER->findImage("QuickSlot");
 	_quickSlotSelect.image = IMAGEMANAGER->findImage("QuickSlotSelect");
@@ -41,16 +42,18 @@ HRESULT Inventory::init()
 
 	for (int i = 0; i < _toolInven.size(); ++i)
 	{
-		_toolInven[i] = new Axe;
+		_toolInven[i] = new Pickax;
 	}
 
 	_toolInven[0] = _toolList[0];
 	_toolInven[1] = _toolList[1];
 	_toolInven[2]->SetToolEnum(TOOLS::NONE);
-	_toolInven[3] = _toolList[3];
+	_toolInven[3] = _toolList[2];
 	_toolInven[4]->SetToolEnum(TOOLS::NONE);
 	_toolInven[5]->SetToolEnum(TOOLS::NONE);
-	_toolInven[6] = _toolList[10];
+	_toolInven[6] = _toolList[3];
+	_toolInven[0] = new Axe;
+	_toolInven[0]->SetToolEnum(TOOLS::NONE);
 	return S_OK;
 }
 
@@ -92,60 +95,74 @@ void Inventory::update()
 
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
-		for (_viInvenStaticRC = _vInvenStaticRC.begin(); _viInvenStaticRC != _vInvenStaticRC.end(); ++_viInvenStaticRC)
-		{
-			if (PtInRect(&_inventoryCloseRC, _ptMouse)) _inventory.isInvenOpen = false;		//인벤토리에서 [X]버튼을 눌렀을 때
+		if (PtInRect(&_inventoryCloseRC, _ptMouse)) _inventory.isInvenOpen = false;		//인벤토리에서 [X]버튼을 눌렀을 때
 			
-			for (int i = 0; i < 4; i++)
-			{
-				if (PtInRect(&_invenTabRC[i], _ptMouse)) _inventory.invenTabNum = i + 1;	//각 탭을 눌렀을 때
-			}
-		}
-
-		for (_viInvenDynamicRC = _vInvenDynamicRC.begin(); _viInvenDynamicRC != _vInvenDynamicRC.end(); ++_viInvenDynamicRC)
+		for (int i = 0; i < 4; i++)
 		{
-			for (int InventoryIndex = 0; InventoryIndex < 12; InventoryIndex++)
-			{
-				if (PtInRect(&_indexRC[InventoryIndex], _ptMouse))
-				{
-
-
-					cout << InventoryIndex + 1 << endl;										//각 인벤토리 칸을 눌렀을 때
-				}
-			}
-
-			/////////////// <제작 페이지 이동>
-			if (PtInRect(&_menuUpRC, _ptMouse)) _inventory.craftPageNum--;
-			if (PtInRect(&_menuDownRC, _ptMouse)) _inventory.craftPageNum++;
-
-			if (_inventory.craftPageNum <= 0) _inventory.craftPageNum = 1;
-			if (_inventory.craftPageNum >= 3) _inventory.craftPageNum = 2;
-			/////////////// </제작 페이지 이동>
+			if (PtInRect(&_invenTabRC[i], _ptMouse)) _inventory.invenTabNum = i + 1;	//각 탭을 눌렀을 때
 		}
+		for (int i = 0; i < _vInvenIndexRC.size(); ++i)
+		{
+			if (PtInRect(&_vInvenIndexRC[i], _ptMouse))
+			{
+				// 클릭했을 때의 인덱스 값 저장
 
-		//if (PtInRect(&_TitleRC, _ptMouse) && _tabNum == 4) SCENEMANAGER->changeScene("");				//[타이틀 메뉴로] 눌렀을 때
+				cout << i << endl;										//각 인벤토리 칸을 눌렀을 때
+			}
+		}
+		/////////////// <제작 페이지 이동>
+		if (PtInRect(&_menuUpRC, _ptMouse)) _inventory.craftPageNum--;
+		if (PtInRect(&_menuDownRC, _ptMouse)) _inventory.craftPageNum++;
+
+		if (_inventory.craftPageNum <= 0) _inventory.craftPageNum = 1;
+		if (_inventory.craftPageNum >= 3) _inventory.craftPageNum = 2;
+		/////////////// </제작 페이지 이동>
+		
+		if (PtInRect(&_titleRC, _ptMouse)) SCENEMANAGER->changeScene("Title");				//[타이틀 메뉴로] 눌렀을 때
 		if (PtInRect(&_closeRC, _ptMouse) && _inventory.invenTabNum == 4) PostQuitMessage(0);			//[게임 종료] 눌렀을 때
 	}
-	for (int InventoryIndex = 0; InventoryIndex < 12; InventoryIndex++)
+	if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON))
 	{
-		_indexRC[InventoryIndex] = RectMake(_inventory.x + InventoryIndex * 64, _inventory.y, 64, 64);	//각 인벤토리 칸의 렉트
+		for (int i = 0; i < _vInvenIndexRC.size(); ++i)
+		{
+			if (PtInRect(&_vInvenIndexRC[i], _ptMouse))
+			{
+				// 땠을 때의 인덱스 값 저장
 
-		_vInvenIndexRC.push_back(_indexRC[InventoryIndex]);
+				cout << i << endl;										//각 인벤토리 칸을 눌렀을 때
+			}
+		}
+		//if (PtInRect(&쓰레기통 렉트, _ptMouse))
+		//{
+				// 땠을 때의 인덱스 값 저장
+				// nullptr 또는 new Axe , TOOL:: NONE
+		//}
 	}
-
 	///////////////////////////////////////////////////////////////////////////////////////////////// <Test>
 	if (!_inventory.isInvenOpen)
 	{
 		_inventory.rc = RectMake(_inventory.rc.left, _inventory.rc.top,
 			_quickSlotSelect.image->getWidth(), _quickSlotSelect.image->getHeight());
 		quickSlotMove();
+		if (!_vInvenIndexRC.empty()) _vInvenIndexRC.clear();
 	}
 	else
 	{
 		_inventory.rc = RectMake(-100, -100, 0, 0);
-		
+		if (_vInvenIndexRC.empty() && _inventory.invenTabNum == 1)
+		{
+			for (int InventoryIndex = 0; InventoryIndex < 12; InventoryIndex++)
+			{
+				_indexRC[InventoryIndex] = RectMake(_inventory.x + InventoryIndex * 64, _inventory.y, 64, 64);	//각 인벤토리 칸의 렉트
+				_vInvenIndexRC.push_back(_indexRC[InventoryIndex]);
+			}
+		}
+		else if (_inventory.invenTabNum != 1)
+		{
+			if (!_vInvenIndexRC.empty()) _vInvenIndexRC.clear();
+		}
 	}
-	
+
 
 	///////////////////////////////////////////////////////////////////////////////////////////////// </Test>
 }
@@ -156,7 +173,6 @@ void Inventory::render()
 	{
 		IMAGEMANAGER->findImage("Inventory_BG")->alphaRender(getMemDC(), 100);
 		IMAGEMANAGER->findImage("Inventory_Close")->render(getMemDC(), 1240, 102);
-
 		switch (_inventory.invenTabNum)
 		{
 			case 1:		//인벤토리 탭
@@ -175,13 +191,15 @@ void Inventory::render()
 				{
 					IMAGEMANAGER->findImage("UI_Inventory_Night")->render(getMemDC(), INVENIMAGECOOR);
 				}
-	
-				for (int InventoryIndex = 0; InventoryIndex < 12; InventoryIndex++)
+				
+				
+				for (int i = 0; i < _toolInven.size(); ++i)
 				{
-					_indexRC[InventoryIndex] = RectMake(_inventory.x + InventoryIndex * 64, _inventory.y, 64, 64);	//각 인벤토리 칸의 렉트
-					_vInvenIndexRC.push_back(_indexRC[InventoryIndex]);
+					if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
+					{
+						_toolInven[i]->GetImageInven()->render(getMemDC(), 416 + (i * 64), 230);
+					}
 				}
-
 				//cout << "1" << endl;
 			}
 			break;
@@ -242,42 +260,13 @@ void Inventory::render()
 	}
 	else
 	{
+		
 		_vInvenStaticRC.clear();
 		_vInvenDynamicRC.clear();
-	}
-
-	////////////////////////QuickSlot///////////////////////////////////////////
-	RECT temp;
-	if (!_inventory.isInvenOpen)
-	{
-	//	if(_player.get)
 		_quickSlot.image->render(getMemDC(), 407, _quickSlot.y);
-		for (int InventoryIndex = 0; InventoryIndex < 12; InventoryIndex++)
-		{
-			_indexRC[InventoryIndex] = RectMake(423 + InventoryIndex * 64, 763, 64, 64);	//각 인벤토리 칸의 렉트
-			
-			for (int i = 0; i < 12; i++)
-			{
-				if (IntersectRect(&temp, &_indexRC[i], &_inventory.rc))
-				{
-
-				}
-			}
-		}
+		
 		_quickSlotSelect.image->render(getMemDC(), _quickSlotSelect.x, _quickSlotSelect.y);
-	}
-
-	for (int i = 0; i < _toolInven.size(); ++i)
-	{
-		if (_inventory.isInvenOpen)
-		{
-			if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
-			{
-				_toolInven[i]->GetImageInven()->render(getMemDC(), 416 + (i * 64), 230);
-			}
-		}
-
-		else
+		for (int i = 0; i < _toolInven.size(); ++i)
 		{
 			if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
 			{
@@ -285,6 +274,12 @@ void Inventory::render()
 			}
 		}
 	}
+	
+	for (int i = 0; i < _vInvenIndexRC.size(); i++)
+	{
+		Rectangle(getMemDC(), _vInvenIndexRC[i]);
+	}
+	////////////////////////QuickSlot///////////////////////////////////////////
 
 	/////////////////////////////////////////////////////////////////////////// <Debug_Rect>
 
