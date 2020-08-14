@@ -17,9 +17,6 @@ HRESULT playGround::init()
 	gameNode::init(true);
 	//POINT _CameraMouse = PointMake(_ptMouse.x + CAMERAMANAGER->getL(), _ptMouse.y + CAMERAMANAGER->getT()); 마우스 카메라 위치
 
-	_Inv = new Inventory;
-	_Inv->init();
-
 	imginit();
 	soundinit();
 
@@ -33,7 +30,7 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("FARM", _farm = new MapFarm);
 	SCENEMANAGER->addScene("HOME", _home = new MapHome);
 	SCENEMANAGER->addScene("Test", _test = new MapTest);
-	SCENEMANAGER->changeScene("HOME");
+	SCENEMANAGER->changeScene("Test");
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
 	return S_OK;
@@ -98,18 +95,18 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("RecoveryItemInfo", "image/회복아이템설명.bmp", 293, 258, true, MAGENTA);
 
 	//환경
-	IMAGEMANAGER->addImage("Environment_Clock", "Image/Environment/Environment_Clock.bmp", 284, 160, true, MAGENTA);
+	IMAGEMANAGER->addImage("Environment_Clock", "image/Environment/Environment_Clock.bmp", 284, 160, true, MAGENTA);
 
 	//인벤토리
-	IMAGEMANAGER->addImage("Inventory_BG", "Image/Inventory/Inventory_BG.bmp", 1600, 900, false, BLACK);
-	IMAGEMANAGER->addImage("UI_Inventory_Day", "Image/Inventory/UI_Inventory_Day.bmp", 848, 648, true, MAGENTA);
-	IMAGEMANAGER->addImage("UI_Inventory_Night", "Image/Inventory/UI_Inventory_Night.bmp", 848, 648, true, MAGENTA);
-	IMAGEMANAGER->addImage("UI_Inventory_Craft_top", "Image/Inventory/UI_Inventory_Craft_top.bmp", 848, 648, true, MAGENTA);
-	IMAGEMANAGER->addImage("UI_Inventory_Craft_bot", "Image/Inventory/UI_Inventory_Craft_bot.bmp", 848, 648, true, MAGENTA);
-	IMAGEMANAGER->addImage("UI_Inventory_KeyInfo", "Image/Inventory/UI_Inventory_KeyInfo.bmp", 848, 648, true, MAGENTA);
-	IMAGEMANAGER->addImage("UI_Inventory_Game_Close", "Image/Inventory/UI_Inventory_Game_Close.bmp", 848, 648, true, MAGENTA);
-	IMAGEMANAGER->addImage("Inventory_Close", "Image/Inventory/Inventory_Close.bmp", 44, 44, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("UI_Inventory_Trashcan", "Image/Inventory/UI_Inventory_Trashcan.bmp", 184, 71, 4, 1, true, MAGENTA);
+	IMAGEMANAGER->addImage("Inventory_BG", "image/Inventory/Inventory_BG.bmp", 1600, 900, false, BLACK);
+	IMAGEMANAGER->addImage("UI_Inventory_Day", "image/Inventory/UI_Inventory_Day.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("UI_Inventory_Night", "image/Inventory/UI_Inventory_Night.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("UI_Inventory_Craft_top", "image/Inventory/UI_Inventory_Craft_top.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("UI_Inventory_Craft_bot", "image/Inventory/UI_Inventory_Craft_bot.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("UI_Inventory_KeyInfo", "image/Inventory/UI_Inventory_KeyInfo.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("UI_Inventory_Game_Close", "image/Inventory/UI_Inventory_Game_Close.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("Inventory_Close", "image/Inventory/Inventory_Close.bmp", 44, 44, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("UI_Inventory_Trashcan", "image/Inventory/UI_Inventory_Trashcan.bmp", 368, 142, 4, 1, true, MAGENTA);
 
 	//상점관련
 	IMAGEMANAGER->addFrameImage("StoreOwnerPortrait", "image/상점/상점주인_초상화(420x630).bmp", 420, 630, 2, 3, true, MAGENTA);
@@ -127,6 +124,13 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("ChatBox", "image/대화창2.bmp", 900, 312, true, MAGENTA);
 	IMAGEMANAGER->addImage("CloseButton", "image/닫기버튼.bmp", 44, 44, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("RightButton", "image/대화창_우측하단(330x33).bmp", 330, 33, 11, 1, true, WHITE);
+
+	//아이템 테스트용
+	IMAGEMANAGER->addImage("Item_Axe", "image/ItemTest/Item_Axe.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Item_Handplow", "image/ItemTest/Item_Handplow.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Item_Knife", "image/ItemTest/Item_Knife.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Item_Pickaxe", "image/ItemTest/Item_Pickaxe.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Item_Sickle", "image/ItemTest/Item_Sickle.bmp", 64, 64, true, MAGENTA);
 
 	//테스트용 이미지입니다 무시하세요
 	IMAGEMANAGER->addFrameImage("말랑카우", "image/말랑카우.bmp", 200, 300, 4, 6, true, MAGENTA);

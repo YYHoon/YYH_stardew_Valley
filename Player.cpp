@@ -27,9 +27,15 @@ HRESULT Player::init()
 	_info.velocity = 10.0f;
 	_isKeyDown = false;
 
+	_inven = new Inventory;
+
 	_tool = new ToolItemManager;
 	_tool->GetNowTileMapMemoyrAddressLink(_Map);
 	_tool->Init();
+
+	_inven->SetMemoryLinkedTool(_tool);
+	_inven->init();
+
 	return S_OK;
 }
 
@@ -45,7 +51,7 @@ void Player::update()
 
 	CheckTiles();
 
-	
+	_inven->update();
 	
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
@@ -66,7 +72,7 @@ void Player::render()
 	CAMERAMANAGER->rectangle(getMemDC(), _info.shadowCollision);
 	/*_info.shadowImg->render(getMemDC(), _info.shadowCollision.left, _info.shadowCollision.top);
 	_info.img->aniRender(getMemDC(), _info.collision.left, _info.collision.top, _info.anim);*/
-
+	_inven->render();
 }
 
 void Player::release()

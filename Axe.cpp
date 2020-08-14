@@ -12,7 +12,9 @@ void Axe::Init()
 	_tag = "ToolItem";
 	_dmage = 1;
 	_enumName = TOOLS::AXE;
-
+	/// <summary>
+	_image = IMAGEMANAGER->findImage("Item_Axe");
+	/// </summary>
 }
 
 void Axe::Action()

@@ -36,6 +36,10 @@ public:
 	virtual	int GetImpactIndexCenter(string name);
 	virtual	int GetImpactIndexLeft(string name);
 	virtual int GetImpactIndexRight(string name);
+
+	
+	vector<ToolItem*> GetToolItem() { return _toolList; }
+	
 	
 	virtual inline void SetImpactIndex(string name, int index);
 	virtual inline void SetImpactIndex(string name, int Center, int left, int right);

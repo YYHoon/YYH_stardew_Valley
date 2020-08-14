@@ -13,6 +13,9 @@ void Pickax::Init()
 	_tag = "ToolItem";
 	_dmage = 1;
 	_enumName = TOOLS::PICK;
+	/// <summary>
+	_image = IMAGEMANAGER->findImage("Item_Pickaxe");
+	/// </summary>
 }
 
 void Pickax::Action()

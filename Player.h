@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "Vector2.h"
 #include "ToolItemManager.h"
+#include "Inventory.h"
 class State;
 class MapMain;
 
@@ -45,6 +46,9 @@ private:
 	int _actTileIndex[3];
 	int _playerTileX, _playerTileY;
 	
+	/// <summary>
+	Inventory* _inven;
+	/// </summary>
 
 	bool _isKeyDown;
 	

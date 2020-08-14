@@ -8,6 +8,9 @@ void Homi::Init()
 	_tag = "ToolItem";
 	_dmage = 1;
 	_enumName = TOOLS::HOE;
+	/// <summary>
+	_image = IMAGEMANAGER->findImage("Item_Handplow");
+	/// </summary>
 }
 
 void Homi::Action()

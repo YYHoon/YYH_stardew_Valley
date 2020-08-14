@@ -15,6 +15,7 @@ HRESULT Environment::init()
 	/// </summary>
 
 	_clockCalculate = 0;
+	_dayCount = 1;
 
 	_clockHand.count = 0;
 
@@ -102,10 +103,11 @@ void Environment::update()
 
 				if (_alphaValue > ALPHAVALUEMAX) _alphaValue = ALPHAVALUEMAX;
 			}
-			if (_realTimeSecond > REALTIMEMAX)
+			if (_clockHand.value >= CLOCKTIMEMAX && _alphaValue == ALPHAVALUEMAX)
 			{
 				_alphaValue = 0;
 				_realTimeSecond = 0;
+				_dayCount++;
 			}
 		}
 	}

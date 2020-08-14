@@ -8,13 +8,16 @@ class ToolItem
 {
 protected:
 	string _name;		//이름
-	string _tag;		//태그
+	string _tag;		//태그 
 	int _dmage;			//데미지
 	int _tileIndex[3]; //상호작용할 타일의 인덱스 저장할곳
 	bool _justSignal = false;//단일타일상호작용툴 체크
 	bool _slashSignal = false;//범위타일상호작용 체크
 	TOOLS _enumName;		//툴아이템의 이넘값
-	
+
+	/// <summary>
+	image* _image;
+	/// </summary>
 
 	MAPOBJECT	_mapObject = MAPOBJECT::NONE;	//지형오브젝트의속성
 	TERRAIN _mapTeeain = TERRAIN::NONE;			//지형타일의 속성

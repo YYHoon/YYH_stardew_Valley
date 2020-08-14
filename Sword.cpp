@@ -7,7 +7,9 @@ void Sword::Init()
 	_tag = "ToolItem";
 	_dmage = 3;
 	_enumName = TOOLS::SWORD;
-
+	/// <summary>
+	_image = IMAGEMANAGER->findImage("Item_Knife");
+	/// </summary>
 }
 
 void Sword::Action()
