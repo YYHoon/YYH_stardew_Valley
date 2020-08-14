@@ -2,11 +2,15 @@
 #include "gameNode.h"
 #include "MapToolScene.h"
 #include "Player.h"
+#include "Environment.h"
+
 class MapMain : public gameNode
 {
 protected:
 	MapToolScene* _map;
 	Player* _player;
+	Environment* _environment;
+
 	SynInheritance(vector<tagTile>, _tiles, Tiles)
 	SynInheritance(int, _vertical, Vertical)
 	SynInheritance(int, _horizon, Horizon)

@@ -60,6 +60,10 @@ public:
 	virtual	int GetImpactIndexCenter(string name);
 	virtual	int GetImpactIndexLeft(string name);
 	virtual int GetImpactIndexRight(string name);
+
+	
+	vector<ToolItem*> GetToolItem() { return _toolList; }
+	
 	
 	//이름에따른 이미지가져오는함수
 	virtual image* GetImageInven(string name);

@@ -27,36 +27,98 @@ HRESULT Player::init()
 	_info.velocity = 10.0f;
 	_isKeyDown = false;
 
+	_inven = new Inventory;
+
 	_tool = new ToolItemManager;
 	_tool->GetNowTileMapMemoyrAddressLink(_Map);
 	_tool->Init();
+
+	_inven->SetMemoryLinkedTool(_tool);
+	_inven->init();
+	
 	return S_OK;
 }
 
 void Player::update()
 {
-	if (KEYMANAGER->isOnceKeyDown('1'))ChangeEquipment(TOOLS::AXE);
-	else if (KEYMANAGER->isOnceKeyDown('2'))ChangeEquipment(TOOLS::HOE);
-	else if (KEYMANAGER->isOnceKeyDown('3'))ChangeEquipment(TOOLS::SICKLE);
-	else if (KEYMANAGER->isOnceKeyDown('4'))ChangeEquipment(TOOLS::WATERING_CAN);
-	else if (KEYMANAGER->isOnceKeyDown('5'))ChangeEquipment(TOOLS::ITEM);
-	else if (KEYMANAGER->isOnceKeyDown('6'))ChangeEquipment(TOOLS::SWORD);
-	else if (KEYMANAGER->isOnceKeyDown('7'))ChangeEquipment(TOOLS::PICK);
+	//cout << "¿©±â" << endl;
+	if (KEYMANAGER->isOnceKeyDown('1')) 
+	{
+		_info.haveItem = _inven->GetInvenItem(0);
+		ChangeEquipment(_info.haveItem->GetToolEnum());
+	}
+	else if (KEYMANAGER->isOnceKeyDown('2'))
+	{
+		_info.haveItem = _inven->GetInvenItem(1);
+		ChangeEquipment(_info.haveItem->GetToolEnum());
+	}
+	else if (KEYMANAGER->isOnceKeyDown('3')) 
+	{
+		_info.haveItem = _inven->GetInvenItem(2);
+		ChangeEquipment(_info.haveItem->GetToolEnum());
+	}
+	else if (KEYMANAGER->isOnceKeyDown('4'))
+	{
+		_info.haveItem = _inven->GetInvenItem(3);
+		ChangeEquipment(_info.haveItem->GetToolEnum());
+	}
+	else if (KEYMANAGER->isOnceKeyDown('5'))
+	{
+		_info.haveItem = _inven->GetInvenItem(4);
+		ChangeEquipment(_info.haveItem->GetToolEnum());
+	}
+	else if (KEYMANAGER->isOnceKeyDown('6'))
+	{
+		_info.haveItem = _inven->GetInvenItem(5);
+		ChangeEquipment(_info.haveItem->GetToolEnum());
+	}
+	else if (KEYMANAGER->isOnceKeyDown('7'))
+	{
+		_info.haveItem = _inven->GetInvenItem(6);
+		ChangeEquipment(_info.haveItem->GetToolEnum());
+	}
+	else if (KEYMANAGER->isOnceKeyDown('8'))
+	{
+		_info.haveItem = _inven->GetInvenItem(7);
+		ChangeEquipment(_info.haveItem->GetToolEnum());
+	}
+	else if (KEYMANAGER->isOnceKeyDown('9'))
+	{
+		_info.haveItem = _inven->GetInvenItem(8);
+		ChangeEquipment(_info.haveItem->GetToolEnum());
+	}
+	else if (KEYMANAGER->isOnceKeyDown('0'))
+	{
+		_info.haveItem = _inven->GetInvenItem(9);
+		ChangeEquipment(_info.haveItem->GetToolEnum());
+	}
+	else if (KEYMANAGER->isOnceKeyDown(VK_OEM_MINUS))
+	{
+		_info.haveItem = _inven->GetInvenItem(10);
+		ChangeEquipment(_info.haveItem->GetToolEnum());
+	}
+	else if (KEYMANAGER->isOnceKeyDown(VK_OEM_PLUS))
+	{
+		_info.haveItem = _inven->GetInvenItem(11);
+		ChangeEquipment(_info.haveItem->GetToolEnum());
+	}
 
 	CheckTiles();
 
+	_inven->update();
 	
-	
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() != "acting")
+	if (_info.haveItem != nullptr &&
+		_info.haveItem->GetToolEnum() != TOOLS::NONE &&
+		KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() != "acting")
 	{
-		_tool->SetImpactIndex("Pickax",_actTileIndex[0]);
-		_tool->Action("Pickax");
+		_tool->SetImpactIndex(_info.haveItem->GetName(),_actTileIndex[0]);
+		_tool->Action(_info.haveItem->GetName());
 	}
-
+	_inven->PlayerLootItem(_getItem);
 	_state->Update();
 	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
-	//_tool->Action("Pickax");
+
 	ZORDER->ZOrderPush(getMemDC(), RenderType::KEYANIRENDER, _info.img ,_info.collision.left, _info.collision.top, _info.anim, _info.shadowCollision.bottom);
 
 }
@@ -66,7 +128,7 @@ void Player::render()
 	CAMERAMANAGER->rectangle(getMemDC(), _info.shadowCollision);
 	/*_info.shadowImg->render(getMemDC(), _info.shadowCollision.left, _info.shadowCollision.top);
 	_info.img->aniRender(getMemDC(), _info.collision.left, _info.collision.top, _info.anim);*/
-
+	_inven->render();
 }
 
 void Player::release()

@@ -16,6 +16,8 @@ class Environment : public gameNode
 private:
 	int _alphaValue;			//알파값
 
+	int _dayCount;				//날짜
+
 	/// 원본 게임에서의 시계 각도(%)
 	float _originalTime = 860;			//원본 게임의 총 시간
 	float _originalDelay = 7.96296f;	//원본 게임의 한 틱당 시간
@@ -55,6 +57,9 @@ public:
 	void update();
 	void render();
 
-	int GetCluckValue() { return _clockHand.value; }		//시계 값
+	int GetCluckValue() { return _clockHand.value; }	//시계 값
+	int GetDayCount() { return _dayCount; }				//날짜 값
+
+
 };
 

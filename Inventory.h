@@ -4,8 +4,14 @@
 
 #include <vector>
 
+class Player;
+class ToolItemManager;
+class ToolItem;
+
 struct tagInventory
 {
+	string keyname;
+	RECT rc;
 	image* image;
 	int invenTabNum;
 	int craftPageNum;
@@ -16,21 +22,22 @@ struct tagInventory
 struct tagQuickSlot
 {
 	image* image;
-	string keyname;
-	RECT rc;
 	int x, y;
+	int uY;
 };
 
 class Inventory : public gameNode
 {
 private:
-	typedef vector<RECT>	vInvenStaticRC;				//인벤토리가 열렸을 때 상시 켜져 있는 (정적)렉트 벡터
-	typedef vector<RECT>	vInvenDynamicRC;			//인벤토리가 열렸을 때 상황에 따라 켜지는 (동적)렉트 벡터 
-	typedef vector<RECT>	vInvenIndexRC;				//각 인벤토리 칸 벡터
+	typedef vector<RECT>			vInvenStaticRC;		//인벤토리가 열렸을 때 상시 켜져 있는 (정적)렉트 벡터
+	typedef vector<RECT>			vInvenDynamicRC;	//인벤토리가 열렸을 때 상황에 따라 켜지는 (동적)렉트 벡터 
+	typedef vector<RECT>			vInvenIndexRC;		//각 인벤토리 칸 벡터
 
 	typedef vector<RECT>::iterator	viInvenStaticRC;
 	typedef vector<RECT>::iterator	viInvenDynamicRC;
 	typedef vector<RECT>::iterator	viInvenIndexRC;
+
+	vector<tagInventory>	_vAllInventory;				//어디에 쓰려고 만들었더라.............
 
 	vInvenStaticRC		_vInvenStaticRC;
 	vInvenDynamicRC		_vInvenDynamicRC;
@@ -50,14 +57,20 @@ private:
 	RECT _menuUpRC;			// Dynamic RC   //
 	//////////////////////////////////////////
 	RECT _indexRC[12];	    // Index RC     //
-//	RECT _inventoryRC[12];  // Inventory RC //
 	//////////////////////////////////////////
+
+	Player* _player;
 
 /////////////////////////<Inventory>////////////////////////////
 
 	tagInventory _inventory;
 	Environment* _environment;
+	ToolItemManager* _toolItemManager;
 
+	vector<ToolItem*> _toolList; // 정보
+	vector <ToolItem*> _toolInven; // 값 가지고 있는것들 
+	//ToolItem* _getItem;
+	
 	RECT _trashCanRC;
 	int _trashCanFrameX;
 	int _frameCount;
@@ -71,16 +84,9 @@ private:
 
 /////////////////////////</QuickSlot>///////////////////////////
 
-	int _quickSlotY;		//퀵슬롯 Y축 위치
-	int _quickSlotSelectRcX, _quickSlotSelectRcY; //퀵슬롯선택X,Y축
-
-	int _selecRcX, _selecRcY;
-
-
-
 public:
 	Inventory()  {};
-	~Inventory() {};
+	~Inventory() {}; 
 
 	virtual HRESULT init();
 	virtual void release();
@@ -88,5 +94,12 @@ public:
 	virtual void render();
 	virtual void quickSlotMove();
 
-	vector<RECT>	GetVInvenIndexRC() { return _vInvenIndexRC; }
+	void PlayerLootItem(ToolItem* item);
+	
+	vector<RECT>	 GetVInvenIndexRC() { return _vInvenIndexRC; }
+	vector<tagInventory> GetInventory() { return _vAllInventory; }
+	vector<ToolItem*> GetInven() { return _toolInven; }
+	ToolItem* GetInvenItem(int index) { return _toolInven[index]; }
+
+	void SetMemoryLinkedTool(ToolItemManager* tool) { _toolItemManager = tool; }
 };
