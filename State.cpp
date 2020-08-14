@@ -53,10 +53,8 @@ void PlayerIdle::Update()
 		_player->ChangeState(make_shared<PlayerItemIdle>(_player));
 		return;
 	}
-
 	if (KEYMANAGER->isOnceKeyDown('W'))
 	{
-
 		_player->SetDirection(PLAYER_DIRECTION::UP);
 		_player->ChangeState(make_shared<PlayerMove>(_player));
 		return;

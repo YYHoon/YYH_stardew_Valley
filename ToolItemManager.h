@@ -4,12 +4,11 @@
 #include "Pickax.h"
 #include "Axe.h"
 #include "FishingRod.h"
-#include "MiniGame.h"
 #include "Homi.h"
 #include "WaterSpray.h"
 #include "Sickle.h"
 #include "Sword.h"
-
+class MapMain;
 class DummyMap;
 
 class ToolItemManager
@@ -23,9 +22,8 @@ private:
 	WaterSpray* _waterSpray;
 	Sickle* _sickle;
 	Sword* _sword;
-	MiniGame* _miniGame;
 
-	DummyMap* _nowTileMap;
+	MapMain* _nowTileMap;
 public:
 	ToolItemManager();
 	virtual ~ToolItemManager() {};
@@ -42,7 +40,7 @@ public:
 	virtual inline void SetImpactIndex(string name, int index);
 	virtual inline void SetImpactIndex(string name, int Center, int left, int right);
 	
-	inline void GetNowTileMapMemoyrAddressLink(DummyMap* scene) { _nowTileMap = scene; }
+	inline void GetNowTileMapMemoyrAddressLink(MapMain* scene) { _nowTileMap = scene; }
 	
 };
 

@@ -10,11 +10,14 @@ enum class INOUT
 /// /////////////// 좌표 이넘
 enum class POS
 {
-	HOME,		//집들어가는 좌표
-	CAVE,		//동굴들어가는 좌표
-	HTOPARM,	//집에서 농장
-	CTOPARM,	//동굴에서 농장
-	BED,		//침대
+	COLLISION,
+	PARM_TO_HOME,	//집들어가는 좌표
+	PARM_TO_CAVE,	//동굴들어가는 좌표
+	HOME_TO_PARM,	//집에서 농장
+	CAVE_TO_PARM,	//동굴에서 농장
+	BED,			//침대
+	NPC,			//NPC
+	ENEMY,			//몹
 	NONE
 };
 
@@ -36,9 +39,11 @@ enum class CRTSELECT
 };
 enum class TERRAIN
 {
-	DIRT,
+	DIRT,	
 	GRASS,
 	WATER,
+	WOODEN,
+	WOODENWALL,
 	NONE
 };
 enum class MAPOBJECT
@@ -105,5 +110,3 @@ enum class PLAYER_ACTION
 	SWING,		//휘두르기 (도구 : 낫, 검) 오브젝트 상호작용; 상호작용할 오브젝트 : 잡초, 잔디; 범위 : 휘두르는 방향 3칸;
 	END
 };
-
-//////

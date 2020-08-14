@@ -1,5 +1,6 @@
 #include"stdafx.h"
 #include "Pickax.h"
+#include"AllMap.h"
 
 Pickax::Pickax()
 {
@@ -11,20 +12,26 @@ void Pickax::Init()
 	_name = "Pickax";
 	_tag = "ToolItem";
 	_dmage = 1;
-	_impactIndex;
+	_enumName = TOOLS::PICK;
 }
 
 void Pickax::Action()
 {
-
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	_justSignal = true;
+	_mapObject = MAPOBJECT::NONE;
+	//돌 부술때
+	if (_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::ROCK )
 	{
+		_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
+		_map->SetColl(_tileIndex[0], false);
+	}
 
-		Vector2 mouse(_ptMouse);
-		mouse.x = mouse.x / TILESIZE;
-		mouse.y = mouse.y / TILESIZE;
-		cout << (int)mouse.x << endl;
-		cout << (int)mouse.y << endl;
+	//경작지 없앨때
+	if (_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::HOETILE||
+		_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::HOETILE_WET)
+	{
+		_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
+		_map->SetColl(_tileIndex[0], false);
 	}
 }
 

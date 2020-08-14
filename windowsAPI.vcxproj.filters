@@ -73,9 +73,6 @@
     <Filter Include="playGround\Environment">
       <UniqueIdentifier>{712c9a02-75f0-4b16-8ff9-f27758122b5c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="playGround\TestDummy">
-      <UniqueIdentifier>{bdd243c6-97ca-4508-845e-e17b9793facd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="playGround\Tool\JustImpact">
       <UniqueIdentifier>{3c03e804-9e68-4134-add7-34ee984a8592}</UniqueIdentifier>
     </Filter>
@@ -228,9 +225,6 @@
     <ClInclude Include="AllUi.h">
       <Filter>playGround\UI</Filter>
     </ClInclude>
-    <ClInclude Include="DummyMap.h">
-      <Filter>playGround\Scene\Main</Filter>
-    </ClInclude>
     <ClInclude Include="Environment.h">
       <Filter>playGround\Environment</Filter>
     </ClInclude>
@@ -239,9 +233,6 @@
     </ClInclude>
     <ClInclude Include="Store.h">
       <Filter>playGround\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="DummyMap.h">
-      <Filter>playGround\TestDummy</Filter>
     </ClInclude>
     <ClInclude Include="FishingRod.h">
       <Filter>playGround\Tool\Fishing</Filter>
@@ -278,6 +269,21 @@
     </ClInclude>
     <ClInclude Include="MapFarm.h">
       <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapTest.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapHome.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapManager.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="AllMap.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="HpStaminaBar.h">
+      <Filter>playGround\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -383,9 +389,6 @@
     <ClCompile Include="State.cpp">
       <Filter>playGround\Player</Filter>
     </ClCompile>
-    <ClCompile Include="DummyMap.cpp">
-      <Filter>playGround\Scene\Main</Filter>
-    </ClCompile>
     <ClCompile Include="Environment.cpp">
       <Filter>playGround\Environment</Filter>
     </ClCompile>
@@ -394,9 +397,6 @@
     </ClCompile>
     <ClCompile Include="Store.cpp">
       <Filter>playGround\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="DummyMap.cpp">
-      <Filter>playGround\TestDummy</Filter>
     </ClCompile>
     <ClCompile Include="FishingRod.cpp">
       <Filter>playGround\Tool\Fishing</Filter>
@@ -436,6 +436,24 @@
     </ClCompile>
     <ClCompile Include="MapFarm.cpp">
       <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapHome.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapTest.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapManager.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="HpStaminaBar.cpp">
+      <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MapToolAuto.cpp">
+      <Filter>playGround\Scene\MaptoolScene</Filter>
+    </ClCompile>
+    <ClCompile Include="MapToolButton.cpp">
+      <Filter>playGround\Scene\MaptoolScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

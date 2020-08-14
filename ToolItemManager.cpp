@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ToolItemManager.h"
-
+#include "MapMain.h"
 ToolItemManager::ToolItemManager()
 {
 	
@@ -50,9 +50,10 @@ void ToolItemManager::Init()
 		//_sword->Init();
 		_toolList.push_back(_sword);
 	}
-	if (_miniGame == nullptr)
+	for (int i = 0; i < _toolList.size(); ++i)
 	{
-		_miniGame = new MiniGame;
+		_toolList[i]->SetNowMapMemoryAddressLink(_nowTileMap);
+		_toolList[i]->Init();
 	}
 	for (int i = 0; i < _toolList.size(); ++i)
 	{

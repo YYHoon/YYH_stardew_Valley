@@ -1,15 +1,24 @@
 #pragma once
 #include "gameNode.h"
+#include "Environment.h"
 
 #include <vector>
 
+struct tagInventory
+{
+	image* image;
+	int invenTabNum;
+	int craftPageNum;
+	int x, y;
+	bool isInvenOpen;
+};
 
 struct tagQuickSlot
 {
-	image* Image;
-	string Keyname;
-	RECT RC;
-	int X, Y;
+	image* image;
+	string keyname;
+	RECT rc;
+	int x, y;
 };
 
 class Inventory : public gameNode
@@ -44,16 +53,23 @@ private:
 //	RECT _inventoryRC[12];  // Inventory RC //
 	//////////////////////////////////////////
 
-	int _invenOpenX, _invenOpenY;
+/////////////////////////<Inventory>////////////////////////////
 
-	int  _tabNum;			//인벤토리 탭의 번호
-	int  _craftTabNum;		//제작 페이지 번호
-	bool _isInventoryOpen;	//인벤토리가 열려있는가?
+	tagInventory _inventory;
+	Environment* _environment;
 
-/////////////////////////QuickSlot///////////////////////////
+	RECT _trashCanRC;
+	int _trashCanFrameX;
+	int _frameCount;
 
-	tagQuickSlot _quickSlot;			//퀵슬롯
-	tagQuickSlot _quickSlotSelect;		//퀵슬롯선택 사각형
+/////////////////////////</Inventory>///////////////////////////
+
+/////////////////////////<QuickSlot>////////////////////////////
+			
+	tagQuickSlot _quickSlot;							//퀵슬롯
+	tagQuickSlot _quickSlotSelect;						//퀵슬롯선택 사각형
+
+/////////////////////////</QuickSlot>///////////////////////////
 
 	int _quickSlotY;		//퀵슬롯 Y축 위치
 	int _quickSlotSelectRcX, _quickSlotSelectRcY; //퀵슬롯선택X,Y축
@@ -72,5 +88,5 @@ public:
 	virtual void render();
 	virtual void quickSlotMove();
 
-	vector<RECT>	getVInvenIndexRC() { return _vInvenIndexRC; }
+	vector<RECT>	GetVInvenIndexRC() { return _vInvenIndexRC; }
 };

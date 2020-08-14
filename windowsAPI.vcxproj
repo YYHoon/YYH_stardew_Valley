@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="AllDefine.h" />
     <ClInclude Include="AllEnum.h" />
+    <ClInclude Include="AllMap.h" />
     <ClInclude Include="AllUi.h" />
     <ClInclude Include="animation.h" />
     <ClInclude Include="Axe.h" />
@@ -162,7 +163,6 @@
     <ClInclude Include="collision.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="Dialog.h" />
-    <ClInclude Include="DummyMap.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
     <ClInclude Include="Environment.h" />
@@ -172,6 +172,7 @@
     <ClInclude Include="gameNode.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Homi.h" />
+    <ClInclude Include="HpStaminaBar.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
     <ClInclude Include="iniDataManager.h" />
@@ -180,7 +181,10 @@
     <ClInclude Include="keyManager.h" />
     <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="MapFarm.h" />
+    <ClInclude Include="MapHome.h" />
     <ClInclude Include="MapMain.h" />
+    <ClInclude Include="MapManager.h" />
+    <ClInclude Include="MapTest.h" />
     <ClInclude Include="MapToolScene.h" />
     <ClInclude Include="MiniGame.h" />
     <ClInclude Include="ObjectManager.h" />
@@ -218,7 +222,6 @@
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="Dialog.cpp" />
-    <ClCompile Include="DummyMap.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="Environment.cpp" />
@@ -228,6 +231,7 @@
     <ClCompile Include="gameNode.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Homi.cpp" />
+    <ClCompile Include="HpStaminaBar.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />
     <ClCompile Include="iniDataManager.cpp" />
@@ -236,8 +240,13 @@
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="MapFarm.cpp" />
+    <ClCompile Include="MapHome.cpp" />
     <ClCompile Include="MapMain.cpp" />
+    <ClCompile Include="MapManager.cpp" />
+    <ClCompile Include="MapTest.cpp" />
     <ClCompile Include="MapTool + SaveLoad.cpp" />
+    <ClCompile Include="MapToolAuto.cpp" />
+    <ClCompile Include="MapToolButton.cpp" />
     <ClCompile Include="MapToolScene.cpp" />
     <ClCompile Include="MiniGame.cpp" />
     <ClCompile Include="ObjectManager.cpp" />

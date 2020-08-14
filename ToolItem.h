@@ -1,22 +1,24 @@
 #pragma once
 #include "gameNode.h"
-#include"DummyMap.h"
+class MapMain;
 
 //class DummyMap;//영향끼칠 맵
 
 class ToolItem
 {
 protected:
-	string _name;
-	string _tag;
-	int _dmage;
-	Vector2 _impactIndex[3];
+	string _name;		//이름
+	string _tag;		//태그
+	int _dmage;			//데미지
 	int _tileIndex[3]; //상호작용할 타일의 인덱스 저장할곳
-	bool _justSignal = false;
-	bool _slashSignal = false;
+	bool _justSignal = false;//단일타일상호작용툴 체크
+	bool _slashSignal = false;//범위타일상호작용 체크
+	TOOLS _enumName;		//툴아이템의 이넘값
+	
 
 	MAPOBJECT	_mapObject = MAPOBJECT::NONE;	//지형오브젝트의속성
-	DummyMap* _dummy;//영향줄맵
+	TERRAIN _mapTeeain = TERRAIN::NONE;			//지형타일의 속성
+	MapMain* _map;//영향줄맵
 
 public:
 	ToolItem() { ; }
@@ -35,16 +37,9 @@ public:
 	virtual inline int GetDmage() { return _dmage; }
 	virtual inline void SetDmage(int dmg) { _dmage = dmg; }
 
-	//효과위치 좌표
-	//virtual inline Vector2 GetImpactIndexCenter() { return _impactIndex[0]; }
-	//virtual inline Vector2 GetImpactIndexLeft() { return _impactIndex[1]; }
-	//virtual inline Vector2 GetImpactIndexRight() { return _impactIndex[2]; }
-	//virtual inline void SetImpactIndex(Vector2 index) { _impactIndex[0] = index; }
-	//virtual inline void SetImpactIndex(Vector2 Center, Vector2 left, Vector2 right) {
-	//	_impactIndex[0] = Center;
-	//	_impactIndex[1] = left;
-	//	_impactIndex[2] = right;
-	//}
+	//툴아이템의 이넘값겟 
+	virtual inline TOOLS GetToolEnum() { return _enumName; }
+
 	virtual inline int GetImpactTileIndexCenter() { return _tileIndex[0]; }
 	virtual inline int GetImpactTileIndexLeft() { return _tileIndex[1]; }
 	virtual inline int GetImpactTileIndexRight() { return _tileIndex[2]; }
@@ -66,6 +61,6 @@ public:
 	virtual void Init() = 0;
 	virtual void Action() = 0;
 	virtual void ReAction() = 0;
-	inline void SetNowMapMemoryAddressLink(DummyMap* dmap) { _dummy = dmap; }
+	inline void SetNowMapMemoryAddressLink(MapMain* dmap) { _map = dmap; }
 };
 
