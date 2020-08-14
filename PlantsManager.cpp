@@ -20,7 +20,7 @@ void PlantsManager::Planting(int index, string plantsName)
 	{
 		if (plantsName == "parsnip")
 		{
-			_parsnip = new Parsnip;
+			_parsnip = new ParsnipObject;
 			_parsnip->Init();		
 			_parsnip->SetPosition(tileCenter);
 			_parsnip->SetPosIndex(index);
@@ -33,7 +33,7 @@ void PlantsManager::Growing()
 {
 	for (int i = 0; i < _ActivePlantsList.size(); ++i)
 	{
-		if (_map->GetTiles(_ActivePlantsList[i]->GetSaveIndex()).object == MAPOBJECT::HOETILE_WET)
+		if (_map->GetTiles(_ActivePlantsList[i]->GetSaveIndex()).wet)
 		{
 			_ActivePlantsList[i]->ChangeIsWet(true);
 		}
@@ -43,6 +43,12 @@ void PlantsManager::Growing()
 
 void PlantsManager::Harvesting(int index)
 {
-	
+	for (int i = 0; i < _ActivePlantsList.size(); ++i)
+	{
+		if (_ActivePlantsList[i]->GetCanHarvest())
+		{
+			//class item »Ñ¸®±â
+		}
+	}
 
 }

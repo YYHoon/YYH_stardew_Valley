@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "Parsnip.h"
+#include "ParsnipObject.h"
 
-void Parsnip::Init()
+void ParsnipObject::Init()
 {
 	//Synthesize(string, _name, Name)
 	//	Synthesize(string, _type, Type)
@@ -22,11 +22,11 @@ void Parsnip::Init()
 	_growCount = 0;
 }
 
-void Parsnip::Release()
+void ParsnipObject::Release()
 {
 }
 
-void Parsnip::Update()
+void ParsnipObject::Update()
 {
 	if (_isWet)
 	{
@@ -41,19 +41,19 @@ void Parsnip::Update()
 		break;
 	case 1:
 		_img->setFrameX(1);
-		_img->setFrameY(1);
+		_img->setFrameY(0);
 		break;
 	case 2:
 		_img->setFrameX(2);
-		_img->setFrameY(2);
+		_img->setFrameY(0);
 		break;
 	case 3:
 		_img->setFrameX(3);
-		_img->setFrameY(3);
+		_img->setFrameY(0);
 		break;
 	case 4:
 		_img->setFrameX(4);
-		_img->setFrameY(4);
+		_img->setFrameY(0);
 		break;
 	default:
 		break;

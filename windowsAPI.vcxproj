@@ -156,6 +156,7 @@
     <ClInclude Include="AllDefine.h" />
     <ClInclude Include="AllEnum.h" />
     <ClInclude Include="AllMap.h" />
+    <ClInclude Include="AllPlants.h" />
     <ClInclude Include="AllUi.h" />
     <ClInclude Include="animation.h" />
     <ClInclude Include="Axe.h" />
@@ -188,7 +189,7 @@
     <ClInclude Include="MapToolScene.h" />
     <ClInclude Include="MiniGame.h" />
     <ClInclude Include="ObjectManager.h" />
-    <ClInclude Include="Parsnip.h" />
+    <ClInclude Include="ParsnipObject.h" />
     <ClInclude Include="Pickax.h" />
     <ClInclude Include="Plants.h" />
     <ClInclude Include="PlantsManager.h" />
@@ -253,7 +254,7 @@
     <ClCompile Include="MapToolScene.cpp" />
     <ClCompile Include="MiniGame.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
-    <ClCompile Include="Parsnip.cpp" />
+    <ClCompile Include="ParsnipObject.cpp" />
     <ClCompile Include="Pickax.cpp" />
     <ClCompile Include="Plants.cpp" />
     <ClCompile Include="PlantsManager.cpp" />

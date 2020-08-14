@@ -285,13 +285,16 @@
     <ClInclude Include="HpStaminaBar.h">
       <Filter>playGround\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Parsnip.h">
-      <Filter>playGround\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Plants.h">
       <Filter>playGround\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="PlantsManager.h">
+      <Filter>playGround\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ParsnipObject.h">
+      <Filter>playGround\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AllPlants.h">
       <Filter>playGround\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
@@ -464,13 +467,13 @@
     <ClCompile Include="MapToolButton.cpp">
       <Filter>playGround\Scene\MaptoolScene</Filter>
     </ClCompile>
-    <ClCompile Include="Parsnip.cpp">
-      <Filter>playGround\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Plants.cpp">
       <Filter>playGround\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="PlantsManager.cpp">
+      <Filter>playGround\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ParsnipObject.cpp">
       <Filter>playGround\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
