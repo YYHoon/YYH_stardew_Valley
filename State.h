@@ -8,6 +8,7 @@ class State : public enable_shared_from_this<State>
 protected:
 	Player* _player;
 	string _name;
+	string _tagName;
 
 public:
 	virtual void Init() = 0;
@@ -17,6 +18,7 @@ public:
 	State(class Player* pPlayer);
 	Player* GetPlayer() { return _player; }
 	string GetStateName() { return _name; }
+	string GetStateTagName() { return _tagName; }
 	shared_ptr<State> GetState() { return shared_from_this(); }
 };
 
