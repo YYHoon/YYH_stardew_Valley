@@ -9,6 +9,7 @@ void PasnipSeed::Init()
 	_imageI = IMAGEMANAGER->findImage("PasnipSeed(64x64)");
 	_imageC= IMAGEMANAGER->findImage("PasnipSeed");
 	_number = 0;
+	_enumName = TOOLS::ACTIVEITEM;
 }
 
 void PasnipSeed::Action()

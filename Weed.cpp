@@ -8,6 +8,7 @@ void Weed::Init()
 	_imageI = IMAGEMANAGER->findImage("Weed(64x64)");
 	_imageC = IMAGEMANAGER->findImage("Weed");
 	_number = 0;
+	_enumName = TOOLS::RESOURCEITEM;
 }
 
 void Weed::Action()

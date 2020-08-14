@@ -8,6 +8,7 @@ void Kale::Init()
 	_imageI = IMAGEMANAGER->findImage("Kale(64x64)");
 	_imageC = IMAGEMANAGER->findImage("Kale");
 	_number = 0;
+	_enumName = TOOLS::EATITEM;
 }
 
 void Kale::Action()

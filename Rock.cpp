@@ -8,6 +8,7 @@ void Rock::Init()
 	_imageI = IMAGEMANAGER->findImage("Rock(64x64)");
 	_imageC = IMAGEMANAGER->findImage("Rock");
 	_number = 0;
+	_enumName = TOOLS::RESOURCEITEM;
 }
 
 void Rock::Action()

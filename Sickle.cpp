@@ -9,9 +9,6 @@ void Sickle::Init()
 	_imageI = IMAGEMANAGER->findImage("Sickle(64x64)");
 	_dmage = 1;
 	_enumName = TOOLS::SICKLE;
-	/// <summary>
-	_image = IMAGEMANAGER->findImage("Item_Sickle");
-	/// </summary>
 }
 
 void Sickle::Action()

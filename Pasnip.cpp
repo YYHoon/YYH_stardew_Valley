@@ -8,6 +8,7 @@ void Pasnip::Init()
 	_imageI = IMAGEMANAGER->findImage("Pasnip(64x64)");
 	_imageC = IMAGEMANAGER->findImage("Pasnip");
 	_number = 0;
+	_enumName = TOOLS::EATITEM;
 }
 
 void Pasnip::Action()

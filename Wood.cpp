@@ -8,6 +8,7 @@ void Wood::Init()
 	_imageI = IMAGEMANAGER->findImage("Wood(64x64)");
 	_imageC = IMAGEMANAGER->findImage("Wood");
 	_number = 0;
+	_enumName = TOOLS::RESOURCEITEM;
 }
 
 void Wood::Action()

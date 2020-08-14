@@ -47,10 +47,10 @@ HRESULT Inventory::init()
 	_toolInven[0] = _toolList[0];
 	_toolInven[1] = _toolList[1];
 	_toolInven[2]->SetToolEnum(TOOLS::NONE);
-	_toolInven[3]->SetToolEnum(TOOLS::NONE);
+	_toolInven[3] = _toolList[3];
 	_toolInven[4]->SetToolEnum(TOOLS::NONE);
 	_toolInven[5]->SetToolEnum(TOOLS::NONE);
-	_toolInven[6]->SetToolEnum(TOOLS::NONE);
+	_toolInven[6] = _toolList[10];
 	return S_OK;
 }
 
@@ -273,7 +273,7 @@ void Inventory::render()
 		{
 			if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
 			{
-				_toolInven[i]->GetImage()->render(getMemDC(), 416 + (i * 64), 230);
+				_toolInven[i]->GetImageInven()->render(getMemDC(), 416 + (i * 64), 230);
 			}
 		}
 
@@ -281,7 +281,7 @@ void Inventory::render()
 		{
 			if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
 			{
-				_toolInven[i]->GetImage()->render(getMemDC(), 423 + (i * 64), 763);
+				_toolInven[i]->GetImageInven()->render(getMemDC(), 423 + (i * 64), 763);
 			}
 		}
 	}

@@ -9,6 +9,7 @@ void KaleSeed::Init()
 	_imageC = IMAGEMANAGER->findImage("Kale");
 	_imageI = IMAGEMANAGER->findImage("Kale(64x64)");
 	_number = 0;
+	_enumName = TOOLS::ACTIVEITEM;
 }
 
 void KaleSeed::Action()

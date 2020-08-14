@@ -13,9 +13,6 @@ void Axe::Init()
 	_imageI = IMAGEMANAGER->findImage("Axe(64x64)");
 	_dmage = 1;
 	_enumName = TOOLS::AXE;
-	/// <summary>
-	_image = IMAGEMANAGER->findImage("Item_Axe");
-	/// </summary>
 }
 
 void Axe::Action()

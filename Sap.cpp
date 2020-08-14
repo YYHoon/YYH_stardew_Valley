@@ -8,6 +8,7 @@ void Sap::Init()
 	_imageI = IMAGEMANAGER->findImage("Sap(64x64)");
 	_imageC = IMAGEMANAGER->findImage("Sap");
 	_number = 0;
+	_enumName = TOOLS::EATITEM;
 }
 
 void Sap::Action()

@@ -35,7 +35,7 @@ HRESULT Player::init()
 
 	_inven->SetMemoryLinkedTool(_tool);
 	_inven->init();
-	
+	_info.haveItem = _inven->GetInvenItem(0);
 	return S_OK;
 }
 
@@ -106,7 +106,6 @@ void Player::update()
 	CheckTiles();
 
 	_inven->update();
-	
 	if (_info.haveItem != nullptr &&
 		_info.haveItem->GetToolEnum() != TOOLS::NONE &&
 		KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() != "acting")
@@ -118,7 +117,6 @@ void Player::update()
 	_state->Update();
 	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
-
 	ZORDER->ZOrderPush(getMemDC(), RenderType::KEYANIRENDER, _info.img ,_info.collision.left, _info.collision.top, _info.anim, _info.shadowCollision.bottom);
 
 }

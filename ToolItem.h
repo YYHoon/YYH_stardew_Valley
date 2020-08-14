@@ -14,9 +14,11 @@ protected:
 	bool _justSignal = false;//단일타일상호작용툴 체크
 	bool _slashSignal = false;//범위타일상호작용 체크
 	TOOLS _enumName = TOOLS::NONE;		//툴아이템의 이넘값
-
+	int _number = 0;
 	/// <summary>
-	image* _image =nullptr;
+	image* _imageI =nullptr;
+	image* _imageC = nullptr;
+
 	/// </summary>
 
 	MAPOBJECT	_mapObject = MAPOBJECT::NONE;	//지형오브젝트의속성

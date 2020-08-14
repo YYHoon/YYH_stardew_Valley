@@ -8,6 +8,7 @@ void RareFish::Init()
 	_imageI = IMAGEMANAGER->findImage("RareFish(64x64)");
 	_imageC = IMAGEMANAGER->findImage("RareFish");
 	_number = 0;
+	_enumName = TOOLS::EATITEM;
 }
 
 void RareFish::Action()

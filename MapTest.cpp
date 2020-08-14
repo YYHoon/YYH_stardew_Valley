@@ -108,6 +108,5 @@ void MapTest::render()
 
 	OBJECTMANAGER->Render();
 	ZORDER->ZOrderRender();
-	_player->render();
 	_environment->render();
 }

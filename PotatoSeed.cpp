@@ -9,6 +9,7 @@ void PotatoSeed::Init()
 	_imageI = IMAGEMANAGER->findImage("PotatoSeed(64x64)");
 	_imageC = IMAGEMANAGER->findImage("PotatoSeed");
 	_number = 0;
+	_enumName = TOOLS::ACTIVEITEM;
 }
 
 void PotatoSeed::Action()

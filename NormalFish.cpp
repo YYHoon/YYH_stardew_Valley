@@ -8,6 +8,7 @@ void NormalFish::Init()
 	_imageI = IMAGEMANAGER->findImage("NormalFish(64x64)");
 	_imageC = IMAGEMANAGER->findImage("NormalFish");
 	_number = 0;
+	_enumName = TOOLS::EATITEM;
 }
 
 void NormalFish::Action()

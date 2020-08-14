@@ -8,7 +8,7 @@ void Potato::Init()
 	_imageI = IMAGEMANAGER->findImage("Potato(64x64)");
 	_imageC = IMAGEMANAGER->findImage("Potato");
 	_number = 0;
-
+	_enumName = TOOLS::EATITEM;
 }
 
 void Potato::Action()

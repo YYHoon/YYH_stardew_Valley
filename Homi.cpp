@@ -9,9 +9,6 @@ void Homi::Init()
 	_imageI = IMAGEMANAGER->findImage("Homi(64x64)");
 	_dmage = 1;
 	_enumName = TOOLS::HOE;
-	/// <summary>
-	_image = IMAGEMANAGER->findImage("Item_Handplow");
-	/// </summary>
 }
 
 void Homi::Action()
