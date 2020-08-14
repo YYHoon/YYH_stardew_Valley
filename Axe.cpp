@@ -10,6 +10,7 @@ void Axe::Init()
 {
 	_name = "Axe";
 	_tag = "ToolItem";
+	_imageI = IMAGEMANAGER->findImage("Axe(64x64)");
 	_dmage = 1;
 	_enumName = TOOLS::AXE;
 

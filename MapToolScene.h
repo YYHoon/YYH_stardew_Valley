@@ -5,14 +5,14 @@ struct tagTile
 {
 	TERRAIN terrain;
 	MAPOBJECT object;
+	POS pos;
 	RECT rc;
 	int terrainframeX;
 	int terrainframeY;
 	int objectframeX;
 	int objectframeY;
-	int wetframeX;
-	int wetframeY;
 	int autoIndex;
+	int hp;
 	bool collision;
 };
 struct tagSampleTile
@@ -35,6 +35,7 @@ class MapToolScene : public gameNode
 private:
 	image* _Mouse;
 	CRTSELECT _crtSelect;
+	INOUT _inout;
 
 	tagSampleTile _sampleTile[15 * 8];
 	tagCurrentTile _currentTile;
@@ -49,17 +50,22 @@ private:
 	RECT _buildingBtn;
 	RECT _enemyBtn;
 	RECT _collisionBtn;
-	RECT _saveBtn;
+	RECT _saveBtn[3];
 	RECT _loadBtn;
 	RECT _eraserBtn;
+	RECT _inBtn;
+	RECT _outBtn;
+	RECT _upBtn;
+	RECT _downBtn;
 	RECT _exitBtn;
 
 	int _count;
+	int _terrainPage;
 	int _horizontal;	//가로 타일
 	int _vertical;		//세로 타일
 
 	bool _drag;
-
+	bool _Window;
 
 	vector<tagTile>				_vtiles;
 	vector<tagTile>::iterator	_vitiles;
@@ -76,11 +82,15 @@ public:
 	void SetUp();
 	void SetSample(string img);
 
+	void InToOut(int Horizontal, int Vertical);
+	void OutToIn(int Horizontal, int Vertical);
 	void SetMap_L();
 	void SetMap_R();
 	void Save();
 	void Load();
 	void Auto();
+
+	void ImageCut(string);
 
 	void Save(string fileName,int mapSizeX, int mapSizeY,vector<tagTile> tile);
 	vector<tagTile> Load(string fileName, int mapSizeX, int mapSizeY);

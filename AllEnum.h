@@ -1,9 +1,28 @@
 #pragma once
 
 /// MapTool
+
+enum class INOUT
+{
+	INDOOR,
+	OUTDOOR
+};
+/// /////////////// ÁÂÇ¥ ÀÌ³Ñ
+enum class POS
+{
+	HOME,		//Áýµé¾î°¡´Â ÁÂÇ¥
+	CAVE,		//µ¿±¼µé¾î°¡´Â ÁÂÇ¥
+	HTOPARM,	//Áý¿¡¼­ ³óÀå
+	CTOPARM,	//µ¿±¼¿¡¼­ ³óÀå
+	BED,		//Ä§´ë
+	NONE
+};
+
 enum class CRTSELECT
 {
 	TERRAINDRAW,
+	TERRAINDRAW_INDOOR,
+	TERRAINDRAW_CAVE,
 	WALLDRAW,
 	HOETILEDRAW,
 	TREEDRAW,
@@ -12,29 +31,29 @@ enum class CRTSELECT
 	ERASER,
 	COLLISION,
 	SAVE,
-	LOAD
+	LOAD,
+	NONE
 };
 enum class TERRAIN
 {
 	DIRT,
 	GRASS,
-	BOUNDARY,
 	WATER,
-	END
+	NONE
 };
 enum class MAPOBJECT
 {
 	TREE1,
 	TREE2,
-	TREE3,
+	TREE3,			//³ª¹«
 	HOETILE,		//³ó»ç¶¥
-	HOETILE_WET,	//Á¥Àº³ó»ç¶¥
+	HOETILE_WET,	//³ó»ç¶¥Á¥Àº°Å
 	WEED,			//Ç®
 	ROCK,			//µ¹
 	BRANCH,			//³ª¹µ°¡Áö
-	WALL,
-	BUILDING,
-	ENEMY,
+	WALL,			//º®
+	BUILDING,		//°Ç¹°
+	ENEMY,			//¿¡³Ê¹Ì
 	NONE
 };
 //--------------------------------------------------------------
