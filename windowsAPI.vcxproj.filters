@@ -112,6 +112,9 @@
     <Filter Include="playGround\Tool\EatItem\Fish">
       <UniqueIdentifier>{db35f93f-f1e5-461f-bcd6-49dfd5a43ca8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\astar">
+      <UniqueIdentifier>{988c32fd-36dd-4b98-bc1c-ab80174638ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -351,6 +354,9 @@
     <ClInclude Include="Wood.h">
       <Filter>playGround\Tool\ResoureceItem</Filter>
     </ClInclude>
+    <ClInclude Include="astar.h">
+      <Filter>playGround\astar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -565,6 +571,9 @@
     </ClCompile>
     <ClCompile Include="Wood.cpp">
       <Filter>playGround\Tool\ResoureceItem</Filter>
+    </ClCompile>
+    <ClCompile Include="astar.cpp">
+      <Filter>playGround\astar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

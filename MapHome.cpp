@@ -9,7 +9,7 @@ HRESULT MapHome::init()
 
 	_count = 0;
 	_vertical = _horizon = 30;
-	_tiles = _map->Load("mapHome.map", _vertical, _horizon);
+	_tiles = _map->Load("mapHome.map", _horizon, _vertical);
 	return S_OK;
 }
 

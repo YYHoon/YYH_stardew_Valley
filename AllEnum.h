@@ -114,3 +114,14 @@ enum class PLAYER_ACTION
 	SWING,		//휘두르기 (도구 : 낫, 검) 오브젝트 상호작용; 상호작용할 오브젝트 : 잡초, 잔디; 범위 : 휘두르는 방향 3칸;
 	END
 };
+
+enum class ATTRIBUTE
+{
+	NONE,
+	START,
+	WALL,
+	PLAYER,
+	ENEMY,
+	NPC,
+	END
+};

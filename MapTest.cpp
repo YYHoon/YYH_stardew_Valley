@@ -9,10 +9,18 @@ HRESULT MapTest::init()
 	
 	_environment = new Environment;
 	_environment->init();
-
 	_count = 0;
-    _vertical = _horizon = 75;
-    _tiles = _map->Load("mapTest.map", _vertical, _horizon);
+	_vertical = _horizon = 75;
+	_tiles = _map->Load("mapTest.map", _horizon, _vertical);
+
+	_astar = new astar;
+	_astar->SetMapMemoryLink(this);
+	_astar->SetMap();
+	_astar->SetStartNode(Vector2(10, 10));
+	//_astar->SetEndNode(_player->GetInfo().position / TILESIZE);
+	_astar->SetEndNode(Vector2(15,5));
+	_astar->PathFind();
+	
     return S_OK;
 }
 
@@ -110,4 +118,5 @@ void MapTest::render()
 	ZORDER->ZOrderRender();
 	_environment->render();
 	_player->render();
+	_astar->render();
 }
