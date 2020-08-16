@@ -70,7 +70,7 @@ HRESULT Store::init(int x, int y)
 	_saleKoName[4] = "¼¶À¯";
 	_saleKoName[5] = "³ª¹«";
 
-	_saleMoney[0] = 20;    //µ·
+	_saleMoney[0] = 50;    //µ·
 	_saleMoney[1] = 50;
 	_saleMoney[2] = 70;
 	_saleMoney[3] = 10;
@@ -93,36 +93,56 @@ void Store::update()
 	_StoreItmeFrameY3 = 0;
 	_StoreItmeFrameY4 = 0;
 
-	if (PtInRect(&_Item[0], _ptMouse))
+	if (_storeOpen)
 	{
-		_StoreItmeFrameY = 1;
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+		if (PtInRect(&_Item[0], _ptMouse))
 		{
-			_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin]);
+			_StoreItmeFrameY = 1;
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+			{
+				if (_player->GetMoney() >= _saleMoney[_StoreSearchMin])
+				{
+					_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin]);
+					_player->SetDecreaseMoney(_saleMoney[_StoreSearchMin]);
+				}
+
+			}
 		}
-	}
-	if (PtInRect(&_Item[1], _ptMouse))
-	{
-		_StoreItmeFrameY2 = 1;
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+		if (PtInRect(&_Item[1], _ptMouse))
 		{
-			_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin+1]);
+			_StoreItmeFrameY2 = 1;
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+			{
+				if (_player->GetMoney() >= _saleMoney[_StoreSearchMin + 1])
+				{
+					_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin + 1]);
+					_player->SetDecreaseMoney(_saleMoney[_StoreSearchMin + 1]);
+				}
+			}
 		}
-	}
-	if (PtInRect(&_Item[2], _ptMouse))
-	{
-		_StoreItmeFrameY3 = 1;
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+		if (PtInRect(&_Item[2], _ptMouse))
 		{
-			_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin+2]);
+			_StoreItmeFrameY3 = 1;
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+			{
+				if (_player->GetMoney() >= _saleMoney[_StoreSearchMin + 2])
+				{
+					_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin + 2]);
+					_player->SetDecreaseMoney(_saleMoney[_StoreSearchMin + 2]);
+				}
+			}
 		}
-	}
-	if (PtInRect(&_Item[3], _ptMouse))
-	{
-		_StoreItmeFrameY4 = 1;
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+		if (PtInRect(&_Item[3], _ptMouse))
 		{
-			_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin+3]);
+			_StoreItmeFrameY4 = 1;
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+			{
+				if (_player->GetMoney() >= _saleMoney[_StoreSearchMin + 3])
+				{
+					_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin + 3]);
+					_player->SetDecreaseMoney(_saleMoney[_StoreSearchMin + 3]);
+				}
+			}
 		}
 	}
 
@@ -235,6 +255,10 @@ void Store::OpenStoreRender()
 	DrawText(getMemDC(), TEXT(_saleKoName[_StoreSearchMin +3].c_str()), 12, &RcTxt4, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
 	sprintf_s(gold, "%d", _saleMoney[_StoreSearchMin + 3]);
 	TextOut(getMemDC(), 1300, _Item[3].top + 30, gold, strlen(gold));
+
+	char mo[50];
+	sprintf_s(mo, "%d", _player->GetMoney());
+	TextOut(getMemDC(), 392, 525, mo, strlen(mo));
 
 	SelectObject(getMemDC(), oldFont1);
 	DeleteObject(oldFont1);

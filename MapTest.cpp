@@ -10,16 +10,20 @@ HRESULT MapTest::init()
 	
 	_environment = new Environment;
 	_environment->init();
-
-	//이게 맞나 싶다?
+	
 	_store = new Store;
 	_store->setLinkPlayer(_player);	//소지금 참조용
 	_store->setLinkInventory(_player->GetPlayerInver()); //가방내용물 참고용 상점F5키입니다.
 	_store->init(400,400);
 
+	_player->GetPlayerInver()->SetStoreLink(_store);
+	_player->GetPlayerInver()->setPlayer(_player);
+
+
 	_count = 0;
     _vertical = _horizon = 75;
     _tiles = _map->Load("mapTest.map", _vertical, _horizon);
+
     return S_OK;
 }
 
@@ -119,4 +123,12 @@ void MapTest::render()
 	_environment->render();
 	_store->render();
 	_player->render();
+
+
+	char mo[200];
+	char mo2[200];
+	sprintf_s(mo, "마우스의 X좌표:%d", _ptMouse.x);
+	sprintf_s(mo2, "마우스의 Y좌표:%d", _ptMouse.y);
+	TextOut(getMemDC(), 50, 90, mo, strlen(mo));
+	TextOut(getMemDC(), 50, 120, mo2, strlen(mo2));
 }

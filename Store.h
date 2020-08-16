@@ -41,6 +41,8 @@ private:
 	image* _StoreUpArrow;	  //상점열었을떄 물건고르는 위쪽화살표
 	image* _StoreDownArrow;   //상점열었을떄 물건고르는 아래쪽화살표
 
+	image* _noMoney;
+
 	vector<RECT> _Item;	     //상점상자들(4개)
 	RECT _CloseRc;			 //닫기버튼
 	RECT _StoreNpcRect;		 //npc이미지사용전용
@@ -71,7 +73,6 @@ public:
 	RECT getStoreNpcRect() {return _StoreNpcRect; }
 	RECT getStoreNpcOpen() {return _StoreNpcOpen; }
 	vector<ToolItem*> getStoreSaleItem() {return _saleItem; }
-
 	bool getStoreOpen() { return _storeOpen; }
 
 	void setStoreOpen(bool isOpen) { _storeOpen = isOpen; }

@@ -72,6 +72,8 @@ public:
 	int* GetTileIndex() { return _actTileIndex; }
 	int GetmaxStamina() { return _info.maxStamina; }
 	int GetStamina() { return _info.stamina; }
+	int GetMoney() { return _info.money; }
+	MYRECT GetPlayercollision() { return _info.collision; }
 	Inventory* GetPlayerInver() { return _inven; }
 
 	void SetName(string Name) { _info.name = Name; }

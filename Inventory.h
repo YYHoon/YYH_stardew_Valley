@@ -86,6 +86,10 @@ private:
 
 /////////////////////////</QuickSlot>///////////////////////////
 
+	bool _quickSlotUp;
+
+	int _quickSlotSelectYUP;
+
 public:
 	Inventory()  {};
 	~Inventory() {}; 
@@ -108,4 +112,5 @@ public:
 
 	void SetMemoryLinkedTool(ToolItemManager* tool) { _toolItemManager = tool; }
 	void SetStoreLink(Store* store) { _store = store; }
+	void setPlayer(Player* pp) { _player = pp; }
 };

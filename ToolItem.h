@@ -44,7 +44,7 @@ public:
 
 	//아이템개수
 	virtual inline int GetNumber() { return _number;}
-	virtual inline void SetNumber(int num) { _number = num; }
+	void SetNumber(int num) { _number += num; }
 
 	//아이템이미지
 	virtual inline image* GetImageInven() { return _imageI; }
