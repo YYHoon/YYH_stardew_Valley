@@ -26,7 +26,6 @@ HRESULT Inventory::init()
 	_trashCanRC.left = 1260;
 	_trashCanRC.top = 446;
 	
-	
 //-----------------------QuickSlot-----------------------------------
 	_quickSlot.image = IMAGEMANAGER->findImage("QuickSlot");
 	_quickSlotSelect.image = IMAGEMANAGER->findImage("QuickSlotSelect");
@@ -45,15 +44,9 @@ HRESULT Inventory::init()
 		_toolInven[i] = new Pickax;
 	}
 
-	_toolInven[0] = _toolList[0];
 	_toolInven[1] = _toolList[1];
-	_toolInven[2]->SetToolEnum(TOOLS::NONE);
-	_toolInven[3] = _toolList[2];
-	_toolInven[4]->SetToolEnum(TOOLS::NONE);
-	_toolInven[5]->SetToolEnum(TOOLS::NONE);
-	_toolInven[6] = _toolList[3];
-	_toolInven[0] = new Axe;
-	_toolInven[0]->SetToolEnum(TOOLS::NONE);
+	_toolInven[2] = _toolList[2];
+	_toolInven[4] = _toolList[4];
 	return S_OK;
 }
 
@@ -259,8 +252,7 @@ void Inventory::render()
 		_vInvenStaticRC.push_back(_inventoryCloseRC);										//인벤토리 [X] 버튼
 	}
 	else
-	{
-		
+	{		
 		_vInvenStaticRC.clear();
 		_vInvenDynamicRC.clear();
 		_quickSlot.image->render(getMemDC(), 407, _quickSlot.y);
@@ -311,62 +303,50 @@ void Inventory::quickSlotMove()
 	{
 		// index = 0;
 		_quickSlotSelect.x = 423;
-		_inventory.rc.left = 417;
 	}
 	if (KEYMANAGER->isOnceKeyDown('2'))
 	{
 		_quickSlotSelect.x = 423 + 64;
-		_inventory.rc.left = 417 + 64;
 	}
 	if (KEYMANAGER->isOnceKeyDown('3'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 2;
-		_inventory.rc.left = 417 + 64 * 2;
 	}
 	if (KEYMANAGER->isOnceKeyDown('4'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 3;
-		_inventory.rc.left = 417 + 64 * 3;
 	}
 	if (KEYMANAGER->isOnceKeyDown('5'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 4;
-		_inventory.rc.left = 417 + 64 * 4;
 	}
 	if (KEYMANAGER->isOnceKeyDown('6'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 5;
-		_inventory.rc.left = 417 + 64 * 5;
 	}
 	if (KEYMANAGER->isOnceKeyDown('7'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 6;
-		_inventory.rc.left = 417 + 64 * 6;
 	}
 	if (KEYMANAGER->isOnceKeyDown('8'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 7;
-		_inventory.rc.left = 417 + 64 * 7;
 	}
 	if (KEYMANAGER->isOnceKeyDown('9'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 8;
-		_inventory.rc.left = 417 + 64 * 8;
 	}
 	if (KEYMANAGER->isOnceKeyDown('0'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 9;
-		_inventory.rc.left = 417 + 64 * 9;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_OEM_MINUS))
 	{
 		_quickSlotSelect.x = 423 + 64 * 10;
-		_inventory.rc.left = 417 + 64 * 10;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_OEM_PLUS))
 	{
 		_quickSlotSelect.x = 423 + 64 * 11;
-		_inventory.rc.left = 417 + 64 * 11;
 	}
 }
 
@@ -389,4 +369,25 @@ void Inventory::PlayerLootItem(ToolItem* item)
 	//		}
 	//	}
 	//}
+}
+
+void Inventory::setPlayerBuyItme(ToolItem* buyItme)
+{
+	for (int i = 0; i < 12; i++)
+	{
+		if (_toolInven[i]->GetName() == buyItme->GetName())
+		{
+			if(_toolInven[i]->GetNumber()>10) continue;
+			_toolInven[i]->SetNumber(+1);
+		}
+		else
+		{
+			if (_toolInven[i]->GetToolEnum()==TOOLS::NONE)
+			{
+				_toolInven[i] = buyItme;
+			    _toolInven[i]->SetNumber(+1);
+				break;
+			}
+		}
+	}
 }

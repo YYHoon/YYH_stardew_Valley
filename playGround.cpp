@@ -21,9 +21,9 @@ HRESULT playGround::init()
 	soundinit();
 
 	SCENEMANAGER->addScene("Title", _TitleScene = new TitleScene);
-	SCENEMANAGER->addScene("테스트", _Tset = new TestScene);
 	SCENEMANAGER->addScene("맵툴", _MaptoolScene = new MapToolScene);
 	SCENEMANAGER->addScene("LOADING", _LoadingScene = new LoadingScene);
+	SCENEMANAGER->addScene("태스트", _Tset = new TestScene);
 	MapFarm* _farm;
 	MapHome* _home;
 	MapTest* _test;
@@ -110,15 +110,10 @@ void playGround::imginit()
 
 	//상점관련
 	IMAGEMANAGER->addFrameImage("StoreOwnerPortrait", "image/상점/상점주인_초상화(420x630).bmp", 420, 630, 2, 3, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("StoreOwnerDot", "image/상점/상점주인_도트(200x600).bmp", 200, 600, 4, 6, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("StoreOwnerDot", "image/상점/상점주인_도트(200x600).bmp", 250, 750, 4, 6, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("StoreItme", "image/상점/상점물품.bmp", 1041, 210, 1, 2, true, MAGENTA);
 	IMAGEMANAGER->addImage("StoreInfo", "image/상점/소개문.bmp", 250, 143, true, MAGENTA);
 	IMAGEMANAGER->addImage("StoreWindow", "image/상점/상점창.bmp", 1085, 709, true, MAGENTA);
-	IMAGEMANAGER->addImage("BeanSeed", "image/상점/beanSeed.bmp", 56, 56, true, MAGENTA);
-	IMAGEMANAGER->addImage("CauliFlowerSeed", "image/상점/cauliFlowerSeed.bmp", 56, 56, true, MAGENTA);
-	IMAGEMANAGER->addImage("PotatoSeed", "image/상점/potatoSeed.bmp", 56, 56, true, MAGENTA);
-	IMAGEMANAGER->addImage("sugarRadishSeed", "image/상점/sugarRadishSeed.bmp", 56, 56, true, MAGENTA);
-	IMAGEMANAGER->addImage("당근씨앗", "image/상점/당근씨앗.bmp", 56, 56, true, MAGENTA);
 
 	//대화창관련
 	IMAGEMANAGER->addImage("ChatBox", "image/대화창2.bmp", 900, 312, true, MAGENTA);

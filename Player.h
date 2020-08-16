@@ -72,6 +72,7 @@ public:
 	int* GetTileIndex() { return _actTileIndex; }
 	int GetmaxStamina() { return _info.maxStamina; }
 	int GetStamina() { return _info.stamina; }
+	Inventory* GetPlayerInver() { return _inven; }
 
 	void SetName(string Name) { _info.name = Name; }
 	void SetImg(string imgName) { _info.img = IMAGEMANAGER->findImage(imgName); }

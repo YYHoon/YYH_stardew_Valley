@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MapTest.h"
+#include "Store.h"
 
 HRESULT MapTest::init()
 {
@@ -9,6 +10,12 @@ HRESULT MapTest::init()
 	
 	_environment = new Environment;
 	_environment->init();
+
+	//이게 맞나 싶다?
+	_store = new Store;
+	_store->setLinkPlayer(_player);	//소지금 참조용
+	_store->setLinkInventory(_player->GetPlayerInver()); //가방내용물 참고용 상점F5키입니다.
+	_store->init(400,400);
 
 	_count = 0;
     _vertical = _horizon = 75;
@@ -25,6 +32,7 @@ void MapTest::update()
 	_count++;
 	_player->update();
 	_environment->update();
+	_store->update();
 }
 
 void MapTest::render()
@@ -109,5 +117,6 @@ void MapTest::render()
 	OBJECTMANAGER->Render();
 	ZORDER->ZOrderRender();
 	_environment->render();
+	_store->render();
 	_player->render();
 }

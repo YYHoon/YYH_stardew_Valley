@@ -3,6 +3,7 @@
 #include "MapToolScene.h"
 #include "Player.h"
 #include "Environment.h"
+#include "Store.h"
 
 class MapMain : public gameNode
 {
@@ -10,11 +11,13 @@ protected:
 	MapToolScene* _map;
 	Player* _player;
 	Environment* _environment;
+	Store* _store;
 
 	SynInheritance(vector<tagTile>, _tiles, Tiles)
 	SynInheritance(int, _vertical, Vertical)
 	SynInheritance(int, _horizon, Horizon)
 	SynInheritance(int, _count, Count)
+
 public:
 	virtual HRESULT init();
 	virtual void release();
