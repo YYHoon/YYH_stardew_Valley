@@ -106,6 +106,8 @@ void PlayerIdle::Update()
 		case TOOLS::WATERING_CAN:
 			_player->ChangeState(make_shared<PlayerWatering>(_player));
 			return;
+		case TOOLS::NONE:
+			_player->ChangeState(make_shared<PlayerIdle>(_player));
 		default:
 			break;
 		}

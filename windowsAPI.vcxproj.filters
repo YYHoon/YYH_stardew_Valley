@@ -73,15 +73,6 @@
     <Filter Include="playGround\Environment">
       <UniqueIdentifier>{712c9a02-75f0-4b16-8ff9-f27758122b5c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="playGround\Tool\JustImpact">
-      <UniqueIdentifier>{3c03e804-9e68-4134-add7-34ee984a8592}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\Tool\SlashImpact">
-      <UniqueIdentifier>{6b411a57-06e5-445e-adf5-ecaa54b4f0a1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\Tool\Fishing">
-      <UniqueIdentifier>{3d72addf-40ce-47bb-b944-ce8375127576}</UniqueIdentifier>
-    </Filter>
     <Filter Include="playGround\Scene">
       <UniqueIdentifier>{1ef23774-c13b-4ba1-a268-c9cbec780224}</UniqueIdentifier>
     </Filter>
@@ -96,6 +87,30 @@
     </Filter>
     <Filter Include="playGround\Map">
       <UniqueIdentifier>{82b9d5c8-58a9-4923-a608-e03e75b5697b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Tool\ToolItem">
+      <UniqueIdentifier>{3cf34379-a86a-483d-92fc-de0836d312fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Tool\ToolItem\Fishing">
+      <UniqueIdentifier>{3d72addf-40ce-47bb-b944-ce8375127576}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Tool\ToolItem\JustImpact">
+      <UniqueIdentifier>{3c03e804-9e68-4134-add7-34ee984a8592}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Tool\ToolItem\SlashImpact">
+      <UniqueIdentifier>{6b411a57-06e5-445e-adf5-ecaa54b4f0a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Tool\EatItem">
+      <UniqueIdentifier>{16eb6d96-f394-4462-a526-10c6fc558a19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Tool\ActItem">
+      <UniqueIdentifier>{e4046566-aa5a-4623-9837-81001d95373a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Tool\ResoureceItem">
+      <UniqueIdentifier>{9d3af99c-2190-4906-97d6-8c05312c847a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Tool\EatItem\Fish">
+      <UniqueIdentifier>{db35f93f-f1e5-461f-bcd6-49dfd5a43ca8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -235,28 +250,28 @@
       <Filter>playGround\UI</Filter>
     </ClInclude>
     <ClInclude Include="FishingRod.h">
-      <Filter>playGround\Tool\Fishing</Filter>
+      <Filter>playGround\Tool\ToolItem\Fishing</Filter>
     </ClInclude>
     <ClInclude Include="Axe.h">
-      <Filter>playGround\Tool\JustImpact</Filter>
+      <Filter>playGround\Tool\ToolItem\JustImpact</Filter>
     </ClInclude>
     <ClInclude Include="Homi.h">
-      <Filter>playGround\Tool\JustImpact</Filter>
+      <Filter>playGround\Tool\ToolItem\JustImpact</Filter>
     </ClInclude>
     <ClInclude Include="Pickax.h">
-      <Filter>playGround\Tool\JustImpact</Filter>
+      <Filter>playGround\Tool\ToolItem\JustImpact</Filter>
     </ClInclude>
     <ClInclude Include="Sickle.h">
-      <Filter>playGround\Tool\SlashImpact</Filter>
+      <Filter>playGround\Tool\ToolItem\SlashImpact</Filter>
     </ClInclude>
     <ClInclude Include="Sword.h">
-      <Filter>playGround\Tool\SlashImpact</Filter>
+      <Filter>playGround\Tool\ToolItem\SlashImpact</Filter>
     </ClInclude>
     <ClInclude Include="WaterSpray.h">
-      <Filter>playGround\Tool\JustImpact</Filter>
+      <Filter>playGround\Tool\ToolItem\JustImpact</Filter>
     </ClInclude>
     <ClInclude Include="MiniGame.h">
-      <Filter>playGround\Tool\Fishing</Filter>
+      <Filter>playGround\Tool\ToolItem\Fishing</Filter>
     </ClInclude>
     <ClInclude Include="LoadingScene.h">
       <Filter>playGround\Scene\UI</Filter>
@@ -285,14 +300,59 @@
     <ClInclude Include="HpStaminaBar.h">
       <Filter>playGround\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Parsnip.h">
-      <Filter>playGround\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Plants.h">
       <Filter>playGround\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="PlantsManager.h">
       <Filter>playGround\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ParsnipObject.h">
+      <Filter>playGround\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AllPlants.h">
+      <Filter>playGround\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Potato.h">
+      <Filter>playGround\Tool\EatItem</Filter>
+    </ClInclude>
+    <ClInclude Include="PotatoSeed.h">
+      <Filter>playGround\Tool\ActItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Pasnip.h">
+      <Filter>playGround\Tool\EatItem</Filter>
+    </ClInclude>
+    <ClInclude Include="PasnipSeed.h">
+      <Filter>playGround\Tool\ActItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Kale.h">
+      <Filter>playGround\Tool\EatItem</Filter>
+    </ClInclude>
+    <ClInclude Include="KaleSeed.h">
+      <Filter>playGround\Tool\ActItem</Filter>
+    </ClInclude>
+    <ClInclude Include="AllToolItem.h">
+      <Filter>playGround\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="RareFish.h">
+      <Filter>playGround\Tool\EatItem\Fish</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalFish.h">
+      <Filter>playGround\Tool\EatItem\Fish</Filter>
+    </ClInclude>
+    <ClInclude Include="Sap.h">
+      <Filter>playGround\Tool\EatItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Rock.h">
+      <Filter>playGround\Tool\ResoureceItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Weed.h">
+      <Filter>playGround\Tool\ResoureceItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Wood.h">
+      <Filter>playGround\Tool\ResoureceItem</Filter>
+    </ClInclude>
+    <ClInclude Include="TileRender.h">
+      <Filter>playGround\Scene\MaptoolScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -408,28 +468,28 @@
       <Filter>playGround\UI</Filter>
     </ClCompile>
     <ClCompile Include="FishingRod.cpp">
-      <Filter>playGround\Tool\Fishing</Filter>
+      <Filter>playGround\Tool\ToolItem\Fishing</Filter>
     </ClCompile>
     <ClCompile Include="Axe.cpp">
-      <Filter>playGround\Tool\JustImpact</Filter>
+      <Filter>playGround\Tool\ToolItem\JustImpact</Filter>
     </ClCompile>
     <ClCompile Include="Homi.cpp">
-      <Filter>playGround\Tool\JustImpact</Filter>
+      <Filter>playGround\Tool\ToolItem\JustImpact</Filter>
     </ClCompile>
     <ClCompile Include="Pickax.cpp">
-      <Filter>playGround\Tool\JustImpact</Filter>
+      <Filter>playGround\Tool\ToolItem\JustImpact</Filter>
     </ClCompile>
     <ClCompile Include="Sickle.cpp">
-      <Filter>playGround\Tool\SlashImpact</Filter>
+      <Filter>playGround\Tool\ToolItem\SlashImpact</Filter>
     </ClCompile>
     <ClCompile Include="Sword.cpp">
-      <Filter>playGround\Tool\SlashImpact</Filter>
+      <Filter>playGround\Tool\ToolItem\SlashImpact</Filter>
     </ClCompile>
     <ClCompile Include="WaterSpray.cpp">
-      <Filter>playGround\Tool\JustImpact</Filter>
+      <Filter>playGround\Tool\ToolItem\JustImpact</Filter>
     </ClCompile>
     <ClCompile Include="MiniGame.cpp">
-      <Filter>playGround\Tool\Fishing</Filter>
+      <Filter>playGround\Tool\ToolItem\Fishing</Filter>
     </ClCompile>
     <ClCompile Include="LoadingScene.cpp">
       <Filter>playGround\Scene\UI</Filter>
@@ -464,14 +524,53 @@
     <ClCompile Include="MapToolButton.cpp">
       <Filter>playGround\Scene\MaptoolScene</Filter>
     </ClCompile>
-    <ClCompile Include="Parsnip.cpp">
-      <Filter>playGround\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Plants.cpp">
       <Filter>playGround\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="PlantsManager.cpp">
       <Filter>playGround\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ParsnipObject.cpp">
+      <Filter>playGround\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Potato.cpp">
+      <Filter>playGround\Tool\EatItem</Filter>
+    </ClCompile>
+    <ClCompile Include="PotatoSeed.cpp">
+      <Filter>playGround\Tool\ActItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Pasnip.cpp">
+      <Filter>playGround\Tool\EatItem</Filter>
+    </ClCompile>
+    <ClCompile Include="PasnipSeed.cpp">
+      <Filter>playGround\Tool\ActItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Kale.cpp">
+      <Filter>playGround\Tool\EatItem</Filter>
+    </ClCompile>
+    <ClCompile Include="KaleSeed.cpp">
+      <Filter>playGround\Tool\ActItem</Filter>
+    </ClCompile>
+    <ClCompile Include="RareFish.cpp">
+      <Filter>playGround\Tool\EatItem\Fish</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalFish.cpp">
+      <Filter>playGround\Tool\EatItem\Fish</Filter>
+    </ClCompile>
+    <ClCompile Include="Sap.cpp">
+      <Filter>playGround\Tool\EatItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>playGround\Tool\ResoureceItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Weed.cpp">
+      <Filter>playGround\Tool\ResoureceItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Wood.cpp">
+      <Filter>playGround\Tool\ResoureceItem</Filter>
+    </ClCompile>
+    <ClCompile Include="TileRender.cpp">
+      <Filter>playGround\Scene\MaptoolScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -67,6 +67,11 @@ tagTile DummyMap::GetTiles(int index)
 	return test[index];
 }
 
+void DummyMap::SetMapObject(int tileIndex, MAPOBJECT obj)
+{
+	test[tileIndex].object = obj;
+
+}
 
 int DummyMap::GetVertical()
 {

@@ -6,6 +6,7 @@ void WaterSpray::Init()
 {
 	_name = "WaterSpray";
 	_tag = "ToolItem";
+	_imageI = IMAGEMANAGER->findImage("WaterSpray(56x56)");
 	_dmage = 0;
 	_enumName = TOOLS::WATERING_CAN;
 }

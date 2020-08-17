@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "Vector2.h"
 #include "ToolItemManager.h"
+#include "Inventory.h"
 class State;
 class MapMain;
 
@@ -25,7 +26,8 @@ private:
 		int stamina;
 		int money;
 		float velocity;
-		//class* inven;
+		ToolItem* haveItem;			//내가 쓰는 인벤인덱스
+		vector<ToolItem*> saveload; //모든 인벤내용
 	};
 
 private:
@@ -39,13 +41,17 @@ private:
 	NecessaryInfo _info;
 	PLAYER_ACTION _action;
 	shared_ptr<State> _state;
+	ToolItem* _getItem;
+	
+	Inventory* _inven;
 	Vector2 _mousePt;
 	int _tileIndex[3];
 	int _actTileIndex[3];
 	int _playerTileX, _playerTileY;
-	
-
-	bool _isKeyDown;
+	/// <summary>
+	/// </summary>
+	bool _isNext;
+	bool _isPrev;
 	
 	//class inven;
 
@@ -64,8 +70,12 @@ public:
 	PLAYER_DIRECTION GetDirection() { return _info.direction; }
 	TOOLS GetEquip() { return _info.equipment; }
 	int* GetTileIndex() { return _actTileIndex; }
+	int* GetMoveTileIndex() { return _tileIndex; }
 	int GetmaxStamina() { return _info.maxStamina; }
 	int GetStamina() { return _info.stamina; }
+	bool GetIsNext() { return _isNext; }
+	bool GetIsPrev() { return _isPrev; }
+
 
 	void SetName(string Name) { _info.name = Name; }
 	void SetImg(string imgName) { _info.img = IMAGEMANAGER->findImage(imgName); }

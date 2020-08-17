@@ -1,40 +1,12 @@
 #pragma once
 #include "gameNode.h"
-
-struct tagTile
-{
-	TERRAIN terrain;
-	MAPOBJECT object;
-	POS pos;
-	RECT rc;
-	int terrainframeX;
-	int terrainframeY;
-	int objectframeX;
-	int objectframeY;
-	int autoIndex;
-	int hp;
-	bool collision;
-	bool wet;
-};
-struct tagSampleTile
-{
-	RECT rc;
-	int terrainframeX;
-	int terrainframeY;
-};
-struct tagCurrentTile
-{
-	TERRAIN terrain;
-	MAPOBJECT object;
-	POS pos;
-	RECT rc;
-	int terrainframeX;
-	int terrainframeY;
-};
+#include "TileRender.h"
 
 class MapToolScene : public gameNode
 {
 private:
+	TileRender* _tileRender;
+
 	image* _Mouse;
 	CRTSELECT _crtSelect;
 	INOUT _inout;
@@ -60,6 +32,7 @@ private:
 	RECT _upBtn;
 	RECT _downBtn;
 	RECT _exitBtn;
+	RECT _f1Btn;
 
 	int _count;
 	int _terrainPage;

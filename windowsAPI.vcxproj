@@ -156,6 +156,8 @@
     <ClInclude Include="AllDefine.h" />
     <ClInclude Include="AllEnum.h" />
     <ClInclude Include="AllMap.h" />
+    <ClInclude Include="AllPlants.h" />
+    <ClInclude Include="AllToolItem.h" />
     <ClInclude Include="AllUi.h" />
     <ClInclude Include="animation.h" />
     <ClInclude Include="Axe.h" />
@@ -177,6 +179,8 @@
     <ClInclude Include="imageManager.h" />
     <ClInclude Include="iniDataManager.h" />
     <ClInclude Include="Inventory.h" />
+    <ClInclude Include="Kale.h" />
+    <ClInclude Include="KaleSeed.h" />
     <ClInclude Include="keyAniManager.h" />
     <ClInclude Include="keyManager.h" />
     <ClInclude Include="LoadingScene.h" />
@@ -187,16 +191,24 @@
     <ClInclude Include="MapTest.h" />
     <ClInclude Include="MapToolScene.h" />
     <ClInclude Include="MiniGame.h" />
+    <ClInclude Include="NormalFish.h" />
     <ClInclude Include="ObjectManager.h" />
-    <ClInclude Include="Parsnip.h" />
+    <ClInclude Include="ParsnipObject.h" />
+    <ClInclude Include="Pasnip.h" />
+    <ClInclude Include="PasnipSeed.h" />
     <ClInclude Include="Pickax.h" />
     <ClInclude Include="Plants.h" />
     <ClInclude Include="PlantsManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="playGround.h" />
+    <ClInclude Include="Potato.h" />
+    <ClInclude Include="PotatoSeed.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
+    <ClInclude Include="RareFish.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Rock.h" />
+    <ClInclude Include="Sap.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="Sickle.h" />
     <ClInclude Include="singletonBase.h" />
@@ -207,6 +219,7 @@
     <ClInclude Include="Sword.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestScene.h" />
+    <ClInclude Include="TileRender.h" />
     <ClInclude Include="timeManager.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="TitleScene.h" />
@@ -216,7 +229,9 @@
     <ClInclude Include="utils.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="WaterSpray.h" />
+    <ClInclude Include="Weed.h" />
     <ClInclude Include="windowsAPI.h" />
+    <ClInclude Include="Wood.h" />
     <ClInclude Include="Zorder.h" />
   </ItemGroup>
   <ItemGroup>
@@ -239,6 +254,8 @@
     <ClCompile Include="imageManager.cpp" />
     <ClCompile Include="iniDataManager.cpp" />
     <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="Kale.cpp" />
+    <ClCompile Include="KaleSeed.cpp" />
     <ClCompile Include="keyAniManager.cpp" />
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="LoadingScene.cpp" />
@@ -252,14 +269,22 @@
     <ClCompile Include="MapToolButton.cpp" />
     <ClCompile Include="MapToolScene.cpp" />
     <ClCompile Include="MiniGame.cpp" />
+    <ClCompile Include="NormalFish.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
-    <ClCompile Include="Parsnip.cpp" />
+    <ClCompile Include="ParsnipObject.cpp" />
+    <ClCompile Include="Pasnip.cpp" />
+    <ClCompile Include="PasnipSeed.cpp" />
     <ClCompile Include="Pickax.cpp" />
     <ClCompile Include="Plants.cpp" />
     <ClCompile Include="PlantsManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playGround.cpp" />
+    <ClCompile Include="Potato.cpp" />
+    <ClCompile Include="PotatoSeed.cpp" />
     <ClCompile Include="progressBar.cpp" />
+    <ClCompile Include="RareFish.cpp" />
+    <ClCompile Include="Rock.cpp" />
+    <ClCompile Include="Sap.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="Sickle.cpp" />
     <ClCompile Include="soundManager.cpp" />
@@ -273,6 +298,7 @@
     <ClCompile Include="Store.cpp" />
     <ClCompile Include="Sword.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="TileRender.cpp" />
     <ClCompile Include="timeManager.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="TitleScene.cpp" />
@@ -282,7 +308,9 @@
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="WaterSpray.cpp" />
+    <ClCompile Include="Weed.cpp" />
     <ClCompile Include="windowsAPI.cpp" />
+    <ClCompile Include="Wood.cpp" />
     <ClCompile Include="Zorder.cpp" />
   </ItemGroup>
   <ItemGroup>

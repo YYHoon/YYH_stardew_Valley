@@ -58,6 +58,7 @@ enum class MAPOBJECT
 	BRANCH,			//나뭇가지
 	WALL,			//벽
 	BUILDING,		//건물
+	BED,
 	ENEMY,			//에너미
 	NONE
 };
@@ -95,6 +96,10 @@ enum class TOOLS
 	SWORD,
 	ITEM,
 	WATERING_CAN,
+	ACTIVEITEM,
+	EATITEM,
+	RESOURCEITEM,
+	NONE,
 	END
 };
 

@@ -14,6 +14,8 @@
 #define IMAGECOOR 376, 126
 
 #define TILESIZE 64	//타일 사이즈
+#define ClIPPINGY 15
+#define ClIPPINGX 26 
 
 /////////////////////////////
 #define LOADINGMAX 1500	

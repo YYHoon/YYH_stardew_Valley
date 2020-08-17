@@ -17,13 +17,10 @@ HRESULT playGround::init()
 	gameNode::init(true);
 	//POINT _CameraMouse = PointMake(_ptMouse.x + CAMERAMANAGER->getL(), _ptMouse.y + CAMERAMANAGER->getT()); 마우스 카메라 위치
 
-	_Inv = new Inventory;
-	_Inv->init();
-
 	imginit();
 	soundinit();
 
-	SCENEMANAGER->addScene("타이틀화면", _TitleScene = new TitleScene);
+	SCENEMANAGER->addScene("Title", _TitleScene = new TitleScene);
 	SCENEMANAGER->addScene("테스트", _Tset = new TestScene);
 	SCENEMANAGER->addScene("맵툴", _MaptoolScene = new MapToolScene);
 	SCENEMANAGER->addScene("LOADING", _LoadingScene = new LoadingScene);
@@ -33,9 +30,8 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("FARM", _farm = new MapFarm);
 	SCENEMANAGER->addScene("HOME", _home = new MapHome);
 	SCENEMANAGER->addScene("Test", _test = new MapTest);
-	SCENEMANAGER->changeScene("맵툴");
+	SCENEMANAGER->changeScene("FARM");
 
-	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
 	return S_OK;
 }
 
@@ -52,7 +48,6 @@ void playGround::update()
 	SCENEMANAGER->update();
 	OBJECTMANAGER->Update();
 	KEYANIMANAGER->update();
-
 }
 
 //그리기 전용
@@ -66,7 +61,6 @@ void playGround::render()
 	/////////////////////////////////
 	TIMEMANAGER->render(getMemDC());
 	//////////////////////////////////
-	ZORDER->ZOrderRender();
 	//=============================================
 	_backBuffer->render(getHDC(), 0, 0);
 }
@@ -98,18 +92,18 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("RecoveryItemInfo", "image/회복아이템설명.bmp", 293, 258, true, MAGENTA);
 
 	//환경
-	IMAGEMANAGER->addImage("Environment_Clock", "Image/Environment/Environment_Clock.bmp", 284, 160, true, MAGENTA);
+	IMAGEMANAGER->addImage("Environment_Clock", "image/Environment/Environment_Clock.bmp", 284, 160, true, MAGENTA);
 
 	//인벤토리
-	IMAGEMANAGER->addImage("Inventory_BG", "Image/Inventory/Inventory_BG.bmp", 1600, 900, false, BLACK);
-	IMAGEMANAGER->addImage("UI_Inventory_Day", "Image/Inventory/UI_Inventory_Day.bmp", 848, 648, true, MAGENTA);
-	IMAGEMANAGER->addImage("UI_Inventory_Night", "Image/Inventory/UI_Inventory_Night.bmp", 848, 648, true, MAGENTA);
-	IMAGEMANAGER->addImage("UI_Inventory_Craft_top", "Image/Inventory/UI_Inventory_Craft_top.bmp", 848, 648, true, MAGENTA);
-	IMAGEMANAGER->addImage("UI_Inventory_Craft_bot", "Image/Inventory/UI_Inventory_Craft_bot.bmp", 848, 648, true, MAGENTA);
-	IMAGEMANAGER->addImage("UI_Inventory_KeyInfo", "Image/Inventory/UI_Inventory_KeyInfo.bmp", 848, 648, true, MAGENTA);
-	IMAGEMANAGER->addImage("UI_Inventory_Game_Close", "Image/Inventory/UI_Inventory_Game_Close.bmp", 848, 648, true, MAGENTA);
-	IMAGEMANAGER->addImage("Inventory_Close", "Image/Inventory/Inventory_Close.bmp", 44, 44, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("UI_Inventory_Trashcan", "Image/Inventory/UI_Inventory_Trashcan.bmp", 184, 71, 4, 1, true, MAGENTA);
+	IMAGEMANAGER->addImage("Inventory_BG", "image/Inventory/Inventory_BG.bmp", 1600, 900, false, BLACK);
+	IMAGEMANAGER->addImage("UI_Inventory_Day", "image/Inventory/UI_Inventory_Day.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("UI_Inventory_Night", "image/Inventory/UI_Inventory_Night.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("UI_Inventory_Craft_top", "image/Inventory/UI_Inventory_Craft_top.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("UI_Inventory_Craft_bot", "image/Inventory/UI_Inventory_Craft_bot.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("UI_Inventory_KeyInfo", "image/Inventory/UI_Inventory_KeyInfo.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("UI_Inventory_Game_Close", "image/Inventory/UI_Inventory_Game_Close.bmp", 848, 648, true, MAGENTA);
+	IMAGEMANAGER->addImage("Inventory_Close", "image/Inventory/Inventory_Close.bmp", 44, 44, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("UI_Inventory_Trashcan", "image/Inventory/UI_Inventory_Trashcan.bmp", 368, 142, 4, 1, true, MAGENTA);
 
 	//상점관련
 	IMAGEMANAGER->addFrameImage("StoreOwnerPortrait", "image/상점/상점주인_초상화(420x630).bmp", 420, 630, 2, 3, true, MAGENTA);
@@ -128,6 +122,15 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("CloseButton", "image/닫기버튼.bmp", 44, 44, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("RightButton", "image/대화창_우측하단(330x33).bmp", 330, 33, 11, 1, true, WHITE);
 
+	//아이템 테스트용
+	IMAGEMANAGER->addImage("Item_Axe", "image/ItemTest/Item_Axe.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Item_Handplow", "image/ItemTest/Item_Handplow.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Item_Knife", "image/ItemTest/Item_Knife.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Item_Pickaxe", "image/ItemTest/Item_Pickaxe.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Item_Sickle", "image/ItemTest/Item_Sickle.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("cobble", "image/Inventory/cobble.bmp", 64, 64, true, MAGENTA);
+
+
 	//테스트용 이미지입니다 무시하세요
 	IMAGEMANAGER->addFrameImage("말랑카우", "image/말랑카우.bmp", 200, 300, 4, 6, true, MAGENTA);
 	IMAGEMANAGER->addImage("초상화", "image/powerCow.bmp", 209, 200, true, MAGENTA);
@@ -137,17 +140,17 @@ void playGround::imginit()
 
 	IMAGEMANAGER->addFrameImage("Terrain", "image/mapTool/Terrain.bmp", 0, 0, 512, 512, 512 / TILESIZE, 512 / TILESIZE, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("Terrain_InDoor", "image/mapTool/Indoor.bmp", 0, 0, 192, 512, 192 / TILESIZE, 512 / TILESIZE, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("Wall", "image/mapTool/Wall.bmp", 0, 0, 512, 448, 512 / TILESIZE, 448 / TILESIZE, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("HoeTile", "image/mapTool/HoeTile.bmp", 0, 0, 384, 384, 384 / TILESIZE, 384 / TILESIZE, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("Wall", "image/mapTool/Wall.bmp", 0, 0, 512, 512, 512 / TILESIZE, 512 / TILESIZE, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("HoeTile", "image/mapTool/HoeTile.bmp", 0, 0, 448, 384, 448 / TILESIZE, 384 / TILESIZE, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("Tree", "image/mapTool/Tree.bmp", 0, 0, 578, 384, 3, 1, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("House", "image/mapTool/House.bmp", 0, 0, 576, 576, 1, 1, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("POS", "image/mapTool/POS.bmp", 0, 0, 256, 128, 4, 2, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("Bed", "image/mapTool/Bed.bmp", 0, 0, 128, 192, 1, 1, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("Blanket", "image/mapTool/Blanket.bmp",0,0, 128, 192,1,1, true, MAGENTA);
 	IMAGEMANAGER->addImage("Line", "image/mapTool/Line.bmp", 64, 64, true, MAGENTA);
 	IMAGEMANAGER->addImage("Collision", "image/mapTool/Collision.bmp", 64, 64, true, MAGENTA);
-	IMAGEMANAGER->addImage("Bed", "image/mapTool/Bed.bmp", 128, 192, true, MAGENTA);
-	IMAGEMANAGER->addImage("Blanket", "image/mapTool/Blanket.bmp", 128, 192, true, MAGENTA);
 	IMAGEMANAGER->addImage("Window", "image/mapTool/Window.bmp", 700, 900, true, MAGENTA);
-	IMAGEMANAGER->addImage("F1", "image/mapTool/F1.bmp", 62, 52, true, MAGENTA);
+	IMAGEMANAGER->addImage("F1", "image/mapTool/F1.bmp", 64, 52, true, MAGENTA);
 	IMAGEMANAGER->addImage("Save", "image/mapTool/Save.bmp", 229, 52, true, MAGENTA);
 
 	// Player
@@ -164,6 +167,52 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("FishingBox", "image/낚시/상자.bmp", 28, 34, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishingBack", "image/낚시/낚시말풍선.bmp", 200, 604, true, MAGENTA);
 
+
+	//아이템 이미지 (x64는 인벤토리용 안붙어있으면 플레이어가 손에들고있을때)
+	IMAGEMANAGER->addImage("NormalFish(64x64)", "Image/ItemTest/Anchovy(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("NormalFish", "Image/ItemTest/Anchovy.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("RareFish(64x64)", "Image/ItemTest/Catfish(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("RareFish", "Image/ItemTest/Catfish.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("Weed(64x64)", "Image/ItemTest/Fiber(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Weed", "Image/ItemTest/Fiber.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("Kale(64x64)", "Image/ItemTest/Kale(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Kale", "Image/ItemTest/Kale.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("KaleSeed(64x64)", "Image/ItemTest/Kale_Seeds(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("KaleSeed", "Image/ItemTest/Kale_Seeds.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("Pasnip(64x64)", "Image/ItemTest/Parsnip(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Pasnip", "Image/ItemTest/Parsnip.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("PasnipSeed(64x64)", "Image/ItemTest/Parsnip_Seeds(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("PasnipSeed", "Image/ItemTest/Parsnip_Seeds.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("Potato(64x64)", "Image/ItemTest/Potato(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Potato", "Image/ItemTest/Potato.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("PotatoSeed(64x64)", "Image/ItemTest/Potato_Seeds(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("PotatoSeed", "Image/ItemTest/Potato_Seeds.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("Sap(64x64)", "Image/ItemTest/Sap(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Sap", "Image/ItemTest/Sap.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("Stone(64x64)", "Image/ItemTest/Stone(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Stone", "Image/ItemTest/Stone.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("Wood(64x64)", "Image/ItemTest/Wood(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Wood", "Image/ItemTest/Wood.bmp", 48, 48, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("WaterSpray(56x56)", "Image/ItemTest/watering.bmp", 56, 56, true, MAGENTA);
+
+	IMAGEMANAGER->addImage("Axe(64x64)", "Image/ItemTest/Item_Axe.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Homi(64x64)", "Image/ItemTest/Item_Handplow.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Sword(64x64)", "Image/ItemTest/Item_Knife.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Pickax(64x64)", "Image/ItemTest/Item_Pickaxe.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Sickle(64x64)", "Image/ItemTest/Item_Sickle.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("FishingRod(64x64)", "Image/ItemTest/FishingRod(64x64).bmp", 64, 64, true, MAGENTA);
 }
 
 void playGround::soundinit()

@@ -20,7 +20,7 @@ public:
 	void render();
 
 	tagTile GetTiles(int index);
-	//0812추가한함수
+	void SetMapObject(int tileIndex, MAPOBJECT obj);//0812추가한함수
 	int GetVertical();
 	int GetHorizon();
 	MapToolScene* GetTiles() { return _tiles; }

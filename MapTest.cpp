@@ -7,6 +7,9 @@ HRESULT MapTest::init()
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
 	
+	_environment = new Environment;
+	_environment->init();
+
 	_count = 0;
     _vertical = _horizon = 75;
     _tiles = _map->Load("mapTest.map", _vertical, _horizon);
@@ -21,6 +24,7 @@ void MapTest::update()
 {
 	_count++;
 	_player->update();
+	_environment->update();
 }
 
 void MapTest::render()
@@ -101,6 +105,9 @@ void MapTest::render()
 			}
 		}
 	}
+	
+	OBJECTMANAGER->Render();
 	ZORDER->ZOrderRender();
+	_environment->render();
 	_player->render();
 }
