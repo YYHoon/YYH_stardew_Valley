@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MapTest.h"
-#include "Store.h"
+
 
 HRESULT MapTest::init()
 {
@@ -19,10 +19,15 @@ HRESULT MapTest::init()
 	_player->GetPlayerInver()->SetStoreLink(_store);
 	_player->GetPlayerInver()->setPlayer(_player);
 
+	_HpStaminaBar = new HpStaminaBar;
+	_HpStaminaBar->setPlayerLink(_player);
+	_HpStaminaBar->init();
 
 	_count = 0;
     _vertical = _horizon = 75;
     _tiles = _map->Load("mapTest.map", _vertical, _horizon);
+
+	ShowCursor(true);
 
     return S_OK;
 }
@@ -37,6 +42,7 @@ void MapTest::update()
 	_player->update();
 	_environment->update();
 	_store->update();
+	_HpStaminaBar->update();
 }
 
 void MapTest::render()
@@ -120,15 +126,13 @@ void MapTest::render()
 	
 	OBJECTMANAGER->Render();
 	ZORDER->ZOrderRender();
-	_environment->render();
 	_store->render();
+	_environment->render();
+	if (_store->getStoreOpen())
+	{
+		_store->OpenStoreRender();
+	}
+	_HpStaminaBar->staminaBarRender();
+	_HpStaminaBar->hpBarRender();
 	_player->render();
-
-
-	char mo[200];
-	char mo2[200];
-	sprintf_s(mo, "마우스의 X좌표:%d", _ptMouse.x);
-	sprintf_s(mo2, "마우스의 Y좌표:%d", _ptMouse.y);
-	TextOut(getMemDC(), 50, 90, mo, strlen(mo));
-	TextOut(getMemDC(), 50, 120, mo2, strlen(mo2));
 }

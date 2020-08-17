@@ -12,12 +12,6 @@ class Inventory;
 class Store : public gameNode
 {
 private:
-	//struct tagSellItme
-	//{
-	//	ToolItemManager* item;	//아이템 정보들~ 이미지 키네임 등등
-	//	int goid;	//판매 금액
-	//};
-
 	ToolItemManager* _ItemManager;
 	Inventory* _inven;
 	Player* _player;
@@ -42,6 +36,7 @@ private:
 	image* _StoreDownArrow;   //상점열었을떄 물건고르는 아래쪽화살표
 
 	image* _noMoney;
+	int _noMoneyAlpha;
 
 	vector<RECT> _Item;	     //상점상자들(4개)
 	RECT _CloseRc;			 //닫기버튼

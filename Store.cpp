@@ -47,6 +47,9 @@ HRESULT Store::init(int x, int y)
 
 	_itemInfo = _ItemManager->GetItemList();
 
+	_noMoney = IMAGEMANAGER->findImage("LowMoney");
+	_noMoneyAlpha = 255;
+
 	_saleItem.resize(7); //물건6개만 1개는 nullptr
 
 	for (int i = 0; i < _saleItem.size(); i++)
@@ -93,6 +96,10 @@ void Store::update()
 	_StoreItmeFrameY3 = 0;
 	_StoreItmeFrameY4 = 0;
 
+	_noMoneyAlpha -= 10;
+	if (_noMoneyAlpha <= 0) _noMoneyAlpha = 0;
+
+
 	if (_storeOpen)
 	{
 		if (PtInRect(&_Item[0], _ptMouse))
@@ -102,10 +109,13 @@ void Store::update()
 			{
 				if (_player->GetMoney() >= _saleMoney[_StoreSearchMin])
 				{
-					_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin]);
+					_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin]);	
 					_player->SetDecreaseMoney(_saleMoney[_StoreSearchMin]);
 				}
-
+				if (_player->GetMoney() < _saleMoney[_StoreSearchMin])
+				{
+					_noMoneyAlpha = 255;
+				}
 			}
 		}
 		if (PtInRect(&_Item[1], _ptMouse))
@@ -117,6 +127,10 @@ void Store::update()
 				{
 					_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin + 1]);
 					_player->SetDecreaseMoney(_saleMoney[_StoreSearchMin + 1]);
+				}
+				if (_player->GetMoney() < _saleMoney[_StoreSearchMin + 1])
+				{
+					_noMoneyAlpha = 255;
 				}
 			}
 		}
@@ -130,6 +144,10 @@ void Store::update()
 					_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin + 2]);
 					_player->SetDecreaseMoney(_saleMoney[_StoreSearchMin + 2]);
 				}
+				if (_player->GetMoney() < _saleMoney[_StoreSearchMin + 2])
+				{
+					_noMoneyAlpha = 255;
+				}
 			}
 		}
 		if (PtInRect(&_Item[3], _ptMouse))
@@ -141,6 +159,10 @@ void Store::update()
 				{
 					_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin + 3]);
 					_player->SetDecreaseMoney(_saleMoney[_StoreSearchMin + 3]);
+				}
+				if (_player->GetMoney() < _saleMoney[_StoreSearchMin + 3])
+				{
+					_noMoneyAlpha = 255;
 				}
 			}
 		}
@@ -159,17 +181,17 @@ void Store::update()
 		if (!_storeOpen) _storeOpen = true;
 		else _storeOpen = false;
 	}
+	
 }
 
 void Store::render()
 {	
-	//Rectangle(getMemDC(), _StoreNpcOpen);
 	_StoreNPC->frameRender(getMemDC(), _StoreNpcRect.left, _StoreNpcRect.top, 0, 0);
 
-	if (_storeOpen)
-	{
-		OpenStoreRender();
-	}
+	//if (_storeOpen)
+	//{
+	//	OpenStoreRender();
+	//}
 }
 
 void Store::OpenStoreRender()
@@ -233,7 +255,7 @@ void Store::OpenStoreRender()
 	//DrawText(getMemDC(), TEXT(_saleItem[_StoreSearchMin]->GetName().c_str()), 50, &RcTxt1, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
 	DrawText(getMemDC(), TEXT(_saleKoName[_StoreSearchMin].c_str()), 12, &RcTxt1, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
 	sprintf_s(gold, "%d", _saleMoney[_StoreSearchMin]);
-	TextOut(getMemDC(),1300, _Item[0].top + 30, gold, strlen(gold));
+	TextOut(getMemDC(),1300, _Item[0].top + 30, gold, strlen(gold));	
 
 	//2번 상자
 	_saleItem[_StoreSearchMin + 1]->GetImageInven()->render(getMemDC(), _Item[1].left+20, _Item[1].top+20);
@@ -241,14 +263,14 @@ void Store::OpenStoreRender()
 	DrawText(getMemDC(), TEXT(_saleKoName[_StoreSearchMin + 1].c_str()), 12, &RcTxt2, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
 	sprintf_s(gold, "%d", _saleMoney[_StoreSearchMin+1]);
 	TextOut(getMemDC(), 1300, _Item[1].top + 30, gold, strlen(gold));
-
+	
 	//3번 상자
 	_saleItem[_StoreSearchMin + 2]->GetImageInven()->render(getMemDC(), _Item[2].left+20, _Item[2].top+20);
 	//DrawText(getMemDC(), TEXT(_saleItem[_StoreSearchMin + 2]->GetName().c_str()), 50, &RcTxt3, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
 	DrawText(getMemDC(), TEXT(_saleKoName[_StoreSearchMin + 2].c_str()), 12, &RcTxt3, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
 	sprintf_s(gold, "%d", _saleMoney[_StoreSearchMin + 2]);
 	TextOut(getMemDC(), 1300, _Item[2].top + 30, gold, strlen(gold));
-
+	
 	//4번 상자
 	_saleItem[_StoreSearchMin + 3]->GetImageInven()->render(getMemDC(), _Item[3].left+20, _Item[3].top+20);
 	//DrawText(getMemDC(), TEXT(_saleItem[_StoreSearchMin + 3]->GetName().c_str()), 50, &RcTxt4, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
@@ -256,13 +278,20 @@ void Store::OpenStoreRender()
 	sprintf_s(gold, "%d", _saleMoney[_StoreSearchMin + 3]);
 	TextOut(getMemDC(), 1300, _Item[3].top + 30, gold, strlen(gold));
 
+	for (int i = 0; i < 6; i++)
+	{
+		if (_player->GetMoney() < _saleMoney[i])
+		{
+			_noMoney->alphaRender(getMemDC(), 373, 578, _noMoneyAlpha);
+		}
+	}
+
 	char mo[50];
 	sprintf_s(mo, "%d", _player->GetMoney());
 	TextOut(getMemDC(), 392, 525, mo, strlen(mo));
 
 	SelectObject(getMemDC(), oldFont1);
 	DeleteObject(oldFont1);
-
 
 	if (_StoreSearchMin < 0) _StoreSearchMin = 2;
 	if (_StoreSearchMin > _saleItem.size()) _StoreSearchMin = 0;
@@ -290,5 +319,4 @@ void Store::OpenStoreRender()
 	DeleteObject(oldFont2);
 	
 	_CloseButton->render(getMemDC(), _CloseRc.left, _CloseRc.top);
-
 }

@@ -45,6 +45,9 @@ HRESULT Inventory::init()
 	{
 		_toolInven[i] = new Pickax;
 	}
+	_toolInven[1] = _toolList[0];
+	_toolInven[2] = _toolList[1];
+	_toolInven[4] = _toolList[2];
 
 	_quickSlotUp = false;
 
@@ -76,8 +79,6 @@ void Inventory::update()
 	}
 	else  _quickSlotUp = false;
 	
-	
-
 
 	if (KEYMANAGER->isOnceKeyDown('E'))
 	{
@@ -314,7 +315,7 @@ void Inventory::render()
 						_toolInven[i]->GetToolEnum() == TOOLS::RESOURCEITEM)
 					{
 						sprintf_s(getsu, "%d", _toolInven[i]->GetNumber());
-						TextOut(getMemDC(), 462 + (i * 64), 811, getsu, strlen(getsu));
+						TextOut(getMemDC(), 462 + (i * 64), 806, getsu, strlen(getsu));
 					}
 				}
 			}
@@ -333,8 +334,8 @@ void Inventory::render()
 						_toolInven[i]->GetToolEnum() == TOOLS::RESOURCEITEM)
 					{
 						sprintf_s(getsu, "%d", _toolInven[i]->GetNumber());
-						TextOut(getMemDC(), 462 + (i * 64), 60, getsu, strlen(getsu));
-					}				
+						TextOut(getMemDC(), 462 + (i * 64), 69, getsu, strlen(getsu));
+					}
 				}
 			}		
 		}
@@ -449,7 +450,7 @@ void Inventory::setPlayerBuyItme(ToolItem* buyItme)
 		if (_toolInven[0]->GetName() == buyItme->GetName())
 		{
 			if (_toolInven[0]->GetNumber() > 99) continue;
-			_toolInven[0]->SetNumber(+99);
+			_toolInven[0]->SetNumber(+1);
 			break;
 		}
 		else if (_toolInven[1]->GetName() == buyItme->GetName())

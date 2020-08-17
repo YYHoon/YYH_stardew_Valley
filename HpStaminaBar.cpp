@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include "HpStaminaBar.h"
+#include "Player.h"
 
 HRESULT HpStaminaBar::init()
 {
-	_pl = new Player;
-	_pl->init();
 
 //---------------------------------------스테미나----------------------------------------//
 
