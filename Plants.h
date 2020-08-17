@@ -14,8 +14,8 @@ public:
 	virtual void Update() = 0;
 
 	void ChangeIsWet(bool isWet) { _isWet = isWet; }
-	void IncreaseGrowCount() { _growCount++; }
-	void SetPosIndex(int saveIndex) { _tileIndex = saveIndex; }
+	void IncreaseGrowCount(int increase) { _growCount += increase; }
+	void SavePosIndex(int saveIndex) { _tileIndex = saveIndex; }
 
 	bool GetIsWet() { return _isWet; }
 	bool GetCanHarvest() { return _isCanHarvest; }

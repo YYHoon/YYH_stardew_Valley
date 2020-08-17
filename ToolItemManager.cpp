@@ -122,6 +122,7 @@ void ToolItemManager::Init()
 		_toolList[i]->SetNowMapMemoryAddressLink(_nowTileMap);
 		_toolList[i]->Init();
 	}
+
 }
 
 void ToolItemManager::Action(string name)

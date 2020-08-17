@@ -1,13 +1,11 @@
 #include "stdafx.h"
-#include "ParsnipObject.h"
+#include "PotatoObject.h"
 
-//growCount, name, saveTileIndex
-
-void ParsnipObject::Init()
+void PotatoObject::Init()
 {
-	IMAGEMANAGER->addFrameImage("parsnipObject", "image/plants/ParsnipFrame.bmp", 320, 64, 5, 1, true, RGB(255, 0, 255));
-	_name = "parsnipObject";
-	_img = IMAGEMANAGER->findImage("parsnipObject");
+	IMAGEMANAGER->addFrameImage("potatoObject", "image/plants/PotatoFrame.bmp", 384, 64, 6, 1, true, RGB(255, 0, 255));
+	_name = "potatoObject";
+	_img = IMAGEMANAGER->findImage("potatoObject");
 	_size = Vector2(_img->getFrameWidth(), _img->getFrameHeight());
 	_position = Vector2(0, 0);
 	_rect.centerSet(_position.x, _position.y, _size.x, _size.y);
@@ -15,16 +13,15 @@ void ParsnipObject::Init()
 	_isCanHarvest = false;
 	_isWet = false;
 	_growCount = 0;
-	ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, _img, _position.x, _position.y, _img->getFrameX(), _img->getFrameY(), _rc.bottom);
 }
 
-void ParsnipObject::Release()
+void PotatoObject::Release()
 {
 }
 
-void ParsnipObject::Update()
+void PotatoObject::Update()
 {
-
+	
 	switch (_growCount)
 	{
 	case 0:
@@ -47,9 +44,12 @@ void ParsnipObject::Update()
 		_img->setFrameX(4);
 		_img->setFrameY(0);
 		break;
+	case 5:
+		_img->setFrameX(5);
+		_img->setFrameY(0);
 	default:
 		break;
 	}
-	if (_img->getFrameX() >= 4)_isCanHarvest = true;
+	if (_img->getFrameX() >= 5)_isCanHarvest = true;
 	ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, _img, _position.x, _position.y, _img->getFrameX(), _img->getFrameY(), _rc.bottom);
 }

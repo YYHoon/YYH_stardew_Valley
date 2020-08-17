@@ -180,6 +180,7 @@
     <ClInclude Include="iniDataManager.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Kale.h" />
+    <ClInclude Include="KaleObject.h" />
     <ClInclude Include="KaleSeed.h" />
     <ClInclude Include="keyAniManager.h" />
     <ClInclude Include="keyManager.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="playGround.h" />
     <ClInclude Include="Potato.h" />
+    <ClInclude Include="PotatoObject.h" />
     <ClInclude Include="PotatoSeed.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
@@ -254,6 +256,7 @@
     <ClCompile Include="iniDataManager.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Kale.cpp" />
+    <ClCompile Include="KaleObject.cpp" />
     <ClCompile Include="KaleSeed.cpp" />
     <ClCompile Include="keyAniManager.cpp" />
     <ClCompile Include="keyManager.cpp" />
@@ -279,6 +282,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playGround.cpp" />
     <ClCompile Include="Potato.cpp" />
+    <ClCompile Include="PotatoObject.cpp" />
     <ClCompile Include="PotatoSeed.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="RareFish.cpp" />

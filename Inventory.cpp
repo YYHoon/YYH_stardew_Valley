@@ -52,8 +52,7 @@ HRESULT Inventory::init()
 	_toolInven[4]->SetToolEnum(TOOLS::NONE);
 	_toolInven[5]->SetToolEnum(TOOLS::NONE);
 	_toolInven[6] = _toolList[3];
-	_toolInven[0] = new Axe;
-	_toolInven[0]->SetToolEnum(TOOLS::NONE);
+
 	return S_OK;
 }
 

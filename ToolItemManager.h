@@ -9,7 +9,7 @@ class ToolItemManager
 {
 private:
 	vector<ToolItem*> _toolList;//아이템 모든정보를 담은벡터
-	
+
 	//ToolItem 할당
 	Pickax* _pickax;
 	Axe* _axe;

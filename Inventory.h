@@ -99,6 +99,7 @@ public:
 	vector<RECT>	 GetVInvenIndexRC() { return _vInvenIndexRC; }
 	vector<tagInventory> GetInventory() { return _vAllInventory; }
 	vector<ToolItem*> GetInven() { return _toolInven; }
+	void SetInven(vector<ToolItem*> inven) {_toolInven = inven; }
 	ToolItem* GetInvenItem(int index) { return _toolInven[index]; }
 
 	void SetMemoryLinkedTool(ToolItemManager* tool) { _toolItemManager = tool; }

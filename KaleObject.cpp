@@ -1,13 +1,11 @@
 #include "stdafx.h"
-#include "ParsnipObject.h"
+#include "KaleObject.h"
 
-//growCount, name, saveTileIndex
-
-void ParsnipObject::Init()
+void KaleObject::Init()
 {
-	IMAGEMANAGER->addFrameImage("parsnipObject", "image/plants/ParsnipFrame.bmp", 320, 64, 5, 1, true, RGB(255, 0, 255));
-	_name = "parsnipObject";
-	_img = IMAGEMANAGER->findImage("parsnipObject");
+	IMAGEMANAGER->addFrameImage("kaleObject", "image/plants/KaleFrame.bmp", 320, 64, 5, 1, true, RGB(255, 0, 255));
+	_name = "kaleObject";
+	_img = IMAGEMANAGER->findImage("kaleObject");
 	_size = Vector2(_img->getFrameWidth(), _img->getFrameHeight());
 	_position = Vector2(0, 0);
 	_rect.centerSet(_position.x, _position.y, _size.x, _size.y);
@@ -15,16 +13,15 @@ void ParsnipObject::Init()
 	_isCanHarvest = false;
 	_isWet = false;
 	_growCount = 0;
-	ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, _img, _position.x, _position.y, _img->getFrameX(), _img->getFrameY(), _rc.bottom);
 }
 
-void ParsnipObject::Release()
+void KaleObject::Release()
 {
 }
 
-void ParsnipObject::Update()
+void KaleObject::Update()
 {
-
+	
 	switch (_growCount)
 	{
 	case 0:

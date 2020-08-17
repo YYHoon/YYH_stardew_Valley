@@ -22,7 +22,6 @@ void KaleSeed::Action()
 		_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::HOETILE_WET)
 	{
 
-
 		_number--;
 	}
 
