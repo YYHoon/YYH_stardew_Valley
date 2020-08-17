@@ -197,13 +197,13 @@ void Player::CheckTiles()
 
 		int playerTile = _playerTileX + _playerTileY * _Map->GetHorizon();
 		Vector2 playerTileCenter = Vector2((_Map->GetTiles(playerTile).rc.right + _Map->GetTiles(playerTile).rc.left) * 0.5, (_Map->GetTiles(playerTile).rc.bottom + _Map->GetTiles(playerTile).rc.top) * 0.5);
-		cout << floor(Vector2( _mousePt- playerTileCenter).Nomalized().x + 0.5)<<" "<< floor(Vector2( _mousePt- playerTileCenter).Nomalized().y+0.5) << endl;
+		//cout << floor(Vector2( _mousePt- playerTileCenter).Nomalized().x + 0.5)<<" "<< floor(Vector2( _mousePt- playerTileCenter).Nomalized().y+0.5) << endl;
 		/*float distance = _mousePt.Distance(_mousePt, Vector2((_Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.right - _Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.left) * 0.5,
 			(_Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.top - _Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.bottom) * 0.5), true);*/
 		float distance = getDistance(playerTileCenter.x, playerTileCenter.y, _mousePt.x, _mousePt.y);
 		if (distance > sqrtf(TILESIZE * TILESIZE * 10))
 		{
-			cout << "왜 이것만 나오누?" << endl;
+			//cout << "왜 이것만 나오누?" << endl;
 			// 보는방향 찍고
 
 			if(_state->GetStateName() != "swing")

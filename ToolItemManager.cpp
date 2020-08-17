@@ -137,6 +137,19 @@ void ToolItemManager::Action(string name)
 	}
 }
 
+void ToolItemManager::Render(string name)
+{
+	for (int i = 0; i < _toolList.size(); ++i)
+	{
+
+		if (_toolList[i]->GetName() == name)
+		{
+			_toolList[i]->ReAction();
+		}
+
+	}
+}
+
 int ToolItemManager::GetImpactIndexCenter(string name)
 {
 	for (int i = 0; i < _toolList.size(); ++i)
