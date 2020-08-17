@@ -31,7 +31,7 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("HOME", _home = new MapHome);
 	SCENEMANAGER->addScene("Test", _test = new MapTest);
 	SCENEMANAGER->changeScene("Test");
-
+	test = new MiniGame;
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
 	return S_OK;
 }
@@ -50,6 +50,16 @@ void playGround::update()
 	OBJECTMANAGER->Update();
 	KEYANIMANAGER->update();
 
+	if (!test->GetNowFishing())
+	{
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+		{
+			Vector2 i(200, 200);
+			test->Init(i, PLAYER_DIRECTION::LEFT);
+		}
+	}
+	if(test->GetNowFishing())test->Update();
+
 }
 
 //그리기 전용
@@ -64,6 +74,7 @@ void playGround::render()
 	TIMEMANAGER->render(getMemDC());
 	//////////////////////////////////
 	ZORDER->ZOrderRender();
+	test->Render();
 	//=============================================
 	_backBuffer->render(getHDC(), 0, 0);
 }
@@ -153,11 +164,11 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("Save", "image/mapTool/Save.bmp", 229, 52, true, MAGENTA);
 
 	// Player
-	IMAGEMANAGER->addFrameImage("player", "image/Player.bmp", 3000, 4500, 12, 18, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("player", "image/Player.bmp", 3000, 4500, 12, 18, true, MAGENTA);
 
 	//낚시
 	IMAGEMANAGER->addImage("FishingGague", "image/낚시/낚시게이지.bmp", 12, 485, true, MAGENTA);
-	IMAGEMANAGER->addImage("FishingMiniGame", "image/낚시/낚시미니게임.bmp", 128, 505, true, MAGENTA);
+	IMAGEMANAGER->addImage("FishingMiniGame", "image/낚시/낚시미니게임.bmp", 128, 600, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishingBar", "image/낚시/낚시바.bmp", 34, 96, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishingStart", "image/낚시/낚시시작.bmp", 120, 49, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishingPower", "image/낚시/낚시최대파워던짐.bmp", 100, 36, true, MAGENTA);

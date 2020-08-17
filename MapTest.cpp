@@ -172,7 +172,7 @@ void MapTest::render()
 			}
 		}
 	}
-	
+
 	OBJECTMANAGER->Render();
 	ZORDER->ZOrderRender();
 	_store->render();

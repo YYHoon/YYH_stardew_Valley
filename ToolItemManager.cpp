@@ -180,6 +180,20 @@ int ToolItemManager::GetImpactIndexRight(string name)
 	
 }
 
+void ToolItemManager::GetFishingInfo(Vector2 c, PLAYER_DIRECTION d)
+{
+	for (int i = 0; i < _toolList.size(); ++i)
+	{
+
+		if (_toolList[i]->GetName() == "FishingRod")
+		{
+			_toolList[i]->GetPlayerCenterNDir(_playerCenter, _playerDir);
+		}
+
+	}
+	
+}
+
 image* ToolItemManager::GetImageInven(string name)
 {
 	for (int i = 0; i < _toolList.size(); ++i)

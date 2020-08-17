@@ -115,6 +115,19 @@ enum class PLAYER_ACTION
 	END
 };
 
+enum class FISHING
+{
+	FIRST,			//0.낚시 초기화
+	CHARGE,			//1.낚시 기모으기
+	SHOT,			//2.찌던지기
+	WAIT,			//3.물고기낚일떄까지 기다리기
+	MINiGAMEON,		//4.물고기 입질왔을때
+	DOINGMINIGAME,	//5.낚시 게임도중
+	MISS,			//6.물고기 놓쳤을때
+	SUCCESS,		//7.물고기 잡는데 성공했을때
+	NONE			//8.혹시 모를 아무상태도 아닐때
+};
+
 enum class ATTRIBUTE
 {
 	NONE,
