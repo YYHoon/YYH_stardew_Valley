@@ -41,7 +41,7 @@ HRESULT TitleScene::init()
 
 	_startButtonIndex = _exitButtonIndex = _mouseIndex = _LoadButtonIndex = 0;
 
-	ShowCursor(false);
+	ShowCursor(true);
 	_Mouse = IMAGEMANAGER->findImage("mouse");
 
 	SOUNDMANAGER->play("TitleSound");

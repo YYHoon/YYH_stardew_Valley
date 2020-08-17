@@ -9,6 +9,8 @@
 #include "MapManager.h"
 #include <iostream>
 
+#include <algorithm>
+
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 using namespace std;
 
