@@ -160,6 +160,7 @@
     <ClInclude Include="AllToolItem.h" />
     <ClInclude Include="AllUi.h" />
     <ClInclude Include="animation.h" />
+    <ClInclude Include="astar.h" />
     <ClInclude Include="Axe.h" />
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="collision.h" />
@@ -235,6 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
+    <ClCompile Include="astar.cpp" />
     <ClCompile Include="Axe.cpp" />
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="collision.cpp" />

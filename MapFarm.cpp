@@ -9,7 +9,7 @@ HRESULT MapFarm::init()
 
 	_count = 0;
 	_vertical = _horizon = 100;
-	_tiles = _map->Load("map.map", _vertical, _horizon);
+	_tiles = _map->Load("map.map", _horizon, _vertical);
 	return S_OK;
 }
 
