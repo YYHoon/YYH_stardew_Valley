@@ -95,7 +95,7 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("RecoveryItemInfo", "image/회복아이템설명.bmp", 293, 258, true, MAGENTA);
 
 	//환경
-	IMAGEMANAGER->addImage("Environment_Clock", "image/Environment/Environment_Clock.bmp", 284, 160, true, MAGENTA);
+	IMAGEMANAGER->addImage("Environment_Clock", "image/Environment/Environment_Clock.bmp", 288, 236, true, MAGENTA);
 
 	//인벤토리
 	IMAGEMANAGER->addImage("Inventory_BG", "image/Inventory/Inventory_BG.bmp", 1600, 900, false, BLACK);

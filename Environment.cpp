@@ -6,20 +6,15 @@ HRESULT Environment::init()
 	_alphaValue = 0;
 	_realTimeSecond = 0;
 
-
+	_isDayIncrease = false;
 	_isInventoryOpen = false;
 
-	/// <summary>
-	_ratio = (_originalDelay * 100) / _originalTime;
-	//cout << "Ratio : " << _ratio << "%" << endl;
-	/// </summary>
-
+	_timeRatio = REALTIMEMAX / CLOCKTIMEMAX;
 	_clockCalculate = 0;
 	_dayCount = 1;
+	_alphaDelay = 0;
 
 	_clockHand.count = 0;
-
-	_currentTimeSec = 0;
 	_clockHand.value = 0;
 	_clockHand.angle = -PI / 2;
 	_clockHand.length = 72;
@@ -40,24 +35,12 @@ void Environment::update()
 	_elapsedTime = TIMEMANAGER->getElapsedTime();
 	_clockCalculate += _elapsedTime;
 
-	_currentTimeSec = (int)_realTimeSecond;
-
-	if (KEYMANAGER->isOnceKeyDown('E'))
-	{
-		if (!_isInventoryOpen) _isInventoryOpen = true;
-
-		else _isInventoryOpen = false;
-	}
-
-	if (!_isInventoryOpen) _realTimeSecond += _elapsedTime;
-	else _realTimeSecond += 0;
-
 	if (!_isInventoryOpen)
 	{
-		/////////////////////////////////////<Test>
+		_realTimeSecond += _elapsedTime;
+
 		//ClockHand
-		///////////////////<↓↓↓↓시간 계산 현재 20초 기준 차후 수식으로 고칠 것↓↓↓↓>///////////////////
-		if (_clockCalculate >= 0.1669f)
+		if (_clockCalculate >= _timeRatio)
 		{
 			_clockHand.count++;
 
@@ -73,37 +56,45 @@ void Environment::update()
 				_clockHand.angle -= CLOCKMOVEDANGLE;
 			}
 		}
-		///////////////////<↑↑↑↑시간 계산 현재 20초 기준 차후 수식으로 고칠 것↑↑↑↑>///////////////////
 
 		if (_clockHand.value >= CLOCKTIMEMAX)
 		{
 			_clockHand.value = 0;
 			_clockHand.angle = -PI / 2;
 
-			if (_realTimeSecond >= REALTIMEHALF)
+			if (_realTimeSecond >= REALTIMEHALF && !_isDayIncrease)
 			{
+				_isDayIncrease = true;
 				_alphaValue = 0;
 				_realTimeSecond = 0;
 				_dayCount++;
 
-				cout << _dayCount << endl;
+				/// <summary>
+				cout << "IsDayIncrease :" << _isDayIncrease << endl;
+				cout << "DayCount : " << _dayCount << endl;
+				/// </summary>
 			}
 		}
 
-		/// AlphaRender
-		if (timeUpdate(TIMEMANAGER->getElapsedTime() * 60) && _clockHand.value >= CLOCKTIMEHALF)
+		if (_isDayIncrease) _isDayIncrease = false;
+
+			/// AlphaRender
+		if (timeUpdate(TIMEMANAGER->getElapsedTime() * 60) &&
+			_clockHand.value >= CLOCKTIMEHALF)
 		{
 			_alphaValue++;
 
 			if (_alphaValue > ALPHAVALUEMAX) _alphaValue = ALPHAVALUEMAX;
 		}
-
-		_clockHand.end.x = cosf(_clockHand.angle) * _clockHand.length + _clockHand.center.x;
-		_clockHand.end.y = -sinf(_clockHand.angle) * _clockHand.length + _clockHand.center.y;
-
-		/////////////////////////////////////</Test>
-
+		
 	}
+	else
+	{
+		_realTimeSecond += 0;
+	}
+
+	_clockHand.end.x = cosf(_clockHand.angle) * _clockHand.length + _clockHand.center.x;
+	_clockHand.end.y = -sinf(_clockHand.angle) * _clockHand.length + _clockHand.center.y;
 }
 
 void Environment::render()
