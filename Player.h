@@ -51,6 +51,10 @@ private:
 	int _playerTileX, _playerTileY;
 	/// <summary>
 	/// </summary>
+	bool _isNext;
+	bool _isPrev;
+	/// <summary>
+	/// </summary>
 
 	bool _isKeyDown;
 	
@@ -71,11 +75,15 @@ public:
 	PLAYER_DIRECTION GetDirection() { return _info.direction; }
 	TOOLS GetEquip() { return _info.equipment; }
 	int* GetTileIndex() { return _actTileIndex; }
+	int* GetMoveTileIndex() { return _tileIndex; }
 	int GetmaxStamina() { return _info.maxStamina; }
 	int GetStamina() { return _info.stamina; }
 	int GetMoney() { return _info.money; }
 	MYRECT GetPlayercollision() { return _info.collision; }
 	Inventory* GetPlayerInver() { return _inven; }
+	bool GetIsNext() { return _isNext; }
+	bool GetIsPrev() { return _isPrev; }
+
 
 	void SetName(string Name) { _info.name = Name; }
 	void SetImg(string imgName) { _info.img = IMAGEMANAGER->findImage(imgName); }

@@ -10,6 +10,7 @@
 class MapMain : public gameNode
 {
 protected:
+	TileRender* _tileRender;
 	MapToolScene* _map;
 	Player* _player;
 	Environment* _environment;

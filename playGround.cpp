@@ -50,15 +50,15 @@ void playGround::update()
 	OBJECTMANAGER->Update();
 	KEYANIMANAGER->update();
 
-	if (!test->GetNowFishing())
-	{
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-		{
-			Vector2 i(200, 200);
-			test->Init(i, PLAYER_DIRECTION::LEFT);
-		}
-	}
-	if(test->GetNowFishing())test->Update();
+	//if (!test->GetNowFishing())
+	//{
+	//	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	//	{
+	//		Vector2 i(200, 200);
+	//		test->Init(i, PLAYER_DIRECTION::LEFT);
+	//	}
+	//}
+	//if(test->GetNowFishing())test->Update();
 
 }
 
@@ -73,8 +73,8 @@ void playGround::render()
 	/////////////////////////////////
 	TIMEMANAGER->render(getMemDC());
 	//////////////////////////////////
-	ZORDER->ZOrderRender();
-	test->Render();
+	//ZORDER->ZOrderRender();
+	//test->Render();
 	//=============================================
 	_backBuffer->render(getHDC(), 0, 0);
 }
@@ -150,17 +150,17 @@ void playGround::imginit()
 
 	IMAGEMANAGER->addFrameImage("Terrain", "image/mapTool/Terrain.bmp", 0, 0, 512, 512, 512 / TILESIZE, 512 / TILESIZE, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("Terrain_InDoor", "image/mapTool/Indoor.bmp", 0, 0, 192, 512, 192 / TILESIZE, 512 / TILESIZE, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("Wall", "image/mapTool/Wall.bmp", 0, 0, 512, 448, 512 / TILESIZE, 448 / TILESIZE, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("HoeTile", "image/mapTool/HoeTile.bmp", 0, 0, 384, 384, 384 / TILESIZE, 384 / TILESIZE, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("Wall", "image/mapTool/Wall.bmp", 0, 0, 512, 512, 512 / TILESIZE, 512 / TILESIZE, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("HoeTile", "image/mapTool/HoeTile.bmp", 0, 0, 448, 384, 448 / TILESIZE, 384 / TILESIZE, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("Tree", "image/mapTool/Tree.bmp", 0, 0, 578, 384, 3, 1, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("House", "image/mapTool/House.bmp", 0, 0, 576, 576, 1, 1, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("POS", "image/mapTool/POS.bmp", 0, 0, 256, 128, 4, 2, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("Bed", "image/mapTool/Bed.bmp", 0, 0, 128, 192, 1, 1, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("Blanket", "image/mapTool/Blanket.bmp",0,0, 128, 192,1,1, true, MAGENTA);
 	IMAGEMANAGER->addImage("Line", "image/mapTool/Line.bmp", 64, 64, true, MAGENTA);
 	IMAGEMANAGER->addImage("Collision", "image/mapTool/Collision.bmp", 64, 64, true, MAGENTA);
-	IMAGEMANAGER->addImage("Bed", "image/mapTool/Bed.bmp", 128, 192, true, MAGENTA);
-	IMAGEMANAGER->addImage("Blanket", "image/mapTool/Blanket.bmp", 128, 192, true, MAGENTA);
 	IMAGEMANAGER->addImage("Window", "image/mapTool/Window.bmp", 700, 900, true, MAGENTA);
-	IMAGEMANAGER->addImage("F1", "image/mapTool/F1.bmp", 62, 52, true, MAGENTA);
+	IMAGEMANAGER->addImage("F1", "image/mapTool/F1.bmp", 64, 52, true, MAGENTA);
 	IMAGEMANAGER->addImage("Save", "image/mapTool/Save.bmp", 229, 52, true, MAGENTA);
 
 	// Player

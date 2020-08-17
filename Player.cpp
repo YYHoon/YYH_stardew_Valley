@@ -12,7 +12,7 @@ HRESULT Player::init()
 	_info.shadowImg = IMAGEMANAGER->findImage("playerShadow");
 	_info.position = Vector2(10, 10);
 	_info.direction = PLAYER_DIRECTION::UP;
-	_info.equipment = TOOLS::AXE;
+	_info.equipment = TOOLS::NONE;
 	_state = make_shared<PlayerIdle>(this);
 	_state->Init();
 	_info.position = Vector2(WINSIZEX / 2 + 100, WINSIZEY / 2);
@@ -25,7 +25,8 @@ HRESULT Player::init()
 	_info.stamina = 100;
 	_info.money = 500;
 	_info.velocity = 10.0f;
-	_isKeyDown = false;
+	_isNext = false;
+	_isPrev = false;
 
 	_inven = new Inventory;
 
@@ -188,7 +189,7 @@ void Player::Move()
 		}
 	}
 
-	_info.shadowCollision.centerSet(_info.position.x, _info.position.y, _info.shadowImg->getWidth() - 10, _info.shadowImg->getHeight() - 10);
+	_info.shadowCollision.centerSet(_info.position.x, _info.position.y, _info.shadowImg->getWidth() - 30, _info.shadowImg->getHeight() - 30);
 	_info.collision.centerSet(_info.position.x, _info.position.y - 50, _info.img->getFrameWidth(), _info.img->getFrameHeight());
 }
 
@@ -420,6 +421,11 @@ void Player::CheckTiles()
 		break;
 	default:
 		break;
+	}
+	if (_Map->GetTiles()[_tileIndex[0]].pos == POS::PARM_TO_HOME ||
+		_Map->GetTiles()[_tileIndex[0]].pos == POS::HOME_TO_PARM)
+	{
+		_isNext = true;
 	}
 	for (int i = 0; i < 3; ++i)
 	{

@@ -396,11 +396,14 @@
     <ClInclude Include="Wood.h">
       <Filter>playGround\Tool\ResoureceItem</Filter>
     </ClInclude>
-    <ClInclude Include="astar.h">
-      <Filter>playGround\astar</Filter>
-    </ClInclude>
     <ClInclude Include="Sword.h">
       <Filter>playGround\Tool\ToolItem\SlashImpact</Filter>
+    </ClInclude>
+    <ClInclude Include="astar.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TileRender.h">
+      <Filter>playGround\Scene\MaptoolScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -663,7 +666,10 @@
       <Filter>playGround\Tool\ResoureceItem</Filter>
     </ClCompile>
     <ClCompile Include="astar.cpp">
-      <Filter>playGround\astar</Filter>
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TileRender.cpp">
+      <Filter>playGround\Scene\MaptoolScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

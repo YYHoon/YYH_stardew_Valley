@@ -42,14 +42,14 @@ HRESULT MapTest::init()
 	_vertical = _horizon = 75;
 	_tiles = _map->Load("mapTest.map", _horizon, _vertical);
 
-	_astar = new astar;
-	_astar->SetMapMemoryLink(this);
-	_astar->SetMap();
-	_astar->SetStartNode(Vector2(10, 10));
-	//_astar->SetEndNode(_player->GetInfo().position / TILESIZE);
-	test = Vector2(9,9);
-	_astar->SetEndNode(test);
-	_astar->PathFind();
+	//_astar = new astar;
+	//_astar->SetMapMemoryLink(this);
+	//_astar->SetMap();
+	//_astar->SetStartNode(Vector2(10, 10));
+	////_astar->SetEndNode(_player->GetInfo().position / TILESIZE);
+	//test = Vector2(9,9);
+	//_astar->SetEndNode(test);
+	//_astar->PathFind();
 
 
 	ShowCursor(true);
@@ -66,7 +66,7 @@ void MapTest::update()
 	_count++;
 	_player->update();
 	_environment->update();
-	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD4))
+	/*if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD4))
 	{
 		test += Vector2(-1, 0);
 		_astar->SetEndNode(test);
@@ -88,7 +88,7 @@ void MapTest::update()
 	}
 	if (_count % 20 == 0) {
 		_astar->PathFind();
-	}
+	}*/
 
 	_store->update();
 	_HpStaminaBar->update();
@@ -184,5 +184,5 @@ void MapTest::render()
 	_HpStaminaBar->staminaBarRender();
 	_HpStaminaBar->hpBarRender();
 	_player->render();
-	_astar->render();
+	//_astar->render();
 }

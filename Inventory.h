@@ -17,6 +17,7 @@ struct tagInventory
 	int invenTabNum;
 	int craftPageNum;
 	int x, y;
+	bool isInvenOpen;
 };
 
 struct tagQuickSlot
@@ -69,7 +70,7 @@ private:
 	int _frameCount;
 	int _itemIndexNum;
 	bool _test;
-
+	bool isInvenOpen;
 /////////////////////////</Inventory>///////////////////////////
 
 /////////////////////////<QuickSlot>////////////////////////////

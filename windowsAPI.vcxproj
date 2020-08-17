@@ -222,6 +222,7 @@
     <ClInclude Include="Sword.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestScene.h" />
+    <ClInclude Include="TileRender.h" />
     <ClInclude Include="timeManager.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="TitleScene.h" />
@@ -304,6 +305,7 @@
     <ClCompile Include="Store.cpp" />
     <ClCompile Include="Sword.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="TileRender.cpp" />
     <ClCompile Include="timeManager.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="TitleScene.cpp" />

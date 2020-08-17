@@ -28,6 +28,7 @@ public:
 
 	virtual HRESULT init();
 	virtual void release();
-	virtual void update();
+	virtual void update() {};
+     void update(string itemName);
 	virtual void render();
 };
