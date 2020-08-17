@@ -12,7 +12,7 @@ HRESULT Player::init()
 	_info.shadowImg = IMAGEMANAGER->findImage("playerShadow");
 	_info.position = Vector2(10, 10);
 	_info.direction = PLAYER_DIRECTION::UP;
-	_info.equipment = TOOLS::NONE;
+	_info.equipment = TOOLS::AXE;
 	_state = make_shared<PlayerIdle>(this);
 	_state->Init();
 	_info.position = Vector2(WINSIZEX / 2 + 100, WINSIZEY / 2);
@@ -123,7 +123,7 @@ void Player::update()
 
 void Player::render()
 {
-	//CAMERAMANAGER->rectangle(getMemDC(), _info.shadowCollision);
+	CAMERAMANAGER->rectangle(getMemDC(), _info.shadowCollision);
 	/*_info.shadowImg->render(getMemDC(), _info.shadowCollision.left, _info.shadowCollision.top);
 	_info.img->aniRender(getMemDC(), _info.collision.left, _info.collision.top, _info.anim);*/
 	_inven->render();

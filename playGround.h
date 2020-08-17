@@ -7,6 +7,9 @@
 #include "TestScene.h"
 #include "MapToolScene.h"
 #include "MapManager.h"
+
+#include "MiniGame.h"	//미니게임 테스트용1
+
 #include <iostream>
 
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
@@ -15,6 +18,7 @@ using namespace std;
 class playGround : public gameNode
 {
 private:
+	MiniGame* test;//미니게임테스트용
 	TitleScene* _TitleScene;
 	TestScene* _Tset;
 	MapToolScene* _MaptoolScene;

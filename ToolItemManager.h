@@ -41,7 +41,8 @@ private:
 	Wood* _wood;
 	//================
 
-
+	Vector2 _playerCenter;
+	PLAYER_DIRECTION _playerDir;
 
 	MapMain* _nowTileMap; //지금사용하는 맵
 public:
@@ -64,6 +65,8 @@ public:
 	
 	vector<ToolItem*> GetToolItem() { return _toolList; }
 	
+	//플레이어 센터좌표 방향 알아오는함수 낚시하기전에 꼭필요
+	virtual void GetFishingInfo(Vector2 c, PLAYER_DIRECTION d);
 	
 	//이름에따른 이미지가져오는함수
 	virtual image* GetImageInven(string name);

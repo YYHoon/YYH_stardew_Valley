@@ -264,9 +264,6 @@
     <ClInclude Include="Sickle.h">
       <Filter>playGround\Tool\ToolItem\SlashImpact</Filter>
     </ClInclude>
-    <ClInclude Include="Sword.h">
-      <Filter>playGround\Tool\ToolItem\SlashImpact</Filter>
-    </ClInclude>
     <ClInclude Include="WaterSpray.h">
       <Filter>playGround\Tool\ToolItem\JustImpact</Filter>
     </ClInclude>
@@ -350,6 +347,9 @@
     </ClInclude>
     <ClInclude Include="Wood.h">
       <Filter>playGround\Tool\ResoureceItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Sword.h">
+      <Filter>playGround\Tool\ToolItem\SlashImpact</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

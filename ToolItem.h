@@ -15,11 +15,11 @@ protected:
 	bool _slashSignal = false;//범위타일상호작용 체크
 	TOOLS _enumName = TOOLS::NONE;		//툴아이템의 이넘값
 	int _number = 0;
-	/// <summary>
 	image* _imageI =nullptr;
 	image* _imageC = nullptr;
 
-	/// </summary>
+	Vector2 _playerCenter;
+	PLAYER_DIRECTION _playerDir;
 
 	MAPOBJECT	_mapObject = MAPOBJECT::NONE;	//지형오브젝트의속성
 	TERRAIN _mapTeeain = TERRAIN::NONE;			//지형타일의 속성
@@ -50,6 +50,12 @@ public:
 	virtual inline image* GetImageInven() { return _imageI; }
 	virtual inline image* GetImageChar() { return _imageC; }
 
+	//플레이어 센터,방향 가져오는거
+	virtual inline void GetPlayerCenterNDir(Vector2 c, PLAYER_DIRECTION d) {
+		_playerCenter = c;
+		_playerDir = d;
+	}
+
 	//툴아이템의 이넘값겟 
 	virtual inline TOOLS GetToolEnum() { return _enumName; }
 	virtual inline void SetToolEnum(TOOLS toolEnum) { _enumName = toolEnum; }
@@ -74,7 +80,7 @@ public:
 	virtual inline void SetMapObject(MAPOBJECT mapobj) { _mapObject = mapobj; }
 	virtual void Init() = 0;
 	virtual void Action() = 0;
-	virtual void ReAction() = 0;
+	virtual void ReAction() = 0; // 렌더에 넣어주세요 ㅎㅎ 낚시만씁니다
 	inline void SetNowMapMemoryAddressLink(MapMain* dmap) { _map = dmap; }
 };
 
