@@ -7,6 +7,12 @@ HRESULT MapTest::init()
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
 	
+	_environment = new Environment;
+	_environment->init();
+
+	_pm = new PlantsManager;
+	_pm->Init();
+
 	_count = 0;
     _vertical = _horizon = 75;
     _tiles = _map->Load("mapTest.map", _vertical, _horizon);
@@ -21,6 +27,8 @@ void MapTest::update()
 {
 	_count++;
 	_player->update();
+	_environment->update();
+	_pm->Growing();
 }
 
 void MapTest::render()
@@ -81,7 +89,6 @@ void MapTest::render()
 					_tiles[index].objectframeX, _tiles[index].objectframeY, _tiles[index].rc.bottom + 1);
 			}
 
-			if (j > 14 || i > 14) continue;
 
 			if ((_tiles[index].object == MAPOBJECT::HOETILE) ||
 				(_tiles[index].object == MAPOBJECT::HOETILE_WET) ||
@@ -101,6 +108,8 @@ void MapTest::render()
 			}
 		}
 	}
+	
+	OBJECTMANAGER->Render();
 	ZORDER->ZOrderRender();
-	_player->render();
+	_environment->render();
 }

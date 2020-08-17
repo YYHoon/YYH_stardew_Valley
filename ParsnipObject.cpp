@@ -3,13 +3,6 @@
 
 void ParsnipObject::Init()
 {
-	//Synthesize(string, _name, Name)
-	//	Synthesize(string, _type, Type)
-	//	Synthesize(Vector2, _position, Position)
-	//	Synthesize(Vector2, _size, Size)
-	//	Synthesize(TTYONE_UTIL::MYRECT, _rect, Rect)
-	//	Synthesize(RECT, _rc, Rc)
-	//	Synthesize(bool, _active, Active)
 	IMAGEMANAGER->addFrameImage("Parsnip", "image/plants/ParsnipFrame.bmp", 320, 64, 5, 1, true, RGB(255, 0, 255));
 	_name = "Parsnip";
 	_img = IMAGEMANAGER->findImage("Parsnip");

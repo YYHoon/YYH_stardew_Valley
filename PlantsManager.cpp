@@ -8,6 +8,12 @@ void PlantsManager::Init()
 
 void PlantsManager::Update()
 {
+	
+
+}
+
+void PlantsManager::render()
+{
 }
 
 void PlantsManager::Planting(int index, string plantsName)
@@ -24,18 +30,18 @@ void PlantsManager::Planting(int index, string plantsName)
 			_parsnip->Init();		
 			_parsnip->SetPosition(tileCenter);
 			_parsnip->SetPosIndex(index);
-			_ActivePlantsList.push_back(_parsnip);
+			_vActivePlantsList.push_back(_parsnip);
 		}
 	}
 }
 
 void PlantsManager::Growing()
 {
-	for (int i = 0; i < _ActivePlantsList.size(); ++i)
+	for (int i = 0; i < _vActivePlantsList.size(); ++i)
 	{
-		if (_map->GetTiles(_ActivePlantsList[i]->GetSaveIndex()).wet)
+		if (_map->GetTiles(_vActivePlantsList[i]->GetSaveIndex()).wet)
 		{
-			_ActivePlantsList[i]->ChangeIsWet(true);
+			_vActivePlantsList[i]->ChangeIsWet(true);
 		}
 	}
 }
@@ -43,12 +49,11 @@ void PlantsManager::Growing()
 
 void PlantsManager::Harvesting(int index)
 {
-	for (int i = 0; i < _ActivePlantsList.size(); ++i)
+	_viActivePlantsList[index] = _vActivePlantsList[index];
+	if (_vActivePlantsList[index]->GetCanHarvest())
 	{
-		if (_ActivePlantsList[i]->GetCanHarvest())
-		{
-			//class item »Ñ¸®±â
-		}
+		//¾ÆÀÌÅÛ ¾¾»Ñ¸®±â
+		_vActivePlantsList[index]->release();
+		_vActivePlantsList.erase(_viActivePlantsList);
 	}
-
 }

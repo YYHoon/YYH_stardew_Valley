@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "Vector2.h"
 #include "ToolItemManager.h"
+#include "Inventory.h"
 class State;
 class MapMain;
 
@@ -25,7 +26,8 @@ private:
 		int stamina;
 		int money;
 		float velocity;
-		//class* inven;
+		ToolItem* haveItem;			//내가 쓰는 인벤인덱스
+		vector<ToolItem*> saveload; //모든 인벤내용
 	};
 
 private:
@@ -39,11 +41,15 @@ private:
 	NecessaryInfo _info;
 	PLAYER_ACTION _action;
 	shared_ptr<State> _state;
+	ToolItem* _getItem;
+	
+	Inventory* _inven;
 	Vector2 _mousePt;
 	int _tileIndex[3];
 	int _actTileIndex[3];
 	int _playerTileX, _playerTileY;
-	
+	/// <summary>
+	/// </summary>
 
 	bool _isKeyDown;
 	

@@ -15,6 +15,7 @@ HRESULT Environment::init()
 	/// </summary>
 
 	_clockCalculate = 0;
+	_dayCount = 1;
 
 	_clockHand.count = 0;
 
@@ -43,14 +44,9 @@ void Environment::update()
 
 	if (KEYMANAGER->isOnceKeyDown('E'))
 	{
-		if (!_isInventoryOpen)
-		{
-			_isInventoryOpen = true;
-		}
-		else
-		{
-			_isInventoryOpen = false;
-		}
+		if (!_isInventoryOpen) _isInventoryOpen = true;
+
+		else _isInventoryOpen = false;
 	}
 
 	if (!_isInventoryOpen) _realTimeSecond += _elapsedTime;
@@ -58,9 +54,8 @@ void Environment::update()
 
 	if (!_isInventoryOpen)
 	{
-		//ClockHand
 		/////////////////////////////////////<Test>
-
+		//ClockHand
 		///////////////////<↓↓↓↓시간 계산 현재 20초 기준 차후 수식으로 고칠 것↓↓↓↓>///////////////////
 		if (_clockCalculate >= 0.1669f)
 		{
@@ -80,12 +75,27 @@ void Environment::update()
 		}
 		///////////////////<↑↑↑↑시간 계산 현재 20초 기준 차후 수식으로 고칠 것↑↑↑↑>///////////////////
 
-		//	cout << "ClockValue : " << _clockHand.value << endl;
-
 		if (_clockHand.value >= CLOCKTIMEMAX)
 		{
 			_clockHand.value = 0;
 			_clockHand.angle = -PI / 2;
+
+			if (_realTimeSecond >= REALTIMEHALF)
+			{
+				_alphaValue = 0;
+				_realTimeSecond = 0;
+				_dayCount++;
+
+				cout << _dayCount << endl;
+			}
+		}
+
+		/// AlphaRender
+		if (timeUpdate(TIMEMANAGER->getElapsedTime() * 60) && _clockHand.value >= CLOCKTIMEHALF)
+		{
+			_alphaValue++;
+
+			if (_alphaValue > ALPHAVALUEMAX) _alphaValue = ALPHAVALUEMAX;
 		}
 
 		_clockHand.end.x = cosf(_clockHand.angle) * _clockHand.length + _clockHand.center.x;
@@ -93,21 +103,6 @@ void Environment::update()
 
 		/////////////////////////////////////</Test>
 
-		/// AlphaRender
-		if (_realTimeSecond >= REALTIMEHALF)
-		{
-			if (timeUpdate(TIMEMANAGER->getElapsedTime() * 60) && _clockHand.value >= CLOCKTIMEHALF)
-			{
-				_alphaValue++;
-
-				if (_alphaValue > ALPHAVALUEMAX) _alphaValue = ALPHAVALUEMAX;
-			}
-			if (_realTimeSecond > REALTIMEMAX)
-			{
-				_alphaValue = 0;
-				_realTimeSecond = 0;
-			}
-		}
 	}
 }
 
@@ -118,5 +113,4 @@ void Environment::render()
 	IMAGEMANAGER->findImage("Environment_Clock")->render(getMemDC(), 1300, 12);
 
 	LineMake(getMemDC(), _clockHand.center.x, _clockHand.center.y, _clockHand.end.x, _clockHand.end.y);
-
 }

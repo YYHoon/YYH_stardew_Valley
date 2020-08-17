@@ -2,11 +2,18 @@
 #include "gameNode.h"
 #include "MapToolScene.h"
 #include "Player.h"
+#include "Environment.h"
+#include "PlantsManager.h"
+
 class MapMain : public gameNode
 {
 protected:
 	MapToolScene* _map;
 	Player* _player;
+	Environment* _environment;
+	PlantsManager* _pm;
+
+
 	SynInheritance(vector<tagTile>, _tiles, Tiles)
 	SynInheritance(int, _vertical, Vertical)
 	SynInheritance(int, _horizon, Horizon)
@@ -17,6 +24,8 @@ public:
 	virtual void update();
 	virtual void render();
 
+
+	virtual PlantsManager* GetPM() { return _pm; }
 	virtual tagTile GetTiles(int index) { return _tiles[index]; };
 	virtual void SetTiles(int index, tagTile tile) { _tiles[index] = tile; }
 	virtual void SetMapObject(int index, MAPOBJECT object) { _tiles[index].object = object; }

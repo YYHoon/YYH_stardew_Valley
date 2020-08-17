@@ -1,0 +1,24 @@
+아이템 이름			string이름			string태그
+
+낚시대				"FishingRod"			"ToolItem"
+도끼				"Axe"				"ToolItem"
+호미				"Homi"				"ToolItem"
+곡괭이				"Pickax"				"ToolItem"
+물뿌리개				"WaterSpray"			"ToolItem"
+낫				"Sickle"				"ToolItem"
+칼				"Sword"				"ToolItem"
+
+케일씨앗				"KaleSeed"			"ActItem"
+감자씨앗				"PotatoSeed"			"ActItem"
+파스닙씨앗			"PasnipSeed"			"ActItem"
+
+케일				"Kale"				"EatItem"
+감자				"Potato"				"EatItem"
+파스닙				"Pasnip"				"EatItem"
+수액				"Sap"				"EatItem"
+일반물고기			"NormalFish"			"EatItem"
+레어물고기			"RareFish"			"EatItem"
+
+돌				"Rock"				"ResoureceItem"
+나무				"Wood"				"ResoureceItem"
+풀				"Weed"				"ResoureceItem"

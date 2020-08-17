@@ -3,13 +3,15 @@
 #include "AllPlants.h"
 #include "MapMain.h"
 
+
 class MAPMain;
 
 class PlantsManager : public gameNode
 {
 private:
 	ParsnipObject* _parsnip;
-	vector<Plants*> _ActivePlantsList;
+	vector<Plants*>				_vActivePlantsList;
+	vector<Plants*>::iterator	_viActivePlantsList;
 	MapMain* _map;
 	
 
@@ -19,11 +21,12 @@ public:
 
 	void Init();
 	void Update();
+	void render();
 	void Planting(int index , string plantsName);
 	void Growing();
 	void Harvesting(int index);
 
-	vector<Plants*> GetPlantsList() { return _ActivePlantsList; }
+	vector<Plants*> GetPlantsList() { return _vActivePlantsList; }
 
 	void SetMapMemoryAddressLinked(MapMain* map) { _map = map; }
 };

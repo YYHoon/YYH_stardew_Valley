@@ -106,6 +106,8 @@ void PlayerIdle::Update()
 		case TOOLS::WATERING_CAN:
 			_player->ChangeState(make_shared<PlayerWatering>(_player));
 			return;
+		case TOOLS::NONE:
+			_player->ChangeState(make_shared<PlayerIdle>(_player));
 		default:
 			break;
 		}
@@ -333,8 +335,7 @@ void PlayerMove::Update()
 		_player->ChangeState(make_shared<PlayerIdle>(_player));
 		return;
 	}
-
-	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		switch (_player->GetEquip())
 		{
@@ -359,13 +360,14 @@ void PlayerMove::Update()
 		case TOOLS::ITEM:
 			_player->ChangeState(make_shared<PlayerEating>(_player));
 			return;
+		case TOOLS::WATERING_CAN:
+			_player->ChangeState(make_shared<PlayerWatering>(_player));
+			return;
+		case TOOLS::NONE:
+			_player->ChangeState(make_shared<PlayerIdle>(_player));
 		default:
 			break;
 		}
-	}
-	else if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-	{
-
 	}
 }
 
@@ -502,7 +504,7 @@ void PlayerItemMove::Update()
 	{
 		if (_player->GetEquip() == TOOLS::ITEM)
 		{
-			_player->ChangeState(make_shared<PlayerEating>(_player));
+			_player->ChangeState(make_shared<PlayerItemIdle>(_player));
 			return;
 		}
 	}
