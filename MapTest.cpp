@@ -4,10 +4,11 @@
 
 HRESULT MapTest::init()
 {
+	_tiles = _map->Load("mapTest.map", _vertical, _horizon);
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
-	_tiles = _map->Load("mapTest.map", _vertical, _horizon);
+	
 	_player->SavePlayerInfo("Player.info");
 	
 	_environment = new Environment;
@@ -176,7 +177,7 @@ void MapTest::render()
 	OBJECTMANAGER->Render();
 	ZORDER->ZOrderRender();
 	_store->render();
-	_environment->render();
+	
 	if (_store->getStoreOpen())
 	{
 		_store->OpenStoreRender();
@@ -184,5 +185,6 @@ void MapTest::render()
 	_HpStaminaBar->staminaBarRender();
 	_HpStaminaBar->hpBarRender();
 	_player->render();
+	_environment->render();
 	//_astar->render();
 }

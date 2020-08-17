@@ -22,11 +22,11 @@ void MapFarm::release()
 }
 
 void MapFarm::update()
-{
+{/*
 	if (_player->GetIsNext())
 	{
 		SCENEMANAGER->changeScene("HOME");
-	}
+	}*/
 	_count++;
 	_player->update();
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
