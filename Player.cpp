@@ -211,7 +211,7 @@ void Player::CheckTiles()
 		float distance = getDistance(playerTileCenter.x, playerTileCenter.y, _mousePt.x, _mousePt.y);
 		if (distance > sqrtf(TILESIZE * TILESIZE * 10))
 		{
-			cout << "왜 이것만 나오누?" << endl;
+			//cout << "왜 이것만 나오누?" << endl;
 			// 보는방향 찍고
 
 			if(_state->GetStateName() != "swing")

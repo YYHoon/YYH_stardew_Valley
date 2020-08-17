@@ -54,6 +54,7 @@ public:
 	//bool SearchToolList(string name);
 	void Init();
 	void Action(string name);
+	void Render(string name);
 
 	vector<ToolItem*>GetItemList() { return _toolList; }//아이템목록을 담은 벡터 가져오는 함수
 

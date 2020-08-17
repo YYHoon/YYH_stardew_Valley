@@ -50,9 +50,6 @@ HRESULT Inventory::init()
 	{
 		_toolInven[i] = new Axe;
 	}
-	_toolInven[1] = _toolList[0];
-	_toolInven[2] = _toolList[1];
-	_toolInven[4] = _toolList[2];
 
 	_quickSlotUp = false;
 
@@ -200,7 +197,7 @@ void Inventory::render()
 		PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll ¹Ì»ý"));
 	oldFont1 = (HFONT)SelectObject(getMemDC(), font1);
 
-	if (_inventory.isInvenOpen)
+	if (_environment->GetIsInventoryOpen())
 	{
 		IMAGEMANAGER->findImage("Inventory_BG")->alphaRender(getMemDC(), 100);
 		IMAGEMANAGER->findImage("Inventory_Close")->render(getMemDC(), 1240, 102);
@@ -224,7 +221,8 @@ void Inventory::render()
 					IMAGEMANAGER->findImage("UI_Inventory_Night")->render(getMemDC(), INVENIMAGECOOR);
 				}
 				
-				for (int i = 0; i < _toolInven.size(); ++i)
+				
+				for (int i = 0; i < _toolInven.size() - 1; ++i)
 				{
 					if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
 					{
@@ -298,7 +296,7 @@ void Inventory::render()
 		_vInvenStaticRC.push_back(_inventoryCloseRC);
 	}
 	else
-	{		
+	{
 		_vInvenStaticRC.clear();
 		_vInvenDynamicRC.clear();
 		
