@@ -3,6 +3,7 @@
 #include "ToolItemManager.h"
 #include "ToolItem.h"
 #include "Player.h"
+#include "Store.h"
 
 HRESULT Inventory::init()
 {
@@ -28,7 +29,6 @@ HRESULT Inventory::init()
 	_trashCanRC.left = 1260;
 	_trashCanRC.top = 446;
 	
-	
 //-----------------------QuickSlot-----------------------------------
 	_quickSlot.image = IMAGEMANAGER->findImage("QuickSlot");
 	_quickSlotSelect.image = IMAGEMANAGER->findImage("QuickSlotSelect");
@@ -37,6 +37,8 @@ HRESULT Inventory::init()
 	_quickSlot.uY = 10;
 	_quickSlotSelect.x = 423;
 	_quickSlotSelect.y = 763;
+
+	_quickSlotSelectYUP = 26;
 
 	_environment->SetIsInventoryOpen(false);
 
@@ -48,6 +50,11 @@ HRESULT Inventory::init()
 	{
 		_toolInven[i] = new Axe;
 	}
+	_toolInven[1] = _toolList[0];
+	_toolInven[2] = _toolList[1];
+	_toolInven[4] = _toolList[2];
+
+	_quickSlotUp = false;
 
 	_toolInven[0] = _toolList[0];
 	_toolInven[1] = _toolList[1];
@@ -80,7 +87,13 @@ void Inventory::update()
 	}
 
 	_inventory.rc.top = _inventory.y;
-
+	
+	if (_player->GetPlayercollision().bottom >= WINSIZEY - 100)
+	{
+		_quickSlotUp = true;
+	}
+	else  _quickSlotUp = false;
+	
 
 	if (KEYMANAGER->isOnceKeyDown('E'))
 	{
@@ -154,7 +167,7 @@ void Inventory::update()
 	if (!_environment->GetIsInventoryOpen())
 	{
 		_inventory.rc = RectMake(_inventory.rc.left, _inventory.rc.top,
-			_quickSlotSelect.image->getWidth(), _quickSlotSelect.image->getHeight());
+		_quickSlotSelect.image->getWidth(), _quickSlotSelect.image->getHeight());
 		quickSlotMove();
 		if (!_vInvenIndexRC.empty()) _vInvenIndexRC.clear();
 	}
@@ -179,7 +192,15 @@ void Inventory::update()
 
 void Inventory::render()
 {
-	if (_environment->GetIsInventoryOpen())
+	SetTextColor(getMemDC(), WHITE);
+	char getsu[2000]; //아이템 겟수 표기용
+
+	HFONT font1, oldFont1;
+	font1 = CreateFont(30, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
+		PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
+	oldFont1 = (HFONT)SelectObject(getMemDC(), font1);
+
+	if (_inventory.isInvenOpen)
 	{
 		IMAGEMANAGER->findImage("Inventory_BG")->alphaRender(getMemDC(), 100);
 		IMAGEMANAGER->findImage("Inventory_Close")->render(getMemDC(), 1240, 102);
@@ -203,14 +224,21 @@ void Inventory::render()
 					IMAGEMANAGER->findImage("UI_Inventory_Night")->render(getMemDC(), INVENIMAGECOOR);
 				}
 				
-				
-				for (int i = 0; i < _toolInven.size() - 1; ++i)
+				for (int i = 0; i < _toolInven.size(); ++i)
 				{
 					if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
 					{
 						_toolInven[i]->GetImageInven()->render(getMemDC(), 416 + (i * 64), 230);
 					}
+					//----아이템 겟수 출력----------//
+					if (_toolInven[i]->GetToolEnum() == TOOLS::ACTIVEITEM || _toolInven[i]->GetToolEnum() == TOOLS::EATITEM ||
+						_toolInven[i]->GetToolEnum() == TOOLS::RESOURCEITEM)
+					{
+						sprintf_s(getsu, "%d", _toolInven[i]->GetNumber());
+						TextOut(getMemDC(), 453 + (i * 64), 275, getsu, strlen(getsu));
+					}
 				}
+
 				//cout << "1" << endl;
 			}
 			break;
@@ -270,21 +298,71 @@ void Inventory::render()
 		_vInvenStaticRC.push_back(_inventoryCloseRC);
 	}
 	else
-	{
+	{		
 		_vInvenStaticRC.clear();
 		_vInvenDynamicRC.clear();
-		_quickSlot.image->render(getMemDC(), 407, _quickSlot.y);
 		
-		_quickSlotSelect.image->render(getMemDC(), _quickSlotSelect.x, _quickSlotSelect.y);
-
-		for (int i = 0; i < _toolInven.size() - 1; ++i)
+		if (_store->getStoreOpen())
 		{
-			if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
+			for (int i = 0; i < _toolInven.size(); ++i)
 			{
-				_toolInven[i]->GetImageInven()->render(getMemDC(), 423 + (i * 64), 763);
+				if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
+				{
+					_toolInven[i]->GetImageInven()->render(getMemDC(), 638 + (i * 64), 539);
+				}
+				//----아이템 겟수 출력----------//
+				if (_toolInven[i]->GetToolEnum() == TOOLS::ACTIVEITEM || _toolInven[i]->GetToolEnum() == TOOLS::EATITEM ||
+					_toolInven[i]->GetToolEnum() == TOOLS::RESOURCEITEM)
+				{
+					sprintf_s(getsu, "%d", _toolInven[i]->GetNumber());
+					TextOut(getMemDC(), 675 + (i * 64), 583, getsu, strlen(getsu));
+				}
 			}
 		}
+		else
+		{
+			if (!_quickSlotUp)
+			{
+				_quickSlot.image->render(getMemDC(), 407, _quickSlot.y);
+				_quickSlotSelect.image->render(getMemDC(), _quickSlotSelect.x, _quickSlotSelect.y);
+				for (int i = 0; i < _toolInven.size(); ++i)
+				{
+					if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
+					{
+						_toolInven[i]->GetImageInven()->render(getMemDC(), 423 + (i * 64), 763);
+					}
+					//---------아이템 겟수 출력----------//
+					if (_toolInven[i]->GetToolEnum() == TOOLS::ACTIVEITEM || _toolInven[i]->GetToolEnum() == TOOLS::EATITEM ||
+						_toolInven[i]->GetToolEnum() == TOOLS::RESOURCEITEM)
+					{
+						sprintf_s(getsu, "%d", _toolInven[i]->GetNumber());
+						TextOut(getMemDC(), 462 + (i * 64), 806, getsu, strlen(getsu));
+					}
+				}
+			}
+			else
+			{
+				_quickSlot.image->render(getMemDC(), 407, _quickSlot.uY);
+				_quickSlotSelect.image->render(getMemDC(), _quickSlotSelect.x, _quickSlotSelectYUP);
+				for (int i = 0; i < _toolInven.size(); ++i)
+				{
+					if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
+					{
+						_toolInven[i]->GetImageInven()->render(getMemDC(), 423 + (i * 64), _quickSlotSelectYUP);
+					}
+					//---------아이템 겟수 출력----------//
+					if (_toolInven[i]->GetToolEnum() == TOOLS::ACTIVEITEM || _toolInven[i]->GetToolEnum() == TOOLS::EATITEM ||
+						_toolInven[i]->GetToolEnum() == TOOLS::RESOURCEITEM)
+					{
+						sprintf_s(getsu, "%d", _toolInven[i]->GetNumber());
+						TextOut(getMemDC(), 462 + (i * 64), 69, getsu, strlen(getsu));
+					}
+				}
+			}		
+		}
 	}
+
+	////////////////////////QuickSlot///////////////////////////////////////////
 
 	/////////////////////////////////////////////////////////////////////////// <Debug_Rect>
 
@@ -302,6 +380,9 @@ void Inventory::render()
 	//Rectangle(getMemDC(), _menuDownRC);
 	//Rectangle(getMemDC(), _inventory.rc);
 	//Rectangle(getMemDC(), _trashCanRC);
+
+	SelectObject(getMemDC(), oldFont1);
+	DeleteObject(oldFont1);
 
 	/////////////////////////////////////////////////////////////////////////// </Debug_Rect>
 
@@ -378,4 +459,92 @@ void Inventory::PlayerLootItem(ToolItem* item)
 	//		}
 	//	}
 	//}
+}
+
+void Inventory::setPlayerBuyItme(ToolItem* buyItme)
+{
+	for (int i = 0; i < 12; i++)
+	{
+		if (_toolInven[0]->GetName() == buyItme->GetName())
+		{
+			if (_toolInven[0]->GetNumber() > 99) continue;
+			_toolInven[0]->SetNumber(+1);
+			break;
+		}
+		else if (_toolInven[1]->GetName() == buyItme->GetName())
+		{
+			if (_toolInven[1]->GetNumber() > 99) continue;
+			_toolInven[1]->SetNumber(+1);
+			break;
+		}
+		else if (_toolInven[2]->GetName() == buyItme->GetName())
+		{
+			if (_toolInven[2]->GetNumber() > 99) continue;
+			_toolInven[2]->SetNumber(+1);
+			break;
+		}
+		else if (_toolInven[3]->GetName() == buyItme->GetName())
+		{
+			if (_toolInven[3]->GetNumber() > 99) continue;
+			_toolInven[3]->SetNumber(+1);
+			break;
+		}
+		else if (_toolInven[4]->GetName() == buyItme->GetName())
+		{
+			if (_toolInven[4]->GetNumber() > 99) continue;
+			_toolInven[4]->SetNumber(+1);
+			break;
+		}
+		else if (_toolInven[5]->GetName() == buyItme->GetName())
+		{
+			if (_toolInven[5]->GetNumber() > 99) continue;
+			_toolInven[5]->SetNumber(+1);
+			break;
+		}
+		else if (_toolInven[6]->GetName() == buyItme->GetName())
+		{
+			if (_toolInven[6]->GetNumber() > 99) continue;
+			_toolInven[6]->SetNumber(+1);
+			break;
+		}
+		else if (_toolInven[7]->GetName() == buyItme->GetName())
+		{
+			if (_toolInven[7]->GetNumber() > 99) continue;
+			_toolInven[7]->SetNumber(+1);
+			break;
+		}
+		else if (_toolInven[8]->GetName() == buyItme->GetName())
+		{
+			if (_toolInven[8]->GetNumber() > 99) continue;
+			_toolInven[8]->SetNumber(+1);
+			break;
+		}
+		else if (_toolInven[9]->GetName() == buyItme->GetName())
+		{
+			if (_toolInven[9]->GetNumber() > 99) continue;
+			_toolInven[9]->SetNumber(+1);
+			break;
+		}
+		else if (_toolInven[10]->GetName() == buyItme->GetName())
+		{
+			if (_toolInven[10]->GetNumber() > 99) continue;
+			_toolInven[10]->SetNumber(+1);
+			break;
+		}
+		else if (_toolInven[11]->GetName() == buyItme->GetName())
+		{
+			if (_toolInven[11]->GetNumber() > 99) continue;
+			_toolInven[11]->SetNumber(+1);
+			break;
+		}
+		else
+		{
+			if (_toolInven[i]->GetToolEnum() == TOOLS::NONE)
+			{
+				_toolInven[i] = buyItme;
+				_toolInven[i]->SetNumber(+1);
+				break;
+			}
+		}
+	}
 }

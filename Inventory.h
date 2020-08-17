@@ -7,6 +7,7 @@
 class Player;
 class ToolItemManager;
 class ToolItem;
+class Store;
 
 struct tagInventory
 {
@@ -52,6 +53,7 @@ private:
 	//////////////////////////////////////////
 
 	Player* _player;
+	Store* _store;
 
 /////////////////////////<Inventory>////////////////////////////
 
@@ -77,6 +79,10 @@ private:
 
 /////////////////////////</QuickSlot>///////////////////////////
 
+	bool _quickSlotUp;
+
+	int _quickSlotSelectYUP;
+
 public:
 	Inventory()  {};
 	~Inventory() {}; 
@@ -93,5 +99,10 @@ public:
 	vector<ToolItem*> GetInven() { return _toolInven; }
 	ToolItem* GetInvenItem(int index) { return _toolInven[index]; }
 
+	
+	virtual void setPlayerBuyItme(ToolItem* buyItme);
+
 	void SetMemoryLinkedTool(ToolItemManager* tool) { _toolItemManager = tool; }
+	void SetStoreLink(Store* store) { _store = store; }
+	void setPlayer(Player* pp) { _player = pp; }
 };

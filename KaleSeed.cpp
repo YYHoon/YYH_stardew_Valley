@@ -6,8 +6,8 @@ void KaleSeed::Init()
 {
 	_name = "KaleSeed";
 	_tag = "ActItem";
-	_imageC = IMAGEMANAGER->findImage("Kale");
-	_imageI = IMAGEMANAGER->findImage("Kale(64x64)");
+	_imageC = IMAGEMANAGER->findImage("KaleSeed");
+	_imageI = IMAGEMANAGER->findImage("KaleSeed(64x64)");
 	_number = 0;
 	_enumName = TOOLS::ACTIVEITEM;
 }

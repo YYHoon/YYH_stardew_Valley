@@ -12,6 +12,19 @@ HRESULT MapTest::init()
 	
 	_environment = new Environment;
 	_environment->init();
+	
+	_store = new Store;
+	_store->setLinkPlayer(_player);	//소지금 참조용
+	_store->setLinkInventory(_player->GetPlayerInver()); //가방내용물 참고용 상점F5키입니다.
+	_store->init(400,400);
+
+	_player->GetPlayerInver()->SetStoreLink(_store);
+	_player->GetPlayerInver()->setPlayer(_player);
+
+	_HpStaminaBar = new HpStaminaBar;
+	_HpStaminaBar->setPlayerLink(_player);
+	_HpStaminaBar->init();
+
 
 	_pm = new PlantsManager;
 	_pm->SetMapMemoryAddressLinked(this);
@@ -37,7 +50,10 @@ HRESULT MapTest::init()
 	test = Vector2(9,9);
 	_astar->SetEndNode(test);
 	_astar->PathFind();
-	
+
+
+	ShowCursor(true);
+
     return S_OK;
 }
 
@@ -74,6 +90,8 @@ void MapTest::update()
 		_astar->PathFind();
 	}
 
+	_store->update();
+	_HpStaminaBar->update();
 }
 
 void MapTest::render()
@@ -157,7 +175,14 @@ void MapTest::render()
 	
 	OBJECTMANAGER->Render();
 	ZORDER->ZOrderRender();
+	_store->render();
+	_environment->render();
+	if (_store->getStoreOpen())
+	{
+		_store->OpenStoreRender();
+	}
+	_HpStaminaBar->staminaBarRender();
+	_HpStaminaBar->hpBarRender();
 	_player->render();
 	_astar->render();
-	_environment->render();
 }
