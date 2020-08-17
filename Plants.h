@@ -9,9 +9,9 @@ protected:
 	int _growCount;
 	int _tileIndex;
 public:
-	virtual	void Init() = 0;
-	virtual void Release() = 0;
-	virtual void Update() = 0;
+	virtual	void Init();
+	virtual void Release() ;
+	virtual void Update() ;
 
 	void ChangeIsWet(bool isWet) { _isWet = isWet; }
 	void IncreaseGrowCount(int increase) { _growCount += increase; }

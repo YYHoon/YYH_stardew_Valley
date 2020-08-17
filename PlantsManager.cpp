@@ -62,29 +62,3 @@ void PlantsManager::Harvesting(int index)
 	}
 }
 
-void PlantsManager::SaveSize()
-{
-	size = _vActivePlantsList.size();
-	HANDLE file;
-	DWORD write;
-
-	file = CreateFile(("mapsize.size"), GENERIC_WRITE, NULL, NULL,
-		CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-
-	WriteFile(file, &size, sizeof(int), &write, NULL);
-
-	CloseHandle(file);
-}
-
-void PlantsManager::LoadSize()
-{
-	HANDLE file;
-	DWORD read;
-	file = CreateFile(("mapsize.size"), GENERIC_READ, NULL, NULL,
-		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-
-	ReadFile(file, &size, sizeof(int), &read, NULL);
-
-	CloseHandle(file);
-	cout << size << endl;
-}

@@ -581,6 +581,9 @@
     <ClCompile Include="PotatoObject.cpp">
       <Filter>playGround\GameObject\Plants</Filter>
     </ClCompile>
+    <ClCompile Include="PlantsManager + SaveLoad.cpp">
+      <Filter>playGround\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="windowsAPI.rc">

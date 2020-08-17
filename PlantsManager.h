@@ -26,6 +26,8 @@ public:
 	void Planting(int index , string plantsName);
 	void Growing();
 	void Harvesting(int index);
+	void Save();
+	void Load();
 	void SaveSize();
 	void LoadSize();
 	vector<Plants*> GetPlantsList() { return _vActivePlantsList; }

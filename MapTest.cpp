@@ -7,7 +7,8 @@ HRESULT MapTest::init()
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
-	
+	_tiles = _map->Load("mapTest.map", _vertical, _horizon);
+	_player->SavePlayerInfo("Player.info");
 	
 	_environment = new Environment;
 	_environment->init();
@@ -18,13 +19,12 @@ HRESULT MapTest::init()
 
 	_count = 0;
     _vertical = _horizon = 75;
-    _tiles = _map->Load("mapTest.map", _vertical, _horizon);
-	_player->SavePlayerInfo("Player.info");
+    
 	
 
 	//_pm->Planting(4, "parsnipObject");
 	//_pm->Planting(3, "parsnipObject");
-	_pm->LoadSize();
+	//_pm->LoadSize();
 	
     return S_OK;
 }
