@@ -1,15 +1,31 @@
 #include "stdafx.h"
 #include "MapTest.h"
 
+
 HRESULT MapTest::init()
 {
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
+	_tiles = _map->Load("mapTest.map", _vertical, _horizon);
+	_player->SavePlayerInfo("Player.info");
 	
 	_environment = new Environment;
 	_environment->init();
+
+	_pm = new PlantsManager;
+	_pm->SetMapMemoryAddressLinked(this);
+	_pm->Init();
+
 	_count = 0;
+    _vertical = _horizon = 75;
+    
+	
+
+	//_pm->Planting(4, "parsnipObject");
+	//_pm->Planting(3, "parsnipObject");
+	//_pm->LoadSize();
+	
 	_vertical = _horizon = 75;
 	_tiles = _map->Load("mapTest.map", _horizon, _vertical);
 
@@ -119,7 +135,6 @@ void MapTest::render()
 					_tiles[index].objectframeX, _tiles[index].objectframeY, _tiles[index].rc.bottom + 1);
 			}
 
-			if (j > 14 || i > 14) continue;
 
 			if ((_tiles[index].object == MAPOBJECT::HOETILE) ||
 				(_tiles[index].object == MAPOBJECT::HOETILE_WET) ||
@@ -142,7 +157,7 @@ void MapTest::render()
 	
 	OBJECTMANAGER->Render();
 	ZORDER->ZOrderRender();
-	_environment->render();
 	_player->render();
 	_astar->render();
+	_environment->render();
 }

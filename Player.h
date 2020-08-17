@@ -3,6 +3,8 @@
 #include "Vector2.h"
 #include "ToolItemManager.h"
 #include "Inventory.h"
+
+
 class State;
 class MapMain;
 
@@ -34,7 +36,6 @@ private:
 
 	/// <summary>
 	ToolItemManager* _tool;
-
 	/// </summary>
 	string _mapName;
 	MapMain* _Map;
@@ -90,6 +91,9 @@ public:
 	void SetDecreaseVelocity(float Velocity) { _info.velocity -= Velocity; }
 	void SetIncreaseVelocity(float Velocity) { _info.velocity += Velocity; }
 	void SetVelocity(float Velocity) { _info.velocity = Velocity; }
+	void SetItem(ToolItem* Velocity) { _info.haveItem = Velocity; }
+	void SetShadowImg(string imgName) { _info.shadowImg = IMAGEMANAGER->findImage(imgName); }
+
 	//void SetMapMemoryAddressLink()
 
 public:
@@ -99,7 +103,8 @@ public:
 	void CheckTiles();
 	void SetMapMemoryAddressLink(MapMain* map) { _Map = map; }
 
-	void SavePlayerInfo();
-	void LoadPlayerInfo();
+	void SavePlayerInfo(string fileName);
+	void LoadPlayerInfo(string fileName);
+
 };
 

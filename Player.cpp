@@ -29,6 +29,7 @@ HRESULT Player::init()
 
 	_inven = new Inventory;
 
+
 	_tool = new ToolItemManager;
 	_tool->GetNowTileMapMemoyrAddressLink(_Map);
 	_tool->Init();
@@ -36,16 +37,22 @@ HRESULT Player::init()
 	_inven->SetMemoryLinkedTool(_tool);
 	_inven->init();
 	_info.haveItem = _inven->GetInvenItem(0);
+
+	
+
 	return S_OK;
 }
 
 void Player::update()
 {
 	//cout << "여기" << endl;
+
+
 	if (KEYMANAGER->isOnceKeyDown('1')) 
 	{
 		_info.haveItem = _inven->GetInvenItem(0);
 		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_Map->GetPM()->Planting(4, "parsnipObject");
 	}
 	else if (KEYMANAGER->isOnceKeyDown('2'))
 	{
@@ -190,7 +197,7 @@ void Player::CheckTiles()
 	int allTiles = _Map->GetMapSize();
 	_playerTileX = _info.position.x / 64;
 	_playerTileY = _info.position.y / 64;
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() == "idle")
 	{
 		_mousePt.x = _ptMouse.x;
 		_mousePt.y = _ptMouse.y;
@@ -203,7 +210,6 @@ void Player::CheckTiles()
 		float distance = getDistance(playerTileCenter.x, playerTileCenter.y, _mousePt.x, _mousePt.y);
 		if (distance > sqrtf(TILESIZE * TILESIZE * 10))
 		{
-			cout << "왜 이것만 나오누?" << endl;
 			// 보는방향 찍고
 
 			if(_state->GetStateName() != "swing")
@@ -461,13 +467,33 @@ void Player::CheckTiles()
 
 }
 
-void Player::SavePlayerInfo()
+void Player::SavePlayerInfo(string fileName)
 {
+	HANDLE file;
+	DWORD write;
+	cout << &_info << endl;
+	file = CreateFile(fileName.c_str(), GENERIC_WRITE, NULL, NULL,
+		CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
+	WriteFile(file, &_info, sizeof(NecessaryInfo), &write, NULL);
+
+	CloseHandle(file);
 }
 
-void Player::LoadPlayerInfo()
+
+void Player::LoadPlayerInfo(string fileName)
 {
+	HANDLE file;
+	DWORD read;
+	file = CreateFile(fileName.c_str(), GENERIC_READ, NULL, NULL,
+		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
+	ReadFile(file, &_info, sizeof(NecessaryInfo), &read, NULL);
 
+	CloseHandle(file);
+	_info.img = IMAGEMANAGER->findImage("player");
+	this->SetImg("player");
+	this->SetAnim("down_Idle_Player");
+	this->SetShadowImg("playerShadow");
+	this->SetItem(nullptr);
 }

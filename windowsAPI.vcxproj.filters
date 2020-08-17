@@ -112,8 +112,8 @@
     <Filter Include="playGround\Tool\EatItem\Fish">
       <UniqueIdentifier>{db35f93f-f1e5-461f-bcd6-49dfd5a43ca8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="playGround\astar">
-      <UniqueIdentifier>{988c32fd-36dd-4b98-bc1c-ab80174638ce}</UniqueIdentifier>
+    <Filter Include="playGround\GameObject\Plants">
+      <UniqueIdentifier>{6c1fa5d3-d9c3-40ec-907d-ad3a696af5d7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -303,17 +303,62 @@
     <ClInclude Include="HpStaminaBar.h">
       <Filter>playGround\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Plants.h">
-      <Filter>playGround\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="PlantsManager.h">
       <Filter>playGround\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Potato.h">
+      <Filter>playGround\Tool\EatItem</Filter>
+    </ClInclude>
+    <ClInclude Include="PotatoSeed.h">
+      <Filter>playGround\Tool\ActItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Pasnip.h">
+      <Filter>playGround\Tool\EatItem</Filter>
+    </ClInclude>
+    <ClInclude Include="PasnipSeed.h">
+      <Filter>playGround\Tool\ActItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Kale.h">
+      <Filter>playGround\Tool\EatItem</Filter>
+    </ClInclude>
+    <ClInclude Include="KaleSeed.h">
+      <Filter>playGround\Tool\ActItem</Filter>
+    </ClInclude>
+    <ClInclude Include="AllToolItem.h">
+      <Filter>playGround\Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="RareFish.h">
+      <Filter>playGround\Tool\EatItem\Fish</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalFish.h">
+      <Filter>playGround\Tool\EatItem\Fish</Filter>
+    </ClInclude>
+    <ClInclude Include="Sap.h">
+      <Filter>playGround\Tool\EatItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Rock.h">
+      <Filter>playGround\Tool\ResoureceItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Weed.h">
+      <Filter>playGround\Tool\ResoureceItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Wood.h">
+      <Filter>playGround\Tool\ResoureceItem</Filter>
+    </ClInclude>
+    <ClInclude Include="KaleObject.h">
+      <Filter>playGround\GameObject\Plants</Filter>
+    </ClInclude>
     <ClInclude Include="ParsnipObject.h">
-      <Filter>playGround\GameObject</Filter>
+      <Filter>playGround\GameObject\Plants</Filter>
+    </ClInclude>
+    <ClInclude Include="Plants.h">
+      <Filter>playGround\GameObject\Plants</Filter>
+    </ClInclude>
+    <ClInclude Include="PotatoObject.h">
+      <Filter>playGround\GameObject\Plants</Filter>
     </ClInclude>
     <ClInclude Include="AllPlants.h">
-      <Filter>playGround\GameObject</Filter>
+      <Filter>playGround\GameObject\Plants</Filter>
     </ClInclude>
     <ClInclude Include="Potato.h">
       <Filter>playGround\Tool\EatItem</Filter>
@@ -527,13 +572,58 @@
     <ClCompile Include="MapToolButton.cpp">
       <Filter>playGround\Scene\MaptoolScene</Filter>
     </ClCompile>
-    <ClCompile Include="Plants.cpp">
-      <Filter>playGround\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="PlantsManager.cpp">
       <Filter>playGround\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Potato.cpp">
+      <Filter>playGround\Tool\EatItem</Filter>
+    </ClCompile>
+    <ClCompile Include="PotatoSeed.cpp">
+      <Filter>playGround\Tool\ActItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Pasnip.cpp">
+      <Filter>playGround\Tool\EatItem</Filter>
+    </ClCompile>
+    <ClCompile Include="PasnipSeed.cpp">
+      <Filter>playGround\Tool\ActItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Kale.cpp">
+      <Filter>playGround\Tool\EatItem</Filter>
+    </ClCompile>
+    <ClCompile Include="KaleSeed.cpp">
+      <Filter>playGround\Tool\ActItem</Filter>
+    </ClCompile>
+    <ClCompile Include="RareFish.cpp">
+      <Filter>playGround\Tool\EatItem\Fish</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalFish.cpp">
+      <Filter>playGround\Tool\EatItem\Fish</Filter>
+    </ClCompile>
+    <ClCompile Include="Sap.cpp">
+      <Filter>playGround\Tool\EatItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>playGround\Tool\ResoureceItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Weed.cpp">
+      <Filter>playGround\Tool\ResoureceItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Wood.cpp">
+      <Filter>playGround\Tool\ResoureceItem</Filter>
+    </ClCompile>
+    <ClCompile Include="KaleObject.cpp">
+      <Filter>playGround\GameObject\Plants</Filter>
+    </ClCompile>
     <ClCompile Include="ParsnipObject.cpp">
+      <Filter>playGround\GameObject\Plants</Filter>
+    </ClCompile>
+    <ClCompile Include="Plants.cpp">
+      <Filter>playGround\GameObject\Plants</Filter>
+    </ClCompile>
+    <ClCompile Include="PotatoObject.cpp">
+      <Filter>playGround\GameObject\Plants</Filter>
+    </ClCompile>
+    <ClCompile Include="PlantsManager + SaveLoad.cpp">
       <Filter>playGround\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Potato.cpp">
