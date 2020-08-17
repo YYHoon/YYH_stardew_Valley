@@ -18,7 +18,8 @@ HRESULT MapTest::init()
 	_astar->SetMap();
 	_astar->SetStartNode(Vector2(10, 10));
 	//_astar->SetEndNode(_player->GetInfo().position / TILESIZE);
-	_astar->SetEndNode(Vector2(15,5));
+	test = Vector2(9,9);
+	_astar->SetEndNode(test);
 	_astar->PathFind();
 	
     return S_OK;
@@ -33,6 +34,30 @@ void MapTest::update()
 	_count++;
 	_player->update();
 	_environment->update();
+	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD4))
+	{
+		test += Vector2(-1, 0);
+		_astar->SetEndNode(test);
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD6))
+	{
+		test += Vector2(1, 0);
+		_astar->SetEndNode(test);
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD8))
+	{
+		test += Vector2(0,-1);
+		_astar->SetEndNode(test);
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD2))
+	{
+		test += Vector2(0,1);
+		_astar->SetEndNode(test);
+	}
+	if (_count % 20 == 0) {
+		_astar->PathFind();
+	}
+
 }
 
 void MapTest::render()
@@ -63,6 +88,7 @@ void MapTest::render()
 					if (_tiles[index].terrainframeX == 3)_tiles[index].terrainframeX = -1;
 					_tiles[index].terrainframeX++;
 				}
+				_count = 0;
 			}
 		}
 	}

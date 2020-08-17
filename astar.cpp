@@ -18,7 +18,7 @@ void astar::update()
 void astar::render()
 {
 	if (_startNode != nullptr) { SetNodeColor(_startNode, RGB(255, 0, 0)); }
-	if (_endNode != nullptr) { SetNodeColor(_endNode, RGB(0, 0, 255)); }
+	
 	//길찾았을때 보여주기
 	if (_isFind)
 	{
@@ -28,6 +28,7 @@ void astar::render()
 			
 		}
 	}
+	if (_endNode != nullptr) { SetNodeColor(_endNode, RGB(0, 0, 255)); }
 }
 
 void astar::PathFind()
@@ -59,7 +60,7 @@ void astar::PathFind()
 			AddOpenList(Vector2(_currentNode->_idx.x+dir[i][0], _currentNode->_idx.y+dir[i][1]));
 			AddOpenListDiagonal(Vector2(diagonal[i][0], diagonal[i][1]));
 		}
-
+		if (_currentNode == nullptr) return;
 		if (_vopenList.empty()) return;
 		
 		int cost = 9999999;
@@ -72,6 +73,7 @@ void astar::PathFind()
 				index = i;
 			}
 		}
+		
 		_currentNode = _vopenList[index];
 		_vcloseList.push_back(_vopenList[index]);
 		_vopenList.erase(_vopenList.begin() + index);
@@ -82,7 +84,7 @@ void astar::AddOpenList(Vector2 idx)
 {
 	if (idx.x<0 || idx.x>=_map->GetHorizon() || idx.y < 0 || idx.y >= _map->GetVertical()) return;
 
-	if (_vtotalList[idx.y * _map->GetHorizon() + idx.x]->_attribute == ATTRIBUTE::WALL) return;
+	if (_vtotalList[idx.y * _map->GetHorizon() + idx.x]->_attribute == ATTRIBUTE::WALL||_map->GetTiles()[idx.y * _map->GetHorizon() + idx.x].collision) return;
 
 	for (int i = 0; i < _vcloseList.size(); ++i)
 	{
@@ -107,6 +109,9 @@ void astar::AddOpenList(Vector2 idx)
 
 void astar::AddOpenListDiagonal(Vector2 idx)
 {
+	if (_currentNode->_idx.x + idx.x + _currentNode->_idx.y * _map->GetHorizon() < 0 || _currentNode->_idx.x + idx.x + _currentNode->_idx.y * _map->GetHorizon() >= _vtotalList.size()
+		|| _currentNode->_idx.x + (_currentNode->_idx.y + idx.y) * _map->GetHorizon() < 0 || _currentNode->_idx.x + (_currentNode->_idx.y + idx.y) * _map->GetHorizon() >= _vtotalList.size()
+		|| _currentNode->_idx.x + idx.x + (_currentNode->_idx.y + idx.y) * _map->GetHorizon() < 0 || _currentNode->_idx.x + idx.x + (_currentNode->_idx.y + idx.y) * _map->GetHorizon() >= _vtotalList.size()) return;
 	if (!_map->GetTiles()[_currentNode->_idx.x + idx.x + _currentNode->_idx.y * _map->GetHorizon()].collision &&
 		!_map->GetTiles()[_currentNode->_idx.x + (_currentNode->_idx.y + idx.y) * _map->GetHorizon()].collision &&
 		!_map->GetTiles()[_currentNode->_idx.x + idx.x + (_currentNode->_idx.y + idx.y) * _map->GetHorizon()].collision)
