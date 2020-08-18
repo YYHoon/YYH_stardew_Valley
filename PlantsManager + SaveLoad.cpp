@@ -14,33 +14,21 @@ void PlantsManager::Save()
 	HANDLE file;
 	DWORD write;
 
-<<<<<<< HEAD
 	file = CreateFile(("FarmPlants.map"), GENERIC_WRITE, NULL, NULL,
-=======
-	file = CreateFile("FarmPlants.map", GENERIC_WRITE, NULL, NULL,
->>>>>>> f6c703d3e25527c3dc880078fe28dab36e36e1d3
 		CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
 	WriteFile(file, saveTile, sizeof(Plants) * size, &write, NULL);
 	CloseHandle(file);
 }
 
-<<<<<<< HEAD
 vector<Plants*> PlantsManager::Load()
-=======
-void PlantsManager::Load()
->>>>>>> f6c703d3e25527c3dc880078fe28dab36e36e1d3
 {
 	LoadSize();
 	Plants* saveTile = new Plants[size + 1];
 	HANDLE file;
 	DWORD read;
 	vector<Plants*> tmp;
-<<<<<<< HEAD
 	file = CreateFile(("FarmPlants.map"), GENERIC_READ, NULL, NULL,
-=======
-	file = CreateFile("FarmPlants.map", GENERIC_READ, NULL, NULL,
->>>>>>> f6c703d3e25527c3dc880078fe28dab36e36e1d3
 		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
 	ReadFile(file, saveTile, sizeof(Plants) * size, &read, NULL);
@@ -49,17 +37,11 @@ void PlantsManager::Load()
 	{
 		Plants* temp = new Plants;
 		temp = &saveTile[i];
-<<<<<<< HEAD
 		temp->SetImgToString(temp->GetName());
 		tmp.push_back(temp);
 		cout << temp->GetName() << endl;
 	}
 	return tmp;
-=======
-		tmp.push_back(temp);
-		cout << temp->GetName() << endl;
-	}
->>>>>>> f6c703d3e25527c3dc880078fe28dab36e36e1d3
 }
 
 void PlantsManager::SaveSize()

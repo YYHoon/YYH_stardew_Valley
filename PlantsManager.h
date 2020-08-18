@@ -26,11 +26,7 @@ public:
 	void Growing();
 	void Harvesting(int index);
 	void Save();
-<<<<<<< HEAD
 	vector<Plants*> Load();
-=======
-	void Load();
->>>>>>> f6c703d3e25527c3dc880078fe28dab36e36e1d3
 	void SaveSize();
 	void LoadSize();
 	vector<Plants*> GetPlantsList() { return _vActivePlantsList; }

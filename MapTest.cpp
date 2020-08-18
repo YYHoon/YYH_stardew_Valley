@@ -8,11 +8,7 @@ HRESULT MapTest::init()
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
-<<<<<<< HEAD
 	
-=======
-	_tiles = _map->Load("mapTest.map", _vertical, _horizon);
->>>>>>> f6c703d3e25527c3dc880078fe28dab36e36e1d3
 	_player->SavePlayerInfo("Player.info");
 	
 	_environment = new Environment;
