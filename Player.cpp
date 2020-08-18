@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "State.h"
 #include "AllMap.h"
+#include "HpStaminaBar.h"
 
 
 HRESULT Player::init()
@@ -11,8 +12,8 @@ HRESULT Player::init()
 	_info.name = "Dos";
 	_info.shadowImg = IMAGEMANAGER->findImage("playerShadow");
 	_info.position = Vector2(10, 10);
-	_info.direction = PLAYER_DIRECTION::UP;
-	_info.equipment = TOOLS::NONE;
+	_info.direction = PLAYER_DIRECTION::DOWN;
+	_info.equipment = TOOLS::AXE;
 	_state = make_shared<PlayerIdle>(this);
 	_state->Init();
 	_info.position = Vector2(WINSIZEX / 2 + 100, WINSIZEY / 2);
@@ -24,25 +25,40 @@ HRESULT Player::init()
 	_info.HP = 100;
 	_info.stamina = 100;
 	_info.money = 500;
-	_info.velocity = 10.0f;
+	_info.velocity = 5.0f;
 	_isNext = false;
 	_isPrev = false;
 
 	_inven = new Inventory;
+	_inven->setPlayer(this);
+
+	_gauge = new HpStaminaBar;
+	_gauge->setPlayerLink(this);
+	_gauge->init();
 
 	_tool = new ToolItemManager;
+	_gauge = new HpStaminaBar;
+	
+	_gauge->setPlayerLink(this);
+	_gauge->init();
 	_tool->GetNowTileMapMemoyrAddressLink(_Map);
 	_tool->Init();
-
 	_inven->SetMemoryLinkedTool(_tool);
 	_inven->init();
+	_inven->setPlayer(this);
+	_inven->init();
 	_info.haveItem = _inven->GetInvenItem(0);
+
+	
+
 	return S_OK;
 }
 
 void Player::update()
 {
 	//cout << "여기" << endl;
+
+
 	if (KEYMANAGER->isOnceKeyDown('1')) 
 	{
 		_info.haveItem = _inven->GetInvenItem(0);
@@ -107,19 +123,33 @@ void Player::update()
 	CheckTiles();
 
 	_inven->update();
+	_gauge->update();
 	if (_info.haveItem != nullptr &&
 		_info.haveItem->GetToolEnum() != TOOLS::NONE &&
 		KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() != "acting")
 	{
-		_tool->SetImpactIndex(_info.haveItem->GetName(),_actTileIndex[0]);
-		_tool->Action(_info.haveItem->GetName());
+		if (_info.haveItem->GetName() == "FishingRod")
+		{
+			_tool->GetFishingInfo(_info.position, _info.direction);
+
+		}
+		else
+		{
+			_tool->SetImpactIndex(_info.haveItem->GetName(), _actTileIndex[0]);
+			_tool->Action(_info.haveItem->GetName());
+		}
+	}
+	if (_info.haveItem->GetName() == "FishingRod")
+	{
+		_tool->Action("FishingRod");
 	}
 	_inven->PlayerLootItem(_getItem);
 	_state->Update();
 	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
 	ZORDER->ZOrderPush(getMemDC(), RenderType::KEYANIRENDER, _info.img ,_info.collision.left, _info.collision.top, _info.anim, _info.shadowCollision.bottom);
-
+	
+	_gauge->update();
 }
 
 void Player::render()
@@ -127,7 +157,12 @@ void Player::render()
 	CAMERAMANAGER->rectangle(getMemDC(), _info.shadowCollision);
 	/*_info.shadowImg->render(getMemDC(), _info.shadowCollision.left, _info.shadowCollision.top);
 	_info.img->aniRender(getMemDC(), _info.collision.left, _info.collision.top, _info.anim);*/
+	_gauge->hpBarRender();
+	_gauge->staminaBarRender();
 	_inven->render();
+	_gauge->hpBarRender();
+	_gauge->staminaBarRender();
+	_tool->Render("FishingRod");
 }
 
 void Player::release()
@@ -191,20 +226,21 @@ void Player::CheckTiles()
 	int allTiles = _Map->GetMapSize();
 	_playerTileX = _info.position.x / 64;
 	_playerTileY = _info.position.y / 64;
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() == "idle")
 	{
-		_mousePt.x = _ptMouse.x;
-		_mousePt.y = _ptMouse.y;
+		//POINT _CameraMouse = PointMake(_ptMouse.x + CAMERAMANAGER->getL(), _ptMouse.y + CAMERAMANAGER->getT()); 마우스 카메라 위치
+		_mousePt.x = _ptMouse.x + CAMERAMANAGER->getL();
+		_mousePt.y = _ptMouse.y + CAMERAMANAGER->getT();
 
 		int playerTile = _playerTileX + _playerTileY * _Map->GetHorizon();
 		Vector2 playerTileCenter = Vector2((_Map->GetTiles(playerTile).rc.right + _Map->GetTiles(playerTile).rc.left) * 0.5, (_Map->GetTiles(playerTile).rc.bottom + _Map->GetTiles(playerTile).rc.top) * 0.5);
-		cout << floor(Vector2( _mousePt- playerTileCenter).Nomalized().x + 0.5)<<" "<< floor(Vector2( _mousePt- playerTileCenter).Nomalized().y+0.5) << endl;
+		//cout << floor(Vector2( _mousePt- playerTileCenter).Nomalized().x + 0.5)<<" "<< floor(Vector2( _mousePt- playerTileCenter).Nomalized().y+0.5) << endl;
 		/*float distance = _mousePt.Distance(_mousePt, Vector2((_Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.right - _Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.left) * 0.5,
 			(_Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.top - _Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.bottom) * 0.5), true);*/
 		float distance = getDistance(playerTileCenter.x, playerTileCenter.y, _mousePt.x, _mousePt.y);
 		if (distance > sqrtf(TILESIZE * TILESIZE * 10))
 		{
-			cout << "왜 이것만 나오누?" << endl;
+			//cout << "왜 이것만 나오누?" << endl;
 			// 보는방향 찍고
 
 			if(_state->GetStateName() != "swing")
@@ -467,13 +503,33 @@ void Player::CheckTiles()
 
 }
 
-void Player::SavePlayerInfo()
+void Player::SavePlayerInfo(string fileName)
 {
+	HANDLE file;
+	DWORD write;
+	cout << &_info << endl;
+	file = CreateFile(fileName.c_str(), GENERIC_WRITE, NULL, NULL,
+		CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
+	WriteFile(file, &_info, sizeof(NecessaryInfo), &write, NULL);
+
+	CloseHandle(file);
 }
 
-void Player::LoadPlayerInfo()
+
+void Player::LoadPlayerInfo(string fileName)
 {
+	HANDLE file;
+	DWORD read;
+	file = CreateFile(fileName.c_str(), GENERIC_READ, NULL, NULL,
+		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
+	ReadFile(file, &_info, sizeof(NecessaryInfo), &read, NULL);
 
+	CloseHandle(file);
+	_info.img = IMAGEMANAGER->findImage("player");
+	this->SetImg("player");
+	this->SetAnim("down_Idle_Player");
+	this->SetShadowImg("playerShadow");
+	this->SetItem(nullptr);
 }

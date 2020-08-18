@@ -219,6 +219,12 @@ void MapToolScene::render()
 						_vtiles[index].rc.left - TILESIZE , _vtiles[index].rc.top-TILESIZE*2+32,
 						_vtiles[index].objectframeX, _vtiles[index].objectframeY, _vtiles[index].rc.bottom+64);
 				}
+				if (_vtiles[index].object == MAPOBJECT::WALL)
+				{
+					CAMERAMANAGER->frameRender(getMemDC(), IMAGEMANAGER->findImage("Wall_Cave"),
+						_vtiles[index].rc.left, _vtiles[index].rc.top,
+						_vtiles[index].objectframeX, _vtiles[index].objectframeY);
+				}
 			}
 		}
 	}
@@ -306,12 +312,19 @@ void MapToolScene::render()
 		if (!_Window)break;
 		IMAGEMANAGER->render("UpArrow", getMemDC(), WINSIZEX - 100, 300);
 		break;
-	case CRTSELECT::TREEDRAW:
+	case CRTSELECT::OBJECTDRAW:
 		if (_inout == INOUT::OUTDOOR) IMAGEMANAGER->render("Tree", getMemDC(), _sampleArea.left, _sampleArea.top);
 		else IMAGEMANAGER->render("Bed", getMemDC(), _sampleArea.left, _sampleArea.top);
 		break;
 	case CRTSELECT::BUILDINGDRAW:
-		IMAGEMANAGER->render("House", getMemDC(), _sampleArea.left, _sampleArea.top);
+		if (_inout == INOUT::OUTDOOR)
+		{
+			IMAGEMANAGER->render("House", getMemDC(), _sampleArea.left, _sampleArea.top);
+		}
+		else
+		{
+			IMAGEMANAGER->render("Wall_Cave", getMemDC(), _sampleArea.left, _sampleArea.top);
+		}
 		break;
 	case CRTSELECT::COLLISION:
 		IMAGEMANAGER->render("POS", getMemDC(), _sampleArea.left, _sampleArea.top);
@@ -324,6 +337,8 @@ void MapToolScene::render()
 	{
 		IMAGEMANAGER->render("Save", getMemDC(), WINSIZEX * 0.5 - 114, WINSIZEY * 0.5 - 26);
 	}
+	Rectangle(getMemDC(), _sampleTile[0].rc);
+	
 	_Mouse->frameRender(getMemDC(), _ptMouse.x, _ptMouse.y, 0, 0);
 }
 
@@ -362,6 +377,7 @@ void MapToolScene::SetUp()
 			tile.wet = false;
 			tile.autoIndex = 0;
 			tile.autoIndex_2 = 0;
+			tile.hp = 0;
 			tile.rc = RectMake(j * TILESIZE, i * TILESIZE, TILESIZE, TILESIZE);
 
 			_vtiles.push_back(tile);
@@ -397,7 +413,7 @@ void MapToolScene::SetSample(string img)
 			}
 		}
 		break;
-	case CRTSELECT::TREEDRAW:
+	case CRTSELECT::OBJECTDRAW:
 		if (_inout == INOUT::OUTDOOR)
 		{
 			for (int i = 0; i < 1; ++i)
@@ -428,14 +444,34 @@ void MapToolScene::SetSample(string img)
 		}
 		break;
 	case CRTSELECT::BUILDINGDRAW:
-		_sampleTile[0].terrainframeX = 0;
-		_sampleTile[0].terrainframeY = 0;
+		if (_inout == INOUT::OUTDOOR)
+		{
+			_sampleTile[0].terrainframeX = 0;
+			_sampleTile[0].terrainframeY = 0;
 
-		_sampleTile[0].rc = RectMake(
-			_sampleArea.left,
-			_sampleArea.top,
-			TILESIZE * 9,
-			TILESIZE * 9);
+			_sampleTile[0].rc = RectMake(
+				_sampleArea.left,
+				_sampleArea.top,
+				TILESIZE * 9,
+				TILESIZE * 9);
+		}
+		else
+		{
+			for (int i = 0; i < 2; ++i)
+			{
+				for (int j = 0; j < 5; ++j)
+				{
+					_sampleTile[i * SampleX + j].terrainframeX = j;
+					_sampleTile[i * SampleX + j].terrainframeY = i;
+
+					_sampleTile[i * SampleX + j].rc = RectMake(
+						_sampleArea.left + j * TILESIZE,
+						_sampleArea.top + i * TILESIZE,
+						TILESIZE,
+						TILESIZE * 5);
+				}
+			}
+		}
 		break;
 	}
 }
@@ -466,6 +502,7 @@ void MapToolScene::InToOut(int Horizontal, int Vertical)
 			tile.pos = POS::NONE;
 			tile.collision = false;
 			tile.wet = false;
+			tile.hp = 0;
 			tile.autoIndex = 0;
 			tile.rc = RectMake(j * TILESIZE, i * TILESIZE, TILESIZE, TILESIZE);
 
@@ -507,6 +544,7 @@ void MapToolScene::OutToIn(int Horizontal, int Vertical)
 			tile.collision = false;
 			tile.wet = false;
 			tile.autoIndex = 0;
+			tile.hp = 0;
 			tile.rc = RectMake(j * TILESIZE, i * TILESIZE, TILESIZE, TILESIZE);
 
 			_vtiles.push_back(tile);
@@ -572,16 +610,15 @@ void MapToolScene::SetMap_L()
 
 				if (_crtSelect == CRTSELECT::WALLDRAW)
 				{
-					_vtiles[index].objectframeX = _currentTile.terrainframeX;
-					_vtiles[index].objectframeY = _currentTile.terrainframeY;
-
-					_vtiles[index].object = ObjectSelect(_currentTile.terrainframeX, _currentTile.terrainframeY);
-					_vtiles[index].collision = true;
+						_vtiles[index].objectframeX = _currentTile.terrainframeX;
+						_vtiles[index].objectframeY = _currentTile.terrainframeY;
+						_vtiles[index].object = ObjectSelect(_currentTile.terrainframeX, _currentTile.terrainframeY);
+						_vtiles[index].collision = true;
 				}
 
 				if ((_vtiles[index].terrain != TERRAIN::WATER) && (!_vtiles[index].collision))
 				{
-					if (_crtSelect == CRTSELECT::TREEDRAW)
+					if (_crtSelect == CRTSELECT::OBJECTDRAW)
 					{
 						if (_inout == INOUT::OUTDOOR)
 						{
@@ -602,19 +639,28 @@ void MapToolScene::SetMap_L()
 
 					if (_crtSelect == CRTSELECT::BUILDINGDRAW)
 					{
-						_vtiles[index].objectframeX = _currentTile.terrainframeX;
-						_vtiles[index].objectframeY = _currentTile.terrainframeX;
-						_vtiles[index].object = ObjectSelect(_currentTile.terrainframeX, _currentTile.terrainframeY);
-						
-						for (int i = 0; i < 5; ++i)
+						if (_inout == INOUT::OUTDOOR)
 						{
-							for (int j = 0; j < 9; j++)
+							_vtiles[index].objectframeX = _currentTile.terrainframeX;
+							_vtiles[index].objectframeY = _currentTile.terrainframeX;
+							_vtiles[index].object = ObjectSelect(_currentTile.terrainframeX, _currentTile.terrainframeY);
+
+							for (int i = 0; i < 5; ++i)
 							{
-								if (index - _vertical * i - j < 0)continue;
-								if ((i == 0) && (j > 1 && j < 5) || (i == 1) && (j > 0 && j < 8))continue;
-								_vtiles[index - _vertical * i - j].collision = true;
-								_vtiles[index - _vertical * 2 - 3].pos = POS::PARM_TO_HOME;
+								for (int j = 0; j < 9; j++)
+								{
+									if (index - _vertical * i - j < 0)continue;
+									if ((i == 0) && (j > 1 && j < 5) || (i == 1) && (j > 0 && j < 8))continue;
+									_vtiles[index - _vertical * i - j].collision = true;
+									_vtiles[index - _vertical * 2 - 3].pos = POS::PARM_TO_HOME;
+								}
 							}
+						}
+						else
+						{
+							_vtiles[index].objectframeX = _currentTile.terrainframeX;
+							_vtiles[index].objectframeY = _currentTile.terrainframeX;
+							_vtiles[index].object = MAPOBJECT::WALL;
 						}
 					}
 
@@ -754,7 +800,7 @@ void MapToolScene::SetMap_R()
 						_vtiles[index].terrain = TerrainSelect(_currentTile.terrainframeX, _currentTile.terrainframeY);
 					}
 				}
-				if (_crtSelect == CRTSELECT::TREEDRAW)
+				if (_crtSelect == CRTSELECT::OBJECTDRAW)
 				{
 					if (_vtiles[index].object == MAPOBJECT::NONE &&
 						RND->getInt(10) == 0)
@@ -763,6 +809,7 @@ void MapToolScene::SetMap_R()
 						_vtiles[index].objectframeY = 0;
 						_vtiles[index].object = MAPOBJECT::TREE1;
 						_vtiles[index].collision = true;
+						_vtiles[index].hp = 5;
 					}
 				}
 				if (_crtSelect == CRTSELECT::HOETILEDRAW)
@@ -863,8 +910,7 @@ MAPOBJECT MapToolScene::ObjectSelect(int frameX, int frameY)
 		switch (_crtSelect)
 		{
 		case CRTSELECT::WALLDRAW:
-			if (frameX >= 4 && (frameY <= 2))return MAPOBJECT::WALL;
-			else return MAPOBJECT::WALL;
+			return MAPOBJECT::WALL;
 			break;
 		case CRTSELECT::HOETILEDRAW:
 			if (frameX <= 4 && frameY <= 2)	 return MAPOBJECT::HOETILE;
@@ -876,7 +922,7 @@ MAPOBJECT MapToolScene::ObjectSelect(int frameX, int frameY)
 			if (frameX >= 5 && (frameY == 2))return MAPOBJECT::WEED;
 			if (frameX == 6 && (frameY == 3))return MAPOBJECT::WEED;
 			break;
-		case CRTSELECT::TREEDRAW:
+		case CRTSELECT::OBJECTDRAW:
 			if (frameX == 0)return MAPOBJECT::TREE1;
 			if (frameX == 1)return MAPOBJECT::TREE2;
 			if (frameX == 2)return MAPOBJECT::TREE3;
@@ -896,7 +942,7 @@ MAPOBJECT MapToolScene::ObjectSelect(int frameX, int frameY)
 			break;
 		case CRTSELECT::HOETILEDRAW:
 			break;
-		case CRTSELECT::TREEDRAW:
+		case CRTSELECT::OBJECTDRAW:
 			if (frameX == 0 && frameY == 0) MAPOBJECT::BED;
 			break;
 		case CRTSELECT::BUILDINGDRAW:

@@ -46,7 +46,7 @@ void LoadingScene::update()
 
     if (_currentCount == LOADINGMAX)
     {
-        SCENEMANAGER->changeScene("Å×½ºÆ®");
+        SCENEMANAGER->changeScene("Test");
     }
 
     _count++;

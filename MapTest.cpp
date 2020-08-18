@@ -1,18 +1,55 @@
 #include "stdafx.h"
 #include "MapTest.h"
 
+
 HRESULT MapTest::init()
 {
+	_tiles = _map->Load("mapTest.map", _vertical, _horizon);
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
 	
+	_player->SavePlayerInfo("Player.info");
+	
 	_environment = new Environment;
 	_environment->init();
+	
+	_store = new Store;
+	_store->setLinkPlayer(_player);	//소지금 참조용
+	_store->setLinkInventory(_player->GetPlayerInver()); //가방내용물 참고용 상점F5키입니다.
+	_store->init(400,400);
+
+	_player->GetPlayerInver()->SetStoreLink(_store);
+	_player->GetPlayerInver()->setPlayer(_player);
+
+	_pm = new PlantsManager;
+	_pm->SetMapMemoryAddressLinked(this);
+	_pm->Init();
 
 	_count = 0;
     _vertical = _horizon = 75;
-    _tiles = _map->Load("mapTest.map", _vertical, _horizon);
+    
+	
+
+	//_pm->Planting(4, "parsnipObject");
+	//_pm->Planting(3, "parsnipObject");
+	//_pm->LoadSize();
+	
+	_vertical = _horizon = 75;
+	_tiles = _map->Load("mapTest.map", _horizon, _vertical);
+
+	//_astar = new astar;
+	//_astar->SetMapMemoryLink(this);
+	//_astar->SetMap();
+	//_astar->SetStartNode(Vector2(10, 10));
+	////_astar->SetEndNode(_player->GetInfo().position / TILESIZE);
+	//test = Vector2(9,9);
+	//_astar->SetEndNode(test);
+	//_astar->PathFind();
+	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
+
+	ShowCursor(true);
+
     return S_OK;
 }
 
@@ -25,6 +62,33 @@ void MapTest::update()
 	_count++;
 	_player->update();
 	_environment->update();
+	/*if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD4))
+	{
+		test += Vector2(-1, 0);
+		_astar->SetEndNode(test);
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD6))
+	{
+		test += Vector2(1, 0);
+		_astar->SetEndNode(test);
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD8))
+	{
+		test += Vector2(0,-1);
+		_astar->SetEndNode(test);
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD2))
+	{
+		test += Vector2(0,1);
+		_astar->SetEndNode(test);
+	}
+	if (_count % 20 == 0) {
+		_astar->PathFind();
+	}*/
+
+	_store->update();
+	CAMERAMANAGER->setX(_player->GetInfo().position.x);
+	CAMERAMANAGER->setY(_player->GetInfo().position.y);
 }
 
 void MapTest::render()
@@ -55,6 +119,7 @@ void MapTest::render()
 					if (_tiles[index].terrainframeX == 3)_tiles[index].terrainframeX = -1;
 					_tiles[index].terrainframeX++;
 				}
+				_count = 0;
 			}
 		}
 	}
@@ -85,7 +150,6 @@ void MapTest::render()
 					_tiles[index].objectframeX, _tiles[index].objectframeY, _tiles[index].rc.bottom + 1);
 			}
 
-			if (j > 14 || i > 14) continue;
 
 			if ((_tiles[index].object == MAPOBJECT::HOETILE) ||
 				(_tiles[index].object == MAPOBJECT::HOETILE_WET) ||
@@ -105,9 +169,16 @@ void MapTest::render()
 			}
 		}
 	}
-	
+
 	OBJECTMANAGER->Render();
 	ZORDER->ZOrderRender();
-	_environment->render();
+	_store->render();
+	
+	if (SCENEMANAGER->GetNowScene()=="SHOP" && _store->getStoreOpen())
+	{
+		_store->OpenStoreRender();
+	}
 	_player->render();
+	_environment->render();
+	//_astar->render();
 }

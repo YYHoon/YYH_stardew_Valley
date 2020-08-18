@@ -4,19 +4,39 @@
 #include <vector>
 //상점은 인밴토리를 참고한다~
 
+class Player;
+class ToolItemManager;
+class ToolItem;
+class Inventory;
 
 class Store : public gameNode
 {
 private:
+	ToolItemManager* _ItemManager;
+	Inventory* _inven;
+	Player* _player;
+
+	vector<ToolItem*> _itemInfo;
+	vector<ToolItem*> _saleItem;
+
+	string _saleKoName[6]; //아이템 한글진열
+	int _saleMoney[6];    //돈
+
 
 	image* _StoreWindow;	  //상점창
 	image* _StorePortrait;	  //상점주인초상화
 	image* _StoreItem[4];	  //상점 아이템
 	image* _StoreInfo;		  //상점소개문창
 	image* _StoreNPC;		  //상점npc도트
-	
+
+	image* _CloseButton;     //닫기버튼
+	image* _BlackWindow;
+
 	image* _StoreUpArrow;	  //상점열었을떄 물건고르는 위쪽화살표
 	image* _StoreDownArrow;   //상점열었을떄 물건고르는 아래쪽화살표
+
+	image* _noMoney;
+	int _noMoneyAlpha;
 
 	vector<RECT> _Item;	     //상점상자들(4개)
 	RECT _CloseRc;			 //닫기버튼
@@ -31,20 +51,28 @@ private:
 	int _StoreItmeFrameY3;
 	int _StoreItmeFrameY4;
 
-	int _StoreSearchMin;
-	int _StoreSearchMax;
+	int _StoreSearchMin;	//상점물품 탐색영역
+
+	bool _storeOpen;
 
 public:
 	Store();
 	~Store();
 
-	virtual HRESULT init();
+	virtual HRESULT init(int x, int y);
 	virtual void release();
 	virtual void update();
 	virtual void render();
 	virtual void OpenStoreRender();
-	virtual void draw();
 
 	RECT getStoreNpcRect() {return _StoreNpcRect; }
 	RECT getStoreNpcOpen() {return _StoreNpcOpen; }
+	vector<ToolItem*> getStoreSaleItem() {return _saleItem; }
+	bool getStoreOpen() { return _storeOpen; }
+
+	void setStoreOpen(bool isOpen) { _storeOpen = isOpen; }
+
+	void setLinkToolItemManager(ToolItemManager* TIM) { _ItemManager = TIM; }
+	void setLinkInventory(Inventory* Inven) { _inven = Inven; }
+	void setLinkPlayer(Player* player) { _player = player; }
 };

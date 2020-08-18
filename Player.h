@@ -3,8 +3,11 @@
 #include "Vector2.h"
 #include "ToolItemManager.h"
 #include "Inventory.h"
+
+class HpStaminaBar;
 class State;
 class MapMain;
+class HpStaminaBar;
 
 class Player : public gameNode
 {
@@ -34,7 +37,6 @@ private:
 
 	/// <summary>
 	ToolItemManager* _tool;
-
 	/// </summary>
 	string _mapName;
 	MapMain* _Map;
@@ -42,7 +44,8 @@ private:
 	PLAYER_ACTION _action;
 	shared_ptr<State> _state;
 	ToolItem* _getItem;
-	
+	HpStaminaBar* _gauge;
+
 	Inventory* _inven;
 	Vector2 _mousePt;
 	int _tileIndex[3];
@@ -52,6 +55,10 @@ private:
 	/// </summary>
 	bool _isNext;
 	bool _isPrev;
+	/// <summary>
+	/// </summary>
+
+	bool _isKeyDown;
 	
 	//class inven;
 
@@ -73,6 +80,9 @@ public:
 	int* GetMoveTileIndex() { return _tileIndex; }
 	int GetmaxStamina() { return _info.maxStamina; }
 	int GetStamina() { return _info.stamina; }
+	int GetMoney() { return _info.money; }
+	MYRECT GetPlayercollision() { return _info.collision; }
+	Inventory* GetPlayerInver() { return _inven; }
 	bool GetIsNext() { return _isNext; }
 	bool GetIsPrev() { return _isPrev; }
 
@@ -94,6 +104,9 @@ public:
 	void SetDecreaseVelocity(float Velocity) { _info.velocity -= Velocity; }
 	void SetIncreaseVelocity(float Velocity) { _info.velocity += Velocity; }
 	void SetVelocity(float Velocity) { _info.velocity = Velocity; }
+	void SetItem(ToolItem* Velocity) { _info.haveItem = Velocity; }
+	void SetShadowImg(string imgName) { _info.shadowImg = IMAGEMANAGER->findImage(imgName); }
+
 	//void SetMapMemoryAddressLink()
 
 public:
@@ -103,7 +116,8 @@ public:
 	void CheckTiles();
 	void SetMapMemoryAddressLink(MapMain* map) { _Map = map; }
 
-	void SavePlayerInfo();
-	void LoadPlayerInfo();
+	void SavePlayerInfo(string fileName);
+	void LoadPlayerInfo(string fileName);
+
 };
 

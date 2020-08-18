@@ -1,17 +1,20 @@
 #pragma once
 #include "gameNode.h"
 #include "AllPlants.h"
-#include "MapMain.h"
 
-class MAPMain;
+class MapMain;
+class Plants;
 
 class PlantsManager : public gameNode
 {
 private:
 	ParsnipObject* _parsnip;
-	vector<Plants*> _ActivePlantsList;
+	PotatoObject* _potato;
+	KaleObject* _kale;
+	vector<Plants*>				_vActivePlantsList;
+	vector<Plants*>::iterator	_viActivePlantsList;
 	MapMain* _map;
-	
+	int size;
 
 public:
 	PlantsManager() {}
@@ -19,11 +22,15 @@ public:
 
 	void Init();
 	void Update();
+	void render();
 	void Planting(int index , string plantsName);
 	void Growing();
 	void Harvesting(int index);
-
-	vector<Plants*> GetPlantsList() { return _ActivePlantsList; }
+	void Save();
+	void Load();
+	void SaveSize();
+	void LoadSize();
+	vector<Plants*> GetPlantsList() { return _vActivePlantsList; }
 
 	void SetMapMemoryAddressLinked(MapMain* map) { _map = map; }
 };

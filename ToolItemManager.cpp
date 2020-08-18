@@ -122,6 +122,7 @@ void ToolItemManager::Init()
 		_toolList[i]->SetNowMapMemoryAddressLink(_nowTileMap);
 		_toolList[i]->Init();
 	}
+
 }
 
 void ToolItemManager::Action(string name)
@@ -134,6 +135,19 @@ void ToolItemManager::Action(string name)
 			_toolList[i]->Action();
 		}
 	
+	}
+}
+
+void ToolItemManager::Render(string name)
+{
+	for (int i = 0; i < _toolList.size(); ++i)
+	{
+
+		if (_toolList[i]->GetName() == name)
+		{
+			_toolList[i]->ReAction();
+		}
+
 	}
 }
 
@@ -173,6 +187,20 @@ int ToolItemManager::GetImpactIndexRight(string name)
 		if (_toolList[i]->GetName() == name)
 		{
 			return _toolList[i]->GetImpactTileIndexRight();
+		}
+
+	}
+	
+}
+
+void ToolItemManager::GetFishingInfo(Vector2 c, PLAYER_DIRECTION d)
+{
+	for (int i = 0; i < _toolList.size(); ++i)
+	{
+
+		if (_toolList[i]->GetName() == "FishingRod")
+		{
+			_toolList[i]->GetPlayerCenterNDir(_playerCenter, _playerDir);
 		}
 
 	}

@@ -21,17 +21,17 @@ HRESULT playGround::init()
 	soundinit();
 
 	SCENEMANAGER->addScene("Title", _TitleScene = new TitleScene);
-	SCENEMANAGER->addScene("테스트", _Tset = new TestScene);
 	SCENEMANAGER->addScene("맵툴", _MaptoolScene = new MapToolScene);
 	SCENEMANAGER->addScene("LOADING", _LoadingScene = new LoadingScene);
+	SCENEMANAGER->addScene("태스트", _Tset = new TestScene);
 	MapFarm* _farm;
 	MapHome* _home;
 	MapTest* _test;
 	SCENEMANAGER->addScene("FARM", _farm = new MapFarm);
 	SCENEMANAGER->addScene("HOME", _home = new MapHome);
 	SCENEMANAGER->addScene("Test", _test = new MapTest);
-	SCENEMANAGER->changeScene("FARM");
-
+	SCENEMANAGER->changeScene("맵툴");
+	//test = new MiniGame;
 	return S_OK;
 }
 
@@ -48,6 +48,17 @@ void playGround::update()
 	SCENEMANAGER->update();
 	OBJECTMANAGER->Update();
 	KEYANIMANAGER->update();
+
+	//if (!test->GetNowFishing())
+	//{
+	//	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	//	{
+	//		Vector2 i(200, 200);
+	//		test->Init(i, PLAYER_DIRECTION::LEFT);
+	//	}
+	//}
+	//if(test->GetNowFishing())test->Update();
+
 }
 
 //그리기 전용
@@ -56,11 +67,13 @@ void playGround::render()
 	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 	//=================================================
 
-	SCENEMANAGER->render();
 
 	/////////////////////////////////
+	SCENEMANAGER->render();
 	TIMEMANAGER->render(getMemDC());
 	//////////////////////////////////
+	//ZORDER->ZOrderRender();
+	//test->Render();
 	//=============================================
 	_backBuffer->render(getHDC(), 0, 0);
 }
@@ -92,7 +105,7 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("RecoveryItemInfo", "image/회복아이템설명.bmp", 293, 258, true, MAGENTA);
 
 	//환경
-	IMAGEMANAGER->addImage("Environment_Clock", "image/Environment/Environment_Clock.bmp", 284, 160, true, MAGENTA);
+	IMAGEMANAGER->addImage("Environment_Clock", "image/Environment/Environment_Clock.bmp", 288, 236, true, MAGENTA);
 
 	//인벤토리
 	IMAGEMANAGER->addImage("Inventory_BG", "image/Inventory/Inventory_BG.bmp", 1600, 900, false, BLACK);
@@ -107,15 +120,11 @@ void playGround::imginit()
 
 	//상점관련
 	IMAGEMANAGER->addFrameImage("StoreOwnerPortrait", "image/상점/상점주인_초상화(420x630).bmp", 420, 630, 2, 3, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("StoreOwnerDot", "image/상점/상점주인_도트(200x600).bmp", 200, 600, 4, 6, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("StoreOwnerDot", "image/상점/상점주인_도트(200x600).bmp", 250, 750, 4, 6, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("StoreItme", "image/상점/상점물품.bmp", 1041, 210, 1, 2, true, MAGENTA);
 	IMAGEMANAGER->addImage("StoreInfo", "image/상점/소개문.bmp", 250, 143, true, MAGENTA);
-	IMAGEMANAGER->addImage("StoreWindow", "image/상점/상점창.bmp", 1085, 709, true, MAGENTA);
-	IMAGEMANAGER->addImage("BeanSeed", "image/상점/beanSeed.bmp", 56, 56, true, MAGENTA);
-	IMAGEMANAGER->addImage("CauliFlowerSeed", "image/상점/cauliFlowerSeed.bmp", 56, 56, true, MAGENTA);
-	IMAGEMANAGER->addImage("PotatoSeed", "image/상점/potatoSeed.bmp", 56, 56, true, MAGENTA);
-	IMAGEMANAGER->addImage("sugarRadishSeed", "image/상점/sugarRadishSeed.bmp", 56, 56, true, MAGENTA);
-	IMAGEMANAGER->addImage("당근씨앗", "image/상점/당근씨앗.bmp", 56, 56, true, MAGENTA);
+	IMAGEMANAGER->addImage("StoreWindow", "image/상점/StoreWindow.bmp", 1085, 709, true, MAGENTA);
+	IMAGEMANAGER->addImage("LowMoney", "Image/상점/LowMoney.bmp", 170, 32, true, MAGENTA);
 
 	//대화창관련
 	IMAGEMANAGER->addImage("ChatBox", "image/대화창2.bmp", 900, 312, true, MAGENTA);
@@ -139,7 +148,8 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("CloseButton", "image/닫기버튼.bmp", 44, 44, true, MAGENTA);
 
 	IMAGEMANAGER->addFrameImage("Terrain", "image/mapTool/Terrain.bmp", 0, 0, 512, 512, 512 / TILESIZE, 512 / TILESIZE, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("Terrain_InDoor", "image/mapTool/Indoor.bmp", 0, 0, 192, 512, 192 / TILESIZE, 512 / TILESIZE, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("Terrain_InDoor", "image/mapTool/Indoor.bmp", 0, 0, 512, 512, 512 / TILESIZE, 512 / TILESIZE, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("Wall_Cave", "image/mapTool/CaveWall.bmp", 0, 0, 320, 640, 320 / TILESIZE, 640 / TILESIZE, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("Wall", "image/mapTool/Wall.bmp", 0, 0, 512, 512, 512 / TILESIZE, 512 / TILESIZE, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("HoeTile", "image/mapTool/HoeTile.bmp", 0, 0, 448, 384, 448 / TILESIZE, 384 / TILESIZE, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("Tree", "image/mapTool/Tree.bmp", 0, 0, 578, 384, 3, 1, true, MAGENTA);
@@ -154,11 +164,11 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("Save", "image/mapTool/Save.bmp", 229, 52, true, MAGENTA);
 
 	// Player
-	IMAGEMANAGER->addFrameImage("player", "image/Player.bmp", 3000, 4500, 12, 18, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("player", "image/Player.bmp", 3000, 4500, 12, 18, true, MAGENTA);
 
 	//낚시
 	IMAGEMANAGER->addImage("FishingGague", "image/낚시/낚시게이지.bmp", 12, 485, true, MAGENTA);
-	IMAGEMANAGER->addImage("FishingMiniGame", "image/낚시/낚시미니게임.bmp", 128, 505, true, MAGENTA);
+	IMAGEMANAGER->addImage("FishingMiniGame", "image/낚시/낚시미니게임.bmp", 128, 600, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishingBar", "image/낚시/낚시바.bmp", 34, 96, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishingStart", "image/낚시/낚시시작.bmp", 120, 49, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishingPower", "image/낚시/낚시최대파워던짐.bmp", 100, 36, true, MAGENTA);

@@ -14,25 +14,22 @@ struct tagClockHand
 class Environment : public gameNode
 {
 private:
+	tagClockHand _clockHand;	//시계침 struct
+
 	int _alphaValue;			//알파값
 
 	int _dayCount;				//날짜
-
-	/// 원본 게임에서의 시계 각도(%)
-	float _originalTime = 860;			//원본 게임의 총 시간
-	float _originalDelay = 7.96296f;	//원본 게임의 한 틱당 시간
-	float _ratio;						//시계 한 칸 퍼센트
-	/// </summary>
+	float _timeRatio;			//시계 한 칸 퍼센트
 
 	float _clockCalculate;		//시간 계산
-	float _currentTimeSec;		//현재 시간
 
 	float _elapsedTime;			//연산용 시간
 	float _realTimeSecond;		//현실시간(초)
 
 	bool _isInventoryOpen;		//인벤토리가 열리면
+	bool _isDayIncrease;		//날짜가 증가하면
 
-	tagClockHand _clockHand;	//시계침 struct
+	int _alphaDelay;
 
 	float _delay;
 	float _count;
@@ -57,9 +54,11 @@ public:
 	void update();
 	void render();
 
-	int GetCluckValue() { return _clockHand.value; }	//시계 값
-	int GetDayCount() { return _dayCount; }				//날짜 값
+	int GetCluckValue() { return _clockHand.value; }				//시계 값
+	int GetDayCount() { return _dayCount; }							//날짜 값
+	bool GetIsDayIncrease() { return _isDayIncrease; }				//날짜가 증가하면
+	bool GetIsInventoryOpen() { return _isInventoryOpen; }			//인벤토리가 열리면
 
-
+	void SetIsInventoryOpen(bool open) { _isInventoryOpen = open; }	//인벤토리용
 };
 
