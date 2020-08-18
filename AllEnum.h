@@ -133,8 +133,15 @@ enum class Spread
 {
 	SPREAD,			//흩뿌릴때
 	HARVEST,		//수확할때
-	FISHING			//낚시할때
-
+	FISHING,			//낚시할때
+	NONE
+};
+enum class SpreadState
+{
+	BEFORE_SPREAD,	//뿌리기직전
+	DOING_SPREAD,	//뿌리는중
+	AFTER_SPREAD,	//뿌리고나서
+	NONE
 };
 
 enum class ATTRIBUTE

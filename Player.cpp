@@ -34,7 +34,7 @@ HRESULT Player::init()
 	
 	_gauge->setPlayerLink(this);
 	_gauge->init();
-	_tool->GetNowTileMapMemoyrAddressLink(_Map);
+	_tool->SetNowTileMapMemoyrAddressLink(_Map);
 	_tool->Init();
 	_inven->SetMemoryLinkedTool(_tool);
 	_inven->init();
