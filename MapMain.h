@@ -4,7 +4,6 @@
 #include "Player.h"
 #include "Environment.h"
 #include "Store.h"
-#include "HpStaminaBar.h"
 #include "PlantsManager.h"
 
 class MapMain : public gameNode
@@ -15,7 +14,6 @@ protected:
 	Player* _player;
 	Environment* _environment;
 	Store* _store;
-	HpStaminaBar* _HpStaminaBar;
 	PlantsManager* _pm;
 
 	SynInheritance(vector<tagTile>, _tiles, Tiles)

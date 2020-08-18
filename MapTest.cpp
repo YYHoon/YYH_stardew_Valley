@@ -22,11 +22,6 @@ HRESULT MapTest::init()
 	_player->GetPlayerInver()->SetStoreLink(_store);
 	_player->GetPlayerInver()->setPlayer(_player);
 
-	_HpStaminaBar = new HpStaminaBar;
-	_HpStaminaBar->setPlayerLink(_player);
-	_HpStaminaBar->init();
-
-
 	_pm = new PlantsManager;
 	_pm->SetMapMemoryAddressLinked(this);
 	_pm->Init();
@@ -51,7 +46,7 @@ HRESULT MapTest::init()
 	//test = Vector2(9,9);
 	//_astar->SetEndNode(test);
 	//_astar->PathFind();
-
+	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
 
 	ShowCursor(true);
 
@@ -92,7 +87,8 @@ void MapTest::update()
 	}*/
 
 	_store->update();
-	_HpStaminaBar->update();
+	CAMERAMANAGER->setX(_player->GetInfo().position.x);
+	CAMERAMANAGER->setY(_player->GetInfo().position.y);
 }
 
 void MapTest::render()
@@ -178,12 +174,10 @@ void MapTest::render()
 	ZORDER->ZOrderRender();
 	_store->render();
 	
-	if (_store->getStoreOpen())
+	if (SCENEMANAGER->GetNowScene()=="SHOP" && _store->getStoreOpen())
 	{
 		_store->OpenStoreRender();
 	}
-	_HpStaminaBar->staminaBarRender();
-	_HpStaminaBar->hpBarRender();
 	_player->render();
 	_environment->render();
 	//_astar->render();
