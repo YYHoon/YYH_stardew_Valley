@@ -10,6 +10,9 @@ HRESULT Inventory::init()
 	_environment = new Environment;
 	_environment->init();
 
+	_Dtset = new Dialog;
+	_Dtset->init();
+
 	_test = false;
 
 	//_inventory.isInvenOpen = false;					//인벤토리 초기값은 닫혀있음
@@ -60,11 +63,13 @@ HRESULT Inventory::init()
 	_toolInven[4] = _toolList[4];
 	_toolInven[5] = _toolList[5];
 	_toolInven[6] = _toolList[6];
-	_toolInven[7]->SetToolEnum(TOOLS::NONE);
-	_toolInven[8]->SetToolEnum(TOOLS::NONE);
-	_toolInven[9]->SetToolEnum(TOOLS::NONE);
+	_toolInven[7] ->SetToolEnum(TOOLS::NONE);
+	_toolInven[8] ->SetToolEnum(TOOLS::NONE);
+	_toolInven[9] ->SetToolEnum(TOOLS::NONE);
 	_toolInven[10]->SetToolEnum(TOOLS::NONE);
 	_toolInven[11]->SetToolEnum(TOOLS::NONE);
+
+
 	return S_OK;
 }
 
@@ -84,7 +89,11 @@ void Inventory::update()
 	}
 
 	_inventory.rc.top = _inventory.y;
-	
+
+	_Dtset->update(_toolInven[1]->GetName());
+	if (KEYMANAGER->isOnceKeyDown(VK_F11)) _Dtset->setDialogClear(true);
+	if (KEYMANAGER->isOnceKeyDown(VK_F12)) _Dtset->setDialogClear(false);
+
 	if (_player->GetPlayercollision().bottom >= WINSIZEY - 100)
 	{
 		_quickSlotUp = true;
@@ -124,8 +133,7 @@ void Inventory::update()
 			{
 				// 클릭했을 때의 인덱스 값 저장
 				_itemIndexNum = i;
-
-				cout << i << endl;										//각 인벤토리 칸을 눌렀을 때
+				//각 인벤토리 칸을 눌렀을 때
 			}
 		}
 
@@ -157,7 +165,6 @@ void Inventory::update()
 		if (PtInRect(&_trashCanRC, _ptMouse))							//쓰레기통에 버리기
 		{
 			_toolInven[_itemIndexNum]->SetToolEnum(TOOLS::NONE);
-			cout << "Throw away" << endl;
 		}
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////// <Test>
@@ -212,6 +219,7 @@ void Inventory::render()
 				_trashCanRC = RectMake(_trashCanRC.left, _trashCanRC.top, 90, 140);		//쓰레기통 렉트
 				_vInvenDynamicRC.push_back(_trashCanRC);
 
+
 				if (_environment->GetCluckValue() <= CLOCKTIMEHALF)
 				{
 					IMAGEMANAGER->findImage("UI_Inventory_Day")->render(getMemDC(), INVENIMAGECOOR);
@@ -220,8 +228,6 @@ void Inventory::render()
 				{
 					IMAGEMANAGER->findImage("UI_Inventory_Night")->render(getMemDC(), INVENIMAGECOOR);
 				}
-				
-				
 				for (int i = 0; i < _toolInven.size() - 1; ++i)
 				{
 					if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
@@ -300,7 +306,7 @@ void Inventory::render()
 		_vInvenStaticRC.clear();
 		_vInvenDynamicRC.clear();
 		
-		if (SCENEMANAGER->GetNowScene() == "SHOP" && _store->getStoreOpen())
+		if (_store->getStoreOpen())
 		{
 			for (int i = 0; i < _toolInven.size(); ++i)
 			{
@@ -360,30 +366,10 @@ void Inventory::render()
 		}
 	}
 
-	////////////////////////QuickSlot///////////////////////////////////////////
-
-	/////////////////////////////////////////////////////////////////////////// <Debug_Rect>
-
-	//for (int InvenTab = 0; InvenTab < 4; InvenTab++)
-	//{
-	//	Rectangle(getMemDC(), _invenTabRC[InvenTab]);
-	//}
-	//Rectangle(getMemDC(), _inventoryCloseRC);
-	//for (int i = 0; i < _vInvenIndexRC.size(); i++)
-	//{
-	//	Rectangle(getMemDC(), _vInvenIndexRC[i]);
-	//}
-	//Rectangle(getMemDC(), _closeRC);
-	//Rectangle(getMemDC(), _menuUpRC);
-	//Rectangle(getMemDC(), _menuDownRC);
-	//Rectangle(getMemDC(), _inventory.rc);
-	//Rectangle(getMemDC(), _trashCanRC);
+	_Dtset->render();
 
 	SelectObject(getMemDC(), oldFont1);
 	DeleteObject(oldFont1);
-
-	/////////////////////////////////////////////////////////////////////////// </Debug_Rect>
-
 }
 
 void Inventory::quickSlotMove()
@@ -440,99 +426,34 @@ void Inventory::quickSlotMove()
 
 void Inventory::PlayerLootItem(ToolItem* item)
 {
-	//for (int i = 0; i < 12; i++)
-	//{
-	//	if (_toolInven[i]->GetName() == item->GetName())
-	//	{
-	//		//if(_toolInven[i]->getnum()>10) contine;
-	//		//_toolInven[i]->setnum(+1);
-	//	}
-	//	else
-	//	{
-	//		if (_toolInven[i]->GetToolEnum()==TOOLS::NONE)
-	//		{
-	//			_toolInven[i] = item;
-	//			// _toolInven[i]->setnum(+1);
-	//			break;
-	//		}
-	//	}
-	//}
+	for (int i = 0; i < 12; i++)
+	{
+		if (_toolInven[i]->GetName() == item->GetName())
+		{
+			if (_toolInven[i]->GetNumber() > 99) continue;
+			_toolInven[i]->SetNumber(+1);
+			break;
+		}
+		else
+		{
+			if (_toolInven[i]->GetToolEnum() == TOOLS::NONE)
+			{
+				_toolInven[i] = item;
+				_toolInven[i]->SetNumber(+1);
+				break;
+			}
+		}
+	}
 }
 
 void Inventory::setPlayerBuyItme(ToolItem* buyItme)
 {
 	for (int i = 0; i < 12; i++)
 	{
-		if (_toolInven[0]->GetName() == buyItme->GetName())
+		if (_toolInven[i]->GetName() == buyItme->GetName())
 		{
-			if (_toolInven[0]->GetNumber() > 99) continue;
-			_toolInven[0]->SetNumber(+1);
-			break;
-		}
-		else if (_toolInven[1]->GetName() == buyItme->GetName())
-		{
-			if (_toolInven[1]->GetNumber() > 99) continue;
-			_toolInven[1]->SetNumber(+1);
-			break;
-		}
-		else if (_toolInven[2]->GetName() == buyItme->GetName())
-		{
-			if (_toolInven[2]->GetNumber() > 99) continue;
-			_toolInven[2]->SetNumber(+1);
-			break;
-		}
-		else if (_toolInven[3]->GetName() == buyItme->GetName())
-		{
-			if (_toolInven[3]->GetNumber() > 99) continue;
-			_toolInven[3]->SetNumber(+1);
-			break;
-		}
-		else if (_toolInven[4]->GetName() == buyItme->GetName())
-		{
-			if (_toolInven[4]->GetNumber() > 99) continue;
-			_toolInven[4]->SetNumber(+1);
-			break;
-		}
-		else if (_toolInven[5]->GetName() == buyItme->GetName())
-		{
-			if (_toolInven[5]->GetNumber() > 99) continue;
-			_toolInven[5]->SetNumber(+1);
-			break;
-		}
-		else if (_toolInven[6]->GetName() == buyItme->GetName())
-		{
-			if (_toolInven[6]->GetNumber() > 99) continue;
-			_toolInven[6]->SetNumber(+1);
-			break;
-		}
-		else if (_toolInven[7]->GetName() == buyItme->GetName())
-		{
-			if (_toolInven[7]->GetNumber() > 99) continue;
-			_toolInven[7]->SetNumber(+1);
-			break;
-		}
-		else if (_toolInven[8]->GetName() == buyItme->GetName())
-		{
-			if (_toolInven[8]->GetNumber() > 99) continue;
-			_toolInven[8]->SetNumber(+1);
-			break;
-		}
-		else if (_toolInven[9]->GetName() == buyItme->GetName())
-		{
-			if (_toolInven[9]->GetNumber() > 99) continue;
-			_toolInven[9]->SetNumber(+1);
-			break;
-		}
-		else if (_toolInven[10]->GetName() == buyItme->GetName())
-		{
-			if (_toolInven[10]->GetNumber() > 99) continue;
-			_toolInven[10]->SetNumber(+1);
-			break;
-		}
-		else if (_toolInven[11]->GetName() == buyItme->GetName())
-		{
-			if (_toolInven[11]->GetNumber() > 99) continue;
-			_toolInven[11]->SetNumber(+1);
+			if (_toolInven[i]->GetNumber() > 99) continue;
+			_toolInven[i]->SetNumber(+1);
 			break;
 		}
 		else

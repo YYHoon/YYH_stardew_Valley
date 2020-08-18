@@ -30,8 +30,9 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("FARM", _farm = new MapFarm);
 	SCENEMANAGER->addScene("HOME", _home = new MapHome);
 	SCENEMANAGER->addScene("Test", _test = new MapTest);
-	SCENEMANAGER->changeScene("FARM");
+	SCENEMANAGER->changeScene("Test");
 	//test = new MiniGame;
+	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
 	return S_OK;
 }
 
@@ -67,9 +68,9 @@ void playGround::render()
 	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 	//=================================================
 
+	SCENEMANAGER->render();
 
 	/////////////////////////////////
-	SCENEMANAGER->render();
 	TIMEMANAGER->render(getMemDC());
 	//////////////////////////////////
 	//ZORDER->ZOrderRender();
@@ -103,6 +104,7 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("DownArrow", "image/아래화살표.bmp", 40, 44, true, MAGENTA);
 	IMAGEMANAGER->addImage("ItemInfo", "image/일반아이템설명.bmp", 293, 258, true, MAGENTA);
 	IMAGEMANAGER->addImage("RecoveryItemInfo", "image/회복아이템설명.bmp", 293, 258, true, MAGENTA);
+	IMAGEMANAGER->addImage("ItemInfoWindow", "Image/ItemInfoWindow.bmp", 180, 130, true, MAGENTA);
 
 	//환경
 	IMAGEMANAGER->addImage("Environment_Clock", "image/Environment/Environment_Clock.bmp", 288, 236, true, MAGENTA);
@@ -120,7 +122,7 @@ void playGround::imginit()
 
 	//상점관련
 	IMAGEMANAGER->addFrameImage("StoreOwnerPortrait", "image/상점/상점주인_초상화(420x630).bmp", 420, 630, 2, 3, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("StoreOwnerDot", "image/상점/상점주인_도트(200x600).bmp", 250, 750, 4, 6, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("StoreOwnerDot", "image/상점/상점주인_도트(250x750).bmp", 250, 750, 4, 6, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("StoreItme", "image/상점/상점물품.bmp", 1041, 210, 1, 2, true, MAGENTA);
 	IMAGEMANAGER->addImage("StoreInfo", "image/상점/소개문.bmp", 250, 143, true, MAGENTA);
 	IMAGEMANAGER->addImage("StoreWindow", "image/상점/StoreWindow.bmp", 1085, 709, true, MAGENTA);
