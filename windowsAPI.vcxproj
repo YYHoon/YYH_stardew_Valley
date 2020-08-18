@@ -278,6 +278,7 @@
     <ClCompile Include="PasnipSeed.cpp" />
     <ClCompile Include="Pickax.cpp" />
     <ClCompile Include="Plants.cpp" />
+    <ClCompile Include="PlantsManager + SaveLoad.cpp" />
     <ClCompile Include="PlantsManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="playGround.cpp" />
