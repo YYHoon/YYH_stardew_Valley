@@ -2,8 +2,8 @@
 #include "Plants.h"
 class PotatoObject : public Plants
 {
-	void Init()override;
-	void Release()override;
-	void Update()override;
+	void Init();
+	void Release();
+	void Update();
 };
 

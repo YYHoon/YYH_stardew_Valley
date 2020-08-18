@@ -138,6 +138,19 @@ void ToolItemManager::Action(string name)
 	}
 }
 
+void ToolItemManager::Render(string name)
+{
+	for (int i = 0; i < _toolList.size(); ++i)
+	{
+
+		if (_toolList[i]->GetName() == name)
+		{
+			_toolList[i]->ReAction();
+		}
+
+	}
+}
+
 int ToolItemManager::GetImpactIndexCenter(string name)
 {
 	for (int i = 0; i < _toolList.size(); ++i)
@@ -174,6 +187,20 @@ int ToolItemManager::GetImpactIndexRight(string name)
 		if (_toolList[i]->GetName() == name)
 		{
 			return _toolList[i]->GetImpactTileIndexRight();
+		}
+
+	}
+	
+}
+
+void ToolItemManager::GetFishingInfo(Vector2 c, PLAYER_DIRECTION d)
+{
+	for (int i = 0; i < _toolList.size(); ++i)
+	{
+
+		if (_toolList[i]->GetName() == "FishingRod")
+		{
+			_toolList[i]->GetPlayerCenterNDir(_playerCenter, _playerDir);
 		}
 
 	}
@@ -228,6 +255,19 @@ inline void ToolItemManager::SetImpactIndex(string name, int Center, int left, i
 		if (_toolList[i]->GetName() == name)
 		{
 			_toolList[i]->SetImpactTileIndex(Center,left,right);
+		}
+
+	}
+}
+
+bool ToolItemManager::GetNowFishing()
+{
+	for (int i = 0; i < _toolList.size(); ++i)
+	{
+
+		if (_toolList[i]->GetName() == "FishingRod")
+		{
+			return _toolList[i]->GetTileChangeSignalJust();
 		}
 
 	}

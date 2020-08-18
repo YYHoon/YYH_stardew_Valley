@@ -5,7 +5,7 @@
 
 void MapToolScene::Button()
 {
-	if (KEYMANAGER->isOnceKeyDown(VK_F1))
+	if (KEYMANAGER->isOnceKeyDown(VK_F1) || (PtInRect(&_f1Btn,_ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))))
 	{
 		if (_Window)
 		{
@@ -19,17 +19,37 @@ void MapToolScene::Button()
 
 	if (KEYMANAGER->isOnceKeyDown(VK_F2))
 	{
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 14; i++)
 		{
-			_vtiles[i].wet = true;
+			for (int j = 0; j < 25; j++)
+			{
+				int cullX = CAMERAMANAGER->getL() / TILESIZE;
+				int cullY = CAMERAMANAGER->getT() / TILESIZE;
+
+				int index = (i + cullY) * _horizontal + (j + cullX);
+
+				if (_vtiles[index].object == MAPOBJECT::HOETILE)
+				{
+				_vtiles[index].wet = true;
+				}
+			}
 		}
+		Auto();
 	}
 
 	if (KEYMANAGER->isOnceKeyDown(VK_F3))
 	{
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 14; i++)
 		{
-			_vtiles[i].wet = false;
+			for (int j = 0; j < 25; j++)
+			{
+				int cullX = CAMERAMANAGER->getL() / TILESIZE;
+				int cullY = CAMERAMANAGER->getT() / TILESIZE;
+
+				int index = (i + cullY) * _horizontal + (j + cullX);
+
+				_vtiles[index].wet = false;
+			}
 		}
 	}
 
@@ -106,7 +126,8 @@ void MapToolScene::Button()
 		}
 		else
 		{
-
+			_crtSelect = CRTSELECT::TREEDRAW;
+			SetSample("Bed");
 		}
 	}
 	if (PtInRect(&_buildingBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
@@ -157,12 +178,13 @@ void MapToolScene::Button()
 	}
 	if (PtInRect(&_loadBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
-		_vtiles = Load("map.map", _horizontal, _vertical);
+		_vtiles = Load("mapFarm.map", _horizontal, _vertical);
 	}
 	if (PtInRect(&_exitBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
-		SCENEMANAGER->changeScene("타이틀화면");
+		SCENEMANAGER->changeScene("Title");
 	}
+
 	if (KEYMANAGER->isStayKeyDown('A'))
 	{
 		CAMERAMANAGER->setX(CAMERAMANAGER->getX() - 10);
@@ -199,6 +221,7 @@ void MapToolScene::Button()
 
 	if (_Window)
 	{
+		_f1Btn = RectMake(WINSIZEX - IMAGEMANAGER->findImage("F1")->getWidth()-700, 100,64,52);
 		_terrainBtn = RectMake(939, 59, 99, 41);
 		_treeBtn = RectMake(1046, 59, 99, 41);
 		_buildingBtn = RectMake(1156, 59, 99, 41);
@@ -218,21 +241,22 @@ void MapToolScene::Button()
 	}
 	else
 	{
-		_terrainBtn = RectMake(939 - 900, 59, 99, 41);
-		_treeBtn = RectMake(1046 - 900, 59, 99, 41);
-		_buildingBtn = RectMake(1156 - 900, 59, 99, 41);
-		_enemyBtn = RectMake(1263 - 900, 59, 99, 41);
-		_collisionBtn = RectMake(1370 - 900, 59, 99, 41);
-		_eraserBtn = RectMake(1160 - 900, 791, 99, 41);
-		_saveBtn[0] = RectMake(946 - 900, 745, 99, 41);
-		_saveBtn[1] = RectMake(1053 - 900, 745, 99, 41);
-		_saveBtn[2] = RectMake(1160 - 900, 745, 99, 41);
-		_loadBtn = RectMake(1053 - 900, 791, 99, 41);
-		_inBtn = RectMake(1421 - 900, 770, 99, 41);
-		_outBtn = RectMake(1310 - 900, 770, 99, 41);
-		_exitBtn = RectMake(1531 - 900, 35, 31, 32);
-		_upBtn = RectMake(WINSIZEX - 100 - 900, 300, 44, 44);
-		_downBtn = RectMake(WINSIZEX - 100 - 900, 500, 44, 44);
+		_f1Btn = RectMake(WINSIZEX - IMAGEMANAGER->findImage("F1")->getWidth(), 100, 64, 52);
+		_terrainBtn = RectMake(939 + 900, 59, 99, 41);
+		_treeBtn = RectMake(1046 + 900, 59, 99, 41);
+		_buildingBtn = RectMake(1156 + 900, 59, 99, 41);
+		_enemyBtn = RectMake(1263 + 900, 59, 99, 41);
+		_collisionBtn = RectMake(1370 + 900, 59, 99, 41);
+		_eraserBtn = RectMake(1160 + 900, 791, 99, 41);
+		_saveBtn[0] = RectMake(946 + 900, 745, 99, 41);
+		_saveBtn[1] = RectMake(1053 + 900, 745, 99, 41);
+		_saveBtn[2] = RectMake(1160 + 900, 745, 99, 41);
+		_loadBtn = RectMake(1053 + 900, 791, 99, 41);
+		_inBtn = RectMake(1421 + 900, 770, 99, 41);
+		_outBtn = RectMake(1310 + 900, 770, 99, 41);
+		_exitBtn = RectMake(1531 + 900, 35, 31, 32);
+		_upBtn = RectMake(WINSIZEX - 100 + 900, 300, 44, 44);
+		_downBtn = RectMake(WINSIZEX - 100 + 900, 500, 44, 44);
 		_sampleArea = RectMake(WINSIZEX, 100 + TILESIZE, 550, 600);
 	}
 

@@ -8,12 +8,20 @@ void FishingRod::Init()
 	_imageI = IMAGEMANAGER->findImage("FishingRod(64x64)");
 	_dmage = 0;
 	_enumName = TOOLS::FISHINGROD;
+	_game = new MiniGame;
 }
 
 void FishingRod::Action()
 {
+	if (!_game->GetNowFishing())
+	{
+		_game->Init(_playerCenter, _playerDir);
+	}
+	if (_game->GetNowFishing())_game->Update();
+	_justSignal = _game->GetNowFishing();
 }
 
 void FishingRod::ReAction()
 {
+	_game->Render();
 }

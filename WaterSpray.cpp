@@ -19,7 +19,7 @@ void WaterSpray::Action()
 	//돌 부술때
 	if (_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::HOETILE)
 	{
-		_map->SetMapObject(_tileIndex[0], MAPOBJECT::HOETILE_WET);
+		_map->SetWet(_tileIndex[0],true);
 	}
 
 }

@@ -7,6 +7,7 @@
 class Player;
 class ToolItemManager;
 class ToolItem;
+class Store;
 
 struct tagInventory
 {
@@ -16,7 +17,6 @@ struct tagInventory
 	int invenTabNum;
 	int craftPageNum;
 	int x, y;
-	bool isInvenOpen;
 };
 
 struct tagQuickSlot
@@ -29,23 +29,16 @@ struct tagQuickSlot
 class Inventory : public gameNode
 {
 private:
-	typedef vector<RECT>			vInvenStaticRC;		//인벤토리가 열렸을 때 상시 켜져 있는 (정적)렉트 벡터
-	typedef vector<RECT>			vInvenDynamicRC;	//인벤토리가 열렸을 때 상황에 따라 켜지는 (동적)렉트 벡터 
-	typedef vector<RECT>			vInvenIndexRC;		//각 인벤토리 칸 벡터
+	typedef vector<RECT>			vInvenRC;		//인벤토리가 열렸을 때 상시 켜져 있는 (정적)렉트 벡터
+	typedef vector<RECT>::iterator	viInvenRC;
 
-	typedef vector<RECT>::iterator	viInvenStaticRC;
-	typedef vector<RECT>::iterator	viInvenDynamicRC;
-	typedef vector<RECT>::iterator	viInvenIndexRC;
+	vInvenRC		_vInvenStaticRC;			//인벤토리 실행시 항상 떠 있는 정적 렉트
+	vInvenRC		_vInvenDynamicRC;			//인벤토리 실행시 특정 탭에서만 켜지는 동적 렉트
+	vInvenRC		_vInvenIndexRC;				//인벤토리 칸의 인덱스 렉트
 
-	vector<tagInventory>	_vAllInventory;				//어디에 쓰려고 만들었더라.............
-
-	vInvenStaticRC		_vInvenStaticRC;
-	vInvenDynamicRC		_vInvenDynamicRC;
-	vInvenIndexRC		_vInvenIndexRC;
-
-	viInvenStaticRC		_viInvenStaticRC;
-	viInvenDynamicRC	_viInvenDynamicRC;
-	viInvenIndexRC		_viInvenIndexRC;
+	viInvenRC		_viInvenStaticRC;
+	viInvenRC		_viInvenDynamicRC;
+	viInvenRC		_viInvenIndexRC;
 
 	//////////////////////////////////////////
 	RECT _inventoryCloseRC;	// Static RC    //
@@ -60,6 +53,7 @@ private:
 	//////////////////////////////////////////
 
 	Player* _player;
+	Store* _store;
 
 /////////////////////////<Inventory>////////////////////////////
 
@@ -67,13 +61,14 @@ private:
 	Environment* _environment;
 	ToolItemManager* _toolItemManager;
 
-	vector<ToolItem*> _toolList; // 정보
-	vector <ToolItem*> _toolInven; // 값 가지고 있는것들 
-	//ToolItem* _getItem;
+	vector<ToolItem*> _toolList;	 // 정보
+	vector<ToolItem*> _toolInven;	 // 값 가지고 있는것들 
 	
 	RECT _trashCanRC;
 	int _trashCanFrameX;
 	int _frameCount;
+	int _itemIndexNum;
+	bool _test;
 
 /////////////////////////</Inventory>///////////////////////////
 
@@ -83,6 +78,10 @@ private:
 	tagQuickSlot _quickSlotSelect;						//퀵슬롯선택 사각형
 
 /////////////////////////</QuickSlot>///////////////////////////
+
+	bool _quickSlotUp;
+
+	int _quickSlotSelectYUP;
 
 public:
 	Inventory()  {};
@@ -97,10 +96,13 @@ public:
 	void PlayerLootItem(ToolItem* item);
 	
 	vector<RECT>	 GetVInvenIndexRC() { return _vInvenIndexRC; }
-	vector<tagInventory> GetInventory() { return _vAllInventory; }
 	vector<ToolItem*> GetInven() { return _toolInven; }
-	void SetInven(vector<ToolItem*> inven) {_toolInven = inven; }
 	ToolItem* GetInvenItem(int index) { return _toolInven[index]; }
 
+	
+	virtual void setPlayerBuyItme(ToolItem* buyItme);
+
 	void SetMemoryLinkedTool(ToolItemManager* tool) { _toolItemManager = tool; }
+	void SetStoreLink(Store* store) { _store = store; }
+	void setPlayer(Player* pp) { _player = pp; }
 };

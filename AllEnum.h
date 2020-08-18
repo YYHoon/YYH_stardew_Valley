@@ -58,7 +58,8 @@ enum class MAPOBJECT
 	BRANCH,			//나뭇가지
 	WALL,			//벽
 	BUILDING,		//건물
-	ENEMY,			//에너미
+	BED,
+	//ENEMY,			//에너미
 	NONE
 };
 //--------------------------------------------------------------
@@ -112,5 +113,29 @@ enum class PLAYER_ACTION
 	PLANTING,	//심기	(소모품 : 씨앗 || 가구 || 솔방울) 터레인 상호작용;  상호작용할 터레인 씨앗 && 작물 지지대 : 개간된땅; 가구 : 마루바닷, 솔방울 : 사유지내의 터레인
 	FISHING,	//낚시질	(도구 : 낚싯대)
 	SWING,		//휘두르기 (도구 : 낫, 검) 오브젝트 상호작용; 상호작용할 오브젝트 : 잡초, 잔디; 범위 : 휘두르는 방향 3칸;
+	END
+};
+
+enum class FISHING
+{
+	FIRST,			//0.낚시 초기화
+	CHARGE,			//1.낚시 기모으기
+	SHOT,			//2.찌던지기
+	WAIT,			//3.물고기낚일떄까지 기다리기
+	MINiGAMEON,		//4.물고기 입질왔을때
+	DOINGMINIGAME,	//5.낚시 게임도중
+	MISS,			//6.물고기 놓쳤을때
+	SUCCESS,		//7.물고기 잡는데 성공했을때
+	NONE			//8.혹시 모를 아무상태도 아닐때
+};
+
+enum class ATTRIBUTE
+{
+	NONE,
+	START,
+	WALL,
+	PLAYER,
+	ENEMY,
+	NPC,
 	END
 };

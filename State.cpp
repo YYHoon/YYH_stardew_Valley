@@ -6,7 +6,7 @@
 State::State(Player* pPlayer) :
 	_player(pPlayer)
 {
-	
+
 }
 
 PlayerIdle::PlayerIdle(Player* pPlayer) : State(pPlayer) {}
@@ -213,8 +213,6 @@ void PlayerMove::Init()
 	_player->SetImg("player");
 	_tagName = "move";
 	_name = "none_Move";
-	_player->SetVelocity(10.f);
-
 
 	int RightMove[] = { 1,2,3,4,5 };
 	KEYANIMANAGER->addArrayFrameAnimation("right_Move_Player", "player", RightMove, 5, 10, true);
@@ -254,44 +252,38 @@ void PlayerMove::Update()
 
 	if (KEYMANAGER->isStayKeyDown('W'))
 	{
-		if (_player->GetDirection() != PLAYER_DIRECTION::UP)
+		if (KEYMANAGER->isStayKeyDown('D'))
 		{
-			if (KEYMANAGER->isStayKeyDown('D'))
-			{
-				_player->SetAnim("up_Move_Player");
-				_player->SetDirection(PLAYER_DIRECTION::UP_RIGHT);
-			}
-			else if (KEYMANAGER->isStayKeyDown('A'))
-			{
-				_player->SetAnim("up_Move_Player");
-				_player->SetDirection(PLAYER_DIRECTION::UP_LEFT);
-			}
-			else
-			{
-				_player->SetAnim("up_Move_Player");
-				_player->SetDirection(PLAYER_DIRECTION::UP);
-			}
+			_player->SetAnim("up_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::UP_RIGHT);
+		}
+		else if (KEYMANAGER->isStayKeyDown('A'))
+		{
+			_player->SetAnim("up_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::UP_LEFT);
+		}
+		else
+		{
+			_player->SetAnim("up_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::UP);
 		}
 	}
 	else if (KEYMANAGER->isStayKeyDown('D'))
 	{
-		if (_player->GetDirection() != PLAYER_DIRECTION::RIGHT)
+		if (KEYMANAGER->isStayKeyDown('W'))
 		{
-			if (KEYMANAGER->isStayKeyDown('W'))
-			{
-				_player->SetAnim("right_Move_Player");
-				_player->SetDirection(PLAYER_DIRECTION::UP_RIGHT);
-			}
-			else if (KEYMANAGER->isStayKeyDown('S'))
-			{
-				_player->SetAnim("right_Move_Player");
-				_player->SetDirection(PLAYER_DIRECTION::DOWN_RIGHT);
-			}
-			else
-			{
-				_player->SetAnim("right_Move_Player");
-				_player->SetDirection(PLAYER_DIRECTION::RIGHT);
-			}
+			_player->SetAnim("right_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::UP_RIGHT);
+		}
+		else if (KEYMANAGER->isStayKeyDown('S'))
+		{
+			_player->SetAnim("right_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::DOWN_RIGHT);
+		}
+		else
+		{
+			_player->SetAnim("right_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::RIGHT);
 		}
 	}
 	else if (KEYMANAGER->isStayKeyDown('A'))
@@ -584,6 +576,9 @@ void PlayerFelling::Update()
 
 void PlayerFelling::Release()
 {
+	cout << _player->GetHp() << endl;
+	_player->SetDecreaseStamina(2);
+	_player->SetDecreaseHp(2);
 }
 
 PlayerPlowing::PlayerPlowing(Player* pPlayer) : State(pPlayer) {}
@@ -769,10 +764,76 @@ PlayerFishing::PlayerFishing(Player* pPlayer) : State(pPlayer) {}
 
 void PlayerFishing::Init()
 {
+	_tagName = "acting";
+	_name = "swing";
+
+	int downSickleSwing[] = { 65,66,67,68,69,70 };
+	KEYANIMANAGER->addArrayFrameAnimation("down_SickleSwing_Player", "player", downSickleSwing, 6, 10, false);
+	int rightSickleSwing[] = { 72,73,74,75,76,77 };
+	KEYANIMANAGER->addArrayFrameAnimation("right_SickleSwing_Player", "player", rightSickleSwing, 6, 10, false);
+	int lefSickleSwing[] = { 78,79,80,81,82 };
+	KEYANIMANAGER->addArrayFrameAnimation("left_SickleSwing_Player", "player", lefSickleSwing, 5, 10, false);
+	int upSickleSwing[] = { 84,85,86,87,88,89 };
+	KEYANIMANAGER->addArrayFrameAnimation("up_SickleSwing_Player", "player", upSickleSwing, 6, 10, false);
+	//142
+	int downAttack[] = { 143,144,145,146,147,148, 149 };
+	KEYANIMANAGER->addArrayFrameAnimation("down_SwordSwing_Player", "player", downAttack, 7, 10, false);
+	int rightAttack[] = { 150,151,152,153,154,155 };
+	KEYANIMANAGER->addArrayFrameAnimation("right_SwordSwing_Player", "player", rightAttack, 6, 10, false);
+	int leftAttack[] = { 156,157,158,159,160,161 };
+	KEYANIMANAGER->addArrayFrameAnimation("left_SwordSwing_Player", "player", leftAttack, 6, 10, false);
+	int upAttack[] = { 162,163,164 };
+	KEYANIMANAGER->addArrayFrameAnimation("up_SwordSwing_Player", "player", upAttack, 3, 10, false);
+
+	if (_player->GetEquip() == TOOLS::SICKLE)
+	{
+
+		switch (_player->GetDirection())
+		{
+		case PLAYER_DIRECTION::UP:
+			_player->SetAnim("up_SickleSwing_Player");
+			break;
+		case PLAYER_DIRECTION::DOWN:
+			_player->SetAnim("down_SickleSwing_Player");
+			break;
+		case PLAYER_DIRECTION::RIGHT:
+			_player->SetAnim("right_SickleSwing_Player");
+			break;
+		case PLAYER_DIRECTION::LEFT:
+			_player->SetAnim("left_SickleSwing_Player");
+			break;
+		default:
+			break;
+		}
+	}
+	else if (_player->GetEquip() == TOOLS::SWORD)
+	{
+		switch (_player->GetDirection())
+		{
+		case PLAYER_DIRECTION::UP:
+			_player->SetAnim("up_SwordSwing_Player");
+			break;
+		case PLAYER_DIRECTION::DOWN:
+			_player->SetAnim("down_SwordSwing_Player");
+			break;
+		case PLAYER_DIRECTION::RIGHT:
+			_player->SetAnim("right_SwordSwing_Player");
+			break;
+		case PLAYER_DIRECTION::LEFT:
+			_player->SetAnim("left_SwordSwing_Player");
+			break;
+		default:
+			break;
+		}
+	}
+
+	if (!_player->GetInfo().anim->isPlay())_player->GetInfo().anim->start();
 }
 
 void PlayerFishing::Update()
 {
+	if (_player->GetInfo().stamina <= 0)return;
+	if (!_player->GetInfo().anim->isPlay())_player->ChangeState(make_shared<PlayerIdle>(_player));
 }
 
 void PlayerFishing::Release()

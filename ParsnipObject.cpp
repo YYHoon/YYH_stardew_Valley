@@ -5,7 +5,6 @@
 
 void ParsnipObject::Init()
 {
-	IMAGEMANAGER->addFrameImage("parsnipObject", "image/plants/ParsnipFrame.bmp", 320, 64, 5, 1, true, RGB(255, 0, 255));
 	_name = "parsnipObject";
 	_img = IMAGEMANAGER->findImage("parsnipObject");
 	_size = Vector2(_img->getFrameWidth(), _img->getFrameHeight());
@@ -24,7 +23,7 @@ void ParsnipObject::Release()
 
 void ParsnipObject::Update()
 {
-
+	_img = IMAGEMANAGER->findImage("parsnipObject");
 	switch (_growCount)
 	{
 	case 0:

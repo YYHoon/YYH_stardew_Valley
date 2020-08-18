@@ -13,12 +13,27 @@ void Sword::Init()
 
 void Sword::Action()
 {
-	if (_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::ENEMY)
+	//if (_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::ENEMY)
+	//	_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
+	//if (_map->GetTiles(_tileIndex[1]).object == MAPOBJECT::ENEMY)
+	//	_map->SetMapObject(_tileIndex[1], MAPOBJECT::NONE);
+	//if (_map->GetTiles(_tileIndex[2]).object == MAPOBJECT::ENEMY)
+	//	_map->SetMapObject(_tileIndex[2], MAPOBJECT::NONE);
+	if (_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::WEED)
+	{
 		_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
-	if (_map->GetTiles(_tileIndex[1]).object == MAPOBJECT::ENEMY)
+		_map->SetColl(_tileIndex[0], false);
+	}
+	if (_map->GetTiles(_tileIndex[1]).object == MAPOBJECT::WEED)
+	{
 		_map->SetMapObject(_tileIndex[1], MAPOBJECT::NONE);
-	if (_map->GetTiles(_tileIndex[2]).object == MAPOBJECT::ENEMY)
+		_map->SetColl(_tileIndex[1], false);
+	}
+	if (_map->GetTiles(_tileIndex[2]).object == MAPOBJECT::WEED)
+	{
 		_map->SetMapObject(_tileIndex[2], MAPOBJECT::NONE);
+		_map->SetColl(_tileIndex[2], false);
+	}
 }
 
 void Sword::ReAction()

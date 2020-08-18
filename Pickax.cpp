@@ -26,13 +26,18 @@ void Pickax::Action()
 		_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
 		_map->SetColl(_tileIndex[0], false);
 	}
-
+	if (_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::WEED)
+	{
+		_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
+		_map->SetColl(_tileIndex[0], false);
+	}
 	//경작지 없앨때
 	if (_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::HOETILE||
 		_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::HOETILE_WET)
 	{
 		_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
 		_map->SetColl(_tileIndex[0], false);
+		_map->SetWet(_tileIndex[0], false);
 	}
 }
 

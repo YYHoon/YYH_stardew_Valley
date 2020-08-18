@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include "HpStaminaBar.h"
+#include "Player.h"
 
 HRESULT HpStaminaBar::init()
 {
-	_pl = new Player;
-	_pl->init();
 
 //---------------------------------------스테미나----------------------------------------//
 
@@ -86,9 +85,8 @@ void HpStaminaBar::staminaBarRender()
 
 	if (PtInRect(&_StaminaBar.frontBarRc, _ptMouse))
 	{		
-		TextOut(getMemDC(), _ptMouse.x + 25, _ptMouse.y+25, TT, strlen(TT));
+		TextOut(getMemDC(), _ptMouse.x - 30, _ptMouse.y+30, TT, strlen(TT));
 	}
-
 }
 
 void HpStaminaBar::hpBarRender()
@@ -105,9 +103,8 @@ void HpStaminaBar::hpBarRender()
 
 	if (PtInRect(&_HpBar.frontBarRc, _ptMouse))
 	{
-		TextOut(getMemDC(), _ptMouse.x + 25, _ptMouse.y + 25, TT, strlen(TT));
+		TextOut(getMemDC(), _ptMouse.x - 30, _ptMouse.y + 30, TT, strlen(TT));
 	}
-
 }
 
 void HpStaminaBar::setPlayerHP(int hp)

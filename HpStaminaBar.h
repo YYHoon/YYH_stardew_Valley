@@ -1,6 +1,8 @@
 #pragma once
 #include "gameNode.h"
-#include "Player.h"
+
+
+class Player;
 
 class HpStaminaBar : public gameNode
 {
@@ -39,7 +41,8 @@ public:
 	void update();
 	void staminaBarRender();
 	void hpBarRender();
-
+	
+	void setPlayerLink(Player* pp) { _pl = pp; }
 	void setPlayerHP(int hp);
 	void setPlayerStamina(int stamina);
 };

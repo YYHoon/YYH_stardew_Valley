@@ -3,16 +3,16 @@
 
 void PotatoObject::Init()
 {
-	IMAGEMANAGER->addFrameImage("potatoObject", "image/plants/PotatoFrame.bmp", 384, 64, 6, 1, true, RGB(255, 0, 255));
 	_name = "potatoObject";
 	_img = IMAGEMANAGER->findImage("potatoObject");
 	_size = Vector2(_img->getFrameWidth(), _img->getFrameHeight());
 	_position = Vector2(0, 0);
-	_rect.centerSet(_position.x, _position.y, _size.x, _size.y);
+	_rect.centerSet(_position.x, _position.y, TILESIZE, TILESIZE);
 	_active = true;
 	_isCanHarvest = false;
 	_isWet = false;
 	_growCount = 0;
+	ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, _img, _position.x, _position.y, _img->getFrameX(), _img->getFrameY(), _rc.bottom);
 }
 
 void PotatoObject::Release()
@@ -21,7 +21,7 @@ void PotatoObject::Release()
 
 void PotatoObject::Update()
 {
-	
+	_img = IMAGEMANAGER->findImage("potatoObject");
 	switch (_growCount)
 	{
 	case 0:
@@ -51,5 +51,5 @@ void PotatoObject::Update()
 		break;
 	}
 	if (_img->getFrameX() >= 5)_isCanHarvest = true;
-	ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, _img, _position.x, _position.y, _img->getFrameX(), _img->getFrameY(), _rc.bottom);
+	ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, _img, _position.x - 30, _position.y - 45, _img->getFrameX(), _img->getFrameY(), _rc.bottom);
 }

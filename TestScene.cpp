@@ -16,7 +16,6 @@ HRESULT TestScene::init()
 
 
 	_store = new Store;
-	_store->init();
 
 
 	_Bar = new HpStaminaBar;
