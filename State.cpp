@@ -6,7 +6,7 @@
 State::State(Player* pPlayer) :
 	_player(pPlayer)
 {
-	
+
 }
 
 PlayerIdle::PlayerIdle(Player* pPlayer) : State(pPlayer) {}
@@ -252,44 +252,38 @@ void PlayerMove::Update()
 
 	if (KEYMANAGER->isStayKeyDown('W'))
 	{
-		if (_player->GetDirection() != PLAYER_DIRECTION::UP)
+		if (KEYMANAGER->isStayKeyDown('D'))
 		{
-			if (KEYMANAGER->isStayKeyDown('D'))
-			{
-				_player->SetAnim("up_Move_Player");
-				_player->SetDirection(PLAYER_DIRECTION::UP_RIGHT);
-			}
-			else if (KEYMANAGER->isStayKeyDown('A'))
-			{
-				_player->SetAnim("up_Move_Player");
-				_player->SetDirection(PLAYER_DIRECTION::UP_LEFT);
-			}
-			else
-			{
-				_player->SetAnim("up_Move_Player");
-				_player->SetDirection(PLAYER_DIRECTION::UP);
-			}
+			_player->SetAnim("up_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::UP_RIGHT);
+		}
+		else if (KEYMANAGER->isStayKeyDown('A'))
+		{
+			_player->SetAnim("up_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::UP_LEFT);
+		}
+		else
+		{
+			_player->SetAnim("up_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::UP);
 		}
 	}
 	else if (KEYMANAGER->isStayKeyDown('D'))
 	{
-		if (_player->GetDirection() != PLAYER_DIRECTION::RIGHT)
+		if (KEYMANAGER->isStayKeyDown('W'))
 		{
-			if (KEYMANAGER->isStayKeyDown('W'))
-			{
-				_player->SetAnim("right_Move_Player");
-				_player->SetDirection(PLAYER_DIRECTION::UP_RIGHT);
-			}
-			else if (KEYMANAGER->isStayKeyDown('S'))
-			{
-				_player->SetAnim("right_Move_Player");
-				_player->SetDirection(PLAYER_DIRECTION::DOWN_RIGHT);
-			}
-			else
-			{
-				_player->SetAnim("right_Move_Player");
-				_player->SetDirection(PLAYER_DIRECTION::RIGHT);
-			}
+			_player->SetAnim("right_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::UP_RIGHT);
+		}
+		else if (KEYMANAGER->isStayKeyDown('S'))
+		{
+			_player->SetAnim("right_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::DOWN_RIGHT);
+		}
+		else
+		{
+			_player->SetAnim("right_Move_Player");
+			_player->SetDirection(PLAYER_DIRECTION::RIGHT);
 		}
 	}
 	else if (KEYMANAGER->isStayKeyDown('A'))

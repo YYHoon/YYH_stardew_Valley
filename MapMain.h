@@ -38,6 +38,7 @@ public:
 	virtual void SetColl(int index, bool Coll) { _tiles[index].collision = Coll; }
 	virtual void SetWet(int index, bool Coll) { _tiles[index].wet = Coll; }
 	virtual void SetHp(int index, int Hp) { _tiles[index].hp += Hp; }
+	virtual void SetAutoIndex(int index, int Auto) { _tiles[index].autoIndex = Auto; }
 	virtual void SetPlayerAdressLink(Player* player) { _player = player; }
 	virtual int GetMapSize() { return _tiles.size(); }
 };

@@ -29,19 +29,19 @@ HRESULT Player::init()
 	_isPrev = false;
 
 	_inven = new Inventory;
-
+	_inven->SetMemoryLinkedTool(_tool);
+	_inven->init();
 
 	_tool = new ToolItemManager;
+	_tool->SetNowTileMapMemoyrAddressLink(_Map);
+	_tool->Init();
 	_gauge = new HpStaminaBar;
 	
 	_gauge->setPlayerLink(this);
 	_gauge->init();
-	_tool->SetNowTileMapMemoyrAddressLink(_Map);
-	_tool->Init();
-	_inven->SetMemoryLinkedTool(_tool);
-	_inven->init();
+	
+	
 	_inven->setPlayer(this);
-	_inven->init();
 	_info.haveItem = _inven->GetInvenItem(0);
 
 	
@@ -52,7 +52,7 @@ HRESULT Player::init()
 void Player::update()
 {
 	//cout << "¿©±â" << endl;
-
+	cout << _info.haveItem->GetName() << endl;
 
 	if (KEYMANAGER->isOnceKeyDown('1')) 
 	{
