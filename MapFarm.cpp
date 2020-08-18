@@ -42,6 +42,7 @@ void MapFarm::update()
 	_pm->Update();
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
 	CAMERAMANAGER->setY(_player->GetInfo().position.y);
+	ENVIRONMENT->update();
 }
 
 void MapFarm::render()
@@ -409,4 +410,5 @@ void MapFarm::render()
 	}
 	ZORDER->ZOrderRender();
 	_player->render();
+	ENVIRONMENT->render(getMemDC());
 }

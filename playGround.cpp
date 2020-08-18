@@ -52,7 +52,7 @@ void playGround::update()
 	OBJECTMANAGER->Update();
 	KEYANIMANAGER->update();
 
-	ENVIRONMENT->update();
+	
 
 	//if (!test->GetNowFishing())
 	//{
@@ -74,7 +74,7 @@ void playGround::render()
 
 	SCENEMANAGER->render();
 
-	ENVIRONMENT->render(getMemDC());
+
 
 	/////////////////////////////////
 	TIMEMANAGER->render(getMemDC());
