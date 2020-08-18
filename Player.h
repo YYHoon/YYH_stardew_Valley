@@ -7,6 +7,7 @@
 class HpStaminaBar;
 class State;
 class MapMain;
+class HpStaminaBar;
 
 class Player : public gameNode
 {

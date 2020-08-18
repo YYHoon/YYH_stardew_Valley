@@ -4,6 +4,7 @@
 #include "AllMap.h"
 #include "HpStaminaBar.h"
 
+
 HRESULT Player::init()
 {
 	IMAGEMANAGER->addImage("playerShadow", "image/PlayerShadow.bmp", 60, 60, true, RGB(255, 0, 255));
@@ -29,6 +30,12 @@ HRESULT Player::init()
 	_isPrev = false;
 
 	_inven = new Inventory;
+	_inven->setPlayer(this);
+
+	_gauge = new HpStaminaBar;
+	_gauge->setPlayerLink(this);
+	_gauge->init();
+
 	_tool = new ToolItemManager;
 	_gauge = new HpStaminaBar;
 	
@@ -141,10 +148,17 @@ void Player::update()
 	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
 	ZORDER->ZOrderPush(getMemDC(), RenderType::KEYANIRENDER, _info.img ,_info.collision.left, _info.collision.top, _info.anim, _info.shadowCollision.bottom);
+	
+	_gauge->update();
 }
 
 void Player::render()
 {
+	CAMERAMANAGER->rectangle(getMemDC(), _info.shadowCollision);
+	/*_info.shadowImg->render(getMemDC(), _info.shadowCollision.left, _info.shadowCollision.top);
+	_info.img->aniRender(getMemDC(), _info.collision.left, _info.collision.top, _info.anim);*/
+	_gauge->hpBarRender();
+	_gauge->staminaBarRender();
 	_inven->render();
 	_gauge->hpBarRender();
 	_gauge->staminaBarRender();
@@ -214,6 +228,7 @@ void Player::CheckTiles()
 	_playerTileY = _info.position.y / 64;
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() == "idle")
 	{
+		//POINT _CameraMouse = PointMake(_ptMouse.x + CAMERAMANAGER->getL(), _ptMouse.y + CAMERAMANAGER->getT()); 마우스 카메라 위치
 		_mousePt.x = _ptMouse.x + CAMERAMANAGER->getL();
 		_mousePt.y = _ptMouse.y + CAMERAMANAGER->getT();
 
