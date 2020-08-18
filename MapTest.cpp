@@ -22,10 +22,6 @@ HRESULT MapTest::init()
 	_player->GetPlayerInver()->SetStoreLink(_store);
 	_player->GetPlayerInver()->setPlayer(_player);
 
-	_HpStaminaBar = new HpStaminaBar;
-	_HpStaminaBar->setPlayerLink(_player);
-	_HpStaminaBar->init();
-
 
 	_pm = new PlantsManager;
 	_pm->SetMapMemoryAddressLinked(this);
@@ -92,7 +88,6 @@ void MapTest::update()
 	}*/
 
 	_store->update();
-	_HpStaminaBar->update();
 }
 
 void MapTest::render()
@@ -182,8 +177,6 @@ void MapTest::render()
 	{
 		_store->OpenStoreRender();
 	}
-	_HpStaminaBar->staminaBarRender();
-	_HpStaminaBar->hpBarRender();
 	_player->render();
 	_environment->render();
 	//_astar->render();

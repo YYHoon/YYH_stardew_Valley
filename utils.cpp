@@ -28,4 +28,5 @@ namespace TTYONE_UTIL
 
 		return angle;
 	}
+	
 }

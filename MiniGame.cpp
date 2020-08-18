@@ -40,39 +40,56 @@ void MiniGame::Render()
 	case FISHING::FIRST:
 		break;
 	case FISHING::CHARGE:
-		CAMERAMANAGER->rectangle(getMemDC(), _chageBackBox);
-		CAMERAMANAGER->rectangle(getMemDC(), _chageFrontBox);
+		_chageBackBox.render(getMemDC());
+		_chageFrontBox.render(getMemDC());
+		
+		//CAMERAMANAGER->rectangle(getMemDC(), _chageBackBox);
+		//CAMERAMANAGER->rectangle(getMemDC(), _chageFrontBox);
 		break;
 	case FISHING::SHOT:
 		if (_power > 90)
 		{
-			CAMERAMANAGER->alpharender(getMemDC(), _maximg, _playerCenter.x - 50, _playerCenter.y - 100, _maximgAlpha);
+			_maximg->alphaRender(getMemDC(), _playerCenter.x + 500, _playerCenter.y + 500, _maximgAlpha);
+			//CAMERAMANAGER->alpharender(getMemDC(), _maximg, _playerCenter.x - 50, _playerCenter.y - 100, _maximgAlpha);
 		}
 		break;
 	case FISHING::WAIT:
 		break;
 	case FISHING::MINiGAMEON:
-		CAMERAMANAGER->render(getMemDC(), _hitimg, _playerCenter.x - 50, _playerCenter.y - 100);
-		
-		CAMERAMANAGER->render(getMemDC(), _backimg, _fishingUI.x, _fishingUI.y);
-		CAMERAMANAGER->render(getMemDC(), _minigameimg, _minigame.x, _minigame.y);
-		CAMERAMANAGER->render(getMemDC(), _barimg, _bar.x, _bar.y);
+		_hitimg->render(getMemDC(), _playerCenter.x - 50, _playerCenter.y - 100);
 
-		if (_rareFish)CAMERAMANAGER->render(getMemDC(),_rareFishimg, _fishingHitBox.x, _fishingHitBox.y);
-		else CAMERAMANAGER->render(getMemDC(), _fishimg, _fishingHitBox.x, _fishingHitBox.y);
+		_backimg->render(getMemDC(),_fishingUI.x, _fishingUI.y);
+		_minigameimg->render(getMemDC(),_minigame.x, _minigame.y);
+		_barimg->render(getMemDC(), _bar.x, _bar.y);
+		//render(getMemDC(), _hitimg, _playerCenter.x - 50, _playerCenter.y - 100);
+		//
+		//render(getMemDC(), _backimg, _fishingUI.x, _fishingUI.y);
+		//render(getMemDC(), _minigameimg, _minigame.x, _minigame.y);
+		//render(getMemDC(), _barimg, _bar.x, _bar.y);
+
+		if (_rareFish)_rareFishimg->render(getMemDC(), _fishingHitBox.x, _fishingHitBox.y); 
+		else _fishimg->render(getMemDC(), _fishingHitBox.x, _fishingHitBox.y);
 		
-		CAMERAMANAGER->rectangle(getMemDC(), _gaugeimg);
+		_gaugeimg.render(getMemDC());
+		//CAMERAMANAGER->rectangle(getMemDC(), _gaugeimg);
 		break;
 	case FISHING::DOINGMINIGAME:
+		
+		_hitcount++;
+		if(_hitcount<30)_hitimg->render(getMemDC(), _playerCenter.x - 50, _playerCenter.y - 100);
 
-		CAMERAMANAGER->render(getMemDC(), _backimg, _fishingUI.x, _fishingUI.y);
-		CAMERAMANAGER->render(getMemDC(), _minigameimg, _minigame.x, _minigame.y);
-		CAMERAMANAGER->render(getMemDC(), _barimg, _bar.x, _bar.y);
+		_backimg->render(getMemDC(), _fishingUI.x, _fishingUI.y);
+		_minigameimg->render(getMemDC(), _minigame.x, _minigame.y);
+		_barimg->render(getMemDC(), _bar.x, _bar.y);
+	//CAMERAMANAGER->render(getMemDC(), _backimg, _fishingUI.x, _fishingUI.y);
+	//CAMERAMANAGER->render(getMemDC(), _minigameimg, _minigame.x, _minigame.y);
+	//CAMERAMANAGER->render(getMemDC(), _barimg, _bar.x, _bar.y);
 
-		if (_rareFish)CAMERAMANAGER->render(getMemDC(), _rareFishimg, _fishingHitBox.x, _fishingHitBox.y);
-		else CAMERAMANAGER->render(getMemDC(), _fishimg, _fishingHitBox.x, _fishingHitBox.y);
+		if (_rareFish)_rareFishimg->render(getMemDC(), _fishingHitBox.x, _fishingHitBox.y);
+		else _fishimg->render(getMemDC(), _fishingHitBox.x, _fishingHitBox.y);
 
-		CAMERAMANAGER->rectangle(getMemDC(), _gaugeimg);
+		_gaugeimg.render(getMemDC());
+		//CAMERAMANAGER->rectangle(getMemDC(), _gaugeimg);
 		break;
 	case FISHING::MISS:
 		break;
@@ -93,6 +110,8 @@ void MiniGame::Init(Vector2 center, PLAYER_DIRECTION dir)
 
 	_gauge.x = 0;					//낚시 물고기 얼마나잡아가는지 게이지
 	_gauge.y = 0;					
+
+	_hitcount = 0;
 
 	_fishingUI.x = 0;				//낚시중의 UI
 	_fishingUI.y = 0;
@@ -117,8 +136,8 @@ void MiniGame::Init(Vector2 center, PLAYER_DIRECTION dir)
 	_fishfloat.x = _playerCenter.x;	//낚시 찌가 표기될 좌표
 	_fishfloat.y = _playerCenter.y - 50;
 
-	_chageBackBox.set(_playerCenter.x - 50, _playerCenter.y,
-		_playerCenter.x + 50, _playerCenter.y + 30);
+	_chageBackBox.set(_playerCenter.x + 400, _playerCenter.y+270,
+		_playerCenter.x + 500, _playerCenter.y + 300);
 	_chageFrontBox.set(_chageBackBox.left + 1, _chageBackBox.top + 1,
 		_chageBackBox.left + 1, _chageBackBox.bottom - 1);
 					//낚시 시작초기화 했으니 차지게이지 렉트 생성
@@ -228,10 +247,12 @@ void MiniGame::Wait()
 
 			if (_missCount < 500 && KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
+				_missCount = 0;
 				_fishingState = FISHING::MINiGAMEON;
 			}
 			else if (_missCount > 500 && KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
+				_missCount = 0;
 				_fishingState = FISHING::MISS;
 			}
 		}

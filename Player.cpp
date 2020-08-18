@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "State.h"
 #include "AllMap.h"
-
+#include "HpStaminaBar.h"
 
 HRESULT Player::init()
 {
@@ -11,7 +11,7 @@ HRESULT Player::init()
 	_info.name = "Dos";
 	_info.shadowImg = IMAGEMANAGER->findImage("playerShadow");
 	_info.position = Vector2(10, 10);
-	_info.direction = PLAYER_DIRECTION::UP;
+	_info.direction = PLAYER_DIRECTION::DOWN;
 	_info.equipment = TOOLS::NONE;
 	_state = make_shared<PlayerIdle>(this);
 	_state->Init();
@@ -24,18 +24,21 @@ HRESULT Player::init()
 	_info.HP = 100;
 	_info.stamina = 100;
 	_info.money = 500;
-	_info.velocity = 10.0f;
+	_info.velocity = 5.0f;
 	_isNext = false;
 	_isPrev = false;
 
 	_inven = new Inventory;
-
-
 	_tool = new ToolItemManager;
+	_gauge = new HpStaminaBar;
+	
+	_gauge->setPlayerLink(this);
+	_gauge->init();
 	_tool->GetNowTileMapMemoyrAddressLink(_Map);
 	_tool->Init();
-
 	_inven->SetMemoryLinkedTool(_tool);
+	_inven->init();
+	_inven->setPlayer(this);
 	_inven->init();
 	_info.haveItem = _inven->GetInvenItem(0);
 
@@ -53,7 +56,6 @@ void Player::update()
 	{
 		_info.haveItem = _inven->GetInvenItem(0);
 		ChangeEquipment(_info.haveItem->GetToolEnum());
-		_Map->GetPM()->Planting(4, "parsnipObject");
 	}
 	else if (KEYMANAGER->isOnceKeyDown('2'))
 	{
@@ -114,27 +116,39 @@ void Player::update()
 	CheckTiles();
 
 	_inven->update();
+	_gauge->update();
 	if (_info.haveItem != nullptr &&
 		_info.haveItem->GetToolEnum() != TOOLS::NONE &&
 		KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() != "acting")
 	{
-		_tool->SetImpactIndex(_info.haveItem->GetName(),_actTileIndex[0]);
-		_tool->Action(_info.haveItem->GetName());
+		if (_info.haveItem->GetName() == "FishingRod")
+		{
+			_tool->GetFishingInfo(_info.position, _info.direction);
+
+		}
+		else
+		{
+			_tool->SetImpactIndex(_info.haveItem->GetName(), _actTileIndex[0]);
+			_tool->Action(_info.haveItem->GetName());
+		}
+	}
+	if (_info.haveItem->GetName() == "FishingRod")
+	{
+		_tool->Action("FishingRod");
 	}
 	_inven->PlayerLootItem(_getItem);
 	_state->Update();
 	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
 	ZORDER->ZOrderPush(getMemDC(), RenderType::KEYANIRENDER, _info.img ,_info.collision.left, _info.collision.top, _info.anim, _info.shadowCollision.bottom);
-
 }
 
 void Player::render()
 {
-	CAMERAMANAGER->rectangle(getMemDC(), _info.shadowCollision);
-	/*_info.shadowImg->render(getMemDC(), _info.shadowCollision.left, _info.shadowCollision.top);
-	_info.img->aniRender(getMemDC(), _info.collision.left, _info.collision.top, _info.anim);*/
 	_inven->render();
+	_gauge->hpBarRender();
+	_gauge->staminaBarRender();
+	_tool->Render("FishingRod");
 }
 
 void Player::release()
@@ -200,8 +214,8 @@ void Player::CheckTiles()
 	_playerTileY = _info.position.y / 64;
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() == "idle")
 	{
-		_mousePt.x = _ptMouse.x;
-		_mousePt.y = _ptMouse.y;
+		_mousePt.x = _ptMouse.x + CAMERAMANAGER->getL();
+		_mousePt.y = _ptMouse.y + CAMERAMANAGER->getT();
 
 		int playerTile = _playerTileX + _playerTileY * _Map->GetHorizon();
 		Vector2 playerTileCenter = Vector2((_Map->GetTiles(playerTile).rc.right + _Map->GetTiles(playerTile).rc.left) * 0.5, (_Map->GetTiles(playerTile).rc.bottom + _Map->GetTiles(playerTile).rc.top) * 0.5);

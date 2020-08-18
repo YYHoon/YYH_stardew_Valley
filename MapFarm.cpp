@@ -7,10 +7,11 @@ HRESULT MapFarm::init()
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
 	_player->SetPosition(Vector2(500, 500));
-
+		
 	_count = 0;
 	_vertical = _horizon = 50;
-	_tiles = _map->Load("mapFarm.map", _vertical, _horizon);
+	_tiles = _map->Load("map.map", _vertical, _horizon);
+
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
 
@@ -22,11 +23,11 @@ void MapFarm::release()
 }
 
 void MapFarm::update()
-{/*
+{
 	if (_player->GetIsNext())
 	{
 		SCENEMANAGER->changeScene("HOME");
-	}*/
+	}
 	_count++;
 	_player->update();
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
@@ -94,7 +95,8 @@ void MapFarm::render()
 			if (_tiles[index].object == MAPOBJECT::ROCK ||
 				_tiles[index].object == MAPOBJECT::WEED ||
 				_tiles[index].object == MAPOBJECT::BRANCH ||
-				_tiles[index].object == MAPOBJECT::HOETILE)
+				_tiles[index].object == MAPOBJECT::HOETILE ||
+				_tiles[index].object == MAPOBJECT::HOETILE_WET)
 			{
 				CAMERAMANAGER->frameRender(getMemDC(), IMAGEMANAGER->findImage("HoeTile"),
 					_tiles[index].rc.left, _tiles[index].rc.top,

@@ -6,11 +6,14 @@ HRESULT MapHome::init()
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
-	_player->SetPosition(Vector2(500, 500));
+	_player->SetPosition(Vector2(1240, 760));
 
 	_count = 0;
 	_vertical = _horizon = 30;
 	_tiles = _map->Load("mapHome.map", _vertical, _horizon);	
+
+	_player->GetPlayerInver()->setPlayer(_player);
+
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
 	return S_OK;
 }

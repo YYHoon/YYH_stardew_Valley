@@ -59,7 +59,7 @@ enum class MAPOBJECT
 	WALL,			//벽
 	BUILDING,		//건물
 	BED,
-	ENEMY,			//에너미
+	//ENEMY,			//에너미
 	NONE
 };
 //--------------------------------------------------------------
