@@ -78,5 +78,6 @@ public:
 	
 	inline void SetNowTileMapMemoyrAddressLink(MapMain* scene) { _nowTileMap = scene; }
 	inline MapMain* GetNowTileMapMemoryAddressLink() { return _nowTileMap; }
+	bool GetNowFishing();
 };
 

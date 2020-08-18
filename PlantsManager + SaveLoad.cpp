@@ -14,21 +14,21 @@ void PlantsManager::Save()
 	HANDLE file;
 	DWORD write;
 
-	file = CreateFile("FarmPlants.map", GENERIC_WRITE, NULL, NULL,
+	file = CreateFile(("FarmPlants.map"), GENERIC_WRITE, NULL, NULL,
 		CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
 	WriteFile(file, saveTile, sizeof(Plants) * size, &write, NULL);
 	CloseHandle(file);
 }
 
-void PlantsManager::Load()
+vector<Plants*> PlantsManager::Load()
 {
 	LoadSize();
 	Plants* saveTile = new Plants[size + 1];
 	HANDLE file;
 	DWORD read;
 	vector<Plants*> tmp;
-	file = CreateFile("FarmPlants.map", GENERIC_READ, NULL, NULL,
+	file = CreateFile(("FarmPlants.map"), GENERIC_READ, NULL, NULL,
 		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
 	ReadFile(file, saveTile, sizeof(Plants) * size, &read, NULL);
@@ -37,9 +37,11 @@ void PlantsManager::Load()
 	{
 		Plants* temp = new Plants;
 		temp = &saveTile[i];
+		temp->SetImgToString(temp->GetName());
 		tmp.push_back(temp);
 		cout << temp->GetName() << endl;
 	}
+	return tmp;
 }
 
 void PlantsManager::SaveSize()

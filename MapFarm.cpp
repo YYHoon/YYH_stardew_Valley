@@ -10,6 +10,12 @@ HRESULT MapFarm::init()
 	_player->init();
 	_player->SetPosition(Vector2(500, 500));
 		
+	_pm = new PlantsManager;
+    /////////////////////////////////
+	//_pm->SetPlantsList( _pm->Load()); < -- 이건 악마새끼인게 틀림없음
+	//////////////////////////////////
+	_pm->Init();
+	_pm->SetMapMemoryAddressLinked(this);
 	_count = 0;
 	
 
@@ -21,7 +27,8 @@ HRESULT MapFarm::init()
 
 void MapFarm::release()
 {
-	_map->Save("map.map", 50, 50, _tiles);
+	_map->Save("map.map", _horizon, _vertical,_tiles);
+	_pm->Save();
 }
 
 void MapFarm::update()
@@ -32,6 +39,7 @@ void MapFarm::update()
 	}
 	_count++;
 	_player->update();
+	_pm->Update();
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
 	CAMERAMANAGER->setY(_player->GetInfo().position.y);
 }

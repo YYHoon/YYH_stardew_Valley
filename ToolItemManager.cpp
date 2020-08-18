@@ -259,3 +259,16 @@ inline void ToolItemManager::SetImpactIndex(string name, int Center, int left, i
 
 	}
 }
+
+bool ToolItemManager::GetNowFishing()
+{
+	for (int i = 0; i < _toolList.size(); ++i)
+	{
+
+		if (_toolList[i]->GetName() == "FishingRod")
+		{
+			return _toolList[i]->GetTileChangeSignalJust();
+		}
+
+	}
+}

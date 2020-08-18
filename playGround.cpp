@@ -224,6 +224,12 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("Pickax(64x64)", "Image/ItemTest/Item_Pickaxe.bmp", 64, 64, true, MAGENTA);
 	IMAGEMANAGER->addImage("Sickle(64x64)", "Image/ItemTest/Item_Sickle.bmp", 64, 64, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishingRod(64x64)", "Image/ItemTest/FishingRod(64x64).bmp", 64, 64, true, MAGENTA);
+
+	///////////////// 식물 오브젝트
+	IMAGEMANAGER->addFrameImage("kaleObject", "image/plants/KaleFrame.bmp", 320, 64, 5, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("parsnipObject", "image/plants/ParsnipFrame.bmp", 320, 64, 5, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("potatoObject", "image/plants/PotatoFrame.bmp", 384, 64, 6, 1, true, RGB(255, 0, 255));
+
 }
 
 void playGround::soundinit()

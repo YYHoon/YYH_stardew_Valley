@@ -28,13 +28,14 @@ HRESULT Player::init()
 	_isNext = false;
 	_isPrev = false;
 
+	
+	_tool = new ToolItemManager;
+	_tool->SetNowTileMapMemoyrAddressLink(_Map);
+	_tool->Init();
 	_inven = new Inventory;
 	_inven->SetMemoryLinkedTool(_tool);
 	_inven->init();
 
-	_tool = new ToolItemManager;
-	_tool->SetNowTileMapMemoyrAddressLink(_Map);
-	_tool->Init();
 	_gauge = new HpStaminaBar;
 	
 	_gauge->setPlayerLink(this);
@@ -42,7 +43,7 @@ HRESULT Player::init()
 	
 	
 	_inven->setPlayer(this);
-	_info.haveItem = _inven->GetInvenItem(0);
+	_haveItem = _inven->GetInvenItem(0);
 
 	
 
@@ -52,103 +53,105 @@ HRESULT Player::init()
 void Player::update()
 {
 	//cout << "여기" << endl;
-	cout << _info.haveItem->GetName() << endl;
 
 	if (KEYMANAGER->isOnceKeyDown('1')) 
 	{
-		_info.haveItem = _inven->GetInvenItem(0);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(0);
+		ChangeEquipment(_haveItem->GetToolEnum());
+		_Map->GetPM()->Planting(_tileIndex[0], "kaleObject");
 	}
 	else if (KEYMANAGER->isOnceKeyDown('2'))
 	{
-		_info.haveItem = _inven->GetInvenItem(1);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(1);
+		ChangeEquipment(_haveItem->GetToolEnum());
+		_Map->GetPM()->Planting(_tileIndex[0], "potatoObject");
 	}
 	else if (KEYMANAGER->isOnceKeyDown('3')) 
 	{
-		_info.haveItem = _inven->GetInvenItem(2);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(2);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown('4'))
 	{
-		_info.haveItem = _inven->GetInvenItem(3);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(3);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown('5'))
 	{
-		_info.haveItem = _inven->GetInvenItem(4);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(4);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown('6'))
 	{
-		_info.haveItem = _inven->GetInvenItem(5);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(5);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown('7'))
 	{
-		_info.haveItem = _inven->GetInvenItem(6);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(6);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown('8'))
 	{
-		_info.haveItem = _inven->GetInvenItem(7);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(7);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown('9'))
 	{
-		_info.haveItem = _inven->GetInvenItem(8);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(8);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown('0'))
 	{
-		_info.haveItem = _inven->GetInvenItem(9);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(9);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown(VK_OEM_MINUS))
 	{
-		_info.haveItem = _inven->GetInvenItem(10);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(10);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown(VK_OEM_PLUS))
 	{
-		_info.haveItem = _inven->GetInvenItem(11);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(11);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 
 	CheckTiles();
 
 	_inven->update();
-	//_inven->PlayerLootItem(_getItem);     // 아이템 만든 후에 풀어 둘 것
-	_state->Update();
-	Move();
-	if (!_info.anim->isPlay())_info.anim->start();
-	if (_info.haveItem != nullptr &&
-		_info.haveItem->GetToolEnum() != TOOLS::NONE &&
+	_gauge->update();
+	if (_haveItem != nullptr &&
+		_haveItem->GetToolEnum() != TOOLS::NONE &&
 		KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() != "acting")
 	{
-		
-		if (_info.haveItem->GetName() == "FishingRod")
+		if (_haveItem->GetName() == "FishingRod")
 		{
 			_tool->GetFishingInfo(_info.position, _info.direction);
 
 		}
 		else
 		{
-			_tool->SetImpactIndex(_info.haveItem->GetName(), _actTileIndex[0]);
-			_tool->Action(_info.haveItem->GetName());
+			_tool->SetImpactIndex(_haveItem->GetName(), _actTileIndex[0]);
+			_tool->Action(_haveItem->GetName());
 		}
 	}
-	if (_info.haveItem != nullptr)
+	if (_haveItem!=nullptr)
 	{
-		if (_info.haveItem->GetName() == "FishingRod")
+		if (_haveItem->GetName() == "FishingRod")
 		{
 			_tool->GetFishingInfo(_info.position, _info.direction);
 			_tool->Action("FishingRod");
 		}
 	}
+	////////////////////////////////////
+	//*********** 구현 테스트때만 풀도록/////
+	//_inven->PlayerLootItem(_getItem);
+	////////////////////////////////////
+	_state->Update();
+	Move();
+	if (!_info.anim->isPlay())_info.anim->start();
 	ZORDER->ZOrderPush(getMemDC(), RenderType::KEYANIRENDER, _info.img ,_info.collision.left, _info.collision.top, _info.anim, _info.shadowCollision.bottom);
-	
-	_gauge->update();
 }
 
 void Player::render()
@@ -223,7 +226,7 @@ void Player::CheckTiles()
 	int allTiles = _Map->GetMapSize();
 	_playerTileX = _info.position.x / 64;
 	_playerTileY = _info.position.y / 64;
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() == "idle")
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		//POINT _CameraMouse = PointMake(_ptMouse.x + CAMERAMANAGER->getL(), _ptMouse.y + CAMERAMANAGER->getT()); 마우스 카메라 위치
 		_mousePt.x = _ptMouse.x + CAMERAMANAGER->getL();
@@ -451,6 +454,7 @@ void Player::CheckTiles()
 	if (_Map->GetTiles()[_tileIndex[0]].pos == POS::PARM_TO_HOME ||
 		_Map->GetTiles()[_tileIndex[0]].pos == POS::HOME_TO_PARM)
 	{
+		SavePlayerInfo("player.info");
 		_isNext = true;
 	}
 	for (int i = 0; i < 3; ++i)

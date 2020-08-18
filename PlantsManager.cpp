@@ -1,9 +1,11 @@
 #include "stdafx.h"
 #include "PlantsManager.h"
 #include "AllMap.h"
+#include "AllPlants.h"
 
 void PlantsManager::Init()
 {
+	
 }
 
 void PlantsManager::Update()
@@ -26,8 +28,12 @@ void PlantsManager::Planting(int index, string plantsName)
 	int centerY = (_map->GetTiles(index).rc.top + _map->GetTiles(index).rc.bottom )* 0.5;
 	Vector2 tileCenter(centerX, centerY);
 
-	if (_map->GetTiles(index).terrain == TERRAIN::DIRT)
+	if (_map->GetTiles(index).object == MAPOBJECT::HOETILE)
 	{
+		for (int i = 0; i < _vActivePlantsList.size(); ++i)
+		{
+			if (_vActivePlantsList[i]->GetSaveIndex() == index)return;
+		}
 		if (plantsName == "parsnipObject")
 		{
 			_parsnip = new ParsnipObject;
@@ -36,6 +42,23 @@ void PlantsManager::Planting(int index, string plantsName)
 			_parsnip->SavePosIndex(index);
 			_vActivePlantsList.push_back(_parsnip);
 		}
+		else if (plantsName == "kaleObject")
+		{
+			_kale = new KaleObject;
+			_kale->Init();
+			_kale->SetPosition(tileCenter);
+			_kale->SavePosIndex(index);
+			_vActivePlantsList.push_back(_kale);
+		}
+		else if (plantsName == "potatoObject")
+		{
+			_potato = new PotatoObject;
+			_potato->Init();
+			_potato->SetPosition(tileCenter);
+			_potato->SavePosIndex(index);
+			_vActivePlantsList.push_back(_potato);
+		}
+		//cout << _vActivePlantsList.size() << endl;
 	}
 }
 
@@ -43,10 +66,9 @@ void PlantsManager::Growing()
 {
 	for (int i = 0; i < _vActivePlantsList.size(); ++i)
 	{
-		if (_map->GetTiles(_vActivePlantsList[i]->GetSaveIndex()).wet)
-		{
+			if (!_map->GetTiles()[_vActivePlantsList[i]->GetSaveIndex()].wet)continue;
+			//cout << (int)_map->GetTiles()[_vActivePlantsList[i]->GetSaveIndex()].object << endl;
 			_vActivePlantsList[i]->IncreaseGrowCount(+1);
-		}
 	}
 }
 
