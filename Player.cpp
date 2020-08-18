@@ -4,6 +4,7 @@
 #include "AllMap.h"
 #include "HpStaminaBar.h"
 
+
 HRESULT Player::init()
 {
 	IMAGEMANAGER->addImage("playerShadow", "image/PlayerShadow.bmp", 60, 60, true, RGB(255, 0, 255));
@@ -28,13 +29,13 @@ HRESULT Player::init()
 	_isNext = false;
 	_isPrev = false;
 
-	
 	_tool = new ToolItemManager;
 	_tool->SetNowTileMapMemoyrAddressLink(_Map);
 	_tool->Init();
 	_inven = new Inventory;
 	_inven->SetMemoryLinkedTool(_tool);
 	_inven->init();
+
 
 	_gauge = new HpStaminaBar;
 	
