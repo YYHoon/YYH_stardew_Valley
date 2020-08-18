@@ -362,6 +362,7 @@ void MapToolScene::SetUp()
 			tile.wet = false;
 			tile.autoIndex = 0;
 			tile.autoIndex_2 = 0;
+			tile.hp = 0;
 			tile.rc = RectMake(j * TILESIZE, i * TILESIZE, TILESIZE, TILESIZE);
 
 			_vtiles.push_back(tile);
@@ -466,6 +467,7 @@ void MapToolScene::InToOut(int Horizontal, int Vertical)
 			tile.pos = POS::NONE;
 			tile.collision = false;
 			tile.wet = false;
+			tile.hp = 0;
 			tile.autoIndex = 0;
 			tile.rc = RectMake(j * TILESIZE, i * TILESIZE, TILESIZE, TILESIZE);
 
@@ -507,6 +509,7 @@ void MapToolScene::OutToIn(int Horizontal, int Vertical)
 			tile.collision = false;
 			tile.wet = false;
 			tile.autoIndex = 0;
+			tile.hp = 0;
 			tile.rc = RectMake(j * TILESIZE, i * TILESIZE, TILESIZE, TILESIZE);
 
 			_vtiles.push_back(tile);

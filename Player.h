@@ -4,7 +4,7 @@
 #include "ToolItemManager.h"
 #include "Inventory.h"
 
-
+class HpStaminaBar;
 class State;
 class MapMain;
 
@@ -43,7 +43,8 @@ private:
 	PLAYER_ACTION _action;
 	shared_ptr<State> _state;
 	ToolItem* _getItem;
-	
+	HpStaminaBar* _gauge;
+
 	Inventory* _inven;
 	Vector2 _mousePt;
 	int _tileIndex[3];

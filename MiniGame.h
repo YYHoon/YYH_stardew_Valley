@@ -39,6 +39,7 @@ private:
 	image* _fishimg;					 //물고기
 	image* _rareFishimg;				 //레어물고기
 
+	int _hitcount;
 	int _missCount;						 //입질시간 카운팅 타이머
 	int _maximgAlpha;					 //맥스 이미지 알파값
 	int _randomFish;					 //랜덤한 물고기 낚을확률

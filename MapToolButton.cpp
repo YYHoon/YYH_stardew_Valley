@@ -178,7 +178,7 @@ void MapToolScene::Button()
 	}
 	if (PtInRect(&_loadBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
-		_vtiles = Load("mapHome.map", _horizontal, _vertical);
+		_vtiles = Load("mapFarm.map", _horizontal, _vertical);
 	}
 	if (PtInRect(&_exitBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
