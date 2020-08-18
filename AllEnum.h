@@ -129,6 +129,14 @@ enum class FISHING
 	NONE			//8.혹시 모를 아무상태도 아닐때
 };
 
+enum class Spread
+{
+	SPREAD,			//흩뿌릴때
+	HARVEST,		//수확할때
+	FISHING			//낚시할때
+
+};
+
 enum class ATTRIBUTE
 {
 	NONE,

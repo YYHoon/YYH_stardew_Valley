@@ -12,7 +12,7 @@ HRESULT Player::init()
 	_info.shadowImg = IMAGEMANAGER->findImage("playerShadow");
 	_info.position = Vector2(10, 10);
 	_info.direction = PLAYER_DIRECTION::DOWN;
-	_info.equipment = TOOLS::NONE;
+	_info.equipment = TOOLS::AXE;
 	_state = make_shared<PlayerIdle>(this);
 	_state->Init();
 	_info.position = Vector2(WINSIZEX / 2 + 100, WINSIZEY / 2);
@@ -117,10 +117,15 @@ void Player::update()
 
 	_inven->update();
 	_gauge->update();
+	_inven->PlayerLootItem(_getItem);
+	_state->Update();
+	Move();
+	if (!_info.anim->isPlay())_info.anim->start();
 	if (_info.haveItem != nullptr &&
 		_info.haveItem->GetToolEnum() != TOOLS::NONE &&
 		KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() != "acting")
 	{
+		
 		if (_info.haveItem->GetName() == "FishingRod")
 		{
 			_tool->GetFishingInfo(_info.position, _info.direction);
@@ -132,14 +137,14 @@ void Player::update()
 			_tool->Action(_info.haveItem->GetName());
 		}
 	}
-	if (_info.haveItem->GetName() == "FishingRod")
+	if (_info.haveItem != nullptr)
 	{
-		_tool->Action("FishingRod");
+		if (_info.haveItem->GetName() == "FishingRod")
+		{
+			_tool->GetFishingInfo(_info.position, _info.direction);
+			_tool->Action("FishingRod");
+		}
 	}
-	_inven->PlayerLootItem(_getItem);
-	_state->Update();
-	Move();
-	if (!_info.anim->isPlay())_info.anim->start();
 	ZORDER->ZOrderPush(getMemDC(), RenderType::KEYANIRENDER, _info.img ,_info.collision.left, _info.collision.top, _info.anim, _info.shadowCollision.bottom);
 }
 
@@ -492,7 +497,7 @@ void Player::SavePlayerInfo(string fileName)
 {
 	HANDLE file;
 	DWORD write;
-	cout << &_info << endl;
+	//cout << &_info << endl;
 	file = CreateFile(fileName.c_str(), GENERIC_WRITE, NULL, NULL,
 		CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 

@@ -200,7 +200,7 @@ void ToolItemManager::GetFishingInfo(Vector2 c, PLAYER_DIRECTION d)
 
 		if (_toolList[i]->GetName() == "FishingRod")
 		{
-			_toolList[i]->GetPlayerCenterNDir(_playerCenter, _playerDir);
+			_toolList[i]->GetPlayerCenterNDir(c, d);
 		}
 
 	}
