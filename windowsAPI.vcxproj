@@ -258,6 +258,7 @@
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />
     <ClCompile Include="iniDataManager.cpp" />
+    <ClCompile Include="Inventory + SaveLoad.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Kale.cpp" />
     <ClCompile Include="KaleObject.cpp" />

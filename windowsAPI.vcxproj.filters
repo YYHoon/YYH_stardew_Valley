@@ -680,6 +680,9 @@
     <ClCompile Include="SpreadItem.cpp">
       <Filter>playGround\SpreadItem</Filter>
     </ClCompile>
+    <ClCompile Include="Inventory + SaveLoad.cpp">
+      <Filter>playGround\Inventory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="windowsAPI.rc">

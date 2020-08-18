@@ -12,7 +12,9 @@ HRESULT Environment::init()
 	_timeRatio = REALTIMEMAX / CLOCKTIMEMAX;
 	_clockCalculate = 0;
 	_dayCount = 1;
-	_alphaDelay = 0;
+
+	_delay = ALPHADELAY;
+	_count = 0;
 
 	_clockHand.count = 0;
 	_clockHand.value = 0;
@@ -20,8 +22,6 @@ HRESULT Environment::init()
 	_clockHand.length = 72;
 	_clockHand.center.x = 1385.5f;
 	_clockHand.center.y = 90;
-
-	_delay = ALPHADELAY;
 
 	return S_OK;
 }
@@ -42,6 +42,7 @@ void Environment::update()
 		//ClockHand
 		if (_clockCalculate >= _timeRatio)
 		{
+			//cout << _clockCalculate << endl;
 			_clockHand.count++;
 
 			if (_clockHand.count == 1)
@@ -56,6 +57,8 @@ void Environment::update()
 				_clockHand.angle -= CLOCKMOVEDANGLE;
 			}
 		}
+
+		if (_isDayIncrease) _isDayIncrease = false;
 
 		if (_clockHand.value >= CLOCKTIMEMAX)
 		{
@@ -76,32 +79,34 @@ void Environment::update()
 			}
 		}
 
-		if (_isDayIncrease) _isDayIncrease = false;
-
-			/// AlphaRender
+		/// AlphaRender
 		if (timeUpdate(TIMEMANAGER->getElapsedTime() * 60) &&
 			_clockHand.value >= CLOCKTIMEHALF)
 		{
 			_alphaValue++;
 
+		//	cout << _alphaValue << endl;
 			if (_alphaValue > ALPHAVALUEMAX) _alphaValue = ALPHAVALUEMAX;
 		}
-		
+
 	}
 	else
 	{
 		_realTimeSecond += 0;
 	}
 
+	//cout << _realTimeSecond << endl;
+
 	_clockHand.end.x = cosf(_clockHand.angle) * _clockHand.length + _clockHand.center.x;
 	_clockHand.end.y = -sinf(_clockHand.angle) * _clockHand.length + _clockHand.center.y;
 }
 
-void Environment::render()
+void Environment::render(HDC _hdc)
 {
-	IMAGEMANAGER->findImage("Inventory_BG")->alphaRender(getMemDC(), _alphaValue);
+	IMAGEMANAGER->findImage("Inventory_BG")->alphaRender(_hdc, _alphaValue);
 
-	IMAGEMANAGER->findImage("Environment_Clock")->render(getMemDC(), 1300, 12);
+	IMAGEMANAGER->findImage("Environment_Clock")->render(_hdc, 1300, 12);
 
-	LineMake(getMemDC(), _clockHand.center.x, _clockHand.center.y, _clockHand.end.x, _clockHand.end.y);
+	LineMake(_hdc, _clockHand.center.x, _clockHand.center.y, _clockHand.end.x, _clockHand.end.y);
 }
+

@@ -1,7 +1,6 @@
 #pragma once
 #include "gameNode.h"
 #include "Inventory.h"
-#include "Environment.h"
 #include "Store.h"
 #include "HpStaminaBar.h"
 #include <string>
@@ -33,7 +32,6 @@ private:
 
 	/// <summary>
 	Inventory* _Inv;
-	Environment* _env;
 	/// </summary>
 
 	RECT _TalkingNpcImageRc; //대화용NPC 이미지용

@@ -20,6 +20,8 @@ HRESULT playGround::init()
 	imginit();
 	soundinit();
 
+	ENVIRONMENT->init();
+
 	SCENEMANAGER->addScene("Title", _TitleScene = new TitleScene);
 	SCENEMANAGER->addScene("맵툴", _MaptoolScene = new MapToolScene);
 	SCENEMANAGER->addScene("LOADING", _LoadingScene = new LoadingScene);
@@ -32,6 +34,7 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("Test", _test = new MapTest);
 	SCENEMANAGER->changeScene("FARM");
 	//test = new MiniGame;
+	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
 	return S_OK;
 }
 
@@ -49,6 +52,8 @@ void playGround::update()
 	OBJECTMANAGER->Update();
 	KEYANIMANAGER->update();
 
+	ENVIRONMENT->update();
+
 	//if (!test->GetNowFishing())
 	//{
 	//	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
@@ -63,13 +68,15 @@ void playGround::update()
 
 //그리기 전용
 void playGround::render()
-{	
+{
 	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 	//=================================================
 
+	SCENEMANAGER->render();
+
+	ENVIRONMENT->render(getMemDC());
 
 	/////////////////////////////////
-	SCENEMANAGER->render();
 	TIMEMANAGER->render(getMemDC());
 	//////////////////////////////////
 	//ZORDER->ZOrderRender();
@@ -96,7 +103,7 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("AlphaOnlyBlackWindow", "image/알파용검은화면.bmp", 1600, 900, false, MAGENTA);
 	IMAGEMANAGER->addImage("ItemInformation", "image/일반아이템설명.bmp", 293, 258, true, MAGENTA);
 	IMAGEMANAGER->addImage("RecoveryItemInformation", "image/회복아이템설명.bmp", 293, 258, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("Loading", "image/Loading(822x62).bmp", 822, 62,3,1, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("Loading", "image/Loading(822x62).bmp", 822, 62, 3, 1, true, MAGENTA);
 	IMAGEMANAGER->addImage("QuickSlot", "image/퀵슬롯.bmp", 800, 96, true, MAGENTA);
 	IMAGEMANAGER->addImage("QuickSlotSelect", "image/퀵스선택.bmp", 64, 64, true, MAGENTA);
 	IMAGEMANAGER->addImage("UpArrow", "image/위화살표.bmp", 40, 44, true, MAGENTA);
@@ -132,19 +139,10 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("CloseButton", "image/닫기버튼.bmp", 44, 44, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("RightButton", "image/대화창_우측하단(330x33).bmp", 330, 33, 11, 1, true, WHITE);
 
-	//아이템 테스트용
-	IMAGEMANAGER->addImage("Item_Axe", "image/ItemTest/Item_Axe.bmp", 64, 64, true, MAGENTA);
-	IMAGEMANAGER->addImage("Item_Handplow", "image/ItemTest/Item_Handplow.bmp", 64, 64, true, MAGENTA);
-	IMAGEMANAGER->addImage("Item_Knife", "image/ItemTest/Item_Knife.bmp", 64, 64, true, MAGENTA);
-	IMAGEMANAGER->addImage("Item_Pickaxe", "image/ItemTest/Item_Pickaxe.bmp", 64, 64, true, MAGENTA);
-	IMAGEMANAGER->addImage("Item_Sickle", "image/ItemTest/Item_Sickle.bmp", 64, 64, true, MAGENTA);
-	IMAGEMANAGER->addImage("cobble", "image/Inventory/cobble.bmp", 64, 64, true, MAGENTA);
-
-
 	//테스트용 이미지입니다 무시하세요
 	IMAGEMANAGER->addFrameImage("말랑카우", "image/말랑카우.bmp", 200, 300, 4, 6, true, MAGENTA);
 	IMAGEMANAGER->addImage("초상화", "image/powerCow.bmp", 209, 200, true, MAGENTA);
-	
+
 	/////MapTool
 	IMAGEMANAGER->addImage("CloseButton", "image/닫기버튼.bmp", 44, 44, true, MAGENTA);
 
@@ -157,7 +155,7 @@ void playGround::imginit()
 	IMAGEMANAGER->addFrameImage("House", "image/mapTool/House.bmp", 0, 0, 576, 576, 1, 1, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("POS", "image/mapTool/POS.bmp", 0, 0, 256, 128, 4, 2, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("Bed", "image/mapTool/Bed.bmp", 0, 0, 128, 192, 1, 1, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("Blanket", "image/mapTool/Blanket.bmp",0,0, 128, 192,1,1, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("Blanket", "image/mapTool/Blanket.bmp", 0, 0, 128, 192, 1, 1, true, MAGENTA);
 	IMAGEMANAGER->addImage("Line", "image/mapTool/Line.bmp", 64, 64, true, MAGENTA);
 	IMAGEMANAGER->addImage("Collision", "image/mapTool/Collision.bmp", 64, 64, true, MAGENTA);
 	IMAGEMANAGER->addImage("Window", "image/mapTool/Window.bmp", 700, 900, true, MAGENTA);

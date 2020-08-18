@@ -594,7 +594,7 @@ void MapToolScene::Auto()
 						}
 					}
 
-					cout << _vtiles[3].autoIndex <<endl;
+			//		cout << _vtiles[3].autoIndex <<endl;
 
 					switch (_vtiles[index].autoIndex)
 					{
