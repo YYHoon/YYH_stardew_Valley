@@ -7,7 +7,6 @@
 
 class State;
 class MapMain;
-class HpStaminaBar;
 
 class Player : public gameNode
 {
@@ -44,8 +43,7 @@ private:
 	PLAYER_ACTION _action;
 	shared_ptr<State> _state;
 	ToolItem* _getItem;
-	HpStaminaBar* _gauge;
-
+	
 	Inventory* _inven;
 	Vector2 _mousePt;
 	int _tileIndex[3];

@@ -2,7 +2,6 @@
 #include "Player.h"
 #include "State.h"
 #include "AllMap.h"
-#include "HpStaminaBar.h"
 
 
 HRESULT Player::init()
@@ -30,11 +29,7 @@ HRESULT Player::init()
 	_isPrev = false;
 
 	_inven = new Inventory;
-	_inven->setPlayer(this);
 
-	_gauge = new HpStaminaBar;
-	_gauge->setPlayerLink(this);
-	_gauge->init();
 
 	_tool = new ToolItemManager;
 	_tool->GetNowTileMapMemoyrAddressLink(_Map);
@@ -131,8 +126,7 @@ void Player::update()
 	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
 	ZORDER->ZOrderPush(getMemDC(), RenderType::KEYANIRENDER, _info.img ,_info.collision.left, _info.collision.top, _info.anim, _info.shadowCollision.bottom);
-	
-	_gauge->update();
+
 }
 
 void Player::render()
@@ -140,8 +134,6 @@ void Player::render()
 	CAMERAMANAGER->rectangle(getMemDC(), _info.shadowCollision);
 	/*_info.shadowImg->render(getMemDC(), _info.shadowCollision.left, _info.shadowCollision.top);
 	_info.img->aniRender(getMemDC(), _info.collision.left, _info.collision.top, _info.anim);*/
-	_gauge->hpBarRender();
-	_gauge->staminaBarRender();
 	_inven->render();
 }
 
@@ -208,9 +200,8 @@ void Player::CheckTiles()
 	_playerTileY = _info.position.y / 64;
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() == "idle")
 	{
-		//POINT _CameraMouse = PointMake(_ptMouse.x + CAMERAMANAGER->getL(), _ptMouse.y + CAMERAMANAGER->getT()); 마우스 카메라 위치
-		_mousePt.x = _ptMouse.x + CAMERAMANAGER->getL();
-		_mousePt.y = _ptMouse.y + CAMERAMANAGER->getT();
+		_mousePt.x = _ptMouse.x;
+		_mousePt.y = _ptMouse.y;
 
 		int playerTile = _playerTileX + _playerTileY * _Map->GetHorizon();
 		Vector2 playerTileCenter = Vector2((_Map->GetTiles(playerTile).rc.right + _Map->GetTiles(playerTile).rc.left) * 0.5, (_Map->GetTiles(playerTile).rc.bottom + _Map->GetTiles(playerTile).rc.top) * 0.5);
