@@ -4,7 +4,7 @@
 
 void MiniGame::Update()
 {
-	if(KEYMANAGER->isStayKeyDown(VK_UP))cout << (int)_fishingState << endl;
+//	if(KEYMANAGER->isStayKeyDown(VK_UP))cout << (int)_fishingState << endl;
 	
 	if (_fishingState == FISHING::FIRST|| _fishingState == FISHING::CHARGE)
 	{
@@ -225,7 +225,7 @@ void MiniGame::ChargeTwo()
 
 void MiniGame::Wait()
 {
-	cout << _missCount << endl;
+//	cout << _missCount << endl;
 	if (_fishingState == FISHING::WAIT)
 	{
 		if (_fish < _randomFish)_fish++;
@@ -404,10 +404,10 @@ void MiniGame::DoingFishing()
 		//=================================================
 		if (KEYMANAGER->isOnceKeyDown(VK_UP))
 		{
-			cout << _barRect.left << endl;
-			cout << _fishingHitRect.left << endl;
-			cout << _barRect.top << endl;
-			cout << _fishingHitRect.top << endl;
+	//		cout << _barRect.left << endl;
+	//		cout << _fishingHitRect.left << endl;
+	//		cout << _barRect.top << endl;
+	//		cout << _fishingHitRect.top << endl;
 		}
 
 		//포획게이지 상승 업데이트=============================

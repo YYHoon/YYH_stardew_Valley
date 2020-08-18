@@ -7,7 +7,12 @@ HRESULT MapFarm::init()
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
 	_player->SetPosition(Vector2(500, 500));
-		
+
+	_store = new Store;
+	_store->setLinkPlayer(_player);	//소지금 참조용
+	_store->setLinkInventory(_player->GetPlayerInver()); //가방내용물 참고용 상점F5키입니다.
+
+	_player->GetPlayerInver()->SetStoreLink(_store);
 	_count = 0;
 	_vertical = _horizon = 50;
 	_tiles = _map->Load("map.map", _vertical, _horizon);

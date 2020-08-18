@@ -11,9 +11,6 @@ HRESULT MapTest::init()
 	
 	_player->SavePlayerInfo("Player.info");
 	
-	_environment = new Environment;
-	_environment->init();
-	
 	_store = new Store;
 	_store->setLinkPlayer(_player);	//소지금 참조용
 	_store->setLinkInventory(_player->GetPlayerInver()); //가방내용물 참고용 상점F5키입니다.
@@ -61,7 +58,6 @@ void MapTest::update()
 {
 	_count++;
 	_player->update();
-	_environment->update();
 	/*if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD4))
 	{
 		test += Vector2(-1, 0);
@@ -179,6 +175,5 @@ void MapTest::render()
 		_store->OpenStoreRender();
 	}
 	_player->render();
-	_environment->render();
 	//_astar->render();
 }

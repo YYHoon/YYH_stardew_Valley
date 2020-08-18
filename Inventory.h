@@ -17,19 +17,19 @@ struct tagInventory
 	int invenTabNum;
 	int craftPageNum;
 	int x, y;
+	bool isInvenOpen;
 };
 
 struct tagQuickSlot
 {
 	image* image;
-	int x, y;
-	int uY;
+	int x, y, uY;
 };
 
 class Inventory : public gameNode
 {
 private:
-	typedef vector<RECT>			vInvenRC;		//인벤토리가 열렸을 때 상시 켜져 있는 (정적)렉트 벡터
+	typedef vector<RECT>			vInvenRC;	//인벤토리가 열렸을 때 상시 켜져 있는 (정적)렉트 벡터
 	typedef vector<RECT>::iterator	viInvenRC;
 
 	vInvenRC		_vInvenStaticRC;			//인벤토리 실행시 항상 떠 있는 정적 렉트
@@ -55,27 +55,26 @@ private:
 	Player* _player;
 	Store* _store;
 
-/////////////////////////<Inventory>////////////////////////////
+	/////////////////////////<Inventory>////////////////////////////
 
 	tagInventory _inventory;
-	Environment* _environment;
+
 	ToolItemManager* _toolItemManager;
 
 	vector<ToolItem*> _toolList;	 // 정보
 	vector<ToolItem*> _toolInven;	 // 값 가지고 있는것들 
-	
+
 	RECT _trashCanRC;
-	int _trashCanFrameX;
-	int _frameCount;
-	int _itemIndexNum;
-	bool _test;
+	int _trashCanFrameX;			//쓰레기통 이미지 프레임
+	int _frameCount;				//이미지 프레임 카운트
+	int _itemIndexNum;				//아이템 인덱스 번호 저장용
 
 /////////////////////////</Inventory>///////////////////////////
 
 /////////////////////////<QuickSlot>////////////////////////////
-			
-	tagQuickSlot _quickSlot;							//퀵슬롯
-	tagQuickSlot _quickSlotSelect;						//퀵슬롯선택 사각형
+
+	tagQuickSlot _quickSlot;		//퀵슬롯
+	tagQuickSlot _quickSlotSelect;	//퀵슬롯선택 사각형
 
 /////////////////////////</QuickSlot>///////////////////////////
 
@@ -84,8 +83,8 @@ private:
 	int _quickSlotSelectYUP;
 
 public:
-	Inventory()  {};
-	~Inventory() {}; 
+	Inventory() {};
+	~Inventory() {};
 
 	virtual HRESULT init();
 	virtual void release();
@@ -93,13 +92,12 @@ public:
 	virtual void render();
 	virtual void quickSlotMove();
 
-	void PlayerLootItem(ToolItem* item);
-	
+	void PlayerLootItem(ToolItem* lootItme);
+
 	vector<RECT>	 GetVInvenIndexRC() { return _vInvenIndexRC; }
 	vector<ToolItem*> GetInven() { return _toolInven; }
 	ToolItem* GetInvenItem(int index) { return _toolInven[index]; }
 
-	
 	virtual void setPlayerBuyItme(ToolItem* buyItme);
 
 	void SetMemoryLinkedTool(ToolItemManager* tool) { _toolItemManager = tool; }

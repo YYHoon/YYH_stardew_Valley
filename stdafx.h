@@ -36,6 +36,7 @@ using namespace std;
 #include "EventManager.h"
 #include "Zorder.h"
 #include "Vector2.h"
+#include "Environment.h"
 
 using namespace TTYONE_UTIL;
 
@@ -65,6 +66,7 @@ using namespace TTYONE_UTIL;
 #define TXTDATA txtData::getSingleton()
 #define INIDATA iniDataManager::getSingleton()
 #define ZORDER Zorder::GetInstance()
+#define ENVIRONMENT Environment::GetInstance()
 
 #define SAFE_DELETE(p)		{if(p) {delete(p); (p) = NULL;}}
 #define SAFE_RELEASE(p)		{if(p) {(p)->release(); (p) = NULL;}}

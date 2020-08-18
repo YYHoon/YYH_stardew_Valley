@@ -23,13 +23,6 @@ HRESULT TestScene::init()
 
 	_Mouse = IMAGEMANAGER->findImage("mouse");
 
-	/// <summary>
-	_Inv = new Inventory;
-	_Inv->init();
-
-	_env = new Environment;
-	_env->init();
-
 	_CloseButton = IMAGEMANAGER->findImage("CloseButton");
 	_CloseRc = RectMake(1400, 30, _CloseButton->getWidth(), _CloseButton->getHeight());
 
@@ -63,7 +56,6 @@ void TestScene::update()
 	_mouseIndex = 0;
 	/// <summary>
 	_Inv->update();
-	_env->update();
 	/// </summary>
 	_store->update();
 	_Bar->update();
@@ -200,7 +192,6 @@ void TestScene::render()
 	_TalkingNpcImage->frameRender(getMemDC(), _TalkingNpcImageRc.left, _TalkingNpcImageRc.top, 0, 0);
 
 	/// <summary>
-	_env->render();
 	_inv->render();
 	/// </summary>
 

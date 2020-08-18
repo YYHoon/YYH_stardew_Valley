@@ -28,7 +28,7 @@ HRESULT gameNode::init(bool managerInit)
 
 	if (_managerInit)
 	{
-	//	SetTimer(_hWnd, 1, 10, NULL);
+		//	SetTimer(_hWnd, 1, 10, NULL);
 		KEYMANAGER->init();
 		IMAGEMANAGER->init();
 		TIMEMANAGER->init();
@@ -39,6 +39,7 @@ HRESULT gameNode::init(bool managerInit)
 		CAMERAMANAGER->init();
 		TXTDATA->init();
 		INIDATA->init();
+		ENVIRONMENT->init();
 	}
 
 
@@ -49,7 +50,7 @@ void gameNode::release()
 {
 	if (_managerInit)
 	{
-	//	KillTimer(_hWnd, 1);
+		//	KillTimer(_hWnd, 1);
 
 		KEYMANAGER->release();
 		KEYMANAGER->releaseSingleton();
@@ -80,8 +81,11 @@ void gameNode::release()
 
 		INIDATA->release();
 		INIDATA->releaseSingleton();
+
+		ENVIRONMENT->release();
+		ENVIRONMENT->releaseSingleton();
 	}
-	
+
 	ReleaseDC(_hWnd, _hdc);
 }
 
@@ -112,26 +116,26 @@ LRESULT gameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 
 	switch (iMessage)
 	{
-	
-		case WM_MOUSEMOVE:
-			_ptMouse.x = static_cast<float>(LOWORD(lParam));
-			_ptMouse.y = static_cast<float>(HIWORD(lParam));
+
+	case WM_MOUSEMOVE:
+		_ptMouse.x = static_cast<float>(LOWORD(lParam));
+		_ptMouse.y = static_cast<float>(HIWORD(lParam));
 		break;
 
-		case WM_KEYDOWN:
+	case WM_KEYDOWN:
+	{
+		switch (wParam)
 		{
-			switch (wParam)
-			{
-				case VK_ESCAPE:
-					PostQuitMessage(0);
-				break;
-
-			}
-		}
-		break;
-
-		case WM_DESTROY:
+		case VK_ESCAPE:
 			PostQuitMessage(0);
+			break;
+
+		}
+	}
+	break;
+
+	case WM_DESTROY:
+		PostQuitMessage(0);
 		break;
 	}
 

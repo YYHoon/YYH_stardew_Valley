@@ -19,7 +19,7 @@ void Axe::Action()
 {
 	_justSignal = true;
 	_mapObject = MAPOBJECT::NONE;
-	cout << _map->GetTiles(_tileIndex[0]).hp << endl;
+	//cout << _map->GetTiles(_tileIndex[0]).hp << endl;
 
 	//큰나무 부술때
 	if ((_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::TREE1 ||
