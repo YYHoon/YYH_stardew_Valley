@@ -30,9 +30,8 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("FARM", _farm = new MapFarm);
 	SCENEMANAGER->addScene("HOME", _home = new MapHome);
 	SCENEMANAGER->addScene("Test", _test = new MapTest);
-	SCENEMANAGER->changeScene("Test");
+	SCENEMANAGER->changeScene("FARM");
 	//test = new MiniGame;
-	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
 	return S_OK;
 }
 
