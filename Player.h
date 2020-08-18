@@ -85,7 +85,8 @@ public:
 	Inventory* GetPlayerInver() { return _inven; }
 	bool GetIsNext() { return _isNext; }
 	bool GetIsPrev() { return _isPrev; }
-
+	int GetMaxHp() { return _info.maxHP; }
+	int GetHp() { return _info.HP; }
 
 	void SetName(string Name) { _info.name = Name; }
 	void SetImg(string imgName) { _info.img = IMAGEMANAGER->findImage(imgName); }

@@ -36,7 +36,7 @@ HRESULT Player::init()
 	
 	_gauge->setPlayerLink(this);
 	_gauge->init();
-	_tool->GetNowTileMapMemoyrAddressLink(_Map);
+	_tool->SetNowTileMapMemoyrAddressLink(_Map);
 	_tool->Init();
 	_inven->SetMemoryLinkedTool(_tool);
 	_inven->init();
@@ -118,7 +118,7 @@ void Player::update()
 	CheckTiles();
 
 	_inven->update();
-	_inven->PlayerLootItem(_getItem);
+	//_inven->PlayerLootItem(_getItem);     // 아이템 만든 후에 풀어 둘 것
 	_state->Update();
 	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
