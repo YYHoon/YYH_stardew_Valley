@@ -1,7 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "Environment.h"
-
+#include "Dialog.h"
 #include <vector>
 
 class Player;
@@ -83,6 +83,8 @@ private:
 
 	int _quickSlotSelectYUP;
 
+	Dialog* _Dtset;
+
 public:
 	Inventory()  {};
 	~Inventory() {}; 
@@ -93,14 +95,14 @@ public:
 	virtual void render();
 	virtual void quickSlotMove();
 
-	void PlayerLootItem(ToolItem* item);
 	
-	vector<RECT>	 GetVInvenIndexRC() { return _vInvenIndexRC; }
+	vector<RECT>	 GetVInvenIndexRC() { return _vInvenIndexRC; } //이거 사용~
 	vector<ToolItem*> GetInven() { return _toolInven; }
 	ToolItem* GetInvenItem(int index) { return _toolInven[index]; }
 
 	
 	virtual void setPlayerBuyItme(ToolItem* buyItme);
+	virtual void PlayerLootItem(ToolItem* item);
 
 	void SetMemoryLinkedTool(ToolItemManager* tool) { _toolItemManager = tool; }
 	void SetStoreLink(Store* store) { _store = store; }

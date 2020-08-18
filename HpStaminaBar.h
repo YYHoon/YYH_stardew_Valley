@@ -41,8 +41,13 @@ public:
 	void update();
 	void staminaBarRender();
 	void hpBarRender();
-	
+
+	tagBar GetStaminaBar() { return _StaminaBar; }
+	tagBar GetHpBar() {return _HpBar;}
+
+
+
 	void setPlayerLink(Player* pp) { _pl = pp; }
-	void setPlayerHP(int hp);
-	void setPlayerStamina(int stamina);
+	void setPlayerHP(int hp) { _HpBar.hit -= hp; }
+	void setPlayerStamina(int stamina) { _StaminaBar.hit -= stamina;  }
 };
