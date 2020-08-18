@@ -76,7 +76,7 @@ public:
 	virtual inline void SetImpactIndex(string name, int index);
 	virtual inline void SetImpactIndex(string name, int Center, int left, int right);
 	
-	inline void GetNowTileMapMemoyrAddressLink(MapMain* scene) { _nowTileMap = scene; }
-	
+	inline void SetNowTileMapMemoyrAddressLink(MapMain* scene) { _nowTileMap = scene; }
+	inline MapMain* GetNowTileMapMemoryAddressLink() { return _nowTileMap; }
 };
 

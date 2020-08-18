@@ -30,6 +30,8 @@ private:
 	int _power=0;					 //이 변수만큼 찌가 날아감
 	PLAYER_DIRECTION _dir;			 //플레이어 상태받을 변수
 
+	MYRECT _test;
+
 	image* _backimg;					 //낚시 말풍선
 	image* _minigameimg;				 //낚시 미니게임
 	MYRECT _gaugeimg;					 //낚시 게이지

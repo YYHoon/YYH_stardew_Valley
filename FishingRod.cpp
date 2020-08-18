@@ -13,6 +13,7 @@ void FishingRod::Init()
 
 void FishingRod::Action()
 {
+
 	if (!_game->GetNowFishing())
 	{
 		_game->Init(_playerCenter, _playerDir);

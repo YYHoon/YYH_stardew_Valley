@@ -4,7 +4,6 @@
 #include "AllMap.h"
 #include "HpStaminaBar.h"
 
-
 HRESULT Player::init()
 {
 	IMAGEMANAGER->addImage("playerShadow", "image/PlayerShadow.bmp", 60, 60, true, RGB(255, 0, 255));
@@ -30,11 +29,7 @@ HRESULT Player::init()
 	_isPrev = false;
 
 	_inven = new Inventory;
-	_inven->setPlayer(this);
 
-	_gauge = new HpStaminaBar;
-	_gauge->setPlayerLink(this);
-	_gauge->init();
 
 	_tool = new ToolItemManager;
 	_gauge = new HpStaminaBar;
@@ -123,11 +118,15 @@ void Player::update()
 	CheckTiles();
 
 	_inven->update();
-	_gauge->update();
+	_inven->PlayerLootItem(_getItem);
+	_state->Update();
+	Move();
+	if (!_info.anim->isPlay())_info.anim->start();
 	if (_info.haveItem != nullptr &&
 		_info.haveItem->GetToolEnum() != TOOLS::NONE &&
 		KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() != "acting")
 	{
+		
 		if (_info.haveItem->GetName() == "FishingRod")
 		{
 			_tool->GetFishingInfo(_info.position, _info.direction);
@@ -139,14 +138,14 @@ void Player::update()
 			_tool->Action(_info.haveItem->GetName());
 		}
 	}
-	if (_info.haveItem->GetName() == "FishingRod")
+	if (_info.haveItem != nullptr)
 	{
-		_tool->Action("FishingRod");
+		if (_info.haveItem->GetName() == "FishingRod")
+		{
+			_tool->GetFishingInfo(_info.position, _info.direction);
+			_tool->Action("FishingRod");
+		}
 	}
-	_inven->PlayerLootItem(_getItem);
-	_state->Update();
-	Move();
-	if (!_info.anim->isPlay())_info.anim->start();
 	ZORDER->ZOrderPush(getMemDC(), RenderType::KEYANIRENDER, _info.img ,_info.collision.left, _info.collision.top, _info.anim, _info.shadowCollision.bottom);
 	
 	_gauge->update();
@@ -154,11 +153,9 @@ void Player::update()
 
 void Player::render()
 {
-	CAMERAMANAGER->rectangle(getMemDC(), _info.shadowCollision);
+//	CAMERAMANAGER->rectangle(getMemDC(), _info.shadowCollision);
 	/*_info.shadowImg->render(getMemDC(), _info.shadowCollision.left, _info.shadowCollision.top);
 	_info.img->aniRender(getMemDC(), _info.collision.left, _info.collision.top, _info.anim);*/
-	_gauge->hpBarRender();
-	_gauge->staminaBarRender();
 	_inven->render();
 	_gauge->hpBarRender();
 	_gauge->staminaBarRender();
@@ -507,7 +504,7 @@ void Player::SavePlayerInfo(string fileName)
 {
 	HANDLE file;
 	DWORD write;
-	cout << &_info << endl;
+	//cout << &_info << endl;
 	file = CreateFile(fileName.c_str(), GENERIC_WRITE, NULL, NULL,
 		CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 

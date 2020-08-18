@@ -4,24 +4,20 @@
 
 void MiniGame::Update()
 {
-	if(KEYMANAGER->isStayKeyDown(VK_UP))cout << (int)_fishingState << endl;
 	
-	if (_fishingState == FISHING::FIRST|| _fishingState == FISHING::CHARGE)
+	if (_fishingState == FISHING::FIRST || _fishingState == FISHING::CHARGE)
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
 			_fishingState = FISHING::CHARGE;
-			_fishfloat = _playerCenter;
-			_fishfloat.y -= 200;
 			_chageFrontBox.right ++;
 		}
-		if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON))
+		if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON) && _fishingState == FISHING::CHARGE)
 		{
 			_power = _clickTime;
 			_fishingState = FISHING::SHOT;
 		}
 	}
-	//cout << _power << endl;
 	if (_fishingState == FISHING::NONE)_nowFishing = false;//테스트용
 
 	ChargeOne();
@@ -35,6 +31,8 @@ void MiniGame::Update()
 
 void MiniGame::Render()
 {
+	_test.set(_fishfloat.x, _fishfloat.y, _fishfloat.x + 30, _fishfloat.y - 30);
+	_test.render(getMemDC());
 	switch (_fishingState)
 	{
 	case FISHING::FIRST:
@@ -43,17 +41,18 @@ void MiniGame::Render()
 		_chageBackBox.render(getMemDC());
 		_chageFrontBox.render(getMemDC());
 		
-		//CAMERAMANAGER->rectangle(getMemDC(), _chageBackBox);
-		//CAMERAMANAGER->rectangle(getMemDC(), _chageFrontBox);
 		break;
 	case FISHING::SHOT:
 		if (_power > 90)
 		{
 			_maximg->alphaRender(getMemDC(), _playerCenter.x + 500, _playerCenter.y + 500, _maximgAlpha);
-			//CAMERAMANAGER->alpharender(getMemDC(), _maximg, _playerCenter.x - 50, _playerCenter.y - 100, _maximgAlpha);
 		}
 		break;
 	case FISHING::WAIT:
+		if (_fish == _randomFish && _fishTime == _fishingTime && _hitcount < 50)
+		{
+			_hitimg->render(getMemDC(), _fishfloat.x, _fishfloat.y+50);
+		}
 		break;
 	case FISHING::MINiGAMEON:
 		_hitimg->render(getMemDC(), _playerCenter.x - 50, _playerCenter.y - 100);
@@ -61,35 +60,27 @@ void MiniGame::Render()
 		_backimg->render(getMemDC(),_fishingUI.x, _fishingUI.y);
 		_minigameimg->render(getMemDC(),_minigame.x, _minigame.y);
 		_barimg->render(getMemDC(), _bar.x, _bar.y);
-		//render(getMemDC(), _hitimg, _playerCenter.x - 50, _playerCenter.y - 100);
-		//
-		//render(getMemDC(), _backimg, _fishingUI.x, _fishingUI.y);
-		//render(getMemDC(), _minigameimg, _minigame.x, _minigame.y);
-		//render(getMemDC(), _barimg, _bar.x, _bar.y);
 
 		if (_rareFish)_rareFishimg->render(getMemDC(), _fishingHitBox.x, _fishingHitBox.y); 
 		else _fishimg->render(getMemDC(), _fishingHitBox.x, _fishingHitBox.y);
 		
 		_gaugeimg.render(getMemDC());
-		//CAMERAMANAGER->rectangle(getMemDC(), _gaugeimg);
+
 		break;
 	case FISHING::DOINGMINIGAME:
 		
-		_hitcount++;
-		if(_hitcount<30)_hitimg->render(getMemDC(), _playerCenter.x - 50, _playerCenter.y - 100);
+		
+		
 
 		_backimg->render(getMemDC(), _fishingUI.x, _fishingUI.y);
 		_minigameimg->render(getMemDC(), _minigame.x, _minigame.y);
 		_barimg->render(getMemDC(), _bar.x, _bar.y);
-	//CAMERAMANAGER->render(getMemDC(), _backimg, _fishingUI.x, _fishingUI.y);
-	//CAMERAMANAGER->render(getMemDC(), _minigameimg, _minigame.x, _minigame.y);
-	//CAMERAMANAGER->render(getMemDC(), _barimg, _bar.x, _bar.y);
 
 		if (_rareFish)_rareFishimg->render(getMemDC(), _fishingHitBox.x, _fishingHitBox.y);
 		else _fishimg->render(getMemDC(), _fishingHitBox.x, _fishingHitBox.y);
 
 		_gaugeimg.render(getMemDC());
-		//CAMERAMANAGER->rectangle(getMemDC(), _gaugeimg);
+
 		break;
 	case FISHING::MISS:
 		break;
@@ -131,13 +122,14 @@ void MiniGame::Init(Vector2 center, PLAYER_DIRECTION dir)
 	_bar.x = 0;						//낚시바 좌표 초기화
 	_bar.y = 0;
 
-	_playerCenter = center;			//플레이어 센터값 받아오는 변수
+	_playerCenter.x = center.x;			//플레이어 센터값 받아오는 변수
+	_playerCenter.y = center.y;			//플레이어 센터값 받아오는 변수
 	
-	_fishfloat.x = _playerCenter.x;	//낚시 찌가 표기될 좌표
-	_fishfloat.y = _playerCenter.y - 50;
+	_fishfloat.x = _playerCenter.x+190;	//낚시 찌가 표기될 좌표
+	_fishfloat.y = _playerCenter.y-150;
 
-	_chageBackBox.set(_playerCenter.x + 400, _playerCenter.y+270,
-		_playerCenter.x + 500, _playerCenter.y + 300);
+	_chageBackBox.set(_fishfloat.x-50 , _fishfloat.y-50,
+		_fishfloat.x + 50, _fishfloat.y - 80);
 	_chageFrontBox.set(_chageBackBox.left + 1, _chageBackBox.top + 1,
 		_chageBackBox.left + 1, _chageBackBox.bottom - 1);
 					//낚시 시작초기화 했으니 차지게이지 렉트 생성
@@ -165,12 +157,13 @@ void MiniGame::ChargeOne()
 	{
 		_chageFrontBox.right++;
 		_clickTime++;
+		if (_chageFrontBox.right >= _chageBackBox.right - 1)_chageFrontBox.right = _chageBackBox.right - 1;
+	
 	}
 }
 
 void MiniGame::ChargeTwo()
 {
-	
 	if (_fishingState==FISHING::SHOT)
 	{
 		if(_power>90)
@@ -185,7 +178,7 @@ void MiniGame::ChargeTwo()
 
 		if (_dir == PLAYER_DIRECTION::DOWN)
 		{
-			_fishfloat.y++;
+			_fishfloat.y+=2;
 
 			_power--;
 		}
@@ -193,8 +186,8 @@ void MiniGame::ChargeTwo()
 		if (_dir == PLAYER_DIRECTION::LEFT || _dir == PLAYER_DIRECTION::DOWN_LEFT
 			|| _dir == PLAYER_DIRECTION::UP_LEFT)
 		{
-			_fishfloat.x--;
-			_fishfloat.y++;
+			_fishfloat.x-=2;
+			_fishfloat.y+=2;
 
 			_power--;
 		}
@@ -202,39 +195,37 @@ void MiniGame::ChargeTwo()
 		if (_dir == PLAYER_DIRECTION::RIGHT || _dir == PLAYER_DIRECTION::DOWN_RIGHT
 			|| _dir == PLAYER_DIRECTION::UP_RIGHT)
 		{
-			_fishfloat.x++;
-			_fishfloat.y++;
+			_fishfloat.x+=2;
+			_fishfloat.y+=2;
 
 			_power--;
 		}
 
 		if (_dir == PLAYER_DIRECTION::UP)
 		{
-			_fishfloat.y--;
+			_fishfloat.y-=2;
 
 			_power--;
 		}
 		if (_power <= 0)
 		{
+			_fishingState = FISHING::WAIT;
 			_randomFish = RND->getInt(11);
 			_fishingTime = RND->getFromIntTo(0, 150);
-			_fishingState = FISHING::WAIT;
 		}
 	}
 }
 
 void MiniGame::Wait()
 {
-	cout << _missCount << endl;
+	
 	if (_fishingState == FISHING::WAIT)
 	{
-		if (_fish < _randomFish)_fish++;
-		if (_fishTime < _fishingTime)_fishTime++;
 
 		if (_fish == _randomFish && _fishTime == _fishingTime)
 		{
 			_missCount++;
-
+			_hitcount++;
 			if (_fish > 3)
 			{
 				_rareFish = false;
@@ -245,17 +236,19 @@ void MiniGame::Wait()
 				_rareFish = true;
 			}
 
-			if (_missCount < 500 && KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+			if (_hitcount < 50 && KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
-				_missCount = 0;
+				_hitcount = 0;
 				_fishingState = FISHING::MINiGAMEON;
 			}
-			else if (_missCount > 500 && KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+			else if (_hitcount > 50 && KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
-				_missCount = 0;
+				_hitcount = 0;
 				_fishingState = FISHING::MISS;
 			}
 		}
+		if (_fish < _randomFish)_fish++;
+		if (_fishTime < _fishingTime)_fishTime++;
 	}
 }
 
@@ -268,8 +261,8 @@ void MiniGame::MiniGameOn()
 			_dir == PLAYER_DIRECTION::DOWN_LEFT ||
 			_dir == PLAYER_DIRECTION::UP_LEFT)
 		{
-			_fishingUI.x = _playerCenter.x + 200;
-			_fishingUI.y = _playerCenter.y - 200;
+			_fishingUI.x = _playerCenter.x + 300;
+			_fishingUI.y = _playerCenter.y - 250;
 
 			_minigame.x = _fishingUI.x + 12;
 			_minigame.y = _fishingUI.y;
@@ -290,8 +283,8 @@ void MiniGame::MiniGameOn()
 		}
 		else
 		{
-			_fishingUI.x = _playerCenter.x + 200;
-			_fishingUI.y = _playerCenter.y - 200;
+			_fishingUI.x = _playerCenter.x-50;
+			_fishingUI.y = _playerCenter.y - 250;
 
 			_minigame.x = _fishingUI.x + 12;
 			_minigame.y = _fishingUI.y;
@@ -321,7 +314,6 @@ void MiniGame::DoingFishing()
 {
 	if (_fishingState == FISHING::DOINGMINIGAME)
 	{
-		//cout << (int)_rareFish << endl;
 		//충돌판정용 렉트업데이트=============================================
 		_gaugeimg.set(_gauge.x, _gaugeimg.top, _gauge.x + 15, _gauge.y);//얼마나잡아가는지
 		_fishingHitRect.set(_fishingHitBox.x, _fishingHitBox.y,//물고기피격렉트
@@ -402,14 +394,7 @@ void MiniGame::DoingFishing()
 			_bar.y+=6;
 		}
 		//=================================================
-		if (KEYMANAGER->isOnceKeyDown(VK_UP))
-		{
-			cout << _barRect.left << endl;
-			cout << _fishingHitRect.left << endl;
-			cout << _barRect.top << endl;
-			cout << _fishingHitRect.top << endl;
-		}
-
+	
 		//포획게이지 상승 업데이트=============================
 		if (isCollision(_barRect, _fishingHitRect))
 		{
@@ -432,6 +417,7 @@ void MiniGame::Miss()
 	if (_fishingState == FISHING::MISS)
 	{
 		_fishingState = FISHING::NONE;
+		Init(_playerCenter, _dir);
 	}
 }
 
@@ -442,5 +428,6 @@ void MiniGame::Success()
 	if (_fishingState == FISHING::SUCCESS)
 	{
 		_fishingState = FISHING::NONE;
+		Init(_playerCenter, _dir);
 	}
 }

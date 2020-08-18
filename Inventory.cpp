@@ -306,7 +306,7 @@ void Inventory::render()
 		_vInvenStaticRC.clear();
 		_vInvenDynamicRC.clear();
 		
-		if (_store->getStoreOpen())
+		if (SCENEMANAGER->GetNowScene() == "SHOP" && _store->getStoreOpen())
 		{
 			for (int i = 0; i < _toolInven.size(); ++i)
 			{
