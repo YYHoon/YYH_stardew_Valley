@@ -9,6 +9,9 @@ HRESULT MapHome::init()
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
 
+	_sleep = new IsSleep;
+	_sleep->init();
+
 	for (int i = 0; i < _tiles.size(); i++)
 	{
 		if (_tiles[i].pos == POS::BED)
@@ -40,7 +43,13 @@ void MapHome::update()
 		SCENEMANAGER->changeScene("FARM");
 	}
 
+	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::BED)
+	{
+		_sleep->setIsSelectOpen(true);
+	}
+
 	_count++;
+	_sleep->update();
 	_player->update();
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
 	CAMERAMANAGER->setY(_player->GetInfo().position.y);
@@ -95,5 +104,6 @@ void MapHome::render()
 	}
 	ZORDER->ZOrderRender();
 	_player->render();
+	_sleep->render();
 	ENVIRONMENT->render(getMemDC());
 }
