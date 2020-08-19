@@ -428,6 +428,6 @@ void MapFarm::render()
 	}
 	ZORDER->ZOrderRender();
 	EFFECTMANAGER->render();
-	_player->render();
 	ENVIRONMENT->render(getMemDC());
+	_player->render();
 }

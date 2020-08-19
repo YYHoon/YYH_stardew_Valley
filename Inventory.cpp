@@ -177,6 +177,16 @@ void Inventory::update()
 		{
 			_toolInven[_itemIndexNum]->SetToolEnum(TOOLS::NONE);
 		}
+
+		///////////////////////////// <SortTest>
+		if (PtInRect(&_sortRC, _ptMouse) && _inventory.invenTabNum == 1)
+		{
+			for (int i = 0; i < _toolInven.size() - 1; i++)
+			{
+				MergeSort(_toolInven, 0, 11);
+			}
+		}
+		///////////////////////////// </SortTest>
 	}
 
 	if (!_inventory.isInvenOpen)
@@ -217,25 +227,9 @@ void Inventory::update()
 			_vInvenStaticRC.push_back(_invenTabRC[i]);
 		}
 	}
-
-	///////////////////////////// <SortTest>
-	//if (_inventory.isInvenOpen &&
-	//	_inventory.invenTabNum == 1 &&
-	//	KEYMANAGER->isOnceKeyDown(VK_NUMPAD5))
-	//{
-	//	for (int i = 0; i < _toolInven.size() - 1; i++)
-	//	{
-	//		MergeSort(_toolInven, 0, 11);
-	//
-	//		/// <summary>
-	//		cout << _toolInven[i] << endl;
-	//		/// </summary>
-	//		
-	//		_toolInven[i] = _toolList[_test[i]];
-	//	}
-	//}
-	///////////////////////////// </SortTest>
-
+	/// <summary>
+	if (KEYMANAGER->isOnceKeyDown(VK_F7)) ENVIRONMENT->SetIsDayReset(true);
+	/// </summary>
 }
 
 void Inventory::render()
@@ -263,8 +257,11 @@ void Inventory::render()
 			_vInvenDynamicRC.clear();
 
 			IMAGEMANAGER->findImage("UI_Inventory_Trashcan")->frameRender(getMemDC(), 1257, 464, _trashCanFrameX, 0);
+			IMAGEMANAGER->findImage("UI_Inventory_Sort")->render(getMemDC(), 1240, 280);
 			_trashCanRC = RectMake(1260, 446, 90, 140);		//쓰레기통 렉트
+			_sortRC = RectMake(1240, 280, 64, 64);
 			_vInvenDynamicRC.push_back(_trashCanRC);
+			_vInvenDynamicRC.push_back(_sortRC);
 
 			if (KEYMANAGER->isOnceKeyDown('Q')) _Dialog->setDialogClear(true);
 			if (KEYMANAGER->isOnceKeyUp('Q')) _Dialog->setDialogClear(false);
@@ -359,7 +356,7 @@ void Inventory::render()
 			TextOut(getMemDC(), 820, 220, "도구 사용, 상호작용 : 마우스 좌클릭", strlen("도구 사용, 상호작용 : 마우스 좌클릭"));
 
 			TextOut(getMemDC(), 420, 350, "인벤토리 열기, 메뉴 열기 : E", strlen("인벤토리 열기, 메뉴 열기 : E"));
-			TextOut(getMemDC(), 420, 380, "인벤토리 단축기 : 1 ~ 0,-,=", strlen("인벤토리 단축기 : 1 ~ 9,-,="));
+			TextOut(getMemDC(), 420, 380, "인벤토리 단축키 : 1 ~ 0,-,=", strlen("인벤토리 단축키 : 1 ~ 9,-,="));
 			TextOut(getMemDC(), 420, 410, "인벤토리 정보키 : 인벤토리 탭안에서 Q", strlen("인벤토리 정보키 : 인벤토리 탭안에서 Q"));
 
 		}
@@ -457,7 +454,7 @@ void Inventory::render()
 	
 
 	/////////////////////////////////////////////////////////////////////////// <Debug_Rect>
-   //
+    //
 	//for (int i = 0; i < 4; i++)
 	//{
 	//	Rectangle(getMemDC(), _invenTabRC[i]);
@@ -472,7 +469,8 @@ void Inventory::render()
 	//Rectangle(getMemDC(), _menuUpRC);
 	//Rectangle(getMemDC(), _menuDownRC);
 	//Rectangle(getMemDC(), _trashCanRC);
-   //
+    //
+	//Rectangle(getMemDC(), _sortRC);
 	/////////////////////////////////////////////////////////////////////////// </Debug_Rect>
 
 }
@@ -551,52 +549,37 @@ void Inventory::Decrease()
 	}
 }
 
-//void Inventory::Merge(vector<ToolItem*> &vIndex, int left, int mid, int right)
-//{
-//	int i, j, k, l;
-//	i = left;
-//	j = mid + 1;
-//	k = left;
-//
-//	while (i <= mid && j <= right)
-//	{
-//		if (vIndex[i] <= vIndex[j]) _sorted[k++] = vIndex[i++];
-//		else _sorted[k++] = vIndex[j++];
-//	}
-//
-//	if (i > mid)
-//	{
-//		for (l = j; l <= right; l++)
-//		{
-//			_sorted[k++] = vIndex[l];
-//		}
-//	}
-//	else
-//	{
-//		for (l = i; l <= mid; l++)
-//		{
-//			_sorted[k++] = vIndex[l];
-//		}
-//	}
-//
-//	for (l = left; l <= right; l++)
-//	{
-//		vIndex[l] = _sorted[l];
-//	}
-//}
-//
-//void Inventory::MergeSort(vector<ToolItem*> &vIndex, int left, int right)
-//{
-//	int mid;
-//
-//	if (left < right)
-//	{
-//		mid = (left + right) / 2;
-//		MergeSort(vIndex, left, mid);
-//		MergeSort(vIndex, mid + 1, right);
-//		Merge(vIndex, left, mid, right);
-//	}
-//}
+void Inventory::Merge(vector<ToolItem*>& vIndex, int left, int mid, int right)
+{
+	vector<ToolItem*> copy(right + 1);
+	int copyIndex = 0;
+	int i, j, k, l;
+	i = left;
+	j = mid + 1;
+	k = left;
+
+	while (i <= mid && j <= right)
+	{
+		if (vIndex[i]->GetNumber() >= vIndex[j]->GetNumber()) copy[copyIndex++] = vIndex[i++];
+		else copy[copyIndex++] = vIndex[j++];
+	}
+	while (i <= mid) copy[copyIndex++] = vIndex[i++];
+	while (j <= right) copy[copyIndex++] = vIndex[j++];
+	for (int k = left, copyIndex = 0; k <= right; k++, copyIndex++)
+		vIndex[k] = copy[copyIndex];
+
+}
+
+void Inventory::MergeSort(vector<ToolItem*>& vIndex, int left, int right)
+{
+	if (left < right)
+	{
+		int mid = (left + right) / 2;
+		MergeSort(vIndex, left, mid);
+		MergeSort(vIndex, mid + 1, right);
+		Merge(vIndex, left, mid, right);
+	}
+}
 
 void Inventory::PlayerLootItem(string itemName)
 {
