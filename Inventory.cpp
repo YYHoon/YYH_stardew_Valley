@@ -599,23 +599,29 @@ void Inventory::Decrease()
 //	}
 //}
 
-void Inventory::PlayerLootItem(ToolItem* lootItme)
+void Inventory::PlayerLootItem(string itemName)
 {
-	for (int i = 0; i < 12; i++)
+	for (int i = 0; i < _toolList.size(); ++i)
 	{
-		if (_toolInven[i]->GetName() == lootItme->GetName())
+		if (_toolList[i]->GetName() == itemName)
 		{
-			if (_toolInven[i]->GetNumber() > 99) continue;
-			_toolInven[i]->SetNumber(+1);
-			break;
-		}
-		else
-		{
-			if (_toolInven[i]->GetToolEnum() == TOOLS::NONE)
+			for (int j = 0; j < 12; j++)
 			{
-				_toolInven[i] = lootItme;
-				_toolInven[i]->SetNumber(+1);
-				break;
+				if (_toolInven[j]->GetName() == itemName)
+				{
+					if (_toolInven[j]->GetNumber() > 99) continue;
+					_toolInven[j]->SetNumber(+1);
+					return;
+				}
+				else
+				{
+					if (_toolInven[j]->GetToolEnum() == TOOLS::NONE)
+					{
+						_toolInven[j] = _toolList[i];
+						_toolInven[j]->SetNumber(+1);
+						return;
+					}
+				}
 			}
 		}
 	}

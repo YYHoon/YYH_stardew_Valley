@@ -33,7 +33,7 @@ HRESULT Player::init()
 	_tool->SetNowTileMapMemoyrAddressLink(_Map);
 	_tool->Init();
 	_inven = new Inventory;
-	_inven->SetMemoryLinkedTool(_tool);
+	//_inven->SetMemoryLinkedTool(_tool);
 	_inven->init();
 
 
@@ -162,6 +162,15 @@ void Player::update()
 	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
 	_tool->Update();
+
+	for (int i = 0; i < _tool->GetSpreadList().size(); ++i)
+	{
+		if (isCollision(_info.shadowCollision, _tool->GetSpreadList()[i].col))
+		{
+			_tool->SetIsActive(false, i);
+			_inven->PlayerLootItem(_tool->GetSpreadList()[i].name);
+		}
+	}
 	ZORDER->ZOrderPush(getMemDC(), RenderType::KEYANIRENDER, _info.img ,_info.collision.left, _info.collision.top, _info.anim, _info.shadowCollision.bottom);
 }
 
@@ -174,6 +183,7 @@ void Player::render()
 	_gauge->hpBarRender();
 	_gauge->staminaBarRender();
 	_tool->Render("FishingRod");
+	
 }
 
 void Player::release()

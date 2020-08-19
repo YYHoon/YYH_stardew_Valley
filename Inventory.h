@@ -109,10 +109,10 @@ public:
 	vector<ToolItem*> GetInven() { return _toolInven; }
 	ToolItem* GetInvenItem(int index) { return _toolInven[index]; }
 
-	void PlayerLootItem(ToolItem* lootItme);
+	void PlayerLootItem(string itemName);
 	void setPlayerBuyItme(ToolItem* buyItme);
 
-	void SetMemoryLinkedTool(ToolItemManager* tool) { _toolItemManager = tool; }
+	//void SetMemoryLinkedTool(ToolItemManager* tool) { _toolItemManager = tool; }
 	void SetStoreLink(Store* store) { _store = store; }
 	void setPlayer(Player* pp) { _player = pp; }
 

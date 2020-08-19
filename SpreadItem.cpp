@@ -17,9 +17,9 @@ void SpreadItem::Init( string name, MapMain* map, int index, int num)
 		_spread.name = name;
 		_spread.pos.x = ((_spread.nowMap->GetTiles(index).rc.left + _spread.nowMap->GetTiles(index).rc.right) * 0.5)*64;
 		_spread.pos.y = ((_spread.nowMap->GetTiles(index).rc.top + _spread.nowMap->GetTiles(index).rc.bottom) * 0.5)*64;
-		_spread.lastPos.x = RND->getFromFloatTo(_spread.pos.x - 100, _spread.pos.x + 100);
-		_spread.lastPos.y = RND->getFromFloatTo(_spread.pos.y - 100, _spread.pos.y + 100);
-		_spread.speed = 1.0f;
+		_spread.lastPos.x = RND->getFromFloatTo(_spread.pos.x - 50, _spread.pos.x + 50);
+		_spread.lastPos.y = RND->getFromFloatTo(_spread.pos.y - 50, _spread.pos.y + 50);
+		_spread.speed = 0.3f;
 
 		_spread.img = IMAGEMANAGER->findImage(_spread.name);
 		_spread.render = false;
@@ -42,9 +42,10 @@ void SpreadItem::Init( string name, MapMain* map, Vector2 index, int num)
 		_spread.name = name;
 		_spread.pos.x = index.x*64;
 		_spread.pos.y = index.y*64;
-		_spread.lastPos.x = RND->getFromFloatTo(_spread.pos.x - 100, _spread.pos.x + 100);
-		_spread.lastPos.y = RND->getFromFloatTo(_spread.pos.y - 100, _spread.pos.y + 100);
-		_spread.speed = 7.0f;
+		_spread.lastPos.x = RND->getFromFloatTo(_spread.pos.x - 50, _spread.pos.x + 50);
+		_spread.lastPos.y = RND->getFromFloatTo(_spread.pos.y - 50, _spread.pos.y + 50);
+		_spread.speed = 0.3f;
+
 		_spread.img = IMAGEMANAGER->findImage(_spread.name);
 		_spread.render = false;
 		_spread.move = false;
@@ -70,10 +71,14 @@ void SpreadItem::Update()
 
 			if (_spreadItemList[i].render)
 			{
-				//cout << "render" << endl;
 				ZORDER->ZOrderPush(getMemDC(), RenderType::RENDER, _spreadItemList[i].img, _spreadItemList[i].pos.x - 24, _spreadItemList[i].pos.y - 24, _spreadItemList[i].pos.y + 24);
 				//CAMERAMANAGER->render(getMemDC(), _spreadItemList[i].img, _spreadItemList[i].pos.x - 24, _spreadItemList[i].pos.y - 24);
 			}
+		}
+
+		if (!_spreadItemList[i].isActive)
+		{
+			_spreadItemList.erase(_spreadItemList.begin() + i);
 		}
 	}
 }
@@ -96,27 +101,34 @@ void SpreadItem::SpreadUpdate(tagSpread &spread)
 		if (spread.left)
 		{
 			if (spread.pos.x > spread.lastPos.x)spread.pos.x -= spread.speed;
+			else spread.state = SpreadState::AFTER_SPREAD;
 		}
 		if (!spread.left)
 		{
 			if (spread.pos.x < spread.lastPos.x)spread.pos.x += spread.speed;
+			else spread.state = SpreadState::AFTER_SPREAD;
 		}
 
 		if (spread.up)
 		{
 			if (spread.pos.y > spread.lastPos.y)spread.pos.y -= spread.speed;
+			else spread.state = SpreadState::AFTER_SPREAD;
 		}
 		if (!spread.up)
 		{
 			if (spread.pos.y < spread.lastPos.y)spread.pos.y += spread.speed;
+			else spread.state = SpreadState::AFTER_SPREAD;
 		}
 
+		if(spread.speed==0)spread.state = SpreadState::AFTER_SPREAD;
+		//spread.col.set(spread.pos.x - 24, spread.pos.y - 24, spread.pos.x + 24, spread.pos.y + 24);
 
-		//if(spread.pos.x)
+		
 
 
 		break;
 	case SpreadState::AFTER_SPREAD:
+		spread.col.set(spread.pos.x - 48, spread.pos.y - 48, spread.pos.x + 48, spread.pos.y + 48);
 
 		break;
 	}

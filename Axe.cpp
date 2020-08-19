@@ -29,7 +29,7 @@ void Axe::Action()
 		_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::TREE3) &&
 		(_map->GetTiles(_tileIndex[0]).hp == 0))
 	{
-		_spreadItem->Init("Wood(64x64)", _map, _spreadItem->IndexToVector(_map,_tileIndex[0]), RND->getFromIntTo(1,8));
+		_spreadItem->Init("Wood", _map, _spreadItem->IndexToVector(_map,_tileIndex[0]), RND->getFromIntTo(1,8));
 		
 		_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
 		_map->SetColl(_tileIndex[0], false);
@@ -43,7 +43,7 @@ void Axe::Action()
 	//나무가지부술때
 	if(_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::BRANCH)
 	{
-		_spreadItem->Init("Wood(64x64)", _map, _spreadItem->IndexToVector(_map, _tileIndex[0]), 1);
+		_spreadItem->Init("Wood", _map, _spreadItem->IndexToVector(_map, _tileIndex[0]), 10);
 		_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
 		_map->SetColl(_tileIndex[0], false);
 		EFFECTMANAGER->play("BranchDis", _map->GetTiles(_tileIndex[0]).rc.left+32, _map->GetTiles(_tileIndex[0]).rc.top+32);
@@ -51,7 +51,7 @@ void Axe::Action()
 
 	if (_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::WEED)
 	{
-		_spreadItem->Init("Wood(64x64)", _map, _spreadItem->IndexToVector(_map, _tileIndex[0]), 1);
+		_spreadItem->Init("Wood", _map, _spreadItem->IndexToVector(_map, _tileIndex[0]), 10);
 		_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
 		_map->SetColl(_tileIndex[0], false);
 		EFFECTMANAGER->play("WeedDis", _map->GetTiles(_tileIndex[0]).rc.left + 32, _map->GetTiles(_tileIndex[0]).rc.top + 32);

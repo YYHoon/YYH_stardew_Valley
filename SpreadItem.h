@@ -12,6 +12,7 @@ struct tagSpread
 	Vector2 lastPos;							//도착할 좌표
 	string name;								//뿌려질 아이템의 이름
 	image* img;									//뿌려질아이템의 이미지
+	MYRECT col;									//충돌용
 	float speed;								//아이템이뿌려질속도
 	bool move;									//아이템이 움직이고있는지
 	bool render;								//렌더되야하는지
@@ -42,7 +43,7 @@ public:
 
 
 	virtual vector<tagSpread> GetSpreadItemList() { return _spreadItemList; }
-
+	void SetIsActive(bool isActive,int idx) { _spreadItemList[idx].isActive = isActive; }
 	void SpreadUpdate(tagSpread &spread);
 
 

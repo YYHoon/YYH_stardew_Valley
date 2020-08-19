@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "AllToolItem.h"
-
+#include "SpreadItem.h"
 class SpreadItem;
 class MapMain;
 class DummyMap;
@@ -81,6 +81,8 @@ public:
 	virtual inline void SetImpactIndex(string name, int index);
 	virtual inline void SetImpactIndex(string name, int Center, int left, int right);
 	
+	inline vector<tagSpread> GetSpreadList() { return _spreadItem->GetSpreadItemList(); }
+	void SetIsActive(bool isAc, int idx) { _spreadItem->SetIsActive(isAc, idx); }
 	//void SetThisMemoryAddressLink(ToolItemManager* t) { tosstool = t; }
 
 	inline void SetNowTileMapMemoyrAddressLink(MapMain* scene) { _nowTileMap = scene; }

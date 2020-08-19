@@ -131,6 +131,7 @@ void ToolItemManager::Init()
 
 void ToolItemManager::Action(string name)
 {
+	//_spreadList = _spreadItem->GetSpreadItemList();
 	for (int i = 0; i < _toolList.size(); ++i)
 	{
 	
