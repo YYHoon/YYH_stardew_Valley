@@ -13,6 +13,7 @@ protected:
 	Player* _player;
 	Store* _store;
 	PlantsManager* _pm;
+	
 
 	SynInheritance(vector<tagTile>, _tiles, Tiles)
 	SynInheritance(int, _vertical, Vertical)
@@ -39,4 +40,3 @@ public:
 	virtual void SetPlayerAdressLink(Player* player) { _player = player; }
 	virtual int GetMapSize() { return _tiles.size(); }
 };
-

@@ -44,7 +44,7 @@ enum class TERRAIN
 	GRASS,
 	WATER,
 	WOODEN,
-	WOODENWALL,
+	CAVE,
 	NONE
 };
 enum class MAPOBJECT

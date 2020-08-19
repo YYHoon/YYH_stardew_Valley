@@ -457,6 +457,12 @@ void Player::CheckTiles()
 		SavePlayerInfo("player.info");
 		_isNext = true;
 	}
+	if (_Map->GetTiles()[_tileIndex[0]].pos == POS::CAVE_TO_PARM ||
+		_Map->GetTiles()[_tileIndex[0]].pos == POS::PARM_TO_CAVE)
+	{
+		SavePlayerInfo("player.info");
+		_isPrev = true;
+	}
 	for (int i = 0; i < 3; ++i)
 	{
 		if (_tileIndex[i] <= 0 || _tileIndex[i] >= allTiles)_tileIndex[i] = 0;

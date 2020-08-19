@@ -25,11 +25,15 @@ void Pickax::Action()
 	{
 		_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
 		_map->SetColl(_tileIndex[0], false);
+		
+		_map->GetTiles(_tileIndex[0]).rc.left;
+		EFFECTMANAGER->play("RockDis", _map->GetTiles(_tileIndex[0]).rc.left+32, _map->GetTiles(_tileIndex[0]).rc.top+32);
 	}
 	if (_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::WEED)
 	{
 		_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
 		_map->SetColl(_tileIndex[0], false);
+		EFFECTMANAGER->play("WeedDis", _map->GetTiles(_tileIndex[0]).rc.left + 32, _map->GetTiles(_tileIndex[0]).rc.top + 32);
 	}
 	//경작지 없앨때
 	if (_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::HOETILE||

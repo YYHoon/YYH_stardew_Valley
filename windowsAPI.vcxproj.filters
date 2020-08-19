@@ -411,6 +411,9 @@
     <ClInclude Include="SpreadItem.h">
       <Filter>playGround\SpreadItem</Filter>
     </ClInclude>
+    <ClInclude Include="MapCave.h">
+      <Filter>playGround\Scene\MaptoolScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -682,6 +685,9 @@
     </ClCompile>
     <ClCompile Include="Inventory + SaveLoad.cpp">
       <Filter>playGround\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="MapCave.cpp">
+      <Filter>playGround\Scene\MaptoolScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
