@@ -123,11 +123,16 @@ void Environment::render(HDC _hdc)
 //----------------------시계---------------------------------------------------//
 	SetTextColor(_hdc, BLACK);
 
+	HFONT font1, oldFont1;
+	font1 = CreateFont(40, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
+		PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
+	oldFont1 = (HFONT)SelectObject(_hdc, font1);
+
 	char time[30];
 	char day[30];
 	sprintf_s(time, "%d : %d0", _hour, _minute);
 	sprintf_s(day, "%d,", _day);
-	TextOut(_hdc, 1450, 120, time, strlen(time));
+	TextOut(_hdc, 1435, 120, time, strlen(time));
 	TextOut(_hdc, 1430, 30, day, strlen(day));
 	if (_day % 7 == 1) 	TextOut(_hdc, 1470, 30, "월요일", strlen("월요일"));
 	if (_day % 7 == 2) 	TextOut(_hdc, 1470, 30, "화요일", strlen("화요일"));
@@ -136,6 +141,9 @@ void Environment::render(HDC _hdc)
 	if (_day % 7 == 5) 	TextOut(_hdc, 1470, 30, "금요일", strlen("금요일"));
 	if (_day % 7 == 6) 	TextOut(_hdc, 1470, 30, "토요일", strlen("토요일"));
 	if (_day % 7 == 0) 	TextOut(_hdc, 1470, 30, "일요일", strlen("일요일"));
+
+	SelectObject(_hdc, oldFont1);
+	DeleteObject(oldFont1);
 //-----------------------------------------------------------------------------//
 
 

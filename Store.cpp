@@ -102,6 +102,7 @@ void Store::update()
 
 	if (_storeOpen)
 	{
+		ENVIRONMENT->SetIsInventoryOpen(true);
 		if (PtInRect(&_Item[0], _ptMouse))
 		{
 			_StoreItmeFrameY = 1;
@@ -167,6 +168,7 @@ void Store::update()
 			}
 		}
 	}
+	else ENVIRONMENT->SetIsInventoryOpen(false);
 
 	if (PtInRect(&_CloseRc, _ptMouse))
 	{

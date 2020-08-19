@@ -231,14 +231,17 @@ void Inventory::update()
 }
 
 void Inventory::render()
-{
+{	
 	SetTextColor(getMemDC(), WHITE);
-	char getsu[2000]; //아이템 겟수 표기용
-
+	char getsu[30]; //아이템 겟수 표기용
+	
 	HFONT font1, oldFont1;
 	font1 = CreateFont(30, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
 		PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
 	oldFont1 = (HFONT)SelectObject(getMemDC(), font1);
+
+	char pGold[10];
+	sprintf_s(pGold, "%d", _player->GetMoney());
 
 	if (_inventory.isInvenOpen)
 	{
@@ -274,10 +277,22 @@ void Inventory::render()
 				if (_toolInven[i]->GetToolEnum() == TOOLS::ACTIVEITEM || _toolInven[i]->GetToolEnum() == TOOLS::EATITEM ||
 					_toolInven[i]->GetToolEnum() == TOOLS::RESOURCEITEM)
 				{
+					SetTextColor(getMemDC(), WHITE);
 					sprintf_s(getsu, "%d", _toolInven[i]->GetNumber());
 					TextOut(getMemDC(), 453 + (i * 64), 275, getsu, strlen(getsu));
 				}
 			}
+
+			HFONT font2, oldFont2;
+			font2 = CreateFont(50, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
+				PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
+			oldFont2 = (HFONT)SelectObject(getMemDC(), font2);
+
+			SetTextColor(getMemDC(), BLACK);
+			TextOut(getMemDC(), 950, 570, pGold, strlen(pGold));
+
+			SelectObject(getMemDC(), oldFont2);
+			DeleteObject(oldFont2);
 		}
 		break;
 		case 2:		//제작 탭
@@ -408,6 +423,18 @@ void Inventory::render()
 			}
 		}
 	}
+
+	HFONT font3, oldFont3;
+	font3 = CreateFont(40, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
+		PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
+	oldFont3 = (HFONT)SelectObject(getMemDC(), font3);
+
+	SetTextColor(getMemDC(), BLACK);
+	TextOut(getMemDC(), 1370, 203, pGold, strlen(pGold));
+	
+	SelectObject(getMemDC(), oldFont3);
+	DeleteObject(oldFont3);
+
 
 	_Dialog->render();
 	SelectObject(getMemDC(), oldFont1);
