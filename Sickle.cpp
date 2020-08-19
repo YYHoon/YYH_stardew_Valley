@@ -20,16 +20,19 @@ void Sickle::Action()
 	{
 		_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
 		_map->SetColl(_tileIndex[0], false);
+		EFFECTMANAGER->play("WeedDis", _map->GetTiles(_tileIndex[0]).rc.left + 32, _map->GetTiles(_tileIndex[0]).rc.top + 32);
 	}
 	if (_map->GetTiles(_tileIndex[1]).object == MAPOBJECT::WEED )
 	{
 		_map->SetMapObject(_tileIndex[1], MAPOBJECT::NONE);
 		_map->SetColl(_tileIndex[1], false);
+		EFFECTMANAGER->play("WeedDis", _map->GetTiles(_tileIndex[0]).rc.left + 32, _map->GetTiles(_tileIndex[0]).rc.top + 32);
 	}
 	if (_map->GetTiles(_tileIndex[2]).object == MAPOBJECT::WEED )
 	{
 		_map->SetMapObject(_tileIndex[2], MAPOBJECT::NONE);
 		_map->SetColl(_tileIndex[2], false);
+		EFFECTMANAGER->play("WeedDis", _map->GetTiles(_tileIndex[0]).rc.left + 32, _map->GetTiles(_tileIndex[0]).rc.top + 32);
 	}
 }
 

@@ -5,6 +5,10 @@
 
 void MapToolScene::Button()
 {
+	if (KEYMANAGER->isOnceKeyDown(VK_F4))
+	{
+		EFFECTMANAGER->play("RockDis", _ptMouse.x, _ptMouse.y);
+	}
 	if (KEYMANAGER->isOnceKeyDown(VK_F1) || (PtInRect(&_f1Btn,_ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))))
 	{
 		if (_Window)

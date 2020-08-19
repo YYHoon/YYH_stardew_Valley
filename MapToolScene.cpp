@@ -106,6 +106,7 @@ void MapToolScene::update()
 		}
 	}
 	_count++;
+	EFFECTMANAGER->update();
 }
 
 void MapToolScene::render()
@@ -338,6 +339,7 @@ void MapToolScene::render()
 		IMAGEMANAGER->render("Save", getMemDC(), WINSIZEX * 0.5 - 114, WINSIZEY * 0.5 - 26);
 	}
 	
+	EFFECTMANAGER->render();
 	_Mouse->frameRender(getMemDC(), _ptMouse.x, _ptMouse.y, 0, 0);
 }
 

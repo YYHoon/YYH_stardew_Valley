@@ -59,12 +59,17 @@ void MapFarm::update()
 		}
 
 	}
+	if (KEYMANAGER->isOnceKeyDown(VK_F1))
+	{
+		EFFECTMANAGER->play("RockDis", _ptMouse.x, _ptMouse.y);
+	}
 	_count++;
 	_player->update();
 	_pm->Update();
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
 	CAMERAMANAGER->setY(_player->GetInfo().position.y);
 	ENVIRONMENT->update();
+	EFFECTMANAGER->update();
 }
 
 void MapFarm::render()
@@ -431,6 +436,7 @@ void MapFarm::render()
 		}
 	}
 	ZORDER->ZOrderRender();
+	EFFECTMANAGER->render();
 	_player->render();
 	ENVIRONMENT->render(getMemDC());
 }
