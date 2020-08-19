@@ -39,7 +39,7 @@ private:
 		int stamina;
 		int money;
 		float velocity;
-		char exMapName; // (주)건우가 썻습니다
+		string exMapName; // (주)건우가 썻습니다
 	};
 
 private:
@@ -64,8 +64,6 @@ private:
 	int _tileIndex[3];
 	int _actTileIndex[3];
 	int _playerTileX, _playerTileY;
-	bool _isNext;
-	bool _isPrev;
 	bool _isKeyDown;
 public:
 	Player() {}
@@ -115,6 +113,12 @@ public:
 	void SetVelocity(float Velocity) { _info.velocity = Velocity; }
 	void SetItem(ToolItem* Velocity) { _haveItem = Velocity; }
 	void SetShadowImg(string imgName) { _info.shadowImg = IMAGEMANAGER->findImage(imgName); }
+	/// <summary>
+	string GetMapName() { return _info.exMapName; }
+	void SetMapName(string name) { _info.exMapName = name; }
+	/// </summary>
+	/// <returns></returns>
+
 
 	//void SetMapMemoryAddressLink()
 

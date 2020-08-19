@@ -9,18 +9,26 @@ HRESULT MapFarm::init()
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
 
-
 	_pm = new PlantsManager;
     /////////////////////////////////
 	_pm->SetPlantsList( _pm->Load());
 	//////////////////////////////////
 	_pm->Init();
 	_pm->SetMapMemoryAddressLinked(this);
-	_count = 0;
+
+	if (_player->GetMapName() == "HOME")
+	{
+		_player->SetPosition(Vector2(600, 100));
+	}
+	else if (_player->GetMapName() == "CAVE")
+	{
+		_player->SetPosition(Vector2(100, 100));
+	}
 	
+	_player->SetMapName("FARM");
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
-
+	_count = 0;
 	return S_OK;
 }
 

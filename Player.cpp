@@ -26,8 +26,7 @@ HRESULT Player::init()
 	_info.stamina = 100;
 	_info.money = 500;
 	_info.velocity = 5.0f;
-	_isNext = false;
-	_isPrev = false;
+	_info.exMapName = "HOME";
 
 	_tool = new ToolItemManager;
 	_tool->SetNowTileMapMemoyrAddressLink(_Map);

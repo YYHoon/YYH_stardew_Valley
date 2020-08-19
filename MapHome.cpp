@@ -9,21 +9,19 @@ HRESULT MapHome::init()
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
 
-	for (int i = 0; i < _tiles.size(); i++)
+	if (_player->GetMapName() == "FARM")
 	{
-		if (_tiles[i].pos == POS::BED)
-		{
-			_player->SetPosition(Vector2(_tiles[i].rc.left, _tiles[i].rc.bottom));
-		}
-		if (_tiles[i].pos == POS::HOME_TO_PARM)
-		{
-			_player->SetPosition(Vector2(_tiles[i].rc.left + 32, _tiles[i].rc.top - 100));
-		}
+		_player->SetPosition(Vector2(800, 500));
 	}
-	
-	_count = 0;
+	else
+	{
+		_player->SetPosition(Vector2(1184, 792));
+	}
+
+	_player->SetMapName("HOME");
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
+	_count = 0;
 	return S_OK;
 }
 

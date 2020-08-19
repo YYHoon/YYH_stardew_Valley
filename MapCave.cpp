@@ -7,19 +7,21 @@ HRESULT MapCave::init()
 	_tiles = _map->Load("mapCave.map", _vertical, _horizon);
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
-	_player->init();
-	_player->SetPosition(Vector2(100,500));
+	_player->init();	
 
-	_pm = new PlantsManager;
-	/////////////////////////////////
-	//_pm->SetPlantsList( _pm->Load()); < -- ÀÌ°Ç ¾Ç¸¶»õ³¢ÀÎ°Ô Æ²¸²¾øÀ½
-	//////////////////////////////////
-	_pm->Init();
-	_pm->SetMapMemoryAddressLinked(this);
-	_count = 0;
+	if (_player->GetMapName() == "FARM")
+	{
+		_player->SetPosition(Vector2(500, 500));
+	}
+	else
+	{
+		_player->SetPosition(Vector2(500, 1000));
+	}
+
+	_player->SetMapName("CAVE");
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
-
+	_count = 0;
 	return S_OK;
 }
 
@@ -33,7 +35,7 @@ void MapCave::update()
 {
 	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::CAVE_TO_PARM)
 	{
-		SCENEMANAGER->changeScene("PARM");
+		SCENEMANAGER->changeScene("FARM");
 	}
 	_count++;
 	_player->update();
@@ -67,6 +69,7 @@ void MapCave::render()
 			}
 		}
 	}
+
 
 	ZORDER->ZOrderRender();
 	_player->render();
