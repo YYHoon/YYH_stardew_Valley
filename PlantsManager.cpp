@@ -14,7 +14,106 @@ void PlantsManager::Update()
 	if(KEYMANAGER->isOnceKeyDown(VK_F1))Growing();
 	for (int i = 0; i < _vActivePlantsList.size(); ++i)
 	{
-		_vActivePlantsList[i]->Update();
+		if (_vActivePlantsList[i]->GetName() == "parsnipObject")
+		{
+			_vActivePlantsList[i]->SetImage(IMAGEMANAGER->findImage("parsnipObject"));
+			switch (_vActivePlantsList[i]->GetGrowCount())
+			{
+			case 0:
+				_vActivePlantsList[i]->GetImage()->setFrameX(0);
+				_vActivePlantsList[i]->GetImage()->setFrameY(0);
+				break;
+			case 1:
+				_vActivePlantsList[i]->GetImage()->setFrameX(1);
+				_vActivePlantsList[i]->GetImage()->setFrameY(0);
+				break;
+			case 2:
+				_vActivePlantsList[i]->GetImage()->setFrameX(2);
+				_vActivePlantsList[i]->GetImage()->setFrameY(0);
+				break;
+			case 3:
+				_vActivePlantsList[i]->GetImage()->setFrameX(3);
+				_vActivePlantsList[i]->GetImage()->setFrameY(0);
+				break;
+			case 4:
+				_vActivePlantsList[i]->GetImage()->setFrameX(4);
+				_vActivePlantsList[i]->GetImage()->setFrameY(0);
+				break;
+			default:
+				break;
+			}
+			if (_vActivePlantsList[i]->GetImage()->getFrameX() >= 4)_vActivePlantsList[i]->SetCanHarvest(true);
+			ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, _vActivePlantsList[i]->GetImage(), _vActivePlantsList[i]->GetPosition().x - 30, _vActivePlantsList[i]->GetPosition().y - 45,
+				_vActivePlantsList[i]->GetImage()->getFrameX(), _vActivePlantsList[i]->GetImage()->getFrameY(), _vActivePlantsList[i]->GetRc().bottom);
+		}
+		else if (_vActivePlantsList[i]->GetName() == "kaleObject")
+		{
+			_vActivePlantsList[i]->SetImage(IMAGEMANAGER->findImage("kaleObject"));
+			switch (_vActivePlantsList[i]->GetGrowCount())
+			{
+			case 0:
+				_vActivePlantsList[i]->GetImage()->setFrameX(0);
+				_vActivePlantsList[i]->GetImage()->setFrameY(0);
+				break;
+			case 1:
+				_vActivePlantsList[i]->GetImage()->setFrameX(1);
+				_vActivePlantsList[i]->GetImage()->setFrameY(0);
+				break;
+			case 2:
+				_vActivePlantsList[i]->GetImage()->setFrameX(2);
+				_vActivePlantsList[i]->GetImage()->setFrameY(0);
+				break;
+			case 3:
+				_vActivePlantsList[i]->GetImage()->setFrameX(3);
+				_vActivePlantsList[i]->GetImage()->setFrameY(0);
+				break;
+			case 4:
+				_vActivePlantsList[i]->GetImage()->setFrameX(4);
+				_vActivePlantsList[i]->GetImage()->setFrameY(0);
+				break;
+			default:
+				break;
+			}
+			if (_vActivePlantsList[i]->GetImage()->getFrameX() >= 4)_vActivePlantsList[i]->SetCanHarvest(true);
+			ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, _vActivePlantsList[i]->GetImage(), _vActivePlantsList[i]->GetPosition().x- 30, _vActivePlantsList[i]->GetPosition().y - 45,
+				_vActivePlantsList[i]->GetImage()->getFrameX(), _vActivePlantsList[i]->GetImage()->getFrameY(), _vActivePlantsList[i]->GetRc().bottom);
+		}
+		else if (_vActivePlantsList[i]->GetName() == "potatoObject")
+		{
+			_vActivePlantsList[i]->SetImage(IMAGEMANAGER->findImage("potatoObject"));
+			switch (_vActivePlantsList[i]->GetGrowCount())
+			{
+			case 0:
+				_vActivePlantsList[i]->GetImage()->setFrameX(0);
+				_vActivePlantsList[i]->GetImage()->setFrameY(0);
+				break;
+			case 1:
+				_vActivePlantsList[i]->GetImage()->setFrameX(1);
+				_vActivePlantsList[i]->GetImage()->setFrameY(0);
+				break;
+			case 2:
+				_vActivePlantsList[i]->GetImage()->setFrameX(2);
+				_vActivePlantsList[i]->GetImage()->setFrameY(0);
+				break;
+			case 3:
+				_vActivePlantsList[i]->GetImage()->setFrameX(3);
+				_vActivePlantsList[i]->GetImage()->setFrameY(0);
+				break;
+			case 4:
+				_vActivePlantsList[i]->GetImage()->setFrameX(4);
+				_vActivePlantsList[i]->GetImage()->setFrameY(0);
+				break;
+			case 5:
+				_vActivePlantsList[i]->GetImage()->setFrameX(5);
+				_vActivePlantsList[i]->GetImage()->setFrameY(0);
+				break;
+			default:
+				break;
+			}
+			if (_vActivePlantsList[i]->GetImage()->getFrameX() >= 5)_vActivePlantsList[i]->SetCanHarvest(true);
+			ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, _vActivePlantsList[i]->GetImage(), _vActivePlantsList[i]->GetPosition().x - 30, _vActivePlantsList[i]->GetPosition().y - 45,
+				_vActivePlantsList[i]->GetImage()->getFrameX(), _vActivePlantsList[i]->GetImage()->getFrameY(), _vActivePlantsList[i]->GetRc().bottom);
+		}
 	}
 }
 
