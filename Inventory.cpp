@@ -28,6 +28,8 @@ HRESULT Inventory::init()
 
 	_trashCanFrameX = 0;
 
+	_itemIndexNum = 12;
+
 	_index = 0;
 
 	//-----------------------QuickSlot-----------------------------------
