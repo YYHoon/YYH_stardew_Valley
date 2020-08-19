@@ -48,6 +48,8 @@ private:
 	RECT _closeRC;			// Dynamic RC   //
 	RECT _menuDownRC;		// Dynamic RC   //
 	RECT _menuUpRC;			// Dynamic RC   //
+	RECT _trashCanRC;		// Dynamic RC   //		
+	RECT _sortRC;			// Dynamic RC   //	
 	//////////////////////////////////////////
 	RECT _indexRC[12];	    // Index RC     //
 	//////////////////////////////////////////
@@ -63,8 +65,6 @@ private:
 
 	vector<ToolItem*> _toolList;	 // 정보
 	vector<ToolItem*> _toolInven;	 // 값 가지고 있는것들 
-
-	RECT _trashCanRC;
 	int _trashCanFrameX;			//쓰레기통 이미지 프레임
 	int _frameCount;				//이미지 프레임 카운트
 	int _itemIndexNum;				//아이템 인덱스 번호 저장용
@@ -99,8 +99,8 @@ public:
 	virtual void render();
 	virtual void quickSlotMove();
 
-	//void Merge(vector<ToolItem*> &vIndex, int left, int mid, int right);
-	//void MergeSort(vector<ToolItem*> &vIndex, int left, int right);
+	void Merge(vector<ToolItem*> &vIndex, int left, int mid, int right);
+	void MergeSort(vector<ToolItem*> &vIndex, int left, int right);
 
 
 	void Decrease();
@@ -111,8 +111,6 @@ public:
 
 	void PlayerLootItem(string itemName);
 	void setPlayerBuyItme(ToolItem* buyItme);
-
-	//void SetMemoryLinkedTool(ToolItemManager* tool) { _toolItemManager = tool; }
 	void SetStoreLink(Store* store) { _store = store; }
 	void setPlayer(Player* pp) { _player = pp; }
 

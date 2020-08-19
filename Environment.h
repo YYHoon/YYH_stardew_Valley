@@ -19,7 +19,12 @@ private:
 
 	int _alphaValue;			//알파값
 
-	int _dayCount;				//날짜
+	int _monthCount;			//월
+	int _dayOfWeek;				//요일
+	int _dayCount;				//일
+	int _hour;					//시간
+	int _minute;				//분
+
 	float _timeRatio;			//시계 한 칸 퍼센트
 
 	float _clockCalculate;		//시간 계산
@@ -30,17 +35,10 @@ private:
 	bool _isInventoryOpen;		//인벤토리가 열리면
 	bool _isDayIncrease;		//날짜가 증가하면
 
+	bool _isDayReset;
+
 	float _delay;
 	float _count;
-
-	float _test;
-	float _test1;
-
-	int _hour;	//시간
-	int _minute;  //분
-
-	int _day;		//날자
-
 
 	bool timeUpdate(const float count)
 	{
@@ -78,5 +76,6 @@ public:
 	bool GetIsInventoryOpen() { return _isInventoryOpen; }			//인벤토리가 열리면
 
 	void SetIsInventoryOpen(bool open) { _isInventoryOpen = open; }	//인벤토리용
+	void SetIsDayReset(bool reset) { _isDayReset = reset; }			//날짜 넘기기
 };
 
