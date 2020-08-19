@@ -20,7 +20,7 @@ private:
 	vector<ToolItem*> _saleItem;
 
 	string _saleKoName[6]; //아이템 한글진열
-	int _saleMoney[6];    //돈
+	int _saleMoney[6];     //돈
 
 
 	image* _StoreWindow;	  //상점창
@@ -35,8 +35,8 @@ private:
 	image* _StoreUpArrow;	  //상점열었을떄 물건고르는 위쪽화살표
 	image* _StoreDownArrow;   //상점열었을떄 물건고르는 아래쪽화살표
 
-	image* _noMoney;
-	int _noMoneyAlpha;
+	image* _noMoney;		//돈없누
+	int _noMoneyAlpha;		//돈없누 이미지 Alpha
 
 	vector<RECT> _Item;	     //상점상자들(4개)
 	RECT _CloseRc;			 //닫기버튼
@@ -53,7 +53,7 @@ private:
 
 	int _StoreSearchMin;	//상점물품 탐색영역
 
-	bool _storeOpen;
+	bool _storeOpen;		//상점 열었누!
 
 public:
 	Store();
