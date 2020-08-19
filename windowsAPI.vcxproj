@@ -181,6 +181,7 @@
     <ClInclude Include="imageManager.h" />
     <ClInclude Include="iniDataManager.h" />
     <ClInclude Include="Inventory.h" />
+    <ClInclude Include="IsSleep.h" />
     <ClInclude Include="Kale.h" />
     <ClInclude Include="KaleObject.h" />
     <ClInclude Include="KaleSeed.h" />
@@ -263,6 +264,7 @@
     <ClCompile Include="iniDataManager.cpp" />
     <ClCompile Include="Inventory + SaveLoad.cpp" />
     <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="IsSleep.cpp" />
     <ClCompile Include="Kale.cpp" />
     <ClCompile Include="KaleObject.cpp" />
     <ClCompile Include="KaleSeed.cpp" />
