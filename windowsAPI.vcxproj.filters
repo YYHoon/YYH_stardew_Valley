@@ -118,6 +118,9 @@
     <Filter Include="playGround\SpreadItem">
       <UniqueIdentifier>{c52df36c-120b-4ba3-af80-aa9c71c3b2c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\Astar">
+      <UniqueIdentifier>{408d422c-770e-4d67-ab98-abf6163e4364}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -402,9 +405,6 @@
     <ClInclude Include="Sword.h">
       <Filter>playGround\Tool\ToolItem\SlashImpact</Filter>
     </ClInclude>
-    <ClInclude Include="astar.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="TileRender.h">
       <Filter>playGround\Scene\MaptoolScene</Filter>
     </ClInclude>
@@ -413,6 +413,9 @@
     </ClInclude>
     <ClInclude Include="MapCave.h">
       <Filter>playGround\Scene\MaptoolScene</Filter>
+    </ClInclude>
+    <ClInclude Include="astar.h">
+      <Filter>playGround\Astar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -674,9 +677,6 @@
     <ClCompile Include="Wood.cpp">
       <Filter>playGround\Tool\ResoureceItem</Filter>
     </ClCompile>
-    <ClCompile Include="astar.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="TileRender.cpp">
       <Filter>playGround\Scene\MaptoolScene</Filter>
     </ClCompile>
@@ -688,6 +688,9 @@
     </ClCompile>
     <ClCompile Include="MapCave.cpp">
       <Filter>playGround\Scene\MaptoolScene</Filter>
+    </ClCompile>
+    <ClCompile Include="astar.cpp">
+      <Filter>playGround\Astar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

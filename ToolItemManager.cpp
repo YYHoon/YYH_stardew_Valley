@@ -6,7 +6,7 @@ ToolItemManager::ToolItemManager()
 {
 	
 }
-
+//매니저 item 매니저 tools 매니저 seed 
 void ToolItemManager::Init()
 
 {

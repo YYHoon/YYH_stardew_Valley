@@ -55,20 +55,15 @@ void Player::update()
 {
 	//cout << "여기" << endl;
 
-
-	
-
 	if (KEYMANAGER->isOnceKeyDown('1')) 
 	{
 		_haveItem = _inven->GetInvenItem(0);
 		ChangeEquipment(_haveItem->GetToolEnum());
-		_Map->GetPM()->Planting(_tileIndex[0], "kaleObject");
 	}
 	else if (KEYMANAGER->isOnceKeyDown('2'))
 	{
 		_haveItem = _inven->GetInvenItem(1);
 		ChangeEquipment(_haveItem->GetToolEnum());
-		_Map->GetPM()->Planting(_tileIndex[0], "potatoObject");
 	}
 	else if (KEYMANAGER->isOnceKeyDown('3')) 
 	{
@@ -125,44 +120,51 @@ void Player::update()
 
 	_inven->update();
 	_gauge->update();
-	//if( 식물 위치 + 다자라면 . 클릭했을 때)
-	// 수확을한다 
-	// 식물 무엇?
-	// Item* po = new po
-	//_inven->LootItem()
-	// 
-	if (_haveItem != nullptr &&
-		_haveItem->GetToolEnum() != TOOLS::NONE &&
-		KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() != "acting")
-	{
-		if (_haveItem->GetName() == "FishingRod")
-		{
-			_tool->GetFishingInfo(_info.position, _info.direction);
+	//if (_haveItem != nullptr &&
+	//	_haveItem->GetToolEnum() != TOOLS::NONE &&
+	//	KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() != "acting")
+	//{
+	//	if (_haveItem->GetName() == "FishingRod")
+	//	{
+	//		_tool->GetFishingInfo(_info.position, _info.direction);
 
-		}
-		else
-		{
-			_tool->SetImpactIndex(_haveItem->GetName(), _actTileIndex[0]);
-			_tool->Action(_haveItem->GetName());
-		}
-	}
-	if (_haveItem!=nullptr)
-	{
-		if (_haveItem->GetName() == "FishingRod")
-		{
-			_tool->GetFishingInfo(_info.position, _info.direction);
-			_tool->Action("FishingRod");
-		}
-	}
+	//	}
+	//	else if (_haveItem->GetName() == "PotatoSeed")
+	//	{
+	//		_Map->GetPM()->Planting(_actTileIndex[0], "potatoObject");
+	//		//-- ++
+	//		//inven if(1) 65>
+
+	//	}
+	//	else if (_haveItem->GetName() == "KaleSeed")
+	//	{
+	//		_Map->GetPM()->Planting(_actTileIndex[0], "kaleObject");
+	//	}
+	//	else
+	//	{
+	//		_tool->SetImpactIndex(_haveItem->GetName(), _actTileIndex[0]);
+	//		_tool->Action(_haveItem->GetName());
+	//	}
+	//}
+	//if (_haveItem!=nullptr)
+	//{
+	//	if (_haveItem->GetName() == "FishingRod")
+	//	{
+	//		_tool->GetFishingInfo(_info.position, _info.direction);
+	//		_tool->Action("FishingRod");
+	//	}
+	//}
 	////////////////////////////////////
 	//*********** 구현 테스트때만 풀도록/////
 	//_inven->PlayerLootItem(_getItem);
 	////////////////////////////////////
 	_state->Update();
 	Move();
+
+	
 	if (!_info.anim->isPlay())_info.anim->start();
 	_tool->Update();
-
+	// 아이템 줍는거
 	for (int i = 0; i < _tool->GetSpreadList().size(); ++i)
 	{
 		if (isCollision(_info.shadowCollision, _tool->GetSpreadList()[i].col))
@@ -247,13 +249,15 @@ void Player::CheckTiles()
 	int allTiles = _Map->GetMapSize();
 	_playerTileX = _info.position.x / 64;
 	_playerTileY = _info.position.y / 64;
+	int playerTile = _playerTileX + _playerTileY * _Map->GetHorizon();
+	_playerOnTileIndex = playerTile;
+
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		//POINT _CameraMouse = PointMake(_ptMouse.x + CAMERAMANAGER->getL(), _ptMouse.y + CAMERAMANAGER->getT()); 마우스 카메라 위치
 		_mousePt.x = _ptMouse.x + CAMERAMANAGER->getL();
 		_mousePt.y = _ptMouse.y + CAMERAMANAGER->getT();
 
-		int playerTile = _playerTileX + _playerTileY * _Map->GetHorizon();
 		Vector2 playerTileCenter = Vector2((_Map->GetTiles(playerTile).rc.right + _Map->GetTiles(playerTile).rc.left) * 0.5, (_Map->GetTiles(playerTile).rc.bottom + _Map->GetTiles(playerTile).rc.top) * 0.5);
 		//cout << floor(Vector2( _mousePt- playerTileCenter).Nomalized().x + 0.5)<<" "<< floor(Vector2( _mousePt- playerTileCenter).Nomalized().y+0.5) << endl;
 		/*float distance = _mousePt.Distance(_mousePt, Vector2((_Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.right - _Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.left) * 0.5,
@@ -472,18 +476,7 @@ void Player::CheckTiles()
 	default:
 		break;
 	}
-	if (_Map->GetTiles()[_tileIndex[0]].pos == POS::PARM_TO_HOME ||
-		_Map->GetTiles()[_tileIndex[0]].pos == POS::HOME_TO_PARM)
-	{
-		SavePlayerInfo("player.info");
-		_isNext = true;
-	}
-	if (_Map->GetTiles()[_tileIndex[0]].pos == POS::CAVE_TO_PARM ||
-		_Map->GetTiles()[_tileIndex[0]].pos == POS::PARM_TO_CAVE)
-	{
-		SavePlayerInfo("player.info");
-		_isPrev = true;
-	}
+	
 	for (int i = 0; i < 3; ++i)
 	{
 		if (_tileIndex[i] <= 0 || _tileIndex[i] >= allTiles)_tileIndex[i] = 0;
@@ -528,7 +521,10 @@ void Player::CheckTiles()
 			}
 		}
 	}
-
+	if (_Map->GetTiles()[_playerOnTileIndex].terrain == TERRAIN::GRASS && (_Map->GetTiles()[_playerOnTileIndex].object != MAPOBJECT::BUILDING))_playerSound = PLAYER_SOUND_TILES::GRASS;
+	else if (_Map->GetTiles()[_playerOnTileIndex].terrain == TERRAIN::DIRT)_playerSound = PLAYER_SOUND_TILES::SOIL;
+	else if (_Map->GetTiles()[_playerOnTileIndex].object == MAPOBJECT::BUILDING)_playerSound = PLAYER_SOUND_TILES::ROCK;
+	//cout << (int)_Map->GetTiles()[_playerOnTileIndex].terrain << endl;
 }
 
 void Player::SavePlayerInfo(string fileName)

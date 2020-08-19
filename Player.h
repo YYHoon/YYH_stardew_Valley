@@ -11,6 +11,14 @@ class State;
 class MapMain;
 class HpStaminaBar;
 
+enum class PLAYER_SOUND_TILES
+{
+	GRASS,
+	ROCK,
+	SOIL,
+	END
+};
+
 class Player : public gameNode
 {
 private:
@@ -49,7 +57,9 @@ private:
 	HpStaminaBar* _gauge;
 	Inventory* _inven;
 	Vector2 _mousePt;
+	PLAYER_SOUND_TILES _playerSound;
 
+	int _playerOnTileIndex;
 	int _tileIndex[3];
 	int _actTileIndex[3];
 	int _playerTileX, _playerTileY;
@@ -70,6 +80,9 @@ public:
 	PLAYER_ACTION GetAction() { return _action; }
 	PLAYER_DIRECTION GetDirection() { return _info.direction; }
 	TOOLS GetEquip() { return _info.equipment; }
+	ToolItem* GetHaveItem() { return _haveItem; }
+	ToolItemManager* GetTM() { return _tool; }
+	MapMain* GetMap() { return _Map; }
 	int* GetTileIndex() { return _actTileIndex; }
 	int* GetMoveTileIndex() { return _tileIndex; }
 	int GetMaxHp() { return _info.maxHP; }
@@ -81,7 +94,8 @@ public:
 	Inventory* GetPlayerInver() { return _inven; }
 	bool GetIsNext() { return _isNext; }
 	bool GetIsPrev() { return _isPrev; }
-
+	int GetPlayerOnTileIndex() { return _playerOnTileIndex; }
+	PLAYER_SOUND_TILES GetSoundWalk() { return _playerSound; }
 
 	void SetName(string Name) { _info.name = Name; }
 	void SetImg(string imgName) { _info.img = IMAGEMANAGER->findImage(imgName); }
