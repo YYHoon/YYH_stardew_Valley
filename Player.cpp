@@ -121,6 +121,12 @@ void Player::update()
 
 	_inven->update();
 	_gauge->update();
+	//if( 식물 위치 + 다자라면 . 클릭했을 때)
+	// 수확을한다 
+	// 식물 무엇?
+	// Item* po = new po
+	//_inven->LootItem()
+	// 
 	if (_haveItem != nullptr &&
 		_haveItem->GetToolEnum() != TOOLS::NONE &&
 		KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() != "acting")

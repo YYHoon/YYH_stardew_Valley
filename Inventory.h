@@ -69,8 +69,11 @@ private:
 	int _frameCount;				//이미지 프레임 카운트
 	int _itemIndexNum;				//아이템 인덱스 번호 저장용
 
+	int _sorted[12];
+	int _test[12];
 /////////////////////////</Inventory>///////////////////////////
 
+	int _index;
 /////////////////////////<QuickSlot>////////////////////////////
 
 	tagQuickSlot _quickSlot;		//퀵슬롯
@@ -96,20 +99,28 @@ public:
 	virtual void render();
 	virtual void quickSlotMove();
 
-	void PlayerLootItem(ToolItem* lootItme);
+	//void Merge(vector<ToolItem*> &vIndex, int left, int mid, int right);
+	//void MergeSort(vector<ToolItem*> &vIndex, int left, int right);
+
+
+//	void Decrease() { _toolInven[_index]->SetNumber(_toolInven[_index]->GetNumber()-1); }
 
 	vector<RECT>	 GetVInvenIndexRC() { return _vInvenIndexRC; }
 	vector<ToolItem*> GetInven() { return _toolInven; }
 	ToolItem* GetInvenItem(int index) { return _toolInven[index]; }
 
-	virtual void setPlayerBuyItme(ToolItem* buyItme);
+	void PlayerLootItem(ToolItem* lootItme);
+	void setPlayerBuyItme(ToolItem* buyItme);
 
 	void SetMemoryLinkedTool(ToolItemManager* tool) { _toolItemManager = tool; }
 	void SetStoreLink(Store* store) { _store = store; }
 	void setPlayer(Player* pp) { _player = pp; }
-	/////////////////////////</SAVE LOAD>///////////////////////////
+
+
+	/////////////////////////<SAVE LOAD>///////////////////////////
 	void Save();
 	void SaveSize();
 	void Load();
 	void LoadSize();
+	/////////////////////////</SAVE LOAD>//////////////////////////
 };

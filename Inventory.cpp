@@ -28,6 +28,8 @@ HRESULT Inventory::init()
 
 	_trashCanFrameX = 0;
 
+	_index = 0;
+
 	//-----------------------QuickSlot-----------------------------------
 	_quickSlot.image = IMAGEMANAGER->findImage("QuickSlot");
 	_quickSlotSelect.image = IMAGEMANAGER->findImage("QuickSlotSelect");
@@ -92,15 +94,6 @@ void Inventory::update()
 		_quickSlotUp = true;
 	}
 	else  _quickSlotUp = false;
-
-	/// <summary>
-
-	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD8))
-	{
-		
-	}
-
-	/// </summary>
 
 	if (KEYMANAGER->isOnceKeyDown('E'))
 	{
@@ -218,12 +211,31 @@ void Inventory::update()
 			_vInvenStaticRC.push_back(_invenTabRC[i]);
 		}
 	}
+
+	///////////////////////////// <SortTest>
+	//if (_inventory.isInvenOpen &&
+	//	_inventory.invenTabNum == 1 &&
+	//	KEYMANAGER->isOnceKeyDown(VK_NUMPAD5))
+	//{
+	//	for (int i = 0; i < _toolInven.size() - 1; i++)
+	//	{
+	//		MergeSort(_toolInven, 0, 11);
+	//
+	//		/// <summary>
+	//		cout << _toolInven[i] << endl;
+	//		/// </summary>
+	//		
+	//		_toolInven[i] = _toolList[_test[i]];
+	//	}
+	//}
+	///////////////////////////// </SortTest>
+
 }
 
 void Inventory::render()
 {
 	SetTextColor(getMemDC(), WHITE);
-	char getsu[2000]; //아이템 겟수 표기용
+	char getsu[2000]; //아이템 개수 표기용
 
 	HFONT font1, oldFont1;
 	font1 = CreateFont(30, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
@@ -410,52 +422,111 @@ void Inventory::quickSlotMove()
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		_quickSlotSelect.x = 423;
+		_index = 0;
 	}
 	if (KEYMANAGER->isOnceKeyDown('2'))
 	{
 		_quickSlotSelect.x = 423 + 64;
+		_index = 1;
 	}
 	if (KEYMANAGER->isOnceKeyDown('3'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 2;
+		_index = 2;
 	}
 	if (KEYMANAGER->isOnceKeyDown('4'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 3;
+		_index = 3;
 	}
 	if (KEYMANAGER->isOnceKeyDown('5'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 4;
+		_index = 4;
 	}
 	if (KEYMANAGER->isOnceKeyDown('6'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 5;
+		_index = 5;
 	}
 	if (KEYMANAGER->isOnceKeyDown('7'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 6;
+		_index = 6;
 	}
 	if (KEYMANAGER->isOnceKeyDown('8'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 7;
+		_index = 7;
 	}
 	if (KEYMANAGER->isOnceKeyDown('9'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 8;
+		_index = 8;
 	}
 	if (KEYMANAGER->isOnceKeyDown('0'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 9;
+		_index = 9;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_OEM_MINUS))
 	{
 		_quickSlotSelect.x = 423 + 64 * 10;
+		_index = 10;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_OEM_PLUS))
 	{
 		_quickSlotSelect.x = 423 + 64 * 11;
+		_index = 11;
 	}
 }
+
+//void Inventory::Merge(vector<ToolItem*> &vIndex, int left, int mid, int right)
+//{
+//	int i, j, k, l;
+//	i = left;
+//	j = mid + 1;
+//	k = left;
+//
+//	while (i <= mid && j <= right)
+//	{
+//		if (vIndex[i] <= vIndex[j]) _sorted[k++] = vIndex[i++];
+//		else _sorted[k++] = vIndex[j++];
+//	}
+//
+//	if (i > mid)
+//	{
+//		for (l = j; l <= right; l++)
+//		{
+//			_sorted[k++] = vIndex[l];
+//		}
+//	}
+//	else
+//	{
+//		for (l = i; l <= mid; l++)
+//		{
+//			_sorted[k++] = vIndex[l];
+//		}
+//	}
+//
+//	for (l = left; l <= right; l++)
+//	{
+//		vIndex[l] = _sorted[l];
+//	}
+//}
+//
+//void Inventory::MergeSort(vector<ToolItem*> &vIndex, int left, int right)
+//{
+//	int mid;
+//
+//	if (left < right)
+//	{
+//		mid = (left + right) / 2;
+//		MergeSort(vIndex, left, mid);
+//		MergeSort(vIndex, mid + 1, right);
+//		Merge(vIndex, left, mid, right);
+//	}
+//}
 
 void Inventory::PlayerLootItem(ToolItem* lootItme)
 {
