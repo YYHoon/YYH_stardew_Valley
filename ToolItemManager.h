@@ -1,7 +1,8 @@
 #pragma once
 #include "stdafx.h"
 #include "AllToolItem.h"
-
+#include "SpreadItem.h"
+class SpreadItem;
 class MapMain;
 class DummyMap;
 
@@ -43,8 +44,9 @@ private:
 
 	Vector2 _playerCenter;
 	PLAYER_DIRECTION _playerDir;
-
+	SpreadItem* _spreadItem;
 	MapMain* _nowTileMap; //지금사용하는 맵
+	ToolItemManager* tosstool;
 public:
 	ToolItemManager();
 	virtual ~ToolItemManager() {};
@@ -54,7 +56,10 @@ public:
 	//bool SearchToolList(string name);
 	void Init();
 	void Action(string name);
+	void Update();
 	void Render(string name);
+
+
 
 	vector<ToolItem*>GetItemList() { return _toolList; }//아이템목록을 담은 벡터 가져오는 함수
 
@@ -76,6 +81,10 @@ public:
 	virtual inline void SetImpactIndex(string name, int index);
 	virtual inline void SetImpactIndex(string name, int Center, int left, int right);
 	
+	inline vector<tagSpread> GetSpreadList() { return _spreadItem->GetSpreadItemList(); }
+	void SetIsActive(bool isAc, int idx) { _spreadItem->SetIsActive(isAc, idx); }
+	//void SetThisMemoryAddressLink(ToolItemManager* t) { tosstool = t; }
+
 	inline void SetNowTileMapMemoyrAddressLink(MapMain* scene) { _nowTileMap = scene; }
 	inline MapMain* GetNowTileMapMemoryAddressLink() { return _nowTileMap; }
 	bool GetNowFishing();

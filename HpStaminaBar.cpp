@@ -51,10 +51,10 @@ void HpStaminaBar::release()
 
 void HpStaminaBar::update()
 {
-	if (_StaminaBar.hit > _StaminaBar.frontBarImg->getHeight()) _StaminaBar.hit = _StaminaBar.frontBarImg->getHeight();	
-	if (_StaminaBar.hit < 0) _StaminaBar.hit = 0;
-	if (_HpBar.hit > _HpBar.frontBarImg->getHeight()) _HpBar.hit = _HpBar.frontBarImg->getHeight();
-	if (_HpBar.hit < 0) _HpBar.hit = 0;
+	if (_pl->GetStamina() <= 0)
+	{
+		SCENEMANAGER->changeScene("DariLoading");
+	}
 }
 
 void HpStaminaBar::staminaBarRender()

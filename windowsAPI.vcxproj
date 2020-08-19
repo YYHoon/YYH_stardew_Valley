@@ -166,6 +166,7 @@
     <ClInclude Include="collision.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="Dialog.h" />
+    <ClInclude Include="DrainedLoadingScene.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
     <ClInclude Include="Environment.h" />
@@ -246,6 +247,7 @@
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="Dialog.cpp" />
+    <ClCompile Include="DrainedLoadingScene.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="Environment.cpp" />

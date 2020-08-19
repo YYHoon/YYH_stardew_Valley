@@ -4,3 +4,5 @@ C:\Users\skskw\OneDrive\바탕 화면\why\x64\Debug\windowsAPI.exe
 C:\Users\skskw\OneDrive\바탕 화면\why\x64\Debug\windowsAPI.pdb
 C:\Users\KGA_11\Downloads\하세이브\why\x64\Debug\windowsAPI.exe
 C:\Users\KGA_11\Downloads\하세이브\why\x64\Debug\windowsAPI.pdb
+C:\Users\KGA_11\Desktop\stardew\x64\Debug\windowsAPI.exe
+C:\Users\KGA_11\Desktop\stardew\x64\Debug\windowsAPI.pdb

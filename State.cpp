@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "State.h"
 #include "Player.h"
-
+#include "AllMap.h"
 
 State::State(Player* pPlayer) :
 	_player(pPlayer)
@@ -49,7 +49,9 @@ void PlayerIdle::Update()
 {
 	if (_player->GetInfo().stamina <= 0)return;
 
-	if (_player->GetInfo().equipment == TOOLS::ITEM)
+	if (((int)_player->GetInfo().equipment >= (int)8
+		&& (int)_player->GetInfo().equipment <= (int)10
+		))
 	{
 		_player->ChangeState(make_shared<PlayerItemIdle>(_player));
 		return;
@@ -160,12 +162,13 @@ void PlayerItemIdle::Update()
 {
 	if (_player->GetInfo().stamina <= 0)return;
 
-	if (_player->GetInfo().equipment != TOOLS::ITEM)
+	if (!((int)_player->GetInfo().equipment >= (int)8
+		&& (int)_player->GetInfo().equipment <= (int)10
+		))
 	{
 		_player->ChangeState(make_shared<PlayerIdle>(_player));
 		return;
 	}
-
 	if (KEYMANAGER->isOnceKeyDown('W'))
 	{
 		_player->SetDirection(PLAYER_DIRECTION::UP);
@@ -190,18 +193,40 @@ void PlayerItemIdle::Update()
 		_player->ChangeState(make_shared<PlayerItemMove>(_player));
 		return;
 	}
-	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
-		if (_player->GetEquip() == TOOLS::ITEM)
+		if ((int)_player->GetInfo().equipment >= (int)8
+			&& (int)_player->GetInfo().equipment <= (int)10)
 		{
-			_player->ChangeState(make_shared<PlayerEating>(_player));
-			return;
+			_player->ChangeState(make_shared<PlayerPlanting>(_player));
 		}
 	}
 
 }
 
 void PlayerItemIdle::Release()
+{
+}
+
+PlayerPlanting::PlayerPlanting(Player* pPlayer) : State(pPlayer) {}
+
+void PlayerPlanting::Init()
+{
+	_tagName = "farming";
+	_name = "planting";
+	_map = _player->GetMap();
+	cout << _player->GetHaveItem()->GetName() << endl;
+
+}
+
+void PlayerPlanting::Update()
+{
+	_map->GetPM()->Planting(_player->GetTileIndex()[0], _player->GetHaveItem()->GetName());
+	_player->ChangeState(make_shared<PlayerIdle>(_player));
+	return;
+}
+
+void PlayerPlanting::Release()
 {
 }
 
@@ -238,13 +263,16 @@ void PlayerMove::Init()
 		_player->SetAnim("left_Move_Player");
 		break;
 	}
+
 	if (!_player->GetInfo().anim->isPlay())_player->GetInfo().anim->start();
 }
 
 void PlayerMove::Update()
 {
 	if (_player->GetInfo().stamina <= 0)return;
-	if (_player->GetInfo().equipment == TOOLS::ITEM)
+	if ((int)_player->GetInfo().equipment >= (int)8
+		&& (int)_player->GetInfo().equipment <= (int)10
+		)
 	{
 		_player->ChangeState(make_shared<PlayerItemMove>(_player));
 		return;
@@ -361,6 +389,25 @@ void PlayerMove::Update()
 			break;
 		}
 	}
+	switch (_player->GetSoundWalk())
+	{
+	case PLAYER_SOUND_TILES::GRASS:
+		if (!SOUNDMANAGER->isPlaySound("onGrass"))
+		{
+			if (SOUNDMANAGER->isPlaySound("onSoil"))SOUNDMANAGER->stop("onSoil");
+			else if (SOUNDMANAGER->isPlaySound("onRock"))SOUNDMANAGER->stop("onRock");
+			SOUNDMANAGER->play("onGrass", 1.0f);
+		}
+		break;
+	case PLAYER_SOUND_TILES::SOIL:
+		if (!SOUNDMANAGER->isPlaySound("onSoil"))
+		{
+			if (SOUNDMANAGER->isPlaySound("onGrass"))SOUNDMANAGER->stop("onGrass");
+			else if (SOUNDMANAGER->isPlaySound("onRock"))SOUNDMANAGER->stop("onRock");
+			SOUNDMANAGER->play("onSoil", 1.0f);
+		}
+		break;
+	}
 }
 
 void PlayerMove::Release()
@@ -369,12 +416,17 @@ void PlayerMove::Release()
 	else if (_player->GetInfo().anim == KEYANIMANAGER->findAnimation("down_Move_Player"))_player->SetDirection(PLAYER_DIRECTION::DOWN);
 	else if (_player->GetInfo().anim == KEYANIMANAGER->findAnimation("right_Move_Player"))_player->SetDirection(PLAYER_DIRECTION::RIGHT);
 	else if (_player->GetInfo().anim == KEYANIMANAGER->findAnimation("left_Move_Player"))_player->SetDirection(PLAYER_DIRECTION::LEFT);
+
+	SOUNDMANAGER->stop("onGrass");
+	SOUNDMANAGER->stop("onSoil");
+	SOUNDMANAGER->stop("onRock");
 }
 
 PlayerItemMove::PlayerItemMove(Player* pPplayer) : State(pPplayer) {}
 
 void PlayerItemMove::Init()
 {
+	cout << "µé¾î°¬´©?" << endl;
 	_tagName = "move";
 	_name = "item_Move";
 	//133
@@ -409,11 +461,18 @@ void PlayerItemMove::Init()
 void PlayerItemMove::Update()
 {
 	if (_player->GetInfo().stamina <= 0)return;
-	if (_player->GetEquip() != TOOLS::ITEM)
+	if (!((int)_player->GetInfo().equipment >= (int)8
+		&& (int)_player->GetInfo().equipment <= (int)10
+		))
 	{
 		_player->ChangeState(make_shared<PlayerMove>(_player));
 		return;
 	}
+	//if (_player->GetEquip() != TOOLS::ITEM)
+	//{
+	//	_player->ChangeState(make_shared<PlayerMove>(_player));
+	//	return;
+	//}
 	if (KEYMANAGER->isStayKeyDown('W'))
 	{
 		if (KEYMANAGER->isStayKeyDown('D'))
@@ -491,11 +550,31 @@ void PlayerItemMove::Update()
 		_player->ChangeState(make_shared<PlayerItemIdle>(_player));
 		return;
 	}
+	switch (_player->GetSoundWalk())
+	{
+	case PLAYER_SOUND_TILES::GRASS:
+		if (!SOUNDMANAGER->isPlaySound("onGrass"))
+		{
+			if (SOUNDMANAGER->isPlaySound("onSoil"))SOUNDMANAGER->stop("onSoil");
+			else if (SOUNDMANAGER->isPlaySound("onRock"))SOUNDMANAGER->stop("onRock");
+			SOUNDMANAGER->play("onGrass", 1.0f);
+		}
+		break;
+	case PLAYER_SOUND_TILES::SOIL:
+		if (!SOUNDMANAGER->isPlaySound("onSoil"))
+		{
+			if (SOUNDMANAGER->isPlaySound("onGrass"))SOUNDMANAGER->stop("onGrass");
+			else if (SOUNDMANAGER->isPlaySound("onRock"))SOUNDMANAGER->stop("onRock");
+			SOUNDMANAGER->play("onSoil", 1.0f);
+		}
+		break;
+	}
 
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		if (_player->GetEquip() == TOOLS::ITEM)
 		{
+
 			_player->ChangeState(make_shared<PlayerItemIdle>(_player));
 			return;
 		}
@@ -509,6 +588,11 @@ void PlayerItemMove::Release()
 	else if (_player->GetInfo().anim == KEYANIMANAGER->findAnimation("down_Item_Move_Player"))_player->SetDirection(PLAYER_DIRECTION::DOWN);
 	else if (_player->GetInfo().anim == KEYANIMANAGER->findAnimation("right_Item_Move_Player"))_player->SetDirection(PLAYER_DIRECTION::RIGHT);
 	else if (_player->GetInfo().anim == KEYANIMANAGER->findAnimation("left_Item_Move_Player"))_player->SetDirection(PLAYER_DIRECTION::LEFT);
+
+	SOUNDMANAGER->stop("onGrass");
+	SOUNDMANAGER->stop("onSoil");
+	SOUNDMANAGER->stop("onRock");
+	//_player->GetHaveItem()->decrease(1);
 }
 
 
@@ -562,9 +646,16 @@ void PlayerFelling::Init()
 	default:
 		break;
 	}
+	
+	_map = _player->GetMap();
+	if(
+	_map->GetTiles()[_player->GetTileIndex()[0]].object == MAPOBJECT::BRANCH ||
+	_map->GetTiles()[_player->GetTileIndex()[0]].object == MAPOBJECT::TREE1 ||
+	_map->GetTiles()[_player->GetTileIndex()[0]].object == MAPOBJECT::TREE2 ||
+	_map->GetTiles()[_player->GetTileIndex()[0]].object == MAPOBJECT::TREE3)SOUNDMANAGER->play("actMining");
 
 	if (!_player->GetInfo().anim->isPlay())_player->GetInfo().anim->start();
-
+	
 }
 
 void PlayerFelling::Update()
@@ -577,8 +668,10 @@ void PlayerFelling::Update()
 void PlayerFelling::Release()
 {
 	cout << _player->GetHp() << endl;
-	_player->SetDecreaseStamina(2);
-	_player->SetDecreaseHp(2);
+	_player->SetDecreaseStamina(5);
+	_player->GetTM()->SetNowTileMapMemoyrAddressLink(_map);
+	_player->GetTM()->SetImpactIndex(_player->GetHaveItem()->GetName(), _player->GetTileIndex()[0]);
+	_player->GetTM()->Action(_player->GetHaveItem()->GetName());
 }
 
 PlayerPlowing::PlayerPlowing(Player* pPlayer) : State(pPlayer) {}
@@ -614,7 +707,8 @@ void PlayerPlowing::Init()
 	default:
 		break;
 	}
-
+	_map = _player->GetMap();
+	if (_map->GetTiles()[_player->GetTileIndex()[0]].terrain == TERRAIN::DIRT)SOUNDMANAGER->play("actHoe");
 	if (!_player->GetInfo().anim->isPlay())_player->GetInfo().anim->start();
 }
 
@@ -626,6 +720,10 @@ void PlayerPlowing::Update()
 
 void PlayerPlowing::Release()
 {
+	_player->SetDecreaseStamina(2);
+	_player->GetTM()->SetNowTileMapMemoyrAddressLink(_map);
+	_player->GetTM()->SetImpactIndex(_player->GetHaveItem()->GetName(), _player->GetTileIndex()[0]);
+	_player->GetTM()->Action(_player->GetHaveItem()->GetName());
 }
 
 PlayerMining::PlayerMining(Player* pPlayer) :
@@ -664,10 +762,9 @@ void PlayerMining::Init()
 	default:
 		break;
 	}
-
+	_map = _player->GetMap();
+	if (_map->GetTiles()[_player->GetTileIndex()[0]].object == MAPOBJECT::ROCK)SOUNDMANAGER->play("actMining");
 	if (!_player->GetInfo().anim->isPlay())_player->GetInfo().anim->start();
-
-
 }
 
 void PlayerMining::Update()
@@ -678,6 +775,10 @@ void PlayerMining::Update()
 
 void PlayerMining::Release()
 {
+	_player->SetDecreaseStamina(5);
+	_player->GetTM()->SetNowTileMapMemoyrAddressLink(_map);
+	_player->GetTM()->SetImpactIndex(_player->GetHaveItem()->GetName(), _player->GetTileIndex()[0]);
+	_player->GetTM()->Action(_player->GetHaveItem()->GetName());
 }
 
 PlayerSwing::PlayerSwing(Player* pPlayer) : State(pPlayer) {}
@@ -746,7 +847,9 @@ void PlayerSwing::Init()
 			break;
 		}
 	}
-
+	_map = _player->GetMap();
+	SOUNDMANAGER->play("actSwing");
+	
 	if (!_player->GetInfo().anim->isPlay())_player->GetInfo().anim->start();
 }
 
@@ -758,6 +861,10 @@ void PlayerSwing::Update()
 
 void PlayerSwing::Release()
 {
+	_player->SetDecreaseStamina(1);
+	_player->GetTM()->SetNowTileMapMemoyrAddressLink(_map);
+	_player->GetTM()->SetImpactIndex(_player->GetHaveItem()->GetName(), _player->GetTileIndex()[0], _player->GetTileIndex()[2], _player->GetTileIndex()[1]);
+	_player->GetTM()->Action(_player->GetHaveItem()->GetName());
 }
 
 PlayerFishing::PlayerFishing(Player* pPlayer) : State(pPlayer) {}
@@ -838,6 +945,10 @@ void PlayerFishing::Update()
 
 void PlayerFishing::Release()
 {
+	_player->SetDecreaseStamina(4);
+	_player->GetTM()->SetNowTileMapMemoyrAddressLink(_map);
+	_player->GetTM()->SetImpactIndex(_player->GetHaveItem()->GetName(), _player->GetTileIndex()[0], _player->GetTileIndex()[2], _player->GetTileIndex()[1]);
+	_player->GetTM()->Action(_player->GetHaveItem()->GetName());
 }
 
 PlayerEating::PlayerEating(Player* pPlayer) : State(pPlayer) {}
@@ -867,6 +978,22 @@ void PlayerEating::Update()
 
 void PlayerEating::Release()
 {
+	if (_player->GetHaveItem()->GetName() == "Potato")
+	{
+		_player->SetIncreaseHp(20);
+		_player->SetIncreaseStamina(30);
+	}
+	else if (_player->GetHaveItem()->GetName() == "Kale")
+	{
+		_player->SetIncreaseHp(15);
+		_player->SetIncreaseStamina(20);
+	}
+	else if (_player->GetHaveItem()->GetName() == "Parsnip")
+	{
+		_player->SetIncreaseHp(10);
+		_player->SetIncreaseStamina(10);
+	}
+
 }
 
 PlayerWatering::PlayerWatering(Player* pPlayer) : State(pPlayer) {}
@@ -902,6 +1029,7 @@ void PlayerWatering::Init()
 	default:
 		break;
 	}
+	_map = _player->GetMap();
 
 	if (!_player->GetInfo().anim->isPlay())_player->GetInfo().anim->start();
 }
@@ -914,5 +1042,9 @@ void PlayerWatering::Update()
 
 void PlayerWatering::Release()
 {
+	_player->GetTM()->SetNowTileMapMemoyrAddressLink(_map);
+	_player->GetTM()->SetImpactIndex(_player->GetHaveItem()->GetName(), _player->GetTileIndex()[0], _player->GetTileIndex()[2], _player->GetTileIndex()[1]);
+	_player->GetTM()->Action(_player->GetHaveItem()->GetName());
 }
+
 

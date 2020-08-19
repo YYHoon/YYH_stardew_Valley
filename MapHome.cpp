@@ -3,15 +3,11 @@
 
 HRESULT MapHome::init()
 {
+	_vertical = _horizon = 30;
+	_tiles = _map->Load("mapHome.map", _vertical, _horizon);	
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
-
-	_count = 0;
-	_vertical = _horizon = 30;
-
-	_player->GetPlayerInver()->setPlayer(_player);
-	_tiles = _map->Load("mapHome.map", _vertical, _horizon);	
 
 	for (int i = 0; i < _tiles.size(); i++)
 	{
@@ -24,6 +20,8 @@ HRESULT MapHome::init()
 			_player->SetPosition(Vector2(_tiles[i].rc.left + 32, _tiles[i].rc.top - 100));
 		}
 	}
+	
+	_count = 0;
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
 	return S_OK;
@@ -37,7 +35,7 @@ void MapHome::release()
 void MapHome::update()
 {
 
-	if (_player->GetIsNext())
+	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::HOME_TO_PARM)
 	{
 		SCENEMANAGER->changeScene("FARM");
 	}

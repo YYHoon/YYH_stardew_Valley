@@ -4,6 +4,7 @@
 class MapMain;
 class Plants;
 
+
 class PlantsManager : public gameNode
 {
 private:

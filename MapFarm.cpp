@@ -10,18 +10,9 @@ HRESULT MapFarm::init()
 	_player->init();
 
 
-	for (int i = 0; i < _tiles.size(); i++)
-	{
-		if (_tiles[i].pos == POS::PARM_TO_HOME)
-		{
-			_player->SetPosition(Vector2(_tiles[i].rc.left+32,_tiles[i].rc.bottom+32));
-		}
-	}
-
-		
 	_pm = new PlantsManager;
     /////////////////////////////////
-	//_pm->SetPlantsList( _pm->Load()); < -- 이건 악마새끼인게 틀림없음
+	_pm->SetPlantsList( _pm->Load());
 	//////////////////////////////////
 	_pm->Init();
 	_pm->SetMapMemoryAddressLinked(this);
@@ -42,11 +33,13 @@ void MapFarm::release()
 
 void MapFarm::update()
 {
-	if (_player->GetIsNext())
+
+	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::PARM_TO_HOME)
 	{
 		SCENEMANAGER->changeScene("HOME");
 	}
-	if (_player->GetIsPrev())
+
+	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::PARM_TO_CAVE)
 	{
 		SCENEMANAGER->changeScene("CAVE");
 	}
@@ -59,10 +52,7 @@ void MapFarm::update()
 		}
 
 	}
-	if (KEYMANAGER->isOnceKeyDown(VK_F1))
-	{
-		EFFECTMANAGER->play("RockDis", _ptMouse.x, _ptMouse.y);
-	}
+
 	_count++;
 	_player->update();
 	_pm->Update();

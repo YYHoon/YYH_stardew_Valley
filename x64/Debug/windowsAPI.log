@@ -1,23 +1,48 @@
-﻿  MapFarm.cpp
-C:\Users\KGA_11\Downloads\하세이브\why\MapMain.h(41,27): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(76,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(77,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(82,44): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(82,21): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(106,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(107,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(118,86): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(117,65): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(117,28): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(126,78): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(125,61): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(125,28): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(135,45): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(135,22): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(141,45): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(141,22): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(147,45): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(147,22): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(156,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\KGA_11\Downloads\하세이브\why\MapFarm.cpp(157,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  windowsAPI.vcxproj -> C:\Users\KGA_11\Downloads\하세이브\why\x64\Debug\windowsAPI.exe
+﻿  MapCave.cpp
+C:\Users\KGA_11\Desktop\stardew\MapMain.h(42,27): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapCave.cpp(52,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapCave.cpp(53,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapCave.cpp(58,44): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapCave.cpp(58,21): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapCave.cpp(65,50): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapCave.cpp(65,22): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  MapFarm.cpp
+C:\Users\KGA_11\Desktop\stardew\MapMain.h(42,27): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(71,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(72,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(77,44): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(77,21): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(101,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(102,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(113,86): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(112,65): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(112,28): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(121,78): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(120,61): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(120,28): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(130,45): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(130,22): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(136,45): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(136,22): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(142,45): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(142,22): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(151,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapFarm.cpp(152,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  MapHome.cpp
+C:\Users\KGA_11\Desktop\stardew\MapMain.h(42,27): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapHome.cpp(58,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapHome.cpp(59,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapHome.cpp(64,44): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapHome.cpp(64,21): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapHome.cpp(71,36): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapHome.cpp(70,45): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapHome.cpp(70,22): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapHome.cpp(79,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapHome.cpp(80,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapHome.cpp(90,76): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapHome.cpp(90,28): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapHome.cpp(94,86): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapHome.cpp(93,76): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\KGA_11\Desktop\stardew\MapHome.cpp(93,28): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+  windowsAPI.vcxproj -> C:\Users\KGA_11\Desktop\stardew\x64\Debug\windowsAPI.exe

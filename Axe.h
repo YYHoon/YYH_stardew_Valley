@@ -4,7 +4,7 @@
 class Axe : public ToolItem
 {
 private:
-
+	bool _isWork;
 
 public:
 	Axe();
@@ -13,7 +13,9 @@ public:
 
 	void Init() override;
 	void Action() override;
+	void Update() override;
 	void ReAction() override;
 
+	void SetIsWork(bool isWork) { _isWork = isWork; }
 };
 

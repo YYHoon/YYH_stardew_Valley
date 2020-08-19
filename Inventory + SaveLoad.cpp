@@ -5,12 +5,11 @@ void Inventory::Save()
 {
 	size = _toolInven.size();
 	ToolItem* saveTile = new ToolItem[size + 1];
-	
 	SaveSize();
 	for (int i = 0; i < _toolInven.size(); i++)
 	{
 		saveTile[i] = *_toolInven[i];
-		cout << saveTile[i].GetName() << endl;
+		//cout << saveTile[i].GetName() << endl;
 	}
 	HANDLE file;
 	DWORD write;

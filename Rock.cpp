@@ -3,7 +3,7 @@
 
 void Rock::Init()
 {
-	_name = "Rock";
+	_name = "Stone";
 	_tag = "ResoureceItem";
 	_imageI = IMAGEMANAGER->findImage("Stone(64x64)");
 	_imageC = IMAGEMANAGER->findImage("Stone");

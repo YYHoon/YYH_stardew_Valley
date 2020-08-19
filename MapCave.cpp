@@ -4,7 +4,7 @@
 HRESULT MapCave::init()
 {
 	_vertical = _horizon = 50;
-	_tiles = _map->Load("Cave.map", _vertical, _horizon);
+	_tiles = _map->Load("mapCave.map", _vertical, _horizon);
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
@@ -25,13 +25,15 @@ HRESULT MapCave::init()
 
 void MapCave::release()
 {
+	_player->SavePlayerInfo("playerSave");
+	_map->Save("mapCave.map", _horizon, _vertical, _tiles);
 }
 
 void MapCave::update()
 {
-	if (_player->GetIsPrev())
+	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::CAVE_TO_PARM)
 	{
-		SCENEMANAGER->changeScene("FARM");
+		SCENEMANAGER->changeScene("PARM");
 	}
 	_count++;
 	_player->update();
@@ -68,4 +70,5 @@ void MapCave::render()
 
 	ZORDER->ZOrderRender();
 	_player->render();
+	ENVIRONMENT->render(getMemDC());
 }

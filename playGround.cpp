@@ -30,10 +30,12 @@ HRESULT playGround::init()
 	MapHome* _home;
 	MapTest* _test;
 	MapCave* _cave;
+	DrainedLoadingScene* _DariLoading;
 	SCENEMANAGER->addScene("FARM", _farm = new MapFarm);
 	SCENEMANAGER->addScene("HOME", _home = new MapHome);
 	SCENEMANAGER->addScene("CAVE", _cave = new MapCave);
 	SCENEMANAGER->addScene("Test", _test = new MapTest);
+	SCENEMANAGER->addScene("DariLoading", _DariLoading = new DrainedLoadingScene);
 	SCENEMANAGER->changeScene("FARM");
 	//test = new MiniGame;
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
@@ -113,6 +115,11 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("ItemInfo", "image/일반아이템설명.bmp", 293, 258, true, MAGENTA);
 	IMAGEMANAGER->addImage("RecoveryItemInfo", "image/회복아이템설명.bmp", 293, 258, true, MAGENTA);
 	IMAGEMANAGER->addImage("ItemInfoWindow", "Image/ItemInfoWindow.bmp", 180, 130, true, MAGENTA);
+	IMAGEMANAGER->addImage("SelectUI", "Image/selectUI.bmp", 1275, 276, true, MAGENTA);
+	IMAGEMANAGER->addImage("ItemInfoWindow2", "Image/ItemInfoWindow2.bmp", 180, 130, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("DrainLoading", "image/CombackHome(822x62).bmp", 822, 62, 3, 1, true, MAGENTA);
+	IMAGEMANAGER->addImage("DrainFace", "image/탈진상태(150x138).bmp", 150, 138, true, MAGENTA);
+
 
 	//환경
 	IMAGEMANAGER->addImage("Environment_Clock", "image/Environment/Environment_Clock.bmp", 288, 236, true, MAGENTA);
@@ -238,8 +245,19 @@ void playGround::imginit()
 void playGround::soundinit()
 {
 	SOUNDMANAGER->addSound("TitleSound", "Sounds/opening.mp3", true, true);
+	SOUNDMANAGER->addSound("FarmMap", "Sounds/farm.mp3", true, true);
 	SOUNDMANAGER->addSound("maptool", "Sounds/maptool.mp3", true, true);
 	SOUNDMANAGER->addSound("MenuSelect", "Sounds/menu_select.mp3", false, false);
+	//playerSounds;
+	
+	SOUNDMANAGER->addSound("onGrass", "Sounds/PlayerSound/move_grass.mp3", false, false);
+	SOUNDMANAGER->addSound("onSoil", "Sounds/PlayerSound/move_soil.mp3", false, false);
+	SOUNDMANAGER->addSound("onRock", "Sounds/PlayerSound/move_rock.mp3", false, true);
+	SOUNDMANAGER->addSound("actHoe", "Sounds/PlayerSound/hoe.mp3", false, false);
+	SOUNDMANAGER->addSound("actSwing", "Sounds/PlayerSound/scythe.mp3", false, false);
+	SOUNDMANAGER->addSound("actMining", "Sounds/PlayerSound/smash.mp3", false, false);
+	SOUNDMANAGER->addSound("lootItem", "Sounds/PlayerSound/getItem.mp3",false,false);
+
 	SOUNDMANAGER->addSound("RemoveRock", "Sounds/removeRock", false, false);
 	SOUNDMANAGER->addSound("RemoveWeed", "Sounds/removeGrass", false, false);
 	SOUNDMANAGER->addSound("RemoveBranch", "Sounds/breakTree", false, false);
