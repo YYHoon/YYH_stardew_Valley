@@ -417,6 +417,9 @@
     <ClInclude Include="astar.h">
       <Filter>playGround\Astar</Filter>
     </ClInclude>
+    <ClInclude Include="DrainedLoadingScene.h">
+      <Filter>playGround\Scene\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -691,6 +694,9 @@
     </ClCompile>
     <ClCompile Include="astar.cpp">
       <Filter>playGround\Astar</Filter>
+    </ClCompile>
+    <ClCompile Include="DrainedLoadingScene.cpp">
+      <Filter>playGround\Scene\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

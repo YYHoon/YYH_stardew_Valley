@@ -7,7 +7,7 @@
 #include "TestScene.h"
 #include "MapToolScene.h"
 #include "MapManager.h"
-
+#include "DrainedLoadingScene.h"
 
 
 #include <iostream>
