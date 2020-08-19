@@ -36,6 +36,12 @@ private:
 	float _test;
 	float _test1;
 
+	int _hour;	//시간
+	int _minute;  //분
+
+	int _day;		//날자
+
+
 	bool timeUpdate(const float count)
 	{
 		_count += count;

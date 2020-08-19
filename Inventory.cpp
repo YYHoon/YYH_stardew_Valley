@@ -10,8 +10,8 @@ HRESULT Inventory::init()
 	_toolItemManager = new ToolItemManager;
 	_toolItemManager->Init();
 
-	_Dtset = new Dialog;
-	_Dtset->init();
+	_Dialog = new Dialog;
+	_Dialog->init();
 
 	_inventory.isInvenOpen = false;
 
@@ -58,9 +58,9 @@ HRESULT Inventory::init()
 	_toolInven[4] = _toolList[4];
 	_toolInven[5] = _toolList[5];
 	_toolInven[6] = _toolList[6];
-	_toolInven[7] ->SetToolEnum(TOOLS::NONE);
-	_toolInven[8] ->SetToolEnum(TOOLS::NONE);
-	_toolInven[9] ->SetToolEnum(TOOLS::NONE);
+	_toolInven[7]->SetToolEnum(TOOLS::NONE);
+	_toolInven[8]->SetToolEnum(TOOLS::NONE);
+	_toolInven[9]->SetToolEnum(TOOLS::NONE);
 	_toolInven[10]->SetToolEnum(TOOLS::NONE);
 	_toolInven[11]->SetToolEnum(TOOLS::NONE);
 
@@ -85,11 +85,16 @@ void Inventory::update()
 
 	_inventory.rc.top = _inventory.y;
 
-	_Dtset->update(_toolInven[1]->GetName());
-	if (KEYMANAGER->isOnceKeyDown(VK_F11)) _Dtset->setDialogClear(true);
-	if (KEYMANAGER->isOnceKeyDown(VK_F12)) _Dtset->setDialogClear(false);
+	for (int i = 0; i < _vInvenIndexRC.size(); ++i)
+	{
+		if (PtInRect(&_vInvenIndexRC[i], _ptMouse))
+		{
+			_Dialog->update(_toolInven[i]->GetName());
+		}
+	}
 
-	if (_player->GetPlayercollision().bottom >= WINSIZEY - 100)
+
+	if (_player->GetPlayercollision().bottom - CAMERAMANAGER->getT() >= WINSIZEY - 100)
 	{
 		_quickSlotUp = true;
 	}
@@ -233,14 +238,17 @@ void Inventory::update()
 }
 
 void Inventory::render()
-{
+{	
 	SetTextColor(getMemDC(), WHITE);
-	char getsu[2000]; //아이템 개수 표기용
-
+	char getsu[30]; //아이템 겟수 표기용
+	
 	HFONT font1, oldFont1;
 	font1 = CreateFont(30, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
 		PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
 	oldFont1 = (HFONT)SelectObject(getMemDC(), font1);
+
+	char pGold[10];
+	sprintf_s(pGold, "%d", _player->GetMoney());
 
 	if (_inventory.isInvenOpen)
 	{
@@ -256,6 +264,9 @@ void Inventory::render()
 			IMAGEMANAGER->findImage("UI_Inventory_Trashcan")->frameRender(getMemDC(), 1257, 464, _trashCanFrameX, 0);
 			_trashCanRC = RectMake(1260, 446, 90, 140);		//쓰레기통 렉트
 			_vInvenDynamicRC.push_back(_trashCanRC);
+
+			if (KEYMANAGER->isOnceKeyDown('Q')) _Dialog->setDialogClear(true);
+			if (KEYMANAGER->isOnceKeyUp('Q')) _Dialog->setDialogClear(false);
 
 			if (ENVIRONMENT->GetCluckValue() <= CLOCKTIMEHALF)
 			{
@@ -276,12 +287,22 @@ void Inventory::render()
 				if (_toolInven[i]->GetToolEnum() == TOOLS::ACTIVEITEM || _toolInven[i]->GetToolEnum() == TOOLS::EATITEM ||
 					_toolInven[i]->GetToolEnum() == TOOLS::RESOURCEITEM)
 				{
+					SetTextColor(getMemDC(), WHITE);
 					sprintf_s(getsu, "%d", _toolInven[i]->GetNumber());
 					TextOut(getMemDC(), 453 + (i * 64), 275, getsu, strlen(getsu));
 				}
 			}
 
-			//cout << "1" << endl;
+			HFONT font2, oldFont2;
+			font2 = CreateFont(50, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
+				PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
+			oldFont2 = (HFONT)SelectObject(getMemDC(), font2);
+
+			SetTextColor(getMemDC(), BLACK);
+			TextOut(getMemDC(), 950, 570, pGold, strlen(pGold));
+
+			SelectObject(getMemDC(), oldFont2);
+			DeleteObject(oldFont2);
 		}
 		break;
 		case 2:		//제작 탭
@@ -303,7 +324,23 @@ void Inventory::render()
 			_vInvenDynamicRC.push_back(_menuUpRC);
 			_vInvenDynamicRC.push_back(_menuDownRC);
 
-			//cout << "2" << endl;
+			if (KEYMANAGER->isOnceKeyDown('Q')) _Dialog->setDialogClear(true);
+			if (KEYMANAGER->isOnceKeyUp('Q')) _Dialog->setDialogClear(false);
+
+			for (int i = 0; i < _toolInven.size() - 1; ++i)
+			{
+				if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
+				{
+					_toolInven[i]->GetImageInven()->render(getMemDC(), 416 + (i * 64), 545);
+				}
+				//----아이템 개수 출력----------//
+				if (_toolInven[i]->GetToolEnum() == TOOLS::ACTIVEITEM || _toolInven[i]->GetToolEnum() == TOOLS::EATITEM ||
+					_toolInven[i]->GetToolEnum() == TOOLS::RESOURCEITEM)
+				{
+					sprintf_s(getsu, "%d", _toolInven[i]->GetNumber());
+					TextOut(getMemDC(), 453 + (i * 64), 590, getsu, strlen(getsu));
+				}
+			}
 		}
 		break;
 		case 3:		//키 알림 탭
@@ -311,8 +348,19 @@ void Inventory::render()
 			_vInvenDynamicRC.clear();
 
 			IMAGEMANAGER->findImage("UI_Inventory_KeyInfo")->render(getMemDC(), INVENIMAGECOOR);
+			
+			SetTextColor(getMemDC(), BLACK);
 
-			//cout << "3" << endl;
+			TextOut(getMemDC(), 540, 220, "위로이동 : W", strlen("위로이동 : W"));
+			TextOut(getMemDC(), 420, 260, "오른쪽이동 : A                왼쪽이동 : D", strlen("오른쪽이동 : A                왼쪽이동 : D"));
+			TextOut(getMemDC(), 540, 300, "아래이동 : S", strlen("아래이동 : S"));
+			
+			TextOut(getMemDC(), 820, 220, "도구 사용, 상호작용 : 마우스 좌클릭", strlen("도구 사용, 상호작용 : 마우스 좌클릭"));
+
+			TextOut(getMemDC(), 420, 350, "인벤토리 열기, 메뉴 열기 : E", strlen("인벤토리 열기, 메뉴 열기 : E"));
+			TextOut(getMemDC(), 420, 380, "인벤토리 단축기 : 1 ~ 0,-,=", strlen("인벤토리 단축기 : 1 ~ 9,-,="));
+			TextOut(getMemDC(), 420, 410, "인벤토리 정보키 : 인벤토리 탭안에서 Q", strlen("인벤토리 정보키 : 인벤토리 탭안에서 Q"));
+
 		}
 		break;
 		case 4:		//게임 종료탭
@@ -324,7 +372,6 @@ void Inventory::render()
 			_titleRC = RectMake(665, 334, 272, 96);							//종료탭에서 [타이틀 메뉴로] 버튼
 			_closeRC = RectMake(699, 470, 204, 96);							//종료탭에서 [게임 종료] 버튼
 
-			//cout << "4" << endl;
 		}
 		break;
 		}
@@ -391,7 +438,19 @@ void Inventory::render()
 		}
 	}
 
-	_Dtset->render();
+	HFONT font3, oldFont3;
+	font3 = CreateFont(40, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
+		PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
+	oldFont3 = (HFONT)SelectObject(getMemDC(), font3);
+
+	SetTextColor(getMemDC(), BLACK);
+	TextOut(getMemDC(), 1370, 203, pGold, strlen(pGold));
+	
+	SelectObject(getMemDC(), oldFont3);
+	DeleteObject(oldFont3);
+
+
+	_Dialog->render();
 	SelectObject(getMemDC(), oldFont1);
 	DeleteObject(oldFont1);
 	

@@ -102,6 +102,7 @@ void Store::update()
 
 	if (_storeOpen)
 	{
+		ENVIRONMENT->SetIsInventoryOpen(true);
 		if (PtInRect(&_Item[0], _ptMouse))
 		{
 			_StoreItmeFrameY = 1;
@@ -167,6 +168,7 @@ void Store::update()
 			}
 		}
 	}
+	else ENVIRONMENT->SetIsInventoryOpen(false);
 
 	if (PtInRect(&_CloseRc, _ptMouse))
 	{
@@ -186,12 +188,12 @@ void Store::update()
 
 void Store::render()
 {
-	_StoreNPC->frameRender(getMemDC(), _StoreNpcRect.left, _StoreNpcRect.top, 0, 0);
+	CAMERAMANAGER->frameRender(getMemDC(), _StoreNPC, _StoreNpcRect.left, _StoreNpcRect.top);
 
-	//if (_storeOpen)
-	//{
-	//	OpenStoreRender();
-	//}
+	if (_storeOpen)
+	{
+		OpenStoreRender();
+	}
 }
 
 void Store::OpenStoreRender()
