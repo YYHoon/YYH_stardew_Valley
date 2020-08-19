@@ -4,32 +4,36 @@
 HRESULT MapCave::init()
 {
 	_vertical = _horizon = 50;
-	_tiles = _map->Load("Cave.map", _vertical, _horizon);
+	_tiles = _map->Load("mapCave.map", _vertical, _horizon);
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
-	_player->init();
-	_player->SetPosition(Vector2(100,500));
+	_player->init();	
 
-	_pm = new PlantsManager;
-	/////////////////////////////////
-	//_pm->SetPlantsList( _pm->Load()); < -- 이건 악마새끼인게 틀림없음
-	//////////////////////////////////
-	_pm->Init();
-	_pm->SetMapMemoryAddressLinked(this);
-	_count = 0;
+	if (_player->GetMapName() == "FARM")
+	{
+		_player->SetPosition(Vector2(500, 500));
+	}
+	else
+	{
+		_player->SetPosition(Vector2(500, 1000));
+	}
+
+	_player->SetMapName("CAVE");
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
-
+	_count = 0;
 	return S_OK;
 }
 
 void MapCave::release()
 {
+	_player->SavePlayerInfo("playerSave");
+	_map->Save("mapCave.map", _horizon, _vertical, _tiles);
 }
 
 void MapCave::update()
 {
-	if (_player->GetIsPrev())
+	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::CAVE_TO_PARM)
 	{
 		SCENEMANAGER->changeScene("FARM");
 	}
@@ -66,6 +70,8 @@ void MapCave::render()
 		}
 	}
 
+
 	ZORDER->ZOrderRender();
 	_player->render();
+	ENVIRONMENT->render(getMemDC());
 }

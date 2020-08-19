@@ -59,7 +59,7 @@ void MapToolScene::Button()
 
 	if (PtInRect(&_inBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
-		OutToIn(30, 30);
+		OutToIn(50, 50);
 	}
 	if (PtInRect(&_outBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
@@ -163,7 +163,7 @@ void MapToolScene::Button()
 	}
 	if (PtInRect(&_saveBtn[0], _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
-		Save("mapHome.map",_horizontal,_vertical,_vtiles);
+		Save("mapCave.map",_horizontal,_vertical,_vtiles);
 		_saveimg = true;
 		_count = 0;
 	}
@@ -183,7 +183,7 @@ void MapToolScene::Button()
 	}
 	if (PtInRect(&_loadBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
-		_vtiles = Load("mapHome.map", _horizontal, _vertical);
+		_vtiles = Load("mapCave.map", _horizontal, _vertical);
 	}
 	if (PtInRect(&_exitBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{

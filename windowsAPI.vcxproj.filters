@@ -411,8 +411,14 @@
     <ClInclude Include="SpreadItem.h">
       <Filter>playGround\SpreadItem</Filter>
     </ClInclude>
+    <ClInclude Include="astar.h">
+      <Filter>playGround\Astar</Filter>
+    </ClInclude>
+    <ClInclude Include="DrainedLoadingScene.h">
+      <Filter>playGround\Scene\UI</Filter>
+    </ClInclude>
     <ClInclude Include="MapCave.h">
-      <Filter>playGround\Scene\MaptoolScene</Filter>
+      <Filter>playGround\Map</Filter>
     </ClInclude>
     <ClInclude Include="astar.h">
       <Filter>playGround\Astar</Filter>
@@ -689,8 +695,14 @@
     <ClCompile Include="Inventory + SaveLoad.cpp">
       <Filter>playGround\Inventory</Filter>
     </ClCompile>
+    <ClCompile Include="astar.cpp">
+      <Filter>playGround\Astar</Filter>
+    </ClCompile>
+    <ClCompile Include="DrainedLoadingScene.cpp">
+      <Filter>playGround\Scene\UI</Filter>
+    </ClCompile>
     <ClCompile Include="MapCave.cpp">
-      <Filter>playGround\Scene\MaptoolScene</Filter>
+      <Filter>playGround\Map</Filter>
     </ClCompile>
     <ClCompile Include="astar.cpp">
       <Filter>playGround\Astar</Filter>

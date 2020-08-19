@@ -9,18 +9,26 @@ HRESULT MapFarm::init()
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
 
-
 	_pm = new PlantsManager;
     /////////////////////////////////
 	_pm->SetPlantsList( _pm->Load());
 	//////////////////////////////////
 	_pm->Init();
 	_pm->SetMapMemoryAddressLinked(this);
-	_count = 0;
+
+	if (_player->GetMapName() == "HOME")
+	{
+		_player->SetPosition(Vector2(600, 100));
+	}
+	else if (_player->GetMapName() == "CAVE")
+	{
+		_player->SetPosition(Vector2(100, 100));
+	}
 	
+	_player->SetMapName("FARM");
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
-
+	_count = 0;
 	return S_OK;
 }
 
@@ -33,11 +41,13 @@ void MapFarm::release()
 
 void MapFarm::update()
 {
-	if (_player->GetIsNext())
+
+	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::PARM_TO_HOME)
 	{
 		SCENEMANAGER->changeScene("HOME");
 	}
-	if (_player->GetIsPrev())
+
+	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::PARM_TO_CAVE)
 	{
 		SCENEMANAGER->changeScene("CAVE");
 	}
@@ -50,10 +60,7 @@ void MapFarm::update()
 		}
 
 	}
-	if (KEYMANAGER->isOnceKeyDown(VK_F1))
-	{
-		EFFECTMANAGER->play("RockDis", _ptMouse.x, _ptMouse.y);
-	}
+
 	_count++;
 	_player->update();
 	_pm->Update();
