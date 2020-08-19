@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "WaterSpray.h"
 #include "AllMap.h"
+#include"SpreadItem.h"
 
 void WaterSpray::Init()
 {

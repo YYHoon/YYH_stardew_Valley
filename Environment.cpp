@@ -103,7 +103,7 @@ void Environment::update()
 
 void Environment::render(HDC _hdc)
 {
-	IMAGEMANAGER->findImage("Inventory_BG")->alphaRender(_hdc, _alphaValue);
+	//IMAGEMANAGER->findImage("Inventory_BG")->alphaRender(_hdc, _alphaValue);
 
 	IMAGEMANAGER->findImage("Environment_Clock")->render(_hdc, 1300, 12);
 

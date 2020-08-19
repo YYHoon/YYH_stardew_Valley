@@ -1,12 +1,14 @@
 #include "stdafx.h"
 #include "ToolItemManager.h"
 #include "MapMain.h"
+#include "SpreadItem.h"
 ToolItemManager::ToolItemManager()
 {
 	
 }
 
 void ToolItemManager::Init()
+
 {
 	//ToolItem=================================¤¡
 	if (_axe == nullptr)
@@ -116,10 +118,12 @@ void ToolItemManager::Init()
 	}
 	//ResoureceItem================================
 
-
+	_spreadItem = new SpreadItem;
 	for (int i = 0; i < _toolList.size(); ++i)
 	{
 		_toolList[i]->SetNowMapMemoryAddressLink(_nowTileMap);
+		_toolList[i]->SetSpreadItem(_spreadItem);
+		//_toolList[i]->SetSpreadInToolMemory(tosstool);
 		_toolList[i]->Init();
 	}
 
@@ -138,6 +142,15 @@ void ToolItemManager::Action(string name)
 	}
 }
 
+void ToolItemManager::Update()
+{
+	for (int i = 0; i < _toolList.size(); ++i)
+	{
+
+		_toolList[i]->Update();
+	}
+}
+
 void ToolItemManager::Render(string name)
 {
 	for (int i = 0; i < _toolList.size(); ++i)
@@ -150,6 +163,8 @@ void ToolItemManager::Render(string name)
 
 	}
 }
+
+
 
 int ToolItemManager::GetImpactIndexCenter(string name)
 {

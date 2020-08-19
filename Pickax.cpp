@@ -1,7 +1,7 @@
 #include"stdafx.h"
 #include "Pickax.h"
 #include"AllMap.h"
-
+#include"SpreadItem.h"
 Pickax::Pickax()
 {
 
@@ -23,11 +23,15 @@ void Pickax::Action()
 	//돌 부술때
 	if (_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::ROCK )
 	{
+		_spreadItem->Init("Stone(64x64)", _map, _spreadItem->IndexToVector(_map, _tileIndex[0]), 1);
+
 		_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
 		_map->SetColl(_tileIndex[0], false);
 	}
 	if (_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::WEED)
 	{
+		_spreadItem->Init("Weed(64x64)", _map, _spreadItem->IndexToVector(_map, _tileIndex[0]), 1);
+
 		_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
 		_map->SetColl(_tileIndex[0], false);
 	}
@@ -39,6 +43,11 @@ void Pickax::Action()
 		_map->SetColl(_tileIndex[0], false);
 		_map->SetWet(_tileIndex[0], false);
 	}
+}
+
+void Pickax::Update()
+{
+	_spreadItem->Update();
 }
 
 void Pickax::ReAction()

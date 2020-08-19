@@ -576,7 +576,7 @@ void PlayerFelling::Update()
 
 void PlayerFelling::Release()
 {
-	cout << _player->GetHp() << endl;
+	//cout << _player->GetHp() << endl;
 	_player->SetDecreaseStamina(2);
 	_player->SetDecreaseHp(2);
 }

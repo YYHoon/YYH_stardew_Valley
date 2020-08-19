@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Homi.h"
 #include "AllMap.h"
+#include"SpreadItem.h"
 
 void Homi::Init()
 {
@@ -28,10 +29,17 @@ void Homi::Action()
 
 	if (_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::WEED)
 	{
+		_spreadItem->Init("Weed(64x64)", _map, _spreadItem->IndexToVector(_map, _tileIndex[0]), 1);
+
 		_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
 		_map->SetColl(_tileIndex[0], false);
 	}
 
+}
+
+void Homi::Update()
+{
+	_spreadItem->Update();
 }
 
 void Homi::ReAction()

@@ -5,6 +5,7 @@
 #include "Inventory.h"
 
 
+
 class HpStaminaBar;
 class State;
 class MapMain;
