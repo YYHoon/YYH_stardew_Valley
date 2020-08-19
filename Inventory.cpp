@@ -55,10 +55,10 @@ HRESULT Inventory::init()
 	_toolInven[3] = _toolList[3];
 	_toolInven[4] = _toolList[4];
 	_toolInven[5] = _toolList[5];
-	_toolInven[6] ->SetToolEnum(TOOLS::NONE);
-	_toolInven[7] ->SetToolEnum(TOOLS::NONE);
-	_toolInven[8] ->SetToolEnum(TOOLS::NONE);
-	_toolInven[9] ->SetToolEnum(TOOLS::NONE);
+	_toolInven[6] = _toolList[6];
+	_toolInven[7]->SetToolEnum(TOOLS::NONE);
+	_toolInven[8]->SetToolEnum(TOOLS::NONE);
+	_toolInven[9]->SetToolEnum(TOOLS::NONE);
 	_toolInven[10]->SetToolEnum(TOOLS::NONE);
 	_toolInven[11]->SetToolEnum(TOOLS::NONE);
 
@@ -82,11 +82,6 @@ void Inventory::update()
 	}
 
 	_inventory.rc.top = _inventory.y;
-
-
-	if (KEYMANAGER->isOnceKeyDown('Q')) _Dialog->setDialogClear(true);
-	if (KEYMANAGER->isOnceKeyUp('Q')) _Dialog->setDialogClear(false);
-
 
 	for (int i = 0; i < _vInvenIndexRC.size(); ++i)
 	{
@@ -258,6 +253,9 @@ void Inventory::render()
 			_trashCanRC = RectMake(1260, 446, 90, 140);		//쓰레기통 렉트
 			_vInvenDynamicRC.push_back(_trashCanRC);
 
+			if (KEYMANAGER->isOnceKeyDown('Q')) _Dialog->setDialogClear(true);
+			if (KEYMANAGER->isOnceKeyUp('Q')) _Dialog->setDialogClear(false);
+
 			if (ENVIRONMENT->GetCluckValue() <= CLOCKTIMEHALF)
 			{
 				IMAGEMANAGER->findImage("UI_Inventory_Day")->render(getMemDC(), INVENIMAGECOOR);
@@ -314,6 +312,9 @@ void Inventory::render()
 			_vInvenDynamicRC.push_back(_menuUpRC);
 			_vInvenDynamicRC.push_back(_menuDownRC);
 
+			if (KEYMANAGER->isOnceKeyDown('Q')) _Dialog->setDialogClear(true);
+			if (KEYMANAGER->isOnceKeyUp('Q')) _Dialog->setDialogClear(false);
+
 			for (int i = 0; i < _toolInven.size() - 1; ++i)
 			{
 				if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
@@ -346,6 +347,7 @@ void Inventory::render()
 
 			TextOut(getMemDC(), 420, 350, "인벤토리 열기, 메뉴 열기 : E", strlen("인벤토리 열기, 메뉴 열기 : E"));
 			TextOut(getMemDC(), 420, 380, "인벤토리 단축기 : 1 ~ 0,-,=", strlen("인벤토리 단축기 : 1 ~ 9,-,="));
+			TextOut(getMemDC(), 420, 410, "인벤토리 정보키 : 인벤토리 탭안에서 Q", strlen("인벤토리 정보키 : 인벤토리 탭안에서 Q"));
 
 		}
 		break;

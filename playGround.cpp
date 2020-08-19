@@ -112,6 +112,7 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("RecoveryItemInfo", "image/회복아이템설명.bmp", 293, 258, true, MAGENTA);
 	IMAGEMANAGER->addImage("ItemInfoWindow", "Image/ItemInfoWindow.bmp", 180, 130, true, MAGENTA);
 	IMAGEMANAGER->addImage("SelectUI", "Image/selectUI.bmp", 1275, 276, true, MAGENTA);
+	IMAGEMANAGER->addImage("ItemInfoWindow2", "Image/ItemInfoWindow2.bmp", 180, 130, true, MAGENTA);
 
 	//환경
 	IMAGEMANAGER->addImage("Environment_Clock", "image/Environment/Environment_Clock.bmp", 288, 236, true, MAGENTA);
