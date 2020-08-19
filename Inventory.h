@@ -82,7 +82,7 @@ private:
 
 	int _quickSlotSelectYUP;
 
-	Dialog* _Dtset;
+	Dialog* _Dialog;
 
 	/////////////////////////</SAVE LOAD>///////////////////////////	
 	int size;

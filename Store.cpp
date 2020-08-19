@@ -186,12 +186,12 @@ void Store::update()
 
 void Store::render()
 {
-	_StoreNPC->frameRender(getMemDC(), _StoreNpcRect.left, _StoreNpcRect.top, 0, 0);
+	CAMERAMANAGER->frameRender(getMemDC(), _StoreNPC, _StoreNpcRect.left, _StoreNpcRect.top);
 
-	//if (_storeOpen)
-	//{
-	//	OpenStoreRender();
-	//}
+	if (_storeOpen)
+	{
+		OpenStoreRender();
+	}
 }
 
 void Store::OpenStoreRender()

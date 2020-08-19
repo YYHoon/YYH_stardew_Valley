@@ -233,6 +233,7 @@ void playGround::imginit()
 void playGround::soundinit()
 {
 	SOUNDMANAGER->addSound("TitleSound", "Sounds/opening.mp3", true, true);
+	SOUNDMANAGER->addSound("FarmMap", "Sounds/farm.mp3", true, true);
 	SOUNDMANAGER->addSound("maptool", "Sounds/maptool.mp3", true, true);
-	SOUNDMANAGER->addSound("MenuSelect", "Sounds/menu_select.mp3", false, false);
+	SOUNDMANAGER->addSound("MenuSelect", "Sounds/menu_select.mp3", false, false); 
 }
