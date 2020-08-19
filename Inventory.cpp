@@ -65,7 +65,6 @@ HRESULT Inventory::init()
 	_toolInven[9]->SetToolEnum(TOOLS::NONE);
 	_toolInven[10]->SetToolEnum(TOOLS::NONE);
 	_toolInven[11]->SetToolEnum(TOOLS::NONE);
-
 	return S_OK;
 }
 
@@ -544,7 +543,7 @@ void Inventory::quickSlotMove()
 
 void Inventory::Decrease()
 {
-	_toolInven[_index]->SetNumber(_toolInven[_index]->GetNumber() - 1);
+	_toolInven[_index]->SetNumber(- 1);
 	if (_toolInven[_index]->GetNumber() == 0)
 	{
 		_toolInven[_index] = new ToolItem;
