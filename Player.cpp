@@ -4,7 +4,6 @@
 #include "AllMap.h"
 #include "HpStaminaBar.h"
 
-
 HRESULT Player::init()
 {
 	IMAGEMANAGER->addImage("playerShadow", "image/PlayerShadow.bmp", 60, 60, true, RGB(255, 0, 255));
@@ -13,7 +12,7 @@ HRESULT Player::init()
 	_info.shadowImg = IMAGEMANAGER->findImage("playerShadow");
 	_info.position = Vector2(10, 10);
 	_info.direction = PLAYER_DIRECTION::DOWN;
-	_info.equipment = TOOLS::AXE;
+	_info.equipment = TOOLS::NONE;
 	_state = make_shared<PlayerIdle>(this);
 	_state->Init();
 	_info.position = Vector2(WINSIZEX / 2 + 100, WINSIZEY / 2);
@@ -29,25 +28,22 @@ HRESULT Player::init()
 	_isNext = false;
 	_isPrev = false;
 
-	_inven = new Inventory;
-	_inven->setPlayer(this);
-
-	_gauge = new HpStaminaBar;
-	_gauge->setPlayerLink(this);
-	_gauge->init();
-
+	
 	_tool = new ToolItemManager;
+	_tool->SetNowTileMapMemoyrAddressLink(_Map);
+	_tool->Init();
+	_inven = new Inventory;
+	_inven->SetMemoryLinkedTool(_tool);
+	_inven->init();
+
 	_gauge = new HpStaminaBar;
 	
 	_gauge->setPlayerLink(this);
 	_gauge->init();
-	_tool->GetNowTileMapMemoyrAddressLink(_Map);
-	_tool->Init();
-	_inven->SetMemoryLinkedTool(_tool);
-	_inven->init();
+	
+	
 	_inven->setPlayer(this);
-	_inven->init();
-	_info.haveItem = _inven->GetInvenItem(0);
+	_haveItem = _inven->GetInvenItem(0);
 
 	
 
@@ -58,107 +54,111 @@ void Player::update()
 {
 	//cout << "여기" << endl;
 
-
 	if (KEYMANAGER->isOnceKeyDown('1')) 
 	{
-		_info.haveItem = _inven->GetInvenItem(0);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(0);
+		ChangeEquipment(_haveItem->GetToolEnum());
+		_Map->GetPM()->Planting(_tileIndex[0], "kaleObject");
 	}
 	else if (KEYMANAGER->isOnceKeyDown('2'))
 	{
-		_info.haveItem = _inven->GetInvenItem(1);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(1);
+		ChangeEquipment(_haveItem->GetToolEnum());
+		_Map->GetPM()->Planting(_tileIndex[0], "potatoObject");
 	}
 	else if (KEYMANAGER->isOnceKeyDown('3')) 
 	{
-		_info.haveItem = _inven->GetInvenItem(2);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(2);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown('4'))
 	{
-		_info.haveItem = _inven->GetInvenItem(3);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(3);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown('5'))
 	{
-		_info.haveItem = _inven->GetInvenItem(4);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(4);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown('6'))
 	{
-		_info.haveItem = _inven->GetInvenItem(5);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(5);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown('7'))
 	{
-		_info.haveItem = _inven->GetInvenItem(6);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(6);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown('8'))
 	{
-		_info.haveItem = _inven->GetInvenItem(7);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(7);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown('9'))
 	{
-		_info.haveItem = _inven->GetInvenItem(8);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(8);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown('0'))
 	{
-		_info.haveItem = _inven->GetInvenItem(9);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(9);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown(VK_OEM_MINUS))
 	{
-		_info.haveItem = _inven->GetInvenItem(10);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(10);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 	else if (KEYMANAGER->isOnceKeyDown(VK_OEM_PLUS))
 	{
-		_info.haveItem = _inven->GetInvenItem(11);
-		ChangeEquipment(_info.haveItem->GetToolEnum());
+		_haveItem = _inven->GetInvenItem(11);
+		ChangeEquipment(_haveItem->GetToolEnum());
 	}
 
 	CheckTiles();
 
 	_inven->update();
 	_gauge->update();
-	if (_info.haveItem != nullptr &&
-		_info.haveItem->GetToolEnum() != TOOLS::NONE &&
+	if (_haveItem != nullptr &&
+		_haveItem->GetToolEnum() != TOOLS::NONE &&
 		KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() != "acting")
 	{
-		if (_info.haveItem->GetName() == "FishingRod")
+		if (_haveItem->GetName() == "FishingRod")
 		{
 			_tool->GetFishingInfo(_info.position, _info.direction);
 
 		}
 		else
 		{
-			_tool->SetImpactIndex(_info.haveItem->GetName(), _actTileIndex[0]);
-			_tool->Action(_info.haveItem->GetName());
+			_tool->SetImpactIndex(_haveItem->GetName(), _actTileIndex[0]);
+			_tool->Action(_haveItem->GetName());
 		}
 	}
-	if (_info.haveItem->GetName() == "FishingRod")
+	if (_haveItem!=nullptr)
 	{
-		_tool->Action("FishingRod");
+		if (_haveItem->GetName() == "FishingRod")
+		{
+			_tool->GetFishingInfo(_info.position, _info.direction);
+			_tool->Action("FishingRod");
+		}
 	}
-	_inven->PlayerLootItem(_getItem);
+	////////////////////////////////////
+	//*********** 구현 테스트때만 풀도록/////
+	//_inven->PlayerLootItem(_getItem);
+	////////////////////////////////////
 	_state->Update();
 	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
 	ZORDER->ZOrderPush(getMemDC(), RenderType::KEYANIRENDER, _info.img ,_info.collision.left, _info.collision.top, _info.anim, _info.shadowCollision.bottom);
-	
-	_gauge->update();
 }
 
 void Player::render()
 {
-	CAMERAMANAGER->rectangle(getMemDC(), _info.shadowCollision);
+//	CAMERAMANAGER->rectangle(getMemDC(), _info.shadowCollision);
 	/*_info.shadowImg->render(getMemDC(), _info.shadowCollision.left, _info.shadowCollision.top);
 	_info.img->aniRender(getMemDC(), _info.collision.left, _info.collision.top, _info.anim);*/
-	_gauge->hpBarRender();
-	_gauge->staminaBarRender();
 	_inven->render();
 	_gauge->hpBarRender();
 	_gauge->staminaBarRender();
@@ -226,7 +226,7 @@ void Player::CheckTiles()
 	int allTiles = _Map->GetMapSize();
 	_playerTileX = _info.position.x / 64;
 	_playerTileY = _info.position.y / 64;
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() == "idle")
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		//POINT _CameraMouse = PointMake(_ptMouse.x + CAMERAMANAGER->getL(), _ptMouse.y + CAMERAMANAGER->getT()); 마우스 카메라 위치
 		_mousePt.x = _ptMouse.x + CAMERAMANAGER->getL();
@@ -454,7 +454,14 @@ void Player::CheckTiles()
 	if (_Map->GetTiles()[_tileIndex[0]].pos == POS::PARM_TO_HOME ||
 		_Map->GetTiles()[_tileIndex[0]].pos == POS::HOME_TO_PARM)
 	{
+		SavePlayerInfo("player.info");
 		_isNext = true;
+	}
+	if (_Map->GetTiles()[_tileIndex[0]].pos == POS::CAVE_TO_PARM ||
+		_Map->GetTiles()[_tileIndex[0]].pos == POS::PARM_TO_CAVE)
+	{
+		SavePlayerInfo("player.info");
+		_isPrev = true;
 	}
 	for (int i = 0; i < 3; ++i)
 	{
@@ -507,7 +514,7 @@ void Player::SavePlayerInfo(string fileName)
 {
 	HANDLE file;
 	DWORD write;
-	cout << &_info << endl;
+	//cout << &_info << endl;
 	file = CreateFile(fileName.c_str(), GENERIC_WRITE, NULL, NULL,
 		CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 

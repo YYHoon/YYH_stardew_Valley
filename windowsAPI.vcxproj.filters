@@ -115,6 +115,9 @@
     <Filter Include="playGround\GameObject\Plants">
       <UniqueIdentifier>{6c1fa5d3-d9c3-40ec-907d-ad3a696af5d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\SpreadItem">
+      <UniqueIdentifier>{c52df36c-120b-4ba3-af80-aa9c71c3b2c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -405,6 +408,12 @@
     <ClInclude Include="TileRender.h">
       <Filter>playGround\Scene\MaptoolScene</Filter>
     </ClInclude>
+    <ClInclude Include="SpreadItem.h">
+      <Filter>playGround\SpreadItem</Filter>
+    </ClInclude>
+    <ClInclude Include="MapCave.h">
+      <Filter>playGround\Scene\MaptoolScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -669,6 +678,15 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="TileRender.cpp">
+      <Filter>playGround\Scene\MaptoolScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SpreadItem.cpp">
+      <Filter>playGround\SpreadItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory + SaveLoad.cpp">
+      <Filter>playGround\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="MapCave.cpp">
       <Filter>playGround\Scene\MaptoolScene</Filter>
     </ClCompile>
   </ItemGroup>

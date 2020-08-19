@@ -222,7 +222,7 @@ void MapToolScene::render()
 				if (_vtiles[index].object == MAPOBJECT::WALL)
 				{
 					CAMERAMANAGER->frameRender(getMemDC(), IMAGEMANAGER->findImage("Wall_Cave"),
-						_vtiles[index].rc.left, _vtiles[index].rc.top,
+						_vtiles[index].rc.left, _vtiles[index].rc.top - TILESIZE*4,
 						_vtiles[index].objectframeX, _vtiles[index].objectframeY);
 				}
 			}
@@ -337,7 +337,6 @@ void MapToolScene::render()
 	{
 		IMAGEMANAGER->render("Save", getMemDC(), WINSIZEX * 0.5 - 114, WINSIZEY * 0.5 - 26);
 	}
-	Rectangle(getMemDC(), _sampleTile[0].rc);
 	
 	_Mouse->frameRender(getMemDC(), _ptMouse.x, _ptMouse.y, 0, 0);
 }
@@ -466,7 +465,7 @@ void MapToolScene::SetSample(string img)
 
 					_sampleTile[i * SampleX + j].rc = RectMake(
 						_sampleArea.left + j * TILESIZE,
-						_sampleArea.top + i * TILESIZE,
+						_sampleArea.top + i * (TILESIZE * 5),
 						TILESIZE,
 						TILESIZE * 5);
 				}
@@ -480,7 +479,8 @@ void MapToolScene::InToOut(int Horizontal, int Vertical)
 {
 	_vtiles.clear();
 
-	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, TILESIZE * Horizontal - WINSIZEX, TILESIZE * (Vertical-13));
+	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
+
 
 	_horizontal = Horizontal;
 	_vertical = Vertical;
@@ -521,8 +521,9 @@ void MapToolScene::InToOut(int Horizontal, int Vertical)
 void MapToolScene::OutToIn(int Horizontal, int Vertical)
 {
 	_vtiles.clear();
-	
-	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, TILESIZE * Horizontal - WINSIZEX, TILESIZE * (Vertical-23));
+
+	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
+
 
 	_horizontal = Horizontal;
 	_vertical = Vertical;
@@ -659,8 +660,12 @@ void MapToolScene::SetMap_L()
 						else
 						{
 							_vtiles[index].objectframeX = _currentTile.terrainframeX;
-							_vtiles[index].objectframeY = _currentTile.terrainframeX;
+							_vtiles[index].objectframeY = _currentTile.terrainframeY;
 							_vtiles[index].object = MAPOBJECT::WALL;
+							for (int i = 0; i < 4; i++)
+							{
+								_vtiles[index - _vertical * i].collision = true;
+							}
 						}
 					}
 
@@ -793,12 +798,6 @@ void MapToolScene::SetMap_R()
 							_vtiles[index].terrain = TerrainSelect(_currentTile.terrainframeX, _currentTile.terrainframeY);
 						}
 					}
-					else
-					{
-						_vtiles[index].terrainframeX = _currentTile.terrainframeX;
-						_vtiles[index].terrainframeY = _currentTile.terrainframeY;
-						_vtiles[index].terrain = TerrainSelect(_currentTile.terrainframeX, _currentTile.terrainframeY);
-					}
 				}
 				if (_crtSelect == CRTSELECT::OBJECTDRAW)
 				{
@@ -863,6 +862,12 @@ void MapToolScene::SetMap_R()
 				{
 					_vtiles[index].terrainframeX = _currentTile.terrainframeX;
 					_vtiles[index].terrainframeY = _currentTile.terrainframeY;
+					if (_currentTile.terrain == TERRAIN::CAVE)
+					{
+						_vtiles[index].terrainframeX = 5;
+						_vtiles[index].terrainframeY = RND->getFromIntTo(1,6);
+						_vtiles[index].terrain = TerrainSelect(_currentTile.terrainframeX, _currentTile.terrainframeY);
+					}
 				}
 				if (_crtSelect == CRTSELECT::ERASER)
 				{
@@ -892,14 +897,14 @@ TERRAIN MapToolScene::TerrainSelect(int frameX, int frameY)
 	if (_inout == INOUT::OUTDOOR)
 	{
 		if (frameY == 2)return TERRAIN::GRASS;
-
 		if (frameY <= 2 && frameX <= 5)		return TERRAIN::DIRT;
 		else if (frameY == 6 && frameX <= 3)return TERRAIN::WATER;
 		else								return TERRAIN::GRASS;
 	}
 	else
 	{
-		TERRAIN::WOODEN;
+		if (frameX <= 2) return TERRAIN::WOODEN;
+		else			 return TERRAIN::CAVE;
 	}
 }
 

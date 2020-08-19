@@ -17,7 +17,7 @@ void Homi::Action()
 	_mapObject = MAPOBJECT::NONE;
 	_mapTeeain = TERRAIN::NONE;
 	//돌 부술때
-	cout << (int)_map->GetTiles(_tileIndex[0]).object << endl;
+	//cout << (int)_map->GetTiles(_tileIndex[0]).object << endl;
 	if (_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::NONE &&
 		_map->GetTiles(_tileIndex[0]).terrain == TERRAIN::DIRT)
 	{
@@ -31,6 +31,7 @@ void Homi::Action()
 		_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
 		_map->SetColl(_tileIndex[0], false);
 	}
+
 }
 
 void Homi::ReAction()

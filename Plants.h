@@ -9,16 +9,18 @@ protected:
 	int _growCount;
 	int _tileIndex;
 public:
-	virtual	void Init();
-	virtual void Release() ;
-	virtual void Update() ;
+	void Init();
+	void Release();
+	void Update();
 
 	void ChangeIsWet(bool isWet) { _isWet = isWet; }
 	void IncreaseGrowCount(int increase) { _growCount += increase; }
 	void SavePosIndex(int saveIndex) { _tileIndex = saveIndex; }
+	void SetImgToString(string name) {_img = IMAGEMANAGER->findImage(name); }
 
 	bool GetIsWet() { return _isWet; }
 	bool GetCanHarvest() { return _isCanHarvest; }
 	int GetSaveIndex() { return _tileIndex; }
+	int GetGrowCount() { return _growCount; }
 };
 

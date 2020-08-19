@@ -50,6 +50,9 @@ public:
 	virtual inline image* GetImageInven() { return _imageI; }
 	virtual inline image* GetImageChar() { return _imageC; }
 
+	void SetImageI(string image) { _imageI = IMAGEMANAGER->findImage(image + "(64x64)"); }
+	void SetImageC(string image) { _imageI = IMAGEMANAGER->findImage(image); }
+
 	//플레이어 센터,방향 가져오는거
 	virtual inline void GetPlayerCenterNDir(Vector2 c, PLAYER_DIRECTION d) {
 		_playerCenter = c;
@@ -78,9 +81,9 @@ public:
 	
 	virtual inline MAPOBJECT GetMapObject() { return _mapObject; }
 	virtual inline void SetMapObject(MAPOBJECT mapobj) { _mapObject = mapobj; }
-	virtual void Init() = 0;
-	virtual void Action() = 0;
-	virtual void ReAction() = 0; // 렌더에 넣어주세요 ㅎㅎ 낚시만씁니다
+	virtual void Init() {};
+	virtual void Action() {};
+	virtual void ReAction() {}; // 렌더에 넣어주세요 ㅎㅎ 낚시만씁니다
 	inline void SetNowMapMemoryAddressLink(MapMain* dmap) { _map = dmap; }
 };
 

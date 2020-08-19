@@ -6,13 +6,24 @@ HRESULT MapHome::init()
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
-	_player->SetPosition(Vector2(1240, 760));
 
 	_count = 0;
 	_vertical = _horizon = 30;
-	_tiles = _map->Load("mapHome.map", _vertical, _horizon);	
 
 	_player->GetPlayerInver()->setPlayer(_player);
+	_tiles = _map->Load("mapHome.map", _vertical, _horizon);	
+
+	for (int i = 0; i < _tiles.size(); i++)
+	{
+		if (_tiles[i].pos == POS::BED)
+		{
+			_player->SetPosition(Vector2(_tiles[i].rc.left, _tiles[i].rc.bottom));
+		}
+		if (_tiles[i].pos == POS::HOME_TO_PARM)
+		{
+			_player->SetPosition(Vector2(_tiles[i].rc.left + 32, _tiles[i].rc.top - 100));
+		}
+	}
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
 	return S_OK;
@@ -20,6 +31,7 @@ HRESULT MapHome::init()
 
 void MapHome::release()
 {
+	_player->SavePlayerInfo("playerSave");
 }
 
 void MapHome::update()
@@ -34,6 +46,7 @@ void MapHome::update()
 	_player->update();
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
 	CAMERAMANAGER->setY(_player->GetInfo().position.y);
+	ENVIRONMENT->update();
 }
 
 void MapHome::render()
@@ -84,4 +97,5 @@ void MapHome::render()
 	}
 	ZORDER->ZOrderRender();
 	_player->render();
+	ENVIRONMENT->render(getMemDC());
 }

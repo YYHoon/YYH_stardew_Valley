@@ -3,15 +3,30 @@
 
 HRESULT MapFarm::init()
 {
+	_vertical = _horizon = 50;
+	_tiles = _map->Load("mapFarm.map", _horizon, _vertical);
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
-	_player->SetPosition(Vector2(500, 500));
-		
-	_count = 0;
-	_vertical = _horizon = 50;
-	_tiles = _map->Load("map.map", _vertical, _horizon);
 
+
+	for (int i = 0; i < _tiles.size(); i++)
+	{
+		if (_tiles[i].pos == POS::PARM_TO_HOME)
+		{
+			_player->SetPosition(Vector2(_tiles[i].rc.left+32,_tiles[i].rc.bottom+32));
+		}
+	}
+
+		
+	_pm = new PlantsManager;
+    /////////////////////////////////
+	//_pm->SetPlantsList( _pm->Load()); < -- 이건 악마새끼인게 틀림없음
+	//////////////////////////////////
+	_pm->Init();
+	_pm->SetMapMemoryAddressLinked(this);
+	_count = 0;
+	
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
 
@@ -20,7 +35,9 @@ HRESULT MapFarm::init()
 
 void MapFarm::release()
 {
-	_map->Save("map.map", 50, 50, _tiles);
+	_player->SavePlayerInfo("playerSave");
+	_map->Save("mapFarm.map", _horizon, _vertical,_tiles);
+	_pm->Save();
 }
 
 void MapFarm::update()
@@ -29,10 +46,25 @@ void MapFarm::update()
 	{
 		SCENEMANAGER->changeScene("HOME");
 	}
+	if (_player->GetIsPrev())
+	{
+		SCENEMANAGER->changeScene("CAVE");
+	}
+
+	if (ENVIRONMENT->GetIsDayIncrease())
+	{
+		for (int i = 0; i < _tiles.size(); i++)
+		{
+			_tiles[i].wet = false;
+		}
+
+	}
 	_count++;
 	_player->update();
+	_pm->Update();
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
 	CAMERAMANAGER->setY(_player->GetInfo().position.y);
+	ENVIRONMENT->update();
 }
 
 void MapFarm::render()
@@ -400,4 +432,5 @@ void MapFarm::render()
 	}
 	ZORDER->ZOrderRender();
 	_player->render();
+	ENVIRONMENT->render(getMemDC());
 }

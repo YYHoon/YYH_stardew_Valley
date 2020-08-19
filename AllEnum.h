@@ -44,7 +44,7 @@ enum class TERRAIN
 	GRASS,
 	WATER,
 	WOODEN,
-	WOODENWALL,
+	CAVE,
 	NONE
 };
 enum class MAPOBJECT
@@ -60,6 +60,7 @@ enum class MAPOBJECT
 	WALL,			//벽
 	BUILDING,		//건물
 	BED,
+	//ENEMY,			//에너미
 	NONE
 };
 //--------------------------------------------------------------
@@ -127,6 +128,21 @@ enum class FISHING
 	MISS,			//6.물고기 놓쳤을때
 	SUCCESS,		//7.물고기 잡는데 성공했을때
 	NONE			//8.혹시 모를 아무상태도 아닐때
+};
+
+enum class Spread
+{
+	SPREAD,			//흩뿌릴때
+	HARVEST,		//수확할때
+	FISHING,			//낚시할때
+	NONE
+};
+enum class SpreadState
+{
+	BEFORE_SPREAD,	//뿌리기직전
+	DOING_SPREAD,	//뿌리는중
+	AFTER_SPREAD,	//뿌리고나서
+	NONE
 };
 
 enum class ATTRIBUTE

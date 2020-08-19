@@ -29,8 +29,6 @@ private:
 		int stamina;
 		int money;
 		float velocity;
-		ToolItem* haveItem;			//내가 쓰는 인벤인덱스
-		vector<ToolItem*> saveload; //모든 인벤내용
 	};
 
 private:
@@ -44,24 +42,17 @@ private:
 	PLAYER_ACTION _action;
 	shared_ptr<State> _state;
 	ToolItem* _getItem;
+	ToolItem* _haveItem;			//내가 쓰는 인벤인덱스
 	HpStaminaBar* _gauge;
-
 	Inventory* _inven;
 	Vector2 _mousePt;
+
 	int _tileIndex[3];
 	int _actTileIndex[3];
 	int _playerTileX, _playerTileY;
-	/// <summary>
-	/// </summary>
 	bool _isNext;
 	bool _isPrev;
-	/// <summary>
-	/// </summary>
-
 	bool _isKeyDown;
-	
-	//class inven;
-
 public:
 	Player() {}
 	~Player() {}
@@ -78,6 +69,8 @@ public:
 	TOOLS GetEquip() { return _info.equipment; }
 	int* GetTileIndex() { return _actTileIndex; }
 	int* GetMoveTileIndex() { return _tileIndex; }
+	int GetMaxHp() { return _info.maxHP; }
+	int GetHp() { return _info.HP; }
 	int GetmaxStamina() { return _info.maxStamina; }
 	int GetStamina() { return _info.stamina; }
 	int GetMoney() { return _info.money; }
@@ -104,7 +97,7 @@ public:
 	void SetDecreaseVelocity(float Velocity) { _info.velocity -= Velocity; }
 	void SetIncreaseVelocity(float Velocity) { _info.velocity += Velocity; }
 	void SetVelocity(float Velocity) { _info.velocity = Velocity; }
-	void SetItem(ToolItem* Velocity) { _info.haveItem = Velocity; }
+	void SetItem(ToolItem* Velocity) { _haveItem = Velocity; }
 	void SetShadowImg(string imgName) { _info.shadowImg = IMAGEMANAGER->findImage(imgName); }
 
 	//void SetMapMemoryAddressLink()
