@@ -29,9 +29,12 @@ HRESULT playGround::init()
 	MapFarm* _farm;
 	MapHome* _home;
 	MapTest* _test;
+	MapCave* _cave;
 	SCENEMANAGER->addScene("FARM", _farm = new MapFarm);
 	SCENEMANAGER->addScene("HOME", _home = new MapHome);
+	SCENEMANAGER->addScene("CAVE", _cave = new MapCave);
 	SCENEMANAGER->addScene("Test", _test = new MapTest);
+	SCENEMANAGER->addScene("DariLoading", _DariLoading = new DrainedLoadingScene);
 	SCENEMANAGER->changeScene("FARM");
 	//test = new MiniGame;
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
@@ -113,6 +116,9 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("ItemInfoWindow", "Image/ItemInfoWindow.bmp", 180, 130, true, MAGENTA);
 	IMAGEMANAGER->addImage("SelectUI", "Image/selectUI.bmp", 1275, 276, true, MAGENTA);
 	IMAGEMANAGER->addImage("ItemInfoWindow2", "Image/ItemInfoWindow2.bmp", 180, 130, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("DrainLoading", "image/CombackHome(822x62).bmp", 822, 62, 3, 1, true, MAGENTA);
+	IMAGEMANAGER->addImage("DrainFace", "image/탈진상태(150x138).bmp", 150, 138, true, MAGENTA);
+
 
 	//환경
 	IMAGEMANAGER->addImage("Environment_Clock", "image/Environment/Environment_Clock.bmp", 288, 236, true, MAGENTA);
@@ -150,7 +156,7 @@ void playGround::imginit()
 
 	IMAGEMANAGER->addFrameImage("Terrain", "image/mapTool/Terrain.bmp", 0, 0, 512, 512, 512 / TILESIZE, 512 / TILESIZE, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("Terrain_InDoor", "image/mapTool/Indoor.bmp", 0, 0, 512, 512, 512 / TILESIZE, 512 / TILESIZE, true, MAGENTA);
-	IMAGEMANAGER->addFrameImage("Wall_Cave", "image/mapTool/CaveWall.bmp", 0, 0, 320, 640, 320 / TILESIZE, 640 / TILESIZE, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("Wall_Cave", "image/mapTool/CaveWall.bmp", 0, 0, 320, 640, 5, 2, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("Wall", "image/mapTool/Wall.bmp", 0, 0, 512, 512, 512 / TILESIZE, 512 / TILESIZE, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("HoeTile", "image/mapTool/HoeTile.bmp", 0, 0, 448, 384, 448 / TILESIZE, 384 / TILESIZE, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("Tree", "image/mapTool/Tree.bmp", 0, 0, 578, 384, 3, 1, true, MAGENTA);
@@ -164,6 +170,9 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("F1", "image/mapTool/F1.bmp", 64, 52, true, MAGENTA);
 	IMAGEMANAGER->addImage("Save", "image/mapTool/Save.bmp", 229, 52, true, MAGENTA);
 
+	EFFECTMANAGER->addEffect("RockDis", "image/mapTool/Rock.bmp", 4400, 120,200,120 , 1.0f, 0.5f, 300);
+	EFFECTMANAGER->addEffect("BranchDis", "image/mapTool/Branch.bmp", 5301, 231,279,231 , 1.0f, 0.5f, 300);
+	EFFECTMANAGER->addEffect("WeedDis", "image/mapTool/Weed.bmp", 500, 137,100,137 , 1.0f, 0.2f, 300);
 	// Player
 	IMAGEMANAGER->addFrameImage("player", "image/Player.bmp", 3000, 4500, 12, 18, true, MAGENTA);
 
@@ -237,5 +246,8 @@ void playGround::soundinit()
 	SOUNDMANAGER->addSound("TitleSound", "Sounds/opening.mp3", true, true);
 	SOUNDMANAGER->addSound("FarmMap", "Sounds/farm.mp3", true, true);
 	SOUNDMANAGER->addSound("maptool", "Sounds/maptool.mp3", true, true);
-	SOUNDMANAGER->addSound("MenuSelect", "Sounds/menu_select.mp3", false, false); 
+	SOUNDMANAGER->addSound("MenuSelect", "Sounds/menu_select.mp3", false, false);
+	SOUNDMANAGER->addSound("RemoveRock", "Sounds/removeRock", false, false);
+	SOUNDMANAGER->addSound("RemoveWeed", "Sounds/removeGrass", false, false);
+	SOUNDMANAGER->addSound("RemoveBranch", "Sounds/breakTree", false, false);
 }
