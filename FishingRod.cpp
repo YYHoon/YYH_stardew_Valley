@@ -13,12 +13,12 @@ void FishingRod::Init()
 
 void FishingRod::Action()
 {
+
 	if (!_game->GetNowFishing())
 	{
 		_game->Init(_playerCenter, _playerDir);
 	}
 	if (_game->GetNowFishing())_game->Update();
-	_justSignal = _game->GetNowFishing();
 }
 
 void FishingRod::ReAction()

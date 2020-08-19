@@ -65,9 +65,9 @@ public:
 	virtual void render();
 	virtual void OpenStoreRender();
 
-	RECT getStoreNpcRect() {return _StoreNpcRect; }
-	RECT getStoreNpcOpen() {return _StoreNpcOpen; }
-	vector<ToolItem*> getStoreSaleItem() {return _saleItem; }
+	RECT getStoreNpcRect() { return _StoreNpcRect; }
+	RECT getStoreNpcOpen() { return _StoreNpcOpen; }
+	vector<ToolItem*> getStoreSaleItem() { return _saleItem; }
 	bool getStoreOpen() { return _storeOpen; }
 
 	void setStoreOpen(bool isOpen) { _storeOpen = isOpen; }

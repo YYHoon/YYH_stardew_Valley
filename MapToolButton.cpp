@@ -121,12 +121,12 @@ void MapToolScene::Button()
 	{
 		if (_inout == INOUT::OUTDOOR)
 		{
-			_crtSelect = CRTSELECT::TREEDRAW;
+			_crtSelect = CRTSELECT::OBJECTDRAW;
 			SetSample("Tree");
 		}
 		else
 		{
-			_crtSelect = CRTSELECT::TREEDRAW;
+			_crtSelect = CRTSELECT::OBJECTDRAW;
 			SetSample("Bed");
 		}
 	}
@@ -139,7 +139,8 @@ void MapToolScene::Button()
 		}
 		else
 		{
-
+			_crtSelect = CRTSELECT::BUILDINGDRAW;
+			SetSample("Wall_Cave");
 		}
 	}
 
@@ -178,7 +179,7 @@ void MapToolScene::Button()
 	}
 	if (PtInRect(&_loadBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
-		_vtiles = Load("mapFarm.map", _horizontal, _vertical);
+		_vtiles = Load("map.map", _horizontal, _vertical);
 	}
 	if (PtInRect(&_exitBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
@@ -237,7 +238,7 @@ void MapToolScene::Button()
 		_exitBtn = RectMake(1531, 35, 31, 32);
 		_upBtn = RectMake(WINSIZEX - 100, 300, 44, 44);
 		_downBtn = RectMake(WINSIZEX - 100, 500, 44, 44);
-		_sampleArea = RectMake(WINSIZEX - 650, 100 + TILESIZE, 550, 600);
+		_sampleArea = RectMake(WINSIZEX - 650, 40 + TILESIZE, 550, 600);
 	}
 	else
 	{
@@ -257,7 +258,7 @@ void MapToolScene::Button()
 		_exitBtn = RectMake(1531 + 900, 35, 31, 32);
 		_upBtn = RectMake(WINSIZEX - 100 + 900, 300, 44, 44);
 		_downBtn = RectMake(WINSIZEX - 100 + 900, 500, 44, 44);
-		_sampleArea = RectMake(WINSIZEX, 100 + TILESIZE, 550, 600);
+		_sampleArea = RectMake(WINSIZEX, 40 + TILESIZE, 550, 600);
 	}
 
 }

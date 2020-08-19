@@ -5,15 +5,21 @@
 
 void PlantsManager::Init()
 {
-	
+
 }
 
 void PlantsManager::Update()
 {
 	//하루지나면
-	if(KEYMANAGER->isOnceKeyDown(VK_F1))Growing();
+	if (ENVIRONMENT->GetIsDayIncrease())Growing();
 	for (int i = 0; i < _vActivePlantsList.size(); ++i)
 	{
+		if (_map->GetTiles()[_vActivePlantsList[i]->GetSaveIndex()].object != MAPOBJECT::HOETILE)
+		{
+			SAFE_RELEASE(_vActivePlantsList[i]);
+			_vActivePlantsList.erase(_vActivePlantsList.begin() + i);
+			return;
+		}
 		_vActivePlantsList[i]->Update();
 	}
 }
@@ -24,8 +30,8 @@ void PlantsManager::render()
 
 void PlantsManager::Planting(int index, string plantsName)
 {
-	int centerX = (_map->GetTiles(index).rc.left + _map->GetTiles(index).rc.right )* 0.5;
-	int centerY = (_map->GetTiles(index).rc.top + _map->GetTiles(index).rc.bottom )* 0.5;
+	int centerX = (_map->GetTiles(index).rc.left + _map->GetTiles(index).rc.right) * 0.5;
+	int centerY = (_map->GetTiles(index).rc.top + _map->GetTiles(index).rc.bottom) * 0.5;
 	Vector2 tileCenter(centerX, centerY);
 
 	if (_map->GetTiles(index).object == MAPOBJECT::HOETILE)
@@ -34,15 +40,15 @@ void PlantsManager::Planting(int index, string plantsName)
 		{
 			if (_vActivePlantsList[i]->GetSaveIndex() == index)return;
 		}
-		if (plantsName == "parsnipObject")
+		if (plantsName == "PasnipSeed")
 		{
 			_parsnip = new ParsnipObject;
-			_parsnip->Init();		
+			_parsnip->Init();
 			_parsnip->SetPosition(tileCenter);
 			_parsnip->SavePosIndex(index);
 			_vActivePlantsList.push_back(_parsnip);
 		}
-		else if (plantsName == "kaleObject")
+		else if (plantsName == "KaleSeed")
 		{
 			_kale = new KaleObject;
 			_kale->Init();
@@ -50,7 +56,7 @@ void PlantsManager::Planting(int index, string plantsName)
 			_kale->SavePosIndex(index);
 			_vActivePlantsList.push_back(_kale);
 		}
-		else if (plantsName == "potatoObject")
+		else if (plantsName == "PotatoSeed")
 		{
 			_potato = new PotatoObject;
 			_potato->Init();
@@ -66,21 +72,30 @@ void PlantsManager::Growing()
 {
 	for (int i = 0; i < _vActivePlantsList.size(); ++i)
 	{
-			if (!_map->GetTiles()[_vActivePlantsList[i]->GetSaveIndex()].wet)continue;
-			//cout << (int)_map->GetTiles()[_vActivePlantsList[i]->GetSaveIndex()].object << endl;
-			_vActivePlantsList[i]->IncreaseGrowCount(+1);
+		if (!_map->GetTiles()[_vActivePlantsList[i]->GetSaveIndex()].wet)continue;
+		_vActivePlantsList[i]->IncreaseGrowCount(+1);
 	}
 }
 
 
 void PlantsManager::Harvesting(int index)
 {
-	_viActivePlantsList[index] = _vActivePlantsList[index];
-	if (_vActivePlantsList[index]->GetCanHarvest())
+	for (int i = 0; i < _vActivePlantsList.size(); ++i)
 	{
-		_vActivePlantsList[index]->release();
-		_vActivePlantsList.erase(_viActivePlantsList);
-		//아이탬매니저 아이탬생성
+		if (_vActivePlantsList[i]->GetCanHarvest())
+		{
+			//아이탬매니저 아이탬생성
+			
+			SAFE_RELEASE(_vActivePlantsList[i]);
+			_vActivePlantsList.erase(_vActivePlantsList.begin() + i);
+			return;
+		}
+		else
+		{
+			SAFE_RELEASE(_vActivePlantsList[i]);
+			_vActivePlantsList.erase(_vActivePlantsList.begin() + i);
+			return;
+		}
 	}
 }
 

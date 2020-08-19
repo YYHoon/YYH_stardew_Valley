@@ -57,7 +57,7 @@ HRESULT Store::init(int x, int y)
 		_saleItem[i] = nullptr;
 	}
 
-//------------------물품--------------------------// 
+	//------------------물품--------------------------// 
 
 	_saleItem[0] = _itemInfo[13];  //파스닙
 	_saleItem[1] = _itemInfo[14];  //감자
@@ -109,7 +109,7 @@ void Store::update()
 			{
 				if (_player->GetMoney() >= _saleMoney[_StoreSearchMin])
 				{
-					_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin]);	
+					_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin]);
 					_player->SetDecreaseMoney(_saleMoney[_StoreSearchMin]);
 				}
 				if (_player->GetMoney() < _saleMoney[_StoreSearchMin])
@@ -181,13 +181,12 @@ void Store::update()
 		if (!_storeOpen) _storeOpen = true;
 		else _storeOpen = false;
 	}
-	
+
 }
 
 void Store::render()
-{	
-	_StoreNPC->frameRender(getMemDC(), _StoreNpcRect.left, _StoreNpcRect.top, 0, 0);
-
+{
+	CAMERAMANAGER->frameRender(getMemDC(), _StoreNPC, _StoreNpcRect.left, _StoreNpcRect.top);
 	//if (_storeOpen)
 	//{
 	//	OpenStoreRender();
@@ -240,7 +239,7 @@ void Store::OpenStoreRender()
 	if (_StoreSearchMin < 0) _StoreSearchMin = 2;
 	if (_StoreSearchMin > 2) _StoreSearchMin = 0;
 
-	int RcNum = 0;												 
+	int RcNum = 0;
 	RECT RcTxt1 = RectMake(_Item[0].left + 110, _Item[0].top + 30, 300, 70);
 	RECT RcTxt2 = RectMake(_Item[1].left + 110, _Item[1].top + 30, 300, 70);
 	RECT RcTxt3 = RectMake(_Item[2].left + 110, _Item[2].top + 30, 300, 70);
@@ -251,30 +250,30 @@ void Store::OpenStoreRender()
 	//영어원할시 _saleItem 주석걸린거 풀고 _saleKoName 주석처리 한글은 반대
 
 	//1번 상자
-	_saleItem[_StoreSearchMin]->GetImageInven()->render(getMemDC(), _Item[0].left+20, _Item[0].top+20);
+	_saleItem[_StoreSearchMin]->GetImageInven()->render(getMemDC(), _Item[0].left + 20, _Item[0].top + 20);
 	//DrawText(getMemDC(), TEXT(_saleItem[_StoreSearchMin]->GetName().c_str()), 50, &RcTxt1, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
 	DrawText(getMemDC(), TEXT(_saleKoName[_StoreSearchMin].c_str()), 12, &RcTxt1, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
 	sprintf_s(gold, "%d", _saleMoney[_StoreSearchMin]);
-	TextOut(getMemDC(),1300, _Item[0].top + 30, gold, strlen(gold));	
+	TextOut(getMemDC(), 1300, _Item[0].top + 30, gold, strlen(gold));
 
 	//2번 상자
-	_saleItem[_StoreSearchMin + 1]->GetImageInven()->render(getMemDC(), _Item[1].left+20, _Item[1].top+20);
+	_saleItem[_StoreSearchMin + 1]->GetImageInven()->render(getMemDC(), _Item[1].left + 20, _Item[1].top + 20);
 	//DrawText(getMemDC(), TEXT(_saleItem[_StoreSearchMin + 1]->GetName().c_str()), 50, &RcTxt2, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
 	DrawText(getMemDC(), TEXT(_saleKoName[_StoreSearchMin + 1].c_str()), 12, &RcTxt2, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
-	sprintf_s(gold, "%d", _saleMoney[_StoreSearchMin+1]);
+	sprintf_s(gold, "%d", _saleMoney[_StoreSearchMin + 1]);
 	TextOut(getMemDC(), 1300, _Item[1].top + 30, gold, strlen(gold));
-	
+
 	//3번 상자
-	_saleItem[_StoreSearchMin + 2]->GetImageInven()->render(getMemDC(), _Item[2].left+20, _Item[2].top+20);
+	_saleItem[_StoreSearchMin + 2]->GetImageInven()->render(getMemDC(), _Item[2].left + 20, _Item[2].top + 20);
 	//DrawText(getMemDC(), TEXT(_saleItem[_StoreSearchMin + 2]->GetName().c_str()), 50, &RcTxt3, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
 	DrawText(getMemDC(), TEXT(_saleKoName[_StoreSearchMin + 2].c_str()), 12, &RcTxt3, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
 	sprintf_s(gold, "%d", _saleMoney[_StoreSearchMin + 2]);
 	TextOut(getMemDC(), 1300, _Item[2].top + 30, gold, strlen(gold));
-	
+
 	//4번 상자
-	_saleItem[_StoreSearchMin + 3]->GetImageInven()->render(getMemDC(), _Item[3].left+20, _Item[3].top+20);
+	_saleItem[_StoreSearchMin + 3]->GetImageInven()->render(getMemDC(), _Item[3].left + 20, _Item[3].top + 20);
 	//DrawText(getMemDC(), TEXT(_saleItem[_StoreSearchMin + 3]->GetName().c_str()), 50, &RcTxt4, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
-	DrawText(getMemDC(), TEXT(_saleKoName[_StoreSearchMin +3].c_str()), 12, &RcTxt4, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
+	DrawText(getMemDC(), TEXT(_saleKoName[_StoreSearchMin + 3].c_str()), 12, &RcTxt4, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
 	sprintf_s(gold, "%d", _saleMoney[_StoreSearchMin + 3]);
 	TextOut(getMemDC(), 1300, _Item[3].top + 30, gold, strlen(gold));
 
@@ -317,6 +316,6 @@ void Store::OpenStoreRender()
 
 	SelectObject(getMemDC(), oldFont2);
 	DeleteObject(oldFont2);
-	
+
 	_CloseButton->render(getMemDC(), _CloseRc.left, _CloseRc.top);
 }

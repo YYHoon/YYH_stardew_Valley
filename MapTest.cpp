@@ -11,9 +11,6 @@ HRESULT MapTest::init()
 	
 	_player->SavePlayerInfo("Player.info");
 	
-	_environment = new Environment;
-	_environment->init();
-	
 	_store = new Store;
 	_store->setLinkPlayer(_player);	//소지금 참조용
 	_store->setLinkInventory(_player->GetPlayerInver()); //가방내용물 참고용 상점F5키입니다.
@@ -21,7 +18,6 @@ HRESULT MapTest::init()
 
 	_player->GetPlayerInver()->SetStoreLink(_store);
 	_player->GetPlayerInver()->setPlayer(_player);
-
 
 	_pm = new PlantsManager;
 	_pm->SetMapMemoryAddressLinked(this);
@@ -47,7 +43,7 @@ HRESULT MapTest::init()
 	//test = Vector2(9,9);
 	//_astar->SetEndNode(test);
 	//_astar->PathFind();
-
+	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
 
 	ShowCursor(true);
 
@@ -62,7 +58,6 @@ void MapTest::update()
 {
 	_count++;
 	_player->update();
-	_environment->update();
 	/*if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD4))
 	{
 		test += Vector2(-1, 0);
@@ -88,6 +83,8 @@ void MapTest::update()
 	}*/
 
 	_store->update();
+	CAMERAMANAGER->setX(_player->GetInfo().position.x);
+	CAMERAMANAGER->setY(_player->GetInfo().position.y);
 }
 
 void MapTest::render()
@@ -173,11 +170,10 @@ void MapTest::render()
 	ZORDER->ZOrderRender();
 	_store->render();
 	
-	if (_store->getStoreOpen())
+	if (SCENEMANAGER->GetNowScene()=="SHOP" && _store->getStoreOpen())
 	{
 		_store->OpenStoreRender();
 	}
 	_player->render();
-	_environment->render();
 	//_astar->render();
 }

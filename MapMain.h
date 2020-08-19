@@ -2,7 +2,6 @@
 #include "gameNode.h"
 #include "MapToolScene.h"
 #include "Player.h"
-#include "Environment.h"
 #include "Store.h"
 #include "PlantsManager.h"
 
@@ -12,7 +11,6 @@ protected:
 	TileRender* _tileRender;
 	MapToolScene* _map;
 	Player* _player;
-	Environment* _environment;
 	Store* _store;
 	PlantsManager* _pm;
 
@@ -28,7 +26,6 @@ public:
 	virtual void render();
 
 	virtual PlantsManager* GetPM() { return _pm; }
-	virtual Environment* GetEnvironMent() { return _environment; }
 	virtual tagTile GetTiles(int index) { return _tiles[index]; };
 	virtual void SetTiles(int index, tagTile tile) { _tiles[index] = tile; }
 	virtual void SetFrameX(int index, int frameX) { _tiles[index].objectframeX = frameX; }
@@ -38,6 +35,7 @@ public:
 	virtual void SetColl(int index, bool Coll) { _tiles[index].collision = Coll; }
 	virtual void SetWet(int index, bool Coll) { _tiles[index].wet = Coll; }
 	virtual void SetHp(int index, int Hp) { _tiles[index].hp += Hp; }
+	virtual void SetAutoIndex(int index, int Auto) { _tiles[index].autoIndex = Auto; }
 	virtual void SetPlayerAdressLink(Player* player) { _player = player; }
 	virtual int GetMapSize() { return _tiles.size(); }
 };

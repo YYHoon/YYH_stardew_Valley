@@ -27,8 +27,9 @@ enum class CRTSELECT
 	TERRAINDRAW_INDOOR,
 	TERRAINDRAW_CAVE,
 	WALLDRAW,
+	WALLDRAW_CAVE,
 	HOETILEDRAW,
-	TREEDRAW,
+	OBJECTDRAW,
 	BUILDINGDRAW,
 	ENEMYDRAW,
 	ERASER,
@@ -127,6 +128,21 @@ enum class FISHING
 	MISS,			//6.물고기 놓쳤을때
 	SUCCESS,		//7.물고기 잡는데 성공했을때
 	NONE			//8.혹시 모를 아무상태도 아닐때
+};
+
+enum class Spread
+{
+	SPREAD,			//흩뿌릴때
+	HARVEST,		//수확할때
+	FISHING,			//낚시할때
+	NONE
+};
+enum class SpreadState
+{
+	BEFORE_SPREAD,	//뿌리기직전
+	DOING_SPREAD,	//뿌리는중
+	AFTER_SPREAD,	//뿌리고나서
+	NONE
 };
 
 enum class ATTRIBUTE

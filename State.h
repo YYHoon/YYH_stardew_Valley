@@ -2,6 +2,7 @@
 #include "gameNode.h"
 
 class Player;
+class MapMain;
 
 class State : public enable_shared_from_this<State>
 {
@@ -9,6 +10,7 @@ protected:
 	Player* _player;
 	string _name;
 	string _tagName;
+	MapMain* _map;
 
 public:
 	virtual void Init() = 0;
@@ -37,6 +39,16 @@ class PlayerItemIdle final : public State
 {
 public:
 	PlayerItemIdle(class Player* pPlayer);
+
+	void Init()override;
+	void Update()override;
+	void Release()override;
+};
+
+class PlayerPlanting final : public State
+{
+public:
+	PlayerPlanting(class Player* pPlayer);
 
 	void Init()override;
 	void Update()override;
