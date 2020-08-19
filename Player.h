@@ -4,6 +4,8 @@
 #include "ToolItemManager.h"
 #include "Inventory.h"
 
+
+
 class HpStaminaBar;
 class State;
 class MapMain;
@@ -32,6 +34,7 @@ private:
 	};
 
 private:
+
 
 	/// <summary>
 	ToolItemManager* _tool;

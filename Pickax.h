@@ -13,6 +13,7 @@ public:
 
 	void Init() override;
 	void Action() override;
+	void Update()override;
 	void ReAction() override;
 
 

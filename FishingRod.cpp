@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "FishingRod.h"
+#include"SpreadItem.h"
 
 void FishingRod::Init()
 {

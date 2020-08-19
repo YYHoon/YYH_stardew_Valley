@@ -3,6 +3,7 @@
 #include "State.h"
 #include "AllMap.h"
 #include "HpStaminaBar.h"
+#include "SpreadItem.h"
 
 HRESULT Player::init()
 {
@@ -28,13 +29,13 @@ HRESULT Player::init()
 	_isNext = false;
 	_isPrev = false;
 
-	
 	_tool = new ToolItemManager;
 	_tool->SetNowTileMapMemoyrAddressLink(_Map);
 	_tool->Init();
 	_inven = new Inventory;
 	_inven->SetMemoryLinkedTool(_tool);
 	_inven->init();
+
 
 	_gauge = new HpStaminaBar;
 	
@@ -53,6 +54,9 @@ HRESULT Player::init()
 void Player::update()
 {
 	//cout << "¿©±â" << endl;
+
+
+	
 
 	if (KEYMANAGER->isOnceKeyDown('1')) 
 	{
@@ -157,6 +161,7 @@ void Player::update()
 	_state->Update();
 	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
+	_tool->Update();
 	ZORDER->ZOrderPush(getMemDC(), RenderType::KEYANIRENDER, _info.img ,_info.collision.left, _info.collision.top, _info.anim, _info.shadowCollision.bottom);
 }
 

@@ -10,7 +10,7 @@ void Inventory::Save()
 	for (int i = 0; i < _toolInven.size(); i++)
 	{
 		saveTile[i] = *_toolInven[i];
-		cout << saveTile[i].GetName() << endl;
+		//cout << saveTile[i].GetName() << endl;
 	}
 	HANDLE file;
 	DWORD write;
