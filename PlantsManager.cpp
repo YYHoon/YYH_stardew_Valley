@@ -185,6 +185,7 @@ void PlantsManager::Harvesting(int index)
 	{
 		if (_vActivePlantsList[i]->GetCanHarvest() && _vActivePlantsList[i]->GetSaveIndex() == index)
 		{
+			//아이템 생성 어캐함?
 			_vActivePlantsList.erase(_vActivePlantsList.begin() + i);
 			return;
 		}
@@ -197,6 +198,17 @@ bool PlantsManager::IsExist(int index)
 	{
 		if (index == _vActivePlantsList[i]->GetSaveIndex() && _vActivePlantsList[i]->GetCanHarvest())return false;
 		else true;
+	}
+}
+
+string PlantsManager::GetPlantsName(int idx)
+{
+	for (int i = 0; i < _vActivePlantsList.size(); ++i)
+	{
+		if (idx == _vActivePlantsList[i]->GetSaveIndex())
+		{
+			return _vActivePlantsList[i]->GetName();
+		}
 	}
 }
 

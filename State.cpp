@@ -80,7 +80,20 @@ void PlayerIdle::Update()
 	{
 		if (_map->GetPM()->GetPlantsList().size() > 0 && !_map->GetPM()->IsExist(_player->GetTileIndex()[0]))
 		{
+			if (_map->GetPM()->GetPlantsName(_player->GetTileIndex()[0]) == "potatoObject")
+			{
+				_player->GetPlayerInver()->PlayerLootItem("Potato");
+			}
+			if (_map->GetPM()->GetPlantsName(_player->GetTileIndex()[0]) == "kaleObject")
+			{
+				_player->GetPlayerInver()->PlayerLootItem("Kale");
+			}
+			if (_map->GetPM()->GetPlantsName(_player->GetTileIndex()[0]) == "parsnipObject")
+			{
+				_player->GetPlayerInver()->PlayerLootItem("Pasnip");
+			}
 			_map->GetPM()->Harvesting(_player->GetTileIndex()[0]);
+			
 		}
 		else
 		{
@@ -154,6 +167,8 @@ void PlayerItemIdle::Init()
 		_player->SetAnim("left_Item_Idle_Player");
 		break;
 	}
+
+	_map = _player->GetMap();
 }
 
 void PlayerItemIdle::Update()
@@ -193,7 +208,24 @@ void PlayerItemIdle::Update()
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
-		if ((int)_player->GetInfo().equipment >= (int)8
+		if (_map->GetPM()->GetPlantsList().size() > 0 && !_map->GetPM()->IsExist(_player->GetTileIndex()[0]))
+		{
+			if (_map->GetPM()->GetPlantsName(_player->GetTileIndex()[0]) == "potatoObject")
+			{
+				_player->GetPlayerInver()->PlayerLootItem("Potato");
+			}
+			if (_map->GetPM()->GetPlantsName(_player->GetTileIndex()[0]) == "kaleObject")
+			{
+				_player->GetPlayerInver()->PlayerLootItem("Kale");
+			}
+			if (_map->GetPM()->GetPlantsName(_player->GetTileIndex()[0]) == "parsnipObject")
+			{
+				_player->GetPlayerInver()->PlayerLootItem("Pasnip");
+			}
+			_map->GetPM()->Harvesting(_player->GetTileIndex()[0]);
+
+		}
+		else if ((int)_player->GetInfo().equipment >= (int)8
 			&& (int)_player->GetInfo().equipment <= (int)10)
 		{
 			_player->ChangeState(make_shared<PlayerPlanting>(_player));

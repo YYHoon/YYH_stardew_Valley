@@ -27,6 +27,7 @@ public:
 	void Growing();
 	void Harvesting(int index);
 	bool IsExist(int index);
+	string GetPlantsName(int idx);
 	void Save();
 	vector<Plants*> Load();
 	void SaveSize();
