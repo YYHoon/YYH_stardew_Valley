@@ -22,7 +22,6 @@ private:
 	string _saleKoName[6]; //아이템 한글진열
 	int _saleMoney[6];     //돈
 
-
 	image* _StoreWindow;	  //상점창
 	image* _StorePortrait;	  //상점주인초상화
 	image* _StoreItem[4];	  //상점 아이템
@@ -54,6 +53,9 @@ private:
 	int _StoreSearchMin;	//상점물품 탐색영역
 
 	bool _storeOpen;		//상점 열었누!
+
+
+	RECT _SellRect[12];
 
 public:
 	Store();

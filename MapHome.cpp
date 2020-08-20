@@ -12,6 +12,7 @@ HRESULT MapHome::init()
 	_sleep = new IsSleep;
 	_sleep->init();
 
+	_test = false;
 	
 	if (_player->GetMapName() == "FARM")
 	{
@@ -42,11 +43,20 @@ void MapHome::update()
 		SCENEMANAGER->changeScene("FARM");
 	}
 
-	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::BED)
+	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::BED &&
+		!_sleep->getIsSelectOpen())
+	{
+		_test = true;
+	}
+	else if (_tiles[_player->GetPlayerOnTileIndex()].pos != POS::BED) _test = false;
+
+	if (_test)
 	{
 		_sleep->setIsSelectOpen(true);
 	}
-
+	else _sleep->setIsSelectOpen(false);
+	
+	
 	_count++;
 	_sleep->update();
 	_player->update();

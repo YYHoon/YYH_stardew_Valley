@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Store.h"
 #include "PlantsManager.h"
+#include "IsSleep.h"
 
 class MapMain : public gameNode
 {
@@ -13,6 +14,7 @@ protected:
 	Player* _player;
 	Store* _store;
 	PlantsManager* _pm;
+	IsSleep* _sleep;
 	
 
 	SynInheritance(vector<tagTile>, _tiles, Tiles)

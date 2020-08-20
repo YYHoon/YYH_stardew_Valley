@@ -2,14 +2,18 @@
 #include "IsSleep.h"
 
 HRESULT IsSleep::init()
-{	
+{
 	_sleepSlect = IMAGEMANAGER->findImage("SelectUI");
+	_black = IMAGEMANAGER->findImage("AlphaOnlyBlackWindow");
 
 	_isSleepYesRc = RectMake(191, 680, 1215, 82);
 	_non = RectMake(191, 764, 1215, 82);
 
 	_isSleep = false;
 	_isSelectOpen = false;
+
+	_alp = 0;
+
 
 	return S_OK;
 }
@@ -22,29 +26,31 @@ void IsSleep::update()
 {
 	if (_isSelectOpen)
 	{
-		if (PtInRect(&_isSleepYesRc, _ptMouse))
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+			if (PtInRect(&_isSleepYesRc, _ptMouse))
 			{
 				_isSleep = true;
+				ENVIRONMENT->SetIsDayReset(true);
+				_alp = 255;
 			}
-		}
-		if (PtInRect(&_non, _ptMouse))
-		{
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+
+			if (PtInRect(&_non, _ptMouse))
 			{
 				_isSelectOpen = false;
 			}
-
 		}
 	}
+	else _isSelectOpen = false;
+
 	if (_isSleep)
 	{
 		_isSelectOpen = false;
 		_isSleep = false;
 	}
 
-
+	_alp -= 2;
+	if (_alp <= 0) _alp = 0;
 }
 
 void IsSleep::render()
@@ -53,7 +59,6 @@ void IsSleep::render()
 	{
 		SetTextColor(getMemDC(), BLACK);
 		_sleepSlect->render(getMemDC(), 163, 600);
-
 
 		TextOut(getMemDC(), 200, 640, "하루를 마무리할까요?", strlen("하루를 마무리할까요?"));
 
@@ -74,4 +79,5 @@ void IsSleep::render()
 		DeleteObject(myBrush);
 		DeleteObject(myPen);
 	}
+	_black->alphaRender(getMemDC(), 0, 0, _alp);
 }
