@@ -52,6 +52,9 @@ void MapFarm::update()
 		SCENEMANAGER->changeScene("CAVE");
 	}
 
+	_count++;
+	_player->update();
+	_pm->Update();
 	if (ENVIRONMENT->GetIsDayIncrease())
 	{
 		for (int i = 0; i < _tiles.size(); i++)
@@ -60,10 +63,6 @@ void MapFarm::update()
 		}
 
 	}
-
-	_count++;
-	_player->update();
-	_pm->Update();
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
 	CAMERAMANAGER->setY(_player->GetInfo().position.y);
 	ENVIRONMENT->update();

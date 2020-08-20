@@ -71,3 +71,4 @@ void PlantsManager::LoadSize()
 	CloseHandle(file);
 //	cout << size << "Å©±â" << endl;
 }
+

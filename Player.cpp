@@ -41,11 +41,8 @@ HRESULT Player::init()
 	_gauge->setPlayerLink(this);
 	_gauge->init();
 	
-	
 	_inven->setPlayer(this);
 	_haveItem = _inven->GetInvenItem(0);
-
-	
 
 	return S_OK;
 }
@@ -114,53 +111,19 @@ void Player::update()
 		_haveItem = _inven->GetInvenItem(11);
 		ChangeEquipment(_haveItem->GetToolEnum());
 	}
-
 	CheckTiles();
-
+	if (_state->GetStateName() == "eating" )
+	{
+		_inven->Decrease();
+	}
 	_inven->update();
 	_gauge->update();
-	//if (_haveItem != nullptr &&
-	//	_haveItem->GetToolEnum() != TOOLS::NONE &&
-	//	KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() != "acting")
-	//{
-	//	if (_haveItem->GetName() == "FishingRod")
-	//	{
-	//		_tool->GetFishingInfo(_info.position, _info.direction);
-
-	//	}
-	//	else if (_haveItem->GetName() == "PotatoSeed")
-	//	{
-	//		_Map->GetPM()->Planting(_actTileIndex[0], "potatoObject");
-	//		//-- ++
-	//		//inven if(1) 65>
-
-	//	}
-	//	else if (_haveItem->GetName() == "KaleSeed")
-	//	{
-	//		_Map->GetPM()->Planting(_actTileIndex[0], "kaleObject");
-	//	}
-	//	else
-	//	{
-	//		_tool->SetImpactIndex(_haveItem->GetName(), _actTileIndex[0]);
-	//		_tool->Action(_haveItem->GetName());
-	//	}
-	//}
-	//if (_haveItem!=nullptr)
-	//{
-	//	if (_haveItem->GetName() == "FishingRod")
-	//	{
-	//		_tool->GetFishingInfo(_info.position, _info.direction);
-	//		_tool->Action("FishingRod");
-	//	}
-	//}
 	////////////////////////////////////
 	//*********** 구현 테스트때만 풀도록/////
 	//_inven->PlayerLootItem(_getItem);
 	////////////////////////////////////
 	_state->Update();
 	Move();
-
-	
 	if (!_info.anim->isPlay())_info.anim->start();
 	_tool->Update();
 	// 아이템 줍는거
@@ -177,9 +140,6 @@ void Player::update()
 
 void Player::render()
 {
-//	CAMERAMANAGER->rectangle(getMemDC(), _info.shadowCollision);
-	/*_info.shadowImg->render(getMemDC(), _info.shadowCollision.left, _info.shadowCollision.top);
-	_info.img->aniRender(getMemDC(), _info.collision.left, _info.collision.top, _info.anim);*/
 	_inven->render();
 	_gauge->hpBarRender();
 	_gauge->staminaBarRender();
@@ -190,8 +150,6 @@ void Player::render()
 void Player::release()
 {
 }
-
-
 
 void Player::ChangeState(shared_ptr<State> state)
 {
@@ -238,7 +196,6 @@ void Player::Move()
 			break;
 		}
 	}
-
 	_info.shadowCollision.centerSet(_info.position.x, _info.position.y, _info.shadowImg->getWidth() - 30, _info.shadowImg->getHeight() - 30);
 	_info.collision.centerSet(_info.position.x, _info.position.y - 50, _info.img->getFrameWidth(), _info.img->getFrameHeight());
 }
@@ -251,22 +208,15 @@ void Player::CheckTiles()
 	int playerTile = _playerTileX + _playerTileY * _Map->GetHorizon();
 	_playerOnTileIndex = playerTile;
 
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() != "acting")
 	{
-		//POINT _CameraMouse = PointMake(_ptMouse.x + CAMERAMANAGER->getL(), _ptMouse.y + CAMERAMANAGER->getT()); 마우스 카메라 위치
 		_mousePt.x = _ptMouse.x + CAMERAMANAGER->getL();
 		_mousePt.y = _ptMouse.y + CAMERAMANAGER->getT();
 
 		Vector2 playerTileCenter = Vector2((_Map->GetTiles(playerTile).rc.right + _Map->GetTiles(playerTile).rc.left) * 0.5, (_Map->GetTiles(playerTile).rc.bottom + _Map->GetTiles(playerTile).rc.top) * 0.5);
-		//cout << floor(Vector2( _mousePt- playerTileCenter).Nomalized().x + 0.5)<<" "<< floor(Vector2( _mousePt- playerTileCenter).Nomalized().y+0.5) << endl;
-		/*float distance = _mousePt.Distance(_mousePt, Vector2((_Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.right - _Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.left) * 0.5,
-			(_Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.top - _Map->GetTiles(_playerTileX + _playerTileY * _Map->GetHorizon()).rc.bottom) * 0.5), true);*/
 		float distance = getDistance(playerTileCenter.x, playerTileCenter.y, _mousePt.x, _mousePt.y);
 		if (distance > sqrtf(TILESIZE * TILESIZE * 10))
 		{
-			//cout << "왜 이것만 나오누?" << endl;
-			// 보는방향 찍고
-
 			if(_state->GetStateName() != "swing")
 			switch (_info.direction)
 			{
@@ -428,8 +378,6 @@ void Player::CheckTiles()
 		}
 	}
 
-
-
 	switch (_info.direction)
 	{
 	case PLAYER_DIRECTION::UP:
@@ -475,12 +423,10 @@ void Player::CheckTiles()
 	default:
 		break;
 	}
-	
 	for (int i = 0; i < 3; ++i)
 	{
 		if (_tileIndex[i] <= 0 || _tileIndex[i] >= allTiles)_tileIndex[i] = 0;
 	}
-
 	for (int i = 0; i < 3; ++i)
 	{
 		if ((_Map->GetTiles(_tileIndex[i]).collision && isCollision(_Map->GetTiles(_tileIndex[i]).rc, _info.shadowCollision)))
@@ -523,7 +469,6 @@ void Player::CheckTiles()
 	if (_Map->GetTiles()[_playerOnTileIndex].terrain == TERRAIN::GRASS && (_Map->GetTiles()[_playerOnTileIndex].object != MAPOBJECT::BUILDING))_playerSound = PLAYER_SOUND_TILES::GRASS;
 	else if (_Map->GetTiles()[_playerOnTileIndex].terrain == TERRAIN::DIRT)_playerSound = PLAYER_SOUND_TILES::SOIL;
 	else if (_Map->GetTiles()[_playerOnTileIndex].object == MAPOBJECT::BUILDING)_playerSound = PLAYER_SOUND_TILES::ROCK;
-	//cout << (int)_Map->GetTiles()[_playerOnTileIndex].terrain << endl;
 }
 
 void Player::SavePlayerInfo(string fileName)
@@ -539,7 +484,6 @@ void Player::SavePlayerInfo(string fileName)
 	CloseHandle(file);
 }
 
-
 void Player::LoadPlayerInfo(string fileName)
 {
 	HANDLE file;
@@ -554,5 +498,4 @@ void Player::LoadPlayerInfo(string fileName)
 	this->SetImg("player");
 	this->SetAnim("down_Idle_Player");
 	this->SetShadowImg("playerShadow");
-	this->SetItem(nullptr);
 }

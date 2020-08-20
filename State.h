@@ -8,9 +8,9 @@ class State : public enable_shared_from_this<State>
 {
 protected:
 	Player* _player;
+	MapMain* _map;
 	string _name;
 	string _tagName;
-	MapMain* _map;
 
 public:
 	virtual void Init() = 0;

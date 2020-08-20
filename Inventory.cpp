@@ -266,6 +266,9 @@ void Inventory::render()
 			if (KEYMANAGER->isOnceKeyDown('Q')) _Dialog->setDialogClear(true);
 			if (KEYMANAGER->isOnceKeyUp('Q')) _Dialog->setDialogClear(false);
 
+			if (KEYMANAGER->isOnceKeyDown('Q')) _Dialog->setDialogClear(true);
+			if (KEYMANAGER->isOnceKeyUp('Q')) _Dialog->setDialogClear(false);
+
 			if (ENVIRONMENT->GetCluckValue() <= CLOCKTIMEHALF)
 			{
 				IMAGEMANAGER->findImage("UI_Inventory_Day")->render(getMemDC(), INVENIMAGECOOR);

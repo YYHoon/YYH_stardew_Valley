@@ -64,6 +64,6 @@ void MapCave::render()
 
 
 	ZORDER->ZOrderRender();
-	_player->render();
 	ENVIRONMENT->render(getMemDC());
+	_player->render();
 }
