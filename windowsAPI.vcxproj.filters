@@ -420,6 +420,15 @@
     <ClInclude Include="MapCave.h">
       <Filter>playGround\Map</Filter>
     </ClInclude>
+    <ClInclude Include="astar.h">
+      <Filter>playGround\Astar</Filter>
+    </ClInclude>
+    <ClInclude Include="DrainedLoadingScene.h">
+      <Filter>playGround\Scene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="IsSleep.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -697,6 +706,15 @@
     </ClCompile>
     <ClCompile Include="MapCave.cpp">
       <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="astar.cpp">
+      <Filter>playGround\Astar</Filter>
+    </ClCompile>
+    <ClCompile Include="DrainedLoadingScene.cpp">
+      <Filter>playGround\Scene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="IsSleep.cpp">
+      <Filter>playGround\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

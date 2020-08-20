@@ -27,10 +27,18 @@ void Axe::Action()
 	if ((_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::TREE1 ||
 		_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::TREE2 ||
 		_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::TREE3) &&
-		(_map->GetTiles(_tileIndex[0]).hp == 0))
+		(_map->GetTiles(_tileIndex[0]).hp == 3))
 	{
 		_spreadItem->Init("Wood", _map, _spreadItem->IndexToVector(_map,_tileIndex[0]), 6);
-		
+		_map->SetHp(_tileIndex[0], -1);
+	}
+	else if ((_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::TREE1 ||
+		_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::TREE2 ||
+		_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::TREE3) &&
+		(_map->GetTiles(_tileIndex[0]).hp == 0))
+	{
+		_spreadItem->Init("Wood", _map, _spreadItem->IndexToVector(_map, _tileIndex[0]), 2);
+
 		_map->SetMapObject(_tileIndex[0], MAPOBJECT::NONE);
 		_map->SetColl(_tileIndex[0], false);
 	}

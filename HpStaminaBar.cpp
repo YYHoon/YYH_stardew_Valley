@@ -53,6 +53,7 @@ void HpStaminaBar::update()
 {
 	if (_pl->GetStamina() <= 0)
 	{
+		_pl->SetStamina(100);
 		SCENEMANAGER->changeScene("DariLoading");
 	}
 }

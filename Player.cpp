@@ -44,16 +44,16 @@ HRESULT Player::init()
 	
 	_inven->setPlayer(this);
 	_haveItem = _inven->GetInvenItem(0);
-
+	ChangeEquipment(_haveItem->GetToolEnum());
 	
-
 	return S_OK;
 }
 
 void Player::update()
 {
-	//cout << "여기" << endl;
-
+	_inven->update();
+	_gauge->update();
+	_state->Update();
 	if (KEYMANAGER->isOnceKeyDown('1')) 
 	{
 		_haveItem = _inven->GetInvenItem(0);
@@ -117,8 +117,7 @@ void Player::update()
 
 	CheckTiles();
 
-	_inven->update();
-	_gauge->update();
+	
 	//if (_haveItem != nullptr &&
 	//	_haveItem->GetToolEnum() != TOOLS::NONE &&
 	//	KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _state->GetStateTagName() != "acting")
@@ -157,7 +156,7 @@ void Player::update()
 	//*********** 구현 테스트때만 풀도록/////
 	//_inven->PlayerLootItem(_getItem);
 	////////////////////////////////////
-	_state->Update();
+	
 	Move();
 
 	
@@ -535,7 +534,7 @@ void Player::SavePlayerInfo(string fileName)
 		CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
 	WriteFile(file, &_info, sizeof(NecessaryInfo), &write, NULL);
-
+	
 	CloseHandle(file);
 }
 
@@ -554,5 +553,4 @@ void Player::LoadPlayerInfo(string fileName)
 	this->SetImg("player");
 	this->SetAnim("down_Idle_Player");
 	this->SetShadowImg("playerShadow");
-	this->SetItem(nullptr);
 }

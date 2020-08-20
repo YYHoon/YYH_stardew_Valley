@@ -8,10 +8,13 @@ HRESULT Environment::init()
 
 	_isDayIncrease = false;
 	_isInventoryOpen = false;
+	_isDayReset = false;
 
 	_timeRatio = REALTIMEMAX / CLOCKTIMEMAX;
 	_clockCalculate = 0;
+	_monthCount = 3;
 	_dayCount = 1;
+	_dayOfWeek = 1;
 
 	_delay = ALPHADELAY;
 	_count = 0;
@@ -25,8 +28,7 @@ HRESULT Environment::init()
 
 	_minute = 0;
 	_hour = 6;
-	_day = 1;
-	
+
 	return S_OK;
 }
 
@@ -81,11 +83,12 @@ void Environment::update()
 				_alphaValue = 0;
 				_realTimeSecond = 0;
 				_dayCount++;
-				_day++;
+				_dayOfWeek++;
 				_hour = 6;
 				_minute = 0;
 				/// <summary>
 				cout << "IsDayIncrease :" << _isDayIncrease << endl;
+				cout << "MonthCount : " << _monthCount << endl;
 				cout << "DayCount : " << _dayCount << endl;
 				/// </summary>
 			}
@@ -96,7 +99,7 @@ void Environment::update()
 			_clockHand.value >= CLOCKTIMEHALF)
 		{
 			_alphaValue++;
-		//	cout << _alphaValue << endl;
+			//	cout << _alphaValue << endl;
 			if (_alphaValue > ALPHAVALUEMAX) _alphaValue = ALPHAVALUEMAX;
 		}
 
@@ -106,7 +109,32 @@ void Environment::update()
 		_realTimeSecond += 0;
 	}
 
-	if (KEYMANAGER->isOnceKeyDown(VK_F7)) _day++;
+	if (_dayCount >= 31)
+	{
+		_dayCount = 1;
+		_monthCount++;
+		if (_monthCount >= 13) _monthCount = 1;
+	}
+
+	if (_isDayReset)
+	{
+		_isDayReset = false;
+		_clockHand.value = 0;
+		_clockHand.angle = -PI / 2;
+
+		_isDayIncrease = true;
+		_alphaValue = 0;
+		_realTimeSecond = 0;
+		_dayCount++;
+		_dayOfWeek++;
+		_hour = 6;
+		_minute = 0;
+		/// <summary>
+		cout << "IsDayIncrease :" << _isDayIncrease << endl;
+		cout << "MonthCount : " << _monthCount << endl;
+		cout << "DayCount : " << _dayCount << endl;
+		/// </summary>
+	}
 
 	//cout << _realTimeSecond << endl;
 	_clockHand.end.x = cosf(_clockHand.angle) * _clockHand.length + _clockHand.center.x;
@@ -115,12 +143,12 @@ void Environment::update()
 
 void Environment::render(HDC _hdc)
 {
-	//IMAGEMANAGER->findImage("Inventory_BG")->alphaRender(_hdc, _alphaValue);
+	IMAGEMANAGER->findImage("Inventory_BG")->alphaRender(_hdc, _alphaValue);
 
 	IMAGEMANAGER->findImage("Environment_Clock")->render(_hdc, 1300, 12);
 
 
-//----------------------시계---------------------------------------------------//
+	//----------------------시계---------------------------------------------------//
 	SetTextColor(_hdc, BLACK);
 
 	HFONT font1, oldFont1;
@@ -128,25 +156,29 @@ void Environment::render(HDC _hdc)
 		PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
 	oldFont1 = (HFONT)SelectObject(_hdc, font1);
 
-	char time[30];
+	char month[30];
 	char day[30];
+	char time[30];
+	sprintf_s(month, "%d.", _monthCount);
+	sprintf_s(day, "%d,", _dayCount);
 	sprintf_s(time, "%d : %d0", _hour, _minute);
-	sprintf_s(day, "%d,", _day);
+
+	TextOut(_hdc, 1452, 30, day, strlen(day));
+	TextOut(_hdc, 1420, 30, month, strlen(month));
 	TextOut(_hdc, 1435, 120, time, strlen(time));
-	TextOut(_hdc, 1430, 30, day, strlen(day));
-	if (_day % 7 == 1) 	TextOut(_hdc, 1470, 30, "월요일", strlen("월요일"));
-	if (_day % 7 == 2) 	TextOut(_hdc, 1470, 30, "화요일", strlen("화요일"));
-	if (_day % 7 == 3) 	TextOut(_hdc, 1470, 30, "수요일", strlen("수요일"));
-	if (_day % 7 == 4) 	TextOut(_hdc, 1470, 30, "목요일", strlen("목요일"));
-	if (_day % 7 == 5) 	TextOut(_hdc, 1470, 30, "금요일", strlen("금요일"));
-	if (_day % 7 == 6) 	TextOut(_hdc, 1470, 30, "토요일", strlen("토요일"));
-	if (_day % 7 == 0) 	TextOut(_hdc, 1470, 30, "일요일", strlen("일요일"));
+
+	if (_dayOfWeek % 7 == 1) 	TextOut(_hdc, 1492, 30, "월요일", strlen("월요일"));
+	if (_dayOfWeek % 7 == 2) 	TextOut(_hdc, 1492, 30, "화요일", strlen("화요일"));
+	if (_dayOfWeek % 7 == 3) 	TextOut(_hdc, 1492, 30, "수요일", strlen("수요일"));
+	if (_dayOfWeek % 7 == 4) 	TextOut(_hdc, 1492, 30, "목요일", strlen("목요일"));
+	if (_dayOfWeek % 7 == 5) 	TextOut(_hdc, 1492, 30, "금요일", strlen("금요일"));
+	if (_dayOfWeek % 7 == 6) 	TextOut(_hdc, 1492, 30, "토요일", strlen("토요일"));
+	if (_dayOfWeek % 7 == 0) 	TextOut(_hdc, 1492, 30, "일요일", strlen("일요일"));
 
 	SelectObject(_hdc, oldFont1);
 	DeleteObject(oldFont1);
-//-----------------------------------------------------------------------------//
-
 
 	LineMake(_hdc, _clockHand.center.x, _clockHand.center.y, _clockHand.end.x, _clockHand.end.y);
+	//-----------------------------------------------------------------------------//
 }
 

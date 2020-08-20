@@ -13,7 +13,9 @@ protected:
 	Player* _player;
 	Store* _store;
 	PlantsManager* _pm;
-	
+	string _mapName;
+	int _mapIndex;
+	bool _isActve;
 
 	SynInheritance(vector<tagTile>, _tiles, Tiles)
 	SynInheritance(int, _vertical, Vertical)
@@ -26,11 +28,17 @@ public:
 	virtual void update();
 	virtual void render();
 
+	virtual int getMapIndex() { return _mapIndex; }
 	virtual PlantsManager* GetPM() { return _pm; }
 	virtual tagTile GetTiles(int index) { return _tiles[index]; };
+	virtual bool GetIsActive() { return _isActve; }
+	virtual string GetMapName() { return _mapName; }
 	virtual void SetTiles(int index, tagTile tile) { _tiles[index] = tile; }
 	virtual void SetFrameX(int index, int frameX) { _tiles[index].objectframeX = frameX; }
 	virtual void SetFrameY(int index, int frameY) { _tiles[index].objectframeY = frameY; }
+	virtual void SetIsActive(bool setting) { _isActve = setting; }
+	virtual void SetMapIndex(int index) { _mapIndex = index; }
+	virtual void SetMapName(string name) { _mapName = name; }
 
 	virtual void SetMapObject(int index, MAPOBJECT object) { _tiles[index].object = object; }
 	virtual void SetColl(int index, bool Coll) { _tiles[index].collision = Coll; }

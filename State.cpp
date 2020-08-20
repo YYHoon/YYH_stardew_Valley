@@ -646,16 +646,14 @@ void PlayerFelling::Init()
 	default:
 		break;
 	}
-	
+
 	_map = _player->GetMap();
 	if(
 	_map->GetTiles()[_player->GetTileIndex()[0]].object == MAPOBJECT::BRANCH ||
 	_map->GetTiles()[_player->GetTileIndex()[0]].object == MAPOBJECT::TREE1 ||
 	_map->GetTiles()[_player->GetTileIndex()[0]].object == MAPOBJECT::TREE2 ||
 	_map->GetTiles()[_player->GetTileIndex()[0]].object == MAPOBJECT::TREE3)SOUNDMANAGER->play("actMining");
-
 	if (!_player->GetInfo().anim->isPlay())_player->GetInfo().anim->start();
-	
 }
 
 void PlayerFelling::Update()
@@ -667,7 +665,6 @@ void PlayerFelling::Update()
 
 void PlayerFelling::Release()
 {
-	cout << _player->GetHp() << endl;
 	_player->SetDecreaseStamina(5);
 	_player->GetTM()->SetNowTileMapMemoyrAddressLink(_map);
 	_player->GetTM()->SetImpactIndex(_player->GetHaveItem()->GetName(), _player->GetTileIndex()[0]);

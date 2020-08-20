@@ -36,7 +36,7 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("CAVE", _cave = new MapCave);
 	SCENEMANAGER->addScene("Test", _test = new MapTest);
 	SCENEMANAGER->addScene("DariLoading", _DariLoading = new DrainedLoadingScene);
-	SCENEMANAGER->changeScene("HOME");
+	SCENEMANAGER->changeScene("Title");
 	//test = new MiniGame;
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
 	return S_OK;
@@ -133,6 +133,7 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("UI_Inventory_KeyInfo", "image/Inventory/UI_Inventory_KeyInfo.bmp", 848, 648, true, MAGENTA);
 	IMAGEMANAGER->addImage("UI_Inventory_Game_Close", "image/Inventory/UI_Inventory_Game_Close.bmp", 848, 648, true, MAGENTA);
 	IMAGEMANAGER->addImage("Inventory_Close", "image/Inventory/Inventory_Close.bmp", 44, 44, true, MAGENTA);
+	IMAGEMANAGER->addImage("UI_Inventory_Sort", "Image/Inventory/UI_Inventory_Sort.bmp", 64, 64, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("UI_Inventory_Trashcan", "image/Inventory/UI_Inventory_Trashcan.bmp", 368, 142, 4, 1, true, MAGENTA);
 
 	//상점관련
@@ -161,6 +162,7 @@ void playGround::imginit()
 	IMAGEMANAGER->addFrameImage("Wall", "image/mapTool/Wall.bmp", 0, 0, 512, 512, 512 / TILESIZE, 512 / TILESIZE, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("HoeTile", "image/mapTool/HoeTile.bmp", 0, 0, 448, 384, 448 / TILESIZE, 384 / TILESIZE, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("Tree", "image/mapTool/Tree.bmp", 0, 0, 578, 384, 3, 1, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("Stump", "image/mapTool/Stump.bmp", 0, 0, 192, 84, 3, 1, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("House", "image/mapTool/House.bmp", 0, 0, 576, 576, 1, 1, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("POS", "image/mapTool/POS.bmp", 0, 0, 256, 128, 4, 2, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("Bed", "image/mapTool/Bed.bmp", 0, 0, 128, 192, 1, 1, true, MAGENTA);
