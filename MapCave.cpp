@@ -8,10 +8,7 @@ HRESULT MapCave::init()
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();	
-	_player->SetPosition(Vector2(800, 500));
-
-
-	_player->SetMapName("CAVE");
+	_player->LoadPlayerInfo("playerSave");
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
 	_count = 0;
@@ -20,7 +17,6 @@ HRESULT MapCave::init()
 
 void MapCave::release()
 {
-	_player->SavePlayerInfo("playerSave");
 	_map->Save("mapCave.map", _horizon, _vertical, _tiles);
 }
 
@@ -28,6 +24,8 @@ void MapCave::update()
 {
 	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::CAVE_TO_PARM)
 	{
+		_player->SetPosition(Vector2(2400, 680));
+		_player->SavePlayerInfo("playerSave");
 		SCENEMANAGER->changeScene("FARM");
 	}
 	_count++;

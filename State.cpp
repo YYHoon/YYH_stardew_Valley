@@ -679,7 +679,6 @@ void PlayerFelling::Update()
 
 void PlayerFelling::Release()
 {
-	cout << _player->GetHp() << endl;
 	_player->SetDecreaseStamina(5);
 	_player->GetTM()->SetNowTileMapMemoyrAddressLink(_map);
 	_player->GetTM()->SetImpactIndex(_player->GetHaveItem()->GetName(), _player->GetTileIndex()[0]);

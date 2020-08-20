@@ -19,7 +19,7 @@ private:
 	int _count;
 
 public:
-	DrainedLoadingScene() ;
+	DrainedLoadingScene();
 	~DrainedLoadingScene();
 
 	int _currentCount;

@@ -8,21 +8,10 @@ HRESULT MapHome::init()
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
-
+	_player->LoadPlayerInfo("playerSave");
+	cout << _player->GetInfo().stamina << endl;
 	_sleep = new IsSleep;
 	_sleep->init();
-
-	
-	if (_player->GetMapName() == "FARM")
-	{
-		_player->SetPosition(Vector2(800, 500));
-	}
-	else
-	{
-		_player->SetPosition(Vector2(1184, 792));
-	}
-
-	_player->SetMapName("HOME");
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
 	_count = 0;
@@ -31,14 +20,16 @@ HRESULT MapHome::init()
 
 void MapHome::release()
 {
-	_player->SavePlayerInfo("playerSave");
+	
 }
 
 void MapHome::update()
 {
-
+	cout << _player->GetInfo().stamina << endl;
 	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::HOME_TO_PARM)
 	{
+		_player->SetPosition(Vector2(610, 550));
+		_player->SavePlayerInfo("playerSave");
 		SCENEMANAGER->changeScene("FARM");
 	}
 
@@ -102,7 +93,7 @@ void MapHome::render()
 		}
 	}
 	ZORDER->ZOrderRender();
-	_player->render();
-	_sleep->render();
 	ENVIRONMENT->render(getMemDC());
+	_sleep->render();
+	_player->render();
 }

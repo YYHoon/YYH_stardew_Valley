@@ -43,13 +43,14 @@ HRESULT Player::init()
 	
 	_inven->setPlayer(this);
 	_haveItem = _inven->GetInvenItem(0);
-
+	ChangeEquipment(_haveItem->GetToolEnum());
+	
 	return S_OK;
 }
 
 void Player::update()
 {
-	//cout << "여기" << endl;
+	cout << "여기" << endl;
 
 	if (KEYMANAGER->isOnceKeyDown('1')) 
 	{
@@ -116,13 +117,14 @@ void Player::update()
 	{
 		_inven->Decrease();
 	}
+	_state->Update();
 	_inven->update();
 	_gauge->update();
 	////////////////////////////////////
 	//*********** 구현 테스트때만 풀도록/////
 	//_inven->PlayerLootItem(_getItem);
 	////////////////////////////////////
-	_state->Update();
+	
 	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
 	_tool->Update();
@@ -480,7 +482,7 @@ void Player::SavePlayerInfo(string fileName)
 		CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
 	WriteFile(file, &_info, sizeof(NecessaryInfo), &write, NULL);
-
+	
 	CloseHandle(file);
 }
 
