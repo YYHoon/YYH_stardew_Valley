@@ -36,7 +36,7 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("CAVE", _cave = new MapCave);
 	SCENEMANAGER->addScene("Test", _test = new MapTest);
 	SCENEMANAGER->addScene("DariLoading", _DariLoading = new DrainedLoadingScene);
-	SCENEMANAGER->changeScene("FARM");
+	SCENEMANAGER->changeScene("Title");
 	return S_OK;
 }
 

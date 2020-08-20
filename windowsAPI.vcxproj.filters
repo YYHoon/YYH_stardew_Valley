@@ -121,6 +121,9 @@
     <Filter Include="playGround\Astar">
       <UniqueIdentifier>{408d422c-770e-4d67-ab98-abf6163e4364}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\Enemy">
+      <UniqueIdentifier>{9b35d53a-a851-4342-a7ea-d170caa52c8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -429,6 +432,12 @@
     <ClInclude Include="IsSleep.h">
       <Filter>playGround\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>playGround\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>playGround\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -715,6 +724,12 @@
     </ClCompile>
     <ClCompile Include="IsSleep.cpp">
       <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>playGround\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>playGround\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

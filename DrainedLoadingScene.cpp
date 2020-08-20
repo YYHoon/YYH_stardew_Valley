@@ -48,7 +48,7 @@ void DrainedLoadingScene::update()
 
     if (_currentCount == LOADINGMAX)
     {
-        _player->SetPosition(Vector2(1180, 780));
+     //   _player->SetPosition(Vector2(1180, 780));
         SCENEMANAGER->changeScene("HOME");
     }
 

@@ -30,6 +30,7 @@ HRESULT Player::init()
 
 	_tool = new ToolItemManager;
 	_tool->SetNowTileMapMemoyrAddressLink(_Map);
+	_tool->SetPlayerAddressLink(this);
 	_tool->Init();
 	_inven = new Inventory;
 	//_inven->SetMemoryLinkedTool(_tool);
@@ -50,6 +51,10 @@ HRESULT Player::init()
 
 void Player::update()
 {
+	_info.doing = _tool->GetDoingFishing();
+	_tool->SetFishingInfo(_info.position, _info.direction);
+	//cout << "¿©±â" << endl;
+
 	if (KEYMANAGER->isOnceKeyDown('1')) 
 	{
 		_haveItem = _inven->GetInvenItem(0);
@@ -154,6 +159,13 @@ void Player::render()
 
 void Player::release()
 {
+}
+
+
+
+string Player::GetStateName()
+{
+	return _state->GetStateName(); 
 }
 
 void Player::ChangeState(shared_ptr<State> state)
