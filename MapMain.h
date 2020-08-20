@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Store.h"
 #include "PlantsManager.h"
+#include "IsSleep.h"
 
 class MapMain : public gameNode
 {

@@ -25,7 +25,7 @@ HRESULT Player::init()
 	_info.HP = 100;
 	_info.stamina = 100;
 	_info.money = 500;
-	_info.velocity = 5.0f;
+	_info.velocity = 7.0f;
 	_info.exMapName = "HOME";
 
 	_tool = new ToolItemManager;
@@ -50,8 +50,6 @@ HRESULT Player::init()
 
 void Player::update()
 {
-	cout << "¿©±â" << endl;
-
 	if (KEYMANAGER->isOnceKeyDown('1')) 
 	{
 		_haveItem = _inven->GetInvenItem(0);
@@ -137,7 +135,12 @@ void Player::update()
 			_inven->PlayerLootItem(_tool->GetSpreadList()[i].name);
 		}
 	}
+	if (_info.equipment == TOOLS::ACTIVEITEM || _info.equipment == TOOLS::EATITEM || _info.equipment == TOOLS::RESOURCEITEM)
+	{
+		ZORDER->ZOrderPush(getMemDC(), RenderType::RENDER, _haveItem->GetImageInven(), _info.shadowCollision.left - 20, _info.shadowCollision.top - 130, _info.shadowCollision.bottom);
+	}
 	ZORDER->ZOrderPush(getMemDC(), RenderType::KEYANIRENDER, _info.img ,_info.collision.left, _info.collision.top, _info.anim, _info.shadowCollision.bottom);
+	
 }
 
 void Player::render()
@@ -179,20 +182,20 @@ void Player::Move()
 			_info.position.x -= _info.velocity;
 			break;
 		case PLAYER_DIRECTION::UP_RIGHT:
-			_info.position.x += _info.velocity * 0.5;
-			_info.position.y -= _info.velocity * 0.5;
+			_info.position.x += _info.velocity * 0.6;
+			_info.position.y -= _info.velocity * 0.6;
 			break;
 		case PLAYER_DIRECTION::UP_LEFT:
-			_info.position.x -= _info.velocity * 0.5;
-			_info.position.y -= _info.velocity * 0.5;
+			_info.position.x -= _info.velocity * 0.6;
+			_info.position.y -= _info.velocity * 0.6;
 			break;
 		case PLAYER_DIRECTION::DOWN_RIGHT:
-			_info.position.x += _info.velocity * 0.5;
-			_info.position.y += _info.velocity * 0.5;
+			_info.position.x += _info.velocity * 0.6;
+			_info.position.y += _info.velocity * 0.6;
 			break;
 		case PLAYER_DIRECTION::DOWN_LEFT:
-			_info.position.x -= _info.velocity * 0.5;
-			_info.position.y += _info.velocity * 0.5;
+			_info.position.x -= _info.velocity * 0.6;
+			_info.position.y += _info.velocity * 0.6;
 			break;
 		default:
 			break;
@@ -477,7 +480,6 @@ void Player::SavePlayerInfo(string fileName)
 {
 	HANDLE file;
 	DWORD write;
-	//cout << &_info << endl;
 	file = CreateFile(fileName.c_str(), GENERIC_WRITE, NULL, NULL,
 		CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 

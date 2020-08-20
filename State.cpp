@@ -78,7 +78,8 @@ void PlayerIdle::Update()
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
-		if (_map->GetPM()->GetPlantsList().size() > 0 && !_map->GetPM()->IsExist(_player->GetTileIndex()[0]))
+		
+		if (_map->GetPM() != nullptr&&_map->GetPM()->GetPlantsList().size() > 0 && !_map->GetPM()->IsExist(_player->GetTileIndex()[0]))
 		{
 			if (_map->GetPM()->GetPlantsName(_player->GetTileIndex()[0]) == "potatoObject")
 			{
@@ -206,6 +207,7 @@ void PlayerItemIdle::Update()
 		_player->ChangeState(make_shared<PlayerItemMove>(_player));
 		return;
 	}
+	
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		if (_map->GetPM()->GetPlantsList().size() > 0 && !_map->GetPM()->IsExist(_player->GetTileIndex()[0]))
@@ -225,10 +227,16 @@ void PlayerItemIdle::Update()
 			_map->GetPM()->Harvesting(_player->GetTileIndex()[0]);
 
 		}
-		else if ((int)_player->GetInfo().equipment >= (int)8
-			&& (int)_player->GetInfo().equipment <= (int)10)
+		else if ((int)_player->GetInfo().equipment == (int)8)
 		{
 			_player->ChangeState(make_shared<PlayerPlanting>(_player));
+			return;
+		}
+		else if (_player->GetHaveItem()->GetToolEnum() == TOOLS::EATITEM)
+		{
+			cout << "¤¶1¹ß" << endl;
+			_player->ChangeState(make_shared<PlayerEating>(_player));
+			return;
 		}
 	}
 }
@@ -251,7 +259,6 @@ void PlayerPlanting::Update()
 	
 	if(_map->GetPM()->Planting(_player->GetTileIndex()[0], _player->GetHaveItem()->GetName()))
 		_player->GetPlayerInver()->Decrease();
-	cout << _map->GetPM()->Planting(_player->GetTileIndex()[0], _player->GetHaveItem()->GetName()) << endl;
 	_player->ChangeState(make_shared<PlayerIdle>(_player));
 	return;
 }
@@ -452,7 +459,6 @@ PlayerItemMove::PlayerItemMove(Player* pPplayer) : State(pPplayer) {}
 
 void PlayerItemMove::Init()
 {
-	cout << "µé¾î°¬´©?" << endl;
 	_tagName = "move";
 	_name = "item_Move";
 	//133
@@ -925,8 +931,9 @@ void PlayerEating::Release()
 		_player->SetIncreaseHp(15);
 		_player->SetIncreaseStamina(20);
 	}
-	else if (_player->GetHaveItem()->GetName() == "Parsnip")
+	else if (_player->GetHaveItem()->GetName() == "Pasnip")
 	{
+		cout << "°³¾¾¹ß·Ãµé" << endl;
 		_player->SetIncreaseHp(10);
 		_player->SetIncreaseStamina(10);
 	}

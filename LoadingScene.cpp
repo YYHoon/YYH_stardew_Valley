@@ -51,7 +51,7 @@ void LoadingScene::update()
     {
         _player->SetPosition(Vector2(1180, 720));
         _player->SavePlayerInfo("playerSave");
-        SCENEMANAGER->changeScene("FARM");
+        SCENEMANAGER->changeScene("HOME");
     }
 
     _count++;

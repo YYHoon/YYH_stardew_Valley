@@ -25,7 +25,7 @@ HRESULT Environment::init()
 	_clockHand.length = 72;
 	_clockHand.center.x = 1385.5f;
 	_clockHand.center.y = 90;
-
+	_timeOut = false;
 	_minute = 0;
 	_hour = 6;
 
@@ -40,7 +40,11 @@ void Environment::update()
 {
 	_elapsedTime = TIMEMANAGER->getElapsedTime();
 	_clockCalculate += _elapsedTime;
-
+	if (_hour == 23&&_minute ==5) 
+	{
+		_timeOut = true;
+		SCENEMANAGER->changeScene("FARM");
+	}
 	if (!_isInventoryOpen)
 	{
 		_realTimeSecond += _elapsedTime;
@@ -48,7 +52,6 @@ void Environment::update()
 		//ClockHand
 		if (_clockCalculate >= _timeRatio)
 		{
-			//cout << _clockCalculate << endl;
 			_clockHand.count++;
 
 			if (_clockHand.count == 1)
@@ -70,7 +73,10 @@ void Environment::update()
 			}
 		}
 
-		if (_isDayIncrease) _isDayIncrease = false;
+		if (_isDayIncrease) {
+			_isDayIncrease = false;
+			_timeOut = false;
+		}
 
 		if (_clockHand.value >= CLOCKTIMEMAX)
 		{
@@ -87,9 +93,6 @@ void Environment::update()
 				_hour = 6;
 				_minute = 0;
 				/// <summary>
-				cout << "IsDayIncrease :" << _isDayIncrease << endl;
-				cout << "MonthCount : " << _monthCount << endl;
-				cout << "DayCount : " << _dayCount << endl;
 				/// </summary>
 			}
 		}
@@ -99,7 +102,6 @@ void Environment::update()
 			_clockHand.value >= CLOCKTIMEHALF)
 		{
 			_alphaValue++;
-			//	cout << _alphaValue << endl;
 			if (_alphaValue > ALPHAVALUEMAX) _alphaValue = ALPHAVALUEMAX;
 		}
 
@@ -130,13 +132,9 @@ void Environment::update()
 		_hour = 6;
 		_minute = 0;
 		/// <summary>
-		cout << "IsDayIncrease :" << _isDayIncrease << endl;
-		cout << "MonthCount : " << _monthCount << endl;
-		cout << "DayCount : " << _dayCount << endl;
 		/// </summary>
 	}
 
-	//cout << _realTimeSecond << endl;
 	_clockHand.end.x = cosf(_clockHand.angle) * _clockHand.length + _clockHand.center.x;
 	_clockHand.end.y = -sinf(_clockHand.angle) * _clockHand.length + _clockHand.center.y;
 }
@@ -147,7 +145,10 @@ void Environment::render(HDC _hdc)
 
 	IMAGEMANAGER->findImage("Environment_Clock")->render(_hdc, 1300, 12);
 
-
+	if (_timeOut)
+	{
+		IMAGEMANAGER->findImage("Inventory_BG")->render(_hdc);
+	}
 	//----------------------½Ã°è---------------------------------------------------//
 	SetTextColor(_hdc, BLACK);
 

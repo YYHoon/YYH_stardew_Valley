@@ -16,7 +16,7 @@ struct tagInventory
 	image* image;
 	int invenTabNum;
 	int craftPageNum;
-	int x, y;
+	int x, y, craftY;
 	bool isInvenOpen;
 };
 
@@ -111,6 +111,7 @@ public:
 
 	void PlayerLootItem(string itemName);
 	void setPlayerBuyItme(ToolItem* buyItme);
+	void setPlayerSellItem(int num);
 	void SetStoreLink(Store* store) { _store = store; }
 	void setPlayer(Player* pp) { _player = pp; }
 
