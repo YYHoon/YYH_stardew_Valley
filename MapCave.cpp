@@ -8,15 +8,8 @@ HRESULT MapCave::init()
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();	
+	_player->SetPosition(Vector2(800, 500));
 
-	if (_player->GetMapName() == "FARM")
-	{
-		_player->SetPosition(Vector2(500, 500));
-	}
-	else
-	{
-		_player->SetPosition(Vector2(500, 1000));
-	}
 
 	_player->SetMapName("CAVE");
 
@@ -39,7 +32,6 @@ void MapCave::update()
 	}
 	_count++;
 	_player->update();
-	_pm->Update();
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
 	CAMERAMANAGER->setY(_player->GetInfo().position.y);
 	ENVIRONMENT->update();

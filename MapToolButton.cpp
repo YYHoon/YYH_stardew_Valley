@@ -163,7 +163,7 @@ void MapToolScene::Button()
 	}
 	if (PtInRect(&_saveBtn[0], _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
-		Save("mapCave.map",_horizontal,_vertical,_vtiles);
+		Save("mapFarm.map",_horizontal,_vertical,_vtiles);
 		_saveimg = true;
 		_count = 0;
 	}
@@ -183,7 +183,7 @@ void MapToolScene::Button()
 	}
 	if (PtInRect(&_loadBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
-		_vtiles = Load("mapCave.map", _horizontal, _vertical);
+		_vtiles = Load("mapFarm.map", _horizontal, _vertical);
 	}
 	if (PtInRect(&_exitBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
