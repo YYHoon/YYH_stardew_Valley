@@ -30,6 +30,7 @@ HRESULT Player::init()
 
 	_tool = new ToolItemManager;
 	_tool->SetNowTileMapMemoyrAddressLink(_Map);
+	_tool->SetPlayerAddressLink(this);
 	_tool->Init();
 	_inven = new Inventory;
 	//_inven->SetMemoryLinkedTool(_tool);
@@ -52,6 +53,8 @@ HRESULT Player::init()
 
 void Player::update()
 {
+	_info.doing = _tool->GetDoingFishing();
+	_tool->SetFishingInfo(_info.position, _info.direction);
 	//cout << "여기" << endl;
 
 	if (KEYMANAGER->isOnceKeyDown('1')) 
@@ -161,6 +164,8 @@ void Player::update()
 	Move();
 
 	
+	
+	
 	if (!_info.anim->isPlay())_info.anim->start();
 	_tool->Update();
 	// 아이템 줍는거
@@ -192,6 +197,11 @@ void Player::release()
 }
 
 
+
+string Player::GetStateName()
+{
+	return _state->GetStateName(); 
+}
 
 void Player::ChangeState(shared_ptr<State> state)
 {
