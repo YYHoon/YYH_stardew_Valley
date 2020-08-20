@@ -44,7 +44,7 @@ enum class TERRAIN
 	GRASS,
 	WATER,
 	WOODEN,
-	WOODENWALL,
+	CAVE,
 	NONE
 };
 enum class MAPOBJECT
@@ -132,9 +132,10 @@ enum class FISHING
 
 enum class Spread
 {
-	SPREAD,			//흩뿌릴때
-	HARVEST,		//수확할때
+	SPREAD,				//흩뿌릴때
+	HARVEST,			//수확할때
 	FISHING,			//낚시할때
+	THROW,				//플레이어가 템버릴때	
 	NONE
 };
 enum class SpreadState

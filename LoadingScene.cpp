@@ -46,7 +46,7 @@ void LoadingScene::update()
 
     if (_currentCount == LOADINGMAX)
     {
-        SCENEMANAGER->changeScene("Test");
+        SCENEMANAGER->changeScene("FARM");
     }
 
     _count++;

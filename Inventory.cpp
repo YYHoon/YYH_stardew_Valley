@@ -10,8 +10,8 @@ HRESULT Inventory::init()
 	_toolItemManager = new ToolItemManager;
 	_toolItemManager->Init();
 
-	_Dtset = new Dialog;
-	_Dtset->init();
+	_Dialog = new Dialog;
+	_Dialog->init();
 
 	_inventory.isInvenOpen = false;
 
@@ -27,6 +27,10 @@ HRESULT Inventory::init()
 	_frameCount = 0;
 
 	_trashCanFrameX = 0;
+
+	_itemIndexNum = 12;
+
+	_index = 0;
 
 	//-----------------------QuickSlot-----------------------------------
 	_quickSlot.image = IMAGEMANAGER->findImage("QuickSlot");
@@ -49,19 +53,19 @@ HRESULT Inventory::init()
 	}
 	_quickSlotUp = false;
 
-	_toolInven[0]->SetToolEnum(TOOLS::NONE);
-	_toolInven[1] = _toolList[1];
-	_toolInven[2] = _toolList[2];
+	_toolInven[0] = _toolList[13];
+	_toolList[13]->SetNumber(10);
+	_toolInven[1] = _toolList[0];
+	_toolInven[2] = _toolList[1];
 	_toolInven[3] = _toolList[3];
 	_toolInven[4] = _toolList[4];
 	_toolInven[5] = _toolList[5];
 	_toolInven[6] = _toolList[6];
-	_toolInven[7] = _toolList[14];
-	_toolInven[8] ->SetToolEnum(TOOLS::NONE);
-	_toolInven[9] ->SetToolEnum(TOOLS::NONE);
+	_toolInven[7]->SetToolEnum(TOOLS::NONE);
+	_toolInven[8]->SetToolEnum(TOOLS::NONE);
+	_toolInven[9]->SetToolEnum(TOOLS::NONE);
 	_toolInven[10]->SetToolEnum(TOOLS::NONE);
 	_toolInven[11]->SetToolEnum(TOOLS::NONE);
-	_toolInven[7]->SetNumber(10);
 	return S_OK;
 }
 
@@ -83,24 +87,20 @@ void Inventory::update()
 
 	_inventory.rc.top = _inventory.y;
 
-	_Dtset->update(_toolInven[1]->GetName());
-	if (KEYMANAGER->isOnceKeyDown(VK_F11)) _Dtset->setDialogClear(true);
-	if (KEYMANAGER->isOnceKeyDown(VK_F12)) _Dtset->setDialogClear(false);
+	for (int i = 0; i < _vInvenIndexRC.size(); ++i)
+	{
+		if (PtInRect(&_vInvenIndexRC[i], _ptMouse))
+		{
+			_Dialog->update(_toolInven[i]->GetName());
+		}
+	}
 
-	if (_player->GetPlayercollision().bottom >= WINSIZEY - 100)
+
+	if (_player->GetPlayercollision().bottom - CAMERAMANAGER->getT() >= WINSIZEY - 100)
 	{
 		_quickSlotUp = true;
 	}
 	else  _quickSlotUp = false;
-
-	/// <summary>
-
-	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD8))
-	{
-		
-	}
-
-	/// </summary>
 
 	if (KEYMANAGER->isOnceKeyDown('E'))
 	{
@@ -218,17 +218,39 @@ void Inventory::update()
 			_vInvenStaticRC.push_back(_invenTabRC[i]);
 		}
 	}
+
+	///////////////////////////// <SortTest>
+	//if (_inventory.isInvenOpen &&
+	//	_inventory.invenTabNum == 1 &&
+	//	KEYMANAGER->isOnceKeyDown(VK_NUMPAD5))
+	//{
+	//	for (int i = 0; i < _toolInven.size() - 1; i++)
+	//	{
+	//		MergeSort(_toolInven, 0, 11);
+	//
+	//		/// <summary>
+	//		cout << _toolInven[i] << endl;
+	//		/// </summary>
+	//		
+	//		_toolInven[i] = _toolList[_test[i]];
+	//	}
+	//}
+	///////////////////////////// </SortTest>
+
 }
 
 void Inventory::render()
-{
+{	
 	SetTextColor(getMemDC(), WHITE);
-	char getsu[2000]; //아이템 겟수 표기용
-
+	char getsu[30]; //아이템 겟수 표기용
+	
 	HFONT font1, oldFont1;
 	font1 = CreateFont(30, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
 		PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
 	oldFont1 = (HFONT)SelectObject(getMemDC(), font1);
+
+	char pGold[10];
+	sprintf_s(pGold, "%d", _player->GetMoney());
 
 	if (_inventory.isInvenOpen)
 	{
@@ -244,6 +266,9 @@ void Inventory::render()
 			IMAGEMANAGER->findImage("UI_Inventory_Trashcan")->frameRender(getMemDC(), 1257, 464, _trashCanFrameX, 0);
 			_trashCanRC = RectMake(1260, 446, 90, 140);		//쓰레기통 렉트
 			_vInvenDynamicRC.push_back(_trashCanRC);
+
+			if (KEYMANAGER->isOnceKeyDown('Q')) _Dialog->setDialogClear(true);
+			if (KEYMANAGER->isOnceKeyUp('Q')) _Dialog->setDialogClear(false);
 
 			if (ENVIRONMENT->GetCluckValue() <= CLOCKTIMEHALF)
 			{
@@ -264,12 +289,22 @@ void Inventory::render()
 				if (_toolInven[i]->GetToolEnum() == TOOLS::ACTIVEITEM || _toolInven[i]->GetToolEnum() == TOOLS::EATITEM ||
 					_toolInven[i]->GetToolEnum() == TOOLS::RESOURCEITEM)
 				{
+					SetTextColor(getMemDC(), WHITE);
 					sprintf_s(getsu, "%d", _toolInven[i]->GetNumber());
 					TextOut(getMemDC(), 453 + (i * 64), 275, getsu, strlen(getsu));
 				}
 			}
 
-			//cout << "1" << endl;
+			HFONT font2, oldFont2;
+			font2 = CreateFont(50, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
+				PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
+			oldFont2 = (HFONT)SelectObject(getMemDC(), font2);
+
+			SetTextColor(getMemDC(), BLACK);
+			TextOut(getMemDC(), 950, 570, pGold, strlen(pGold));
+
+			SelectObject(getMemDC(), oldFont2);
+			DeleteObject(oldFont2);
 		}
 		break;
 		case 2:		//제작 탭
@@ -291,7 +326,23 @@ void Inventory::render()
 			_vInvenDynamicRC.push_back(_menuUpRC);
 			_vInvenDynamicRC.push_back(_menuDownRC);
 
-			//cout << "2" << endl;
+			if (KEYMANAGER->isOnceKeyDown('Q')) _Dialog->setDialogClear(true);
+			if (KEYMANAGER->isOnceKeyUp('Q')) _Dialog->setDialogClear(false);
+
+			for (int i = 0; i < _toolInven.size() - 1; ++i)
+			{
+				if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
+				{
+					_toolInven[i]->GetImageInven()->render(getMemDC(), 416 + (i * 64), 545);
+				}
+				//----아이템 개수 출력----------//
+				if (_toolInven[i]->GetToolEnum() == TOOLS::ACTIVEITEM || _toolInven[i]->GetToolEnum() == TOOLS::EATITEM ||
+					_toolInven[i]->GetToolEnum() == TOOLS::RESOURCEITEM)
+				{
+					sprintf_s(getsu, "%d", _toolInven[i]->GetNumber());
+					TextOut(getMemDC(), 453 + (i * 64), 590, getsu, strlen(getsu));
+				}
+			}
 		}
 		break;
 		case 3:		//키 알림 탭
@@ -299,8 +350,19 @@ void Inventory::render()
 			_vInvenDynamicRC.clear();
 
 			IMAGEMANAGER->findImage("UI_Inventory_KeyInfo")->render(getMemDC(), INVENIMAGECOOR);
+			
+			SetTextColor(getMemDC(), BLACK);
 
-			//cout << "3" << endl;
+			TextOut(getMemDC(), 540, 220, "위로이동 : W", strlen("위로이동 : W"));
+			TextOut(getMemDC(), 420, 260, "오른쪽이동 : A                왼쪽이동 : D", strlen("오른쪽이동 : A                왼쪽이동 : D"));
+			TextOut(getMemDC(), 540, 300, "아래이동 : S", strlen("아래이동 : S"));
+			
+			TextOut(getMemDC(), 820, 220, "도구 사용, 상호작용 : 마우스 좌클릭", strlen("도구 사용, 상호작용 : 마우스 좌클릭"));
+
+			TextOut(getMemDC(), 420, 350, "인벤토리 열기, 메뉴 열기 : E", strlen("인벤토리 열기, 메뉴 열기 : E"));
+			TextOut(getMemDC(), 420, 380, "인벤토리 단축기 : 1 ~ 0,-,=", strlen("인벤토리 단축기 : 1 ~ 9,-,="));
+			TextOut(getMemDC(), 420, 410, "인벤토리 정보키 : 인벤토리 탭안에서 Q", strlen("인벤토리 정보키 : 인벤토리 탭안에서 Q"));
+
 		}
 		break;
 		case 4:		//게임 종료탭
@@ -312,7 +374,6 @@ void Inventory::render()
 			_titleRC = RectMake(665, 334, 272, 96);							//종료탭에서 [타이틀 메뉴로] 버튼
 			_closeRC = RectMake(699, 470, 204, 96);							//종료탭에서 [게임 종료] 버튼
 
-			//cout << "4" << endl;
 		}
 		break;
 		}
@@ -379,7 +440,19 @@ void Inventory::render()
 		}
 	}
 
-	_Dtset->render();
+	HFONT font3, oldFont3;
+	font3 = CreateFont(40, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
+		PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
+	oldFont3 = (HFONT)SelectObject(getMemDC(), font3);
+
+	SetTextColor(getMemDC(), BLACK);
+	TextOut(getMemDC(), 1370, 203, pGold, strlen(pGold));
+	
+	SelectObject(getMemDC(), oldFont3);
+	DeleteObject(oldFont3);
+
+
+	_Dialog->render();
 	SelectObject(getMemDC(), oldFont1);
 	DeleteObject(oldFont1);
 	
@@ -410,73 +483,150 @@ void Inventory::quickSlotMove()
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		_quickSlotSelect.x = 423;
+		_index = 0;
 	}
 	if (KEYMANAGER->isOnceKeyDown('2'))
 	{
 		_quickSlotSelect.x = 423 + 64;
+		_index = 1;
 	}
 	if (KEYMANAGER->isOnceKeyDown('3'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 2;
+		_index = 2;
 	}
 	if (KEYMANAGER->isOnceKeyDown('4'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 3;
+		_index = 3;
 	}
 	if (KEYMANAGER->isOnceKeyDown('5'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 4;
+		_index = 4;
 	}
 	if (KEYMANAGER->isOnceKeyDown('6'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 5;
+		_index = 5;
 	}
 	if (KEYMANAGER->isOnceKeyDown('7'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 6;
+		_index = 6;
 	}
 	if (KEYMANAGER->isOnceKeyDown('8'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 7;
+		_index = 7;
 	}
 	if (KEYMANAGER->isOnceKeyDown('9'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 8;
+		_index = 8;
 	}
 	if (KEYMANAGER->isOnceKeyDown('0'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 9;
+		_index = 9;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_OEM_MINUS))
 	{
 		_quickSlotSelect.x = 423 + 64 * 10;
+		_index = 10;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_OEM_PLUS))
 	{
 		_quickSlotSelect.x = 423 + 64 * 11;
+		_index = 11;
 	}
 }
 
-void Inventory::PlayerLootItem(ToolItem* lootItme)
+void Inventory::Decrease()
 {
-		for (int i = 0; i < 12; i++)
+	_toolInven[_index]->SetNumber(- 1);
+	if (_toolInven[_index]->GetNumber() == 0)
+	{
+		_toolInven[_index] = new ToolItem;
+		_toolInven[_index]->SetToolEnum(TOOLS::NONE);
+		_player->SetItem(_toolInven[_index]);
+		_player->ChangeEquipment(TOOLS::NONE);
+	}
+}
+
+//void Inventory::Merge(vector<ToolItem*> &vIndex, int left, int mid, int right)
+//{
+//	int i, j, k, l;
+//	i = left;
+//	j = mid + 1;
+//	k = left;
+//
+//	while (i <= mid && j <= right)
+//	{
+//		if (vIndex[i] <= vIndex[j]) _sorted[k++] = vIndex[i++];
+//		else _sorted[k++] = vIndex[j++];
+//	}
+//
+//	if (i > mid)
+//	{
+//		for (l = j; l <= right; l++)
+//		{
+//			_sorted[k++] = vIndex[l];
+//		}
+//	}
+//	else
+//	{
+//		for (l = i; l <= mid; l++)
+//		{
+//			_sorted[k++] = vIndex[l];
+//		}
+//	}
+//
+//	for (l = left; l <= right; l++)
+//	{
+//		vIndex[l] = _sorted[l];
+//	}
+//}
+//
+//void Inventory::MergeSort(vector<ToolItem*> &vIndex, int left, int right)
+//{
+//	int mid;
+//
+//	if (left < right)
+//	{
+//		mid = (left + right) / 2;
+//		MergeSort(vIndex, left, mid);
+//		MergeSort(vIndex, mid + 1, right);
+//		Merge(vIndex, left, mid, right);
+//	}
+//}
+
+void Inventory::PlayerLootItem(string itemName)
+{
+	for (int i = 0; i < _toolList.size(); ++i)
+	{
+		if (_toolList[i]->GetName() == itemName)
 		{
-			if (_toolInven[i]->GetName() == lootItme->GetName())
+			for (int j = 0; j < 12; j++)
 			{
-				if (_toolInven[i]->GetNumber() > 99) continue;
-				_toolInven[i]->SetNumber(+1);
-				break;
-			}
-			else
-			{
-				if (_toolInven[i]->GetToolEnum() == TOOLS::NONE)
+				if (_toolInven[j]->GetName() == itemName)
 				{
-					_toolInven[i] = lootItme;
-					_toolInven[i]->SetNumber(+1);
-					break;
+					if (_toolInven[j]->GetNumber() > 99) continue;
+					_toolInven[j]->SetNumber(+1);
+					return;
+				}
+				else
+				{
+					if (_toolInven[j]->GetToolEnum() == TOOLS::NONE)
+					{
+						_toolInven[j] = _toolList[i];
+						_toolInven[j]->SetNumber(+1);
+						return;
+					}
 				}
 			}
 		}
+	}
 }
 
 void Inventory::setPlayerBuyItme(ToolItem* buyItme)

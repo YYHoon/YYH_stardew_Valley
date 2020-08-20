@@ -23,9 +23,10 @@ public:
 	void Init();
 	void Update();
 	void render();
-	void Planting(int index , string plantsName);
+	bool Planting(int index , string plantsName);
 	void Growing();
 	void Harvesting(int index);
+	bool IsExist(int index);
 	void Save();
 	vector<Plants*> Load();
 	void SaveSize();

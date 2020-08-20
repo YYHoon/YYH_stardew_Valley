@@ -4,24 +4,20 @@
 HRESULT MapFarm::init()
 {
 	_vertical = _horizon = 50;
-	_tiles = _map->Load("map.map", _vertical, _horizon);
+	_tiles = _map->Load("mapFarm.map", _horizon, _vertical);
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
-	_player->SetPosition(Vector2(500, 500));
-		
+
+
 	_pm = new PlantsManager;
     /////////////////////////////////
-	//_pm->SetPlantsList( _pm->Load()); < -- 이건 악마새끼인게 틀림없음
+	_pm->SetPlantsList( _pm->Load());
 	//////////////////////////////////
 	_pm->Init();
 	_pm->SetMapMemoryAddressLinked(this);
 	_count = 0;
 	
-	_store = new Store;
-	_store->setLinkPlayer(_player);	//소지금 참조용
-	_store->setLinkInventory(_player->GetPlayerInver()); //가방내용물 참고용 상점F5키입니다.
-	_store->init(400, 400);
 
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
 
@@ -30,7 +26,8 @@ HRESULT MapFarm::init()
 
 void MapFarm::release()
 {
-	_map->Save("map.map", _horizon, _vertical,_tiles);
+	_player->SavePlayerInfo("playerSave");
+	_map->Save("mapFarm.map", _horizon, _vertical,_tiles);
 	_pm->Save();
 }
 
@@ -40,14 +37,33 @@ void MapFarm::update()
 	{
 		SCENEMANAGER->changeScene("HOME");
 	}
+	if (_player->GetIsPrev())
+	{
+		SCENEMANAGER->changeScene("CAVE");
+	}
+
+
+	if (KEYMANAGER->isOnceKeyDown(VK_F1))
+	{
+		EFFECTMANAGER->play("RockDis", _ptMouse.x, _ptMouse.y);
+	}
 	_count++;
 	_player->update();
-	_store->update();
 	_pm->Update();
+	if (ENVIRONMENT->GetIsDayIncrease())
+	{
+		for (int i = 0; i < _tiles.size(); i++)
+		{
+			_tiles[i].wet = false;
+		}
+
+	}
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
 	CAMERAMANAGER->setY(_player->GetInfo().position.y);
 	ENVIRONMENT->update();
-	
+	EFFECTMANAGER->update();
+
+	cout << _pm->GetPlantsList().size() << endl;
 }
 
 void MapFarm::render()
@@ -414,7 +430,7 @@ void MapFarm::render()
 		}
 	}
 	ZORDER->ZOrderRender();
+	EFFECTMANAGER->render();
 	_player->render();
-	_store->render();
 	ENVIRONMENT->render(getMemDC());
 }

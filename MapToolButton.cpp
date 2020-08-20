@@ -5,6 +5,10 @@
 
 void MapToolScene::Button()
 {
+	if (KEYMANAGER->isOnceKeyDown(VK_F4))
+	{
+		EFFECTMANAGER->play("RockDis", _ptMouse.x, _ptMouse.y);
+	}
 	if (KEYMANAGER->isOnceKeyDown(VK_F1) || (PtInRect(&_f1Btn,_ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))))
 	{
 		if (_Window)
@@ -59,7 +63,7 @@ void MapToolScene::Button()
 	}
 	if (PtInRect(&_outBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
-		InToOut(100, 100);
+		InToOut(50, 50);
 	}
 
 	if (PtInRect(&_terrainBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
@@ -159,7 +163,7 @@ void MapToolScene::Button()
 	}
 	if (PtInRect(&_saveBtn[0], _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
-		Save("map.map",_horizontal,_vertical,_vtiles);
+		Save("mapHome.map",_horizontal,_vertical,_vtiles);
 		_saveimg = true;
 		_count = 0;
 	}
@@ -171,15 +175,15 @@ void MapToolScene::Button()
 	}
 	if (PtInRect(&_saveBtn[1], _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
-		Save("map.map", _horizontal, _vertical, _vtiles);
+		Save("Cave.map", _horizontal, _vertical, _vtiles);
 	}
 	if (PtInRect(&_saveBtn[2], _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
-		Save("map.map", _horizontal, _vertical, _vtiles);
+		Save("Cave.map", _horizontal, _vertical, _vtiles);
 	}
 	if (PtInRect(&_loadBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
-		_vtiles = Load("map.map", _horizontal, _vertical);
+		_vtiles = Load("mapHome.map", _horizontal, _vertical);
 	}
 	if (PtInRect(&_exitBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{

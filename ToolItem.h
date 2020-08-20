@@ -1,7 +1,8 @@
 #pragma once
 #include "gameNode.h"
 class MapMain;
-
+class SpreadItem;
+class ToolItemManager;
 //class DummyMap;//영향끼칠 맵
 
 class ToolItem
@@ -17,6 +18,8 @@ protected:
 	int _number = 0;
 	image* _imageI =nullptr;
 	image* _imageC = nullptr;
+
+	SpreadItem* _spreadItem;		//스프레드아이템
 
 	Vector2 _playerCenter;
 	PLAYER_DIRECTION _playerDir;
@@ -49,6 +52,9 @@ public:
 	//아이템이미지
 	virtual inline image* GetImageInven() { return _imageI; }
 	virtual inline image* GetImageChar() { return _imageC; }
+
+	virtual void SetSpreadItem(SpreadItem* spread) { _spreadItem = spread; }
+	//virtual void SetSpreadInToolMemory(ToolItemManager* t) { _spreadItem->SetToolMemoryAddressLink(t); }
 
 	void SetImageI(string image) { _imageI = IMAGEMANAGER->findImage(image + "(64x64)"); }
 	void SetImageC(string image) { _imageI = IMAGEMANAGER->findImage(image); }
@@ -83,6 +89,7 @@ public:
 	virtual inline void SetMapObject(MAPOBJECT mapobj) { _mapObject = mapobj; }
 	virtual void Init() {};
 	virtual void Action() {};
+	virtual void Update() {};
 	virtual void ReAction() {}; // 렌더에 넣어주세요 ㅎㅎ 낚시만씁니다
 	inline void SetNowMapMemoryAddressLink(MapMain* dmap) { _map = dmap; }
 };

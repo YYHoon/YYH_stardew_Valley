@@ -13,6 +13,7 @@ protected:
 	Player* _player;
 	Store* _store;
 	PlantsManager* _pm;
+	
 
 	SynInheritance(vector<tagTile>, _tiles, Tiles)
 	SynInheritance(int, _vertical, Vertical)
@@ -37,6 +38,6 @@ public:
 	virtual void SetHp(int index, int Hp) { _tiles[index].hp += Hp; }
 	virtual void SetAutoIndex(int index, int Auto) { _tiles[index].autoIndex = Auto; }
 	virtual void SetPlayerAdressLink(Player* player) { _player = player; }
+	virtual Player* GetPlayerAddressLink() { return _player; }
 	virtual int GetMapSize() { return _tiles.size(); }
 };
-

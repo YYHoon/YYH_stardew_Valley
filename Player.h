@@ -41,6 +41,7 @@ private:
 
 private:
 
+
 	/// <summary>
 	ToolItemManager* _tool;
 	/// </summary>
