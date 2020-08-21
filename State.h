@@ -154,6 +154,16 @@ public:
 	void Release()override;
 };
 
+class PlayerFishingProceedingSec final : public State
+{
+public:
+	PlayerFishingProceedingSec(class Player* pPlayer);
+
+	void Init()override;
+	void Update()override;
+	void Release()override;
+};
+
 class PlayerFishingEnd final : public State
 {
 public:

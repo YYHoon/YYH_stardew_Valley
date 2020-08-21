@@ -190,7 +190,11 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("FishingRareFish", "image/낚시/레어물고기.bmp", 28, 29, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishingFish", "image/낚시/물고기.bmp", 28, 28, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishingBox", "image/낚시/상자.bmp", 28, 34, true, MAGENTA);
+	IMAGEMANAGER->addImage("FishingWWWW", "image/낚시/WWWW.bmp", 50, 50, true, MAGENTA);
 	IMAGEMANAGER->addImage("FishingBack", "image/낚시/낚시말풍선.bmp", 200, 604, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("Fishing_LR", "image/Fishing_LR.bmp", 2068, 312, 11, 2, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("Fishing_UP", "image/Fishing_UP.bmp", 612, 133, 12, 1, true, MAGENTA);
+	IMAGEMANAGER->addFrameImage("Fishing_DOWN", "image/Fishing_DOWN.bmp", 650, 167, 10, 1, true, MAGENTA);
 
 	//아이템 이미지 (x64는 인벤토리용 안붙어있으면 플레이어가 손에들고있을때)
 	IMAGEMANAGER->addImage("NormalFish(64x64)", "Image/ItemTest/Anchovy(64x64).bmp", 64, 64, true, MAGENTA);
@@ -357,14 +361,39 @@ void playGround::imginit()
 	int leftMiningP[] = { 188 };
 	KEYANIMANAGER->addArrayFrameAnimation("eft_mining_Player", "player", leftMiningP, 1, 10, false);
 	/////////////////FISHINGEND////////////////////
-	int downMiningE[] = { 171, 172 };
-	KEYANIMANAGER->addArrayFrameAnimation("wn_mining_Player", "player", downMiningE, 2, 10, false);
-	int upMiningE[] = { 177,178 };
-	KEYANIMANAGER->addArrayFrameAnimation("_mining_Player", "player", upMiningE, 2, 10, false);
-	int rightMiningE[] = { 182,183 };
-	KEYANIMANAGER->addArrayFrameAnimation("ght_mining_Player", "player", rightMiningE, 2, 10, false);
-	int leftMiningE[] = { 187,186 };
-	KEYANIMANAGER->addArrayFrameAnimation("ft_mining_Player", "player", leftMiningE, 2, 10, false);
+	int Left_Fishing_Charge[] = { 0 };
+	KEYANIMANAGER->addArrayFrameAnimation("Left_Fishing_Charge", "Fishing_LR", Left_Fishing_Charge, 1, 5, false);
+	int Right_Fishing_Charge[] = { 21 };
+	KEYANIMANAGER->addArrayFrameAnimation("Right_Fishing_Charge", "Fishing_LR", Right_Fishing_Charge, 1, 5, false);
+	int Up_Fishing_Charge[] = { 0 };
+	KEYANIMANAGER->addArrayFrameAnimation("Up_Fishing_Charge", "Fishing_UP", Up_Fishing_Charge, 1, 5, false);
+	int Down_Fishing_Charge[] = { 0 };
+	KEYANIMANAGER->addArrayFrameAnimation("Down_Fishing_Charge", "Fishing_DOWN", Down_Fishing_Charge, 1, 5, false);
+	int Left_Fishing_Shot[] = { 2,3,4 };
+	KEYANIMANAGER->addArrayFrameAnimation("Left_Fishing_Shot", "Fishing_LR", Left_Fishing_Shot, 3, 10, false);
+	int Right_Fishing_Shot[] = { 18,17,16 };
+	KEYANIMANAGER->addArrayFrameAnimation("Right_Fishing_Shot", "Fishing_LR", Right_Fishing_Shot, 3, 10, false);
+	int Up_Fishing_Shot[] = { 2,3,4,5 };
+	KEYANIMANAGER->addArrayFrameAnimation("Up_Fishing_Shot", "Fishing_UP", Up_Fishing_Shot, 4, 10, false);
+	int Down_Fishing_Shot[] = { 1,2,3,4 };
+	KEYANIMANAGER->addArrayFrameAnimation("Down_Fishing_Shot", "Fishing_DOWN", Down_Fishing_Shot, 4, 10, false);
+	int Left_Fishing_Doing[] = { 7,8,9, };
+	KEYANIMANAGER->addArrayFrameAnimation("Left_Fishing_Doing", "Fishing_LR", Left_Fishing_Doing, 3, 10, false);
+	int Right_Fishing_Doing[] = { 14,13,12 };
+	KEYANIMANAGER->addArrayFrameAnimation("Right_Fishing_Doing", "Fishing_LR", Right_Fishing_Doing, 3, 10, false);
+	int Up_Fishing_Doing[] = { 8,9 };
+	KEYANIMANAGER->addArrayFrameAnimation("Up_Fishing_Doing", "Fishing_UP", Up_Fishing_Doing, 2, 10, false);
+	int Down_Fishing_Doing[] = { 8,9 };
+	KEYANIMANAGER->addArrayFrameAnimation("Down_Fishing_Doing", "Fishing_DOWN", Down_Fishing_Doing, 2, 10, false);
+	int Left_Fishing_Sus[] = { 10 };
+	KEYANIMANAGER->addArrayFrameAnimation("Left_Fishing_Sus", "Fishing_LR", Left_Fishing_Sus, 1, 10, false);
+	int Right_Fishing_Suc[] = { 21 };
+	KEYANIMANAGER->addArrayFrameAnimation("Right_Fishing_Suc", "Fishing_LR", Right_Fishing_Suc, 1, 10, false);
+	int Down_Fishing_Suc[] = { 9 };
+	KEYANIMANAGER->addArrayFrameAnimation("Down_Fishing_Suc", "Fishing_DOWN", Down_Fishing_Suc, 1, 10, false);
+	int Up_Fishing_Suc[] = { 11 };
+	KEYANIMANAGER->addArrayFrameAnimation("Up_Fishing_Suc", "Fishing_UP", Up_Fishing_Suc, 1, 10, false);
+
 }
 
 void playGround::soundinit()

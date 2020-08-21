@@ -55,7 +55,7 @@ void Player::update()
 	_info.doing = _tool->GetDoingFishing();
 	_tool->SetFishingInfo(_info.position, _info.direction);
 	//cout << "여기" << endl;
-
+	_info.collision.centerSet(_info.position.x, _info.position.y - 50, _info.img->getFrameWidth(), _info.img->getFrameHeight());
 	if (KEYMANAGER->isOnceKeyDown(VK_F1))
 	{
 		_info.stamina = 100;
@@ -140,7 +140,7 @@ void Player::update()
 	//_inven->PlayerLootItem(_getItem);
 	////////////////////////////////////
 	
-	if (!_info.anim->isPlay())_info.anim->start();
+	if (!_info.anim->isPlay() && _state->GetStateName() != "Fishing")_info.anim->start();
 	_tool->Update();
 	// 아이템 줍는거
 	for (int i = 0; i < _tool->GetSpreadList().size(); ++i)
