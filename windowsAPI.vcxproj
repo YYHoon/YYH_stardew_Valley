@@ -165,6 +165,7 @@
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="commonMacroFunction.h" />
+    <ClInclude Include="Crafting.h" />
     <ClInclude Include="Dialog.h" />
     <ClInclude Include="DrainedLoadingScene.h" />
     <ClInclude Include="effect.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="FishingRod.h" />
     <ClInclude Include="gameNode.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GrilledFish.h" />
     <ClInclude Include="Homi.h" />
     <ClInclude Include="HpStaminaBar.h" />
     <ClInclude Include="image.h" />
@@ -213,8 +215,10 @@
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="RareFish.h" />
+    <ClInclude Include="RawFish.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Rock.h" />
+    <ClInclude Include="Salad.h" />
     <ClInclude Include="Sap.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="Sickle.h" />
@@ -249,6 +253,7 @@
     <ClCompile Include="Axe.cpp" />
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="collision.cpp" />
+    <ClCompile Include="Crafting.cpp" />
     <ClCompile Include="Dialog.cpp" />
     <ClCompile Include="DrainedLoadingScene.cpp" />
     <ClCompile Include="effect.cpp" />
@@ -260,6 +265,7 @@
     <ClCompile Include="FishingRod.cpp" />
     <ClCompile Include="gameNode.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GrilledFish.cpp" />
     <ClCompile Include="Homi.cpp" />
     <ClCompile Include="HpStaminaBar.cpp" />
     <ClCompile Include="image.cpp" />
@@ -301,7 +307,9 @@
     <ClCompile Include="PotatoSeed.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="RareFish.cpp" />
+    <ClCompile Include="RawFish.cpp" />
     <ClCompile Include="Rock.cpp" />
+    <ClCompile Include="Salad.cpp" />
     <ClCompile Include="Sap.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="Sickle.cpp" />

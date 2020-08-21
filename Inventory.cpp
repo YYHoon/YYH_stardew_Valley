@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Inventory.h"
+#include "Crafting.h"
 #include "ToolItemManager.h"
 #include "ToolItem.h"
 #include "Player.h"
@@ -12,6 +13,9 @@ HRESULT Inventory::init()
 
 	_Dialog = new Dialog;
 	_Dialog->init();
+
+	_crafting = new Crafting;
+	_crafting->init();
 
 	_inventory.isInvenOpen = false;
 
@@ -76,6 +80,12 @@ void Inventory::release()
 
 void Inventory::update()
 {
+	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD5))
+	{
+		_toolInven[7] = _toolList[10];
+		if (_toolInven[7]->GetName() == "NormalFish") _toolInven[7]->SetNumber(+1);
+	}
+
 	_frameCount++;
 
 	if (_frameCount % 4 == 0)
@@ -148,13 +158,15 @@ void Inventory::update()
 				}
 			}
 		}
-		/////////////// <제작 페이지 이동>
+		/////////////// <CraftPage>
+		if(_inventory.invenTabNum==2) _crafting->update();
+
 		if (PtInRect(&_menuUpRC, _ptMouse)) _inventory.craftPageNum--;
 		if (PtInRect(&_menuDownRC, _ptMouse)) _inventory.craftPageNum++;
 
 		if (_inventory.craftPageNum <= 0) _inventory.craftPageNum = 1;
 		if (_inventory.craftPageNum >= 3) _inventory.craftPageNum = 2;
-		/////////////// </제작 페이지 이동>
+		/////////////// </CraftPage>
 
 		if (PtInRect(&_titleRC, _ptMouse) && _inventory.invenTabNum == 4) SCENEMANAGER->changeScene("Title");	//[타이틀 메뉴로] 눌렀을 때
 		if (PtInRect(&_closeRC, _ptMouse) && _inventory.invenTabNum == 4) PostQuitMessage(0);					//[게임 종료] 눌렀을 때
@@ -223,7 +235,7 @@ void Inventory::update()
 		}
 		else
 		{
-			if (_inventory.invenTabNum != 1 && _inventory.invenTabNum != 2) _vInvenIndexRC.clear();
+			if (_inventory.invenTabNum != 1) _vInvenIndexRC.clear();
 		}
 
 	}
@@ -312,6 +324,8 @@ void Inventory::render()
 			if (_inventory.craftPageNum == 1)				//1번 페이지
 			{
 				IMAGEMANAGER->findImage("UI_Inventory_Craft_top")->render(getMemDC(), INVENIMAGECOOR);
+
+				_crafting->render();
 			}
 			else if (_inventory.craftPageNum == 2)			//2번 페이지
 			{
