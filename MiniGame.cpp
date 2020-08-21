@@ -5,15 +5,13 @@
 void MiniGame::Update()
 {
 	cout << "낚시에서의 상태" << (int)_fishingState << endl;
-	if (_fishingState == FISHING::FIRST)
+	
+	if (KEYMANAGER->isStayKeyDown(VK_LBUTTON)&& _fishingState == FISHING::FIRST)
 	{
-		if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
-		{
-			_fishingState = FISHING::CHARGE;
-			//_chageFrontBox.right ++;
-		}
-		
+		_fishingState = FISHING::CHARGE;
 	}
+	
+	
 	if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON)&& _fishingState == FISHING::CHARGE)
 	{
 		_power = _clickTime;
@@ -49,7 +47,7 @@ void MiniGame::Update()
 		Success();					//물고기잡았을때
 		break;
 	case FISHING::NONE://8
-		_fishingState = FISHING::FIRST;
+		//_fishingState = FISHING::FIRST;
 		break;
 	default:
 		break;
@@ -151,7 +149,7 @@ void MiniGame::Render()
 void MiniGame::Init(Vector2 center, PLAYER_DIRECTION dir)
 {
 	_fishingState = FISHING::FIRST;
-	_Fish.img = NULL;
+	_Fish.img = IMAGEMANAGER->findImage("NormalFish");
 	_Fish.pos.x = -500;
 	_Fish.pos.y = -500;
 	_Fish.rc.set(_Fish.pos.x - 1, _Fish.pos.y - 1, _Fish.pos.x + 1, _Fish.pos.y + 1);
@@ -238,7 +236,7 @@ void MiniGame::ChargeTwo()
 
 	if (_dir == PLAYER_DIRECTION::DOWN)
 	{
-		_fishfloat.y+=3;
+		_fishfloat.y+=6;
 
 		_power-=2;
 	}
@@ -466,7 +464,7 @@ void MiniGame::DoingFishing()
 
 void MiniGame::Miss()
 {
-	_fishingState = FISHING::FIRST;
+	_fishingState = FISHING::NONE;
 }
 
 
@@ -502,29 +500,31 @@ void MiniGame::Success()
 	//default:
 	//	break;
 	//}
-	if (_dir == PLAYER_DIRECTION::UP && _Fish.pos.y < _playerCenter.y)
+	_playTest.set(_playerCenter.x - 20, _playerCenter.y - 100, _playerCenter.x + 20, _playerCenter.y + 20);
+	_Fish.rc.set(_Fish.pos.x - 5, _Fish.pos.y - 5, _Fish.pos.x + 5, _Fish.pos.y + 5);
+	if (_dir == PLAYER_DIRECTION::UP && !isCollision(_playTest, _Fish.rc))
 	{
-		_Fish.pos.y += 5;
+		_Fish.pos.y += 3;
 	}
-	else if (_dir == PLAYER_DIRECTION::DOWN && _Fish.pos.y > _playerCenter.y)
+	else if (_dir == PLAYER_DIRECTION::DOWN && !isCollision(_playTest, _Fish.rc))
 	{
-		_Fish.pos.y -= 5;
+		_Fish.pos.y -= 3;
 	}
-	else if (_dir == PLAYER_DIRECTION::RIGHT && _Fish.pos.x > _playerCenter.x || _Fish.pos.y > _playerCenter.y)
+	else if (_dir == PLAYER_DIRECTION::RIGHT && !isCollision(_playTest, _Fish.rc))
 	{
-		_Fish.pos.x -= 5;
-		_Fish.pos.y -= 5;
+		_Fish.pos.x -= 3;
+		_Fish.pos.y -= 3;
 	}
-	else if (_dir == PLAYER_DIRECTION::LEFT && _Fish.pos.x < _playerCenter.x || _Fish.pos.y > _playerCenter.y)
+	else if (_dir == PLAYER_DIRECTION::LEFT && !isCollision(_playTest, _Fish.rc))
 	{
-		_Fish.pos.x += 5;
-		_Fish.pos.y -= 5;
+		_Fish.pos.x += 3;
+		_Fish.pos.y -= 3;
 	}
-	else
+
+	if (isCollision(_playTest, _Fish.rc))
 	{
 		_fishingState = FISHING::NONE;
 	}
-
 	_Fish.rc.set(_Fish.pos.x - 5, _Fish.pos.y - 5, _Fish.pos.x + 5, _Fish.pos.y + 5);
 	
 }

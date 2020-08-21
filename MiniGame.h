@@ -37,6 +37,7 @@ private:
 
 	tagFish _Fish;	//물고기 이미지와 좌표담은 구조체
 	MYRECT _test;
+	MYRECT	_playTest;
 
 	image* _backimg;					 //낚시 말풍선
 	image* _minigameimg;				 //낚시 미니게임
