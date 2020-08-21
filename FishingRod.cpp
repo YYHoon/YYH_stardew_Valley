@@ -22,7 +22,6 @@ void FishingRod::Action()
 		_doing = _game->GetDoingFishing();
 		if (_player->GetStateName() == "FishingStart")
 		{
-
 			_game->Init(_playerCenter, _playerDir);
 			_game->Update();
 		}

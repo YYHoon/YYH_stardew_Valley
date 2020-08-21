@@ -1017,19 +1017,28 @@ void PlayerFishingStart::Init()
 	
 	_player->GetTM()->SetNowTileMapMemoyrAddressLink(_map);
 	_player->GetTM()->SetImpactIndex(_player->GetHaveItem()->GetName(), _player->GetTileIndex()[0]);
+	if (_map->GetTiles(_player->GetTileIndex()[0]).terrain != TERRAIN::WATER)
+	{
+		_player->ChangeState(make_shared<PlayerIdle>(_player));
+		return;
+	}
 	//낚시대 휘두르기애니메이션
 }
 
 void PlayerFishingStart::Update()
 {
-	//cout << "1" << endl;
+	cout << "1" << endl;
 	if (_player->GetInfo().stamina <= 0)return; 
 	
+	if (!_player->GetInfo().anim->isPlay()&& _player->GetDoingFishing() == FISHING::CHARGE)
+	{
+		_player->ChangeState(make_shared<PlayerFishingProceeding>(_player));
+		return;
+	}
 	_player->GetTM()->Action(_player->GetHaveItem()->GetName());
-	if (!_player->GetInfo().anim->isPlay())_player->ChangeState(make_shared<PlayerFishingProceeding>(_player));
 	//낚시대휘두르고나서 미니게임시작해야하니상태 전환
 	
-	//if (_player->GetDoingFishing() == FISHING::NONE)_player->ChangeState(make_shared<PlayerFishingToIdle>(_player));
+	
 }
 
 void PlayerFishingStart::Release()
@@ -1046,13 +1055,13 @@ void PlayerFishingProceeding::Init()
 	_tagName = "acting";
 	_name = "FishingProceeding";
 
-	int downMining[] = {  170 };
+	int downMining[] = { 170 };
 	KEYANIMANAGER->addArrayFrameAnimation("own_mining_Player", "player", downMining, 1, 10, false);
 	int upMining[] = { 176 };
 	KEYANIMANAGER->addArrayFrameAnimation("p_mining_Player", "player", upMining, 1, 10, false);
 	int rightMining[] = { 181 };
 	KEYANIMANAGER->addArrayFrameAnimation("ight_mining_Player", "player", rightMining, 1, 10, false);
-	int leftMining[] = { 184};
+	int leftMining[] = { 188 };
 	KEYANIMANAGER->addArrayFrameAnimation("eft_mining_Player", "player", leftMining, 1, 10, false);
 
 	switch (_player->GetDirection())
@@ -1073,22 +1082,28 @@ void PlayerFishingProceeding::Init()
 		break;
 	}
 	_map = _player->GetMap();
-
+	//cout << (int)_player->GetDirection() << endl;
 	if (!_player->GetInfo().anim->isPlay())_player->GetInfo().anim->start();
 	_player->GetTM()->SetNowTileMapMemoyrAddressLink(_map);
 	_player->GetTM()->SetImpactIndex(_player->GetHaveItem()->GetName(), _player->GetTileIndex()[0]);
+	if (_map->GetTiles(_player->GetTileIndex()[0]).terrain != TERRAIN::WATER)
+	{
+		_player->ChangeState(make_shared<PlayerIdle>(_player));
+		return;
+	}
 }
 
 void PlayerFishingProceeding::Update()
 {
-	//cout << (int)_player->GetDoingFishing() << endl;
-	if (_player->GetInfo().stamina <= 0)return;
 	_player->GetTM()->Action(_player->GetHaveItem()->GetName());
-	if(_player->GetDoingFishing()==FISHING::MISS||
-		_player->GetDoingFishing()==FISHING::NONE)
+	cout << "2" << endl;
+	if (_player->GetInfo().stamina <= 0)return;
+	if (_player->GetDoingFishing() == FISHING::MISS ||
+		_player->GetDoingFishing() == FISHING::SUCCESS)
+	{
 		_player->ChangeState(make_shared<PlayerFishingEnd>(_player));
-	
-
+		return;
+	}
 }
 
 void PlayerFishingProceeding::Release()
@@ -1140,8 +1155,13 @@ void PlayerFishingEnd::Init()
 
 void PlayerFishingEnd::Update()
 {
-	//cout << "3" << endl;
-	if (_player->GetDoingFishing()==FISHING::FIRST)_player->ChangeState(make_shared<PlayerFishingToIdle>(_player));
+	_player->GetTM()->Action(_player->GetHaveItem()->GetName());
+	cout << "3" << endl;
+	if (_player->GetDoingFishing() == FISHING::NONE)
+	{
+		_player->ChangeState(make_shared<PlayerFishingToIdle>(_player));
+		return;
+	}
 }
 
 void PlayerFishingEnd::Release()
@@ -1160,7 +1180,8 @@ void PlayerFishingToIdle::Init()
 
 void PlayerFishingToIdle::Update()
 {
-	//cout << "4" << endl;
+	cout << "4" << endl;
+	_player->GetTM()->Action(_player->GetHaveItem()->GetName());
 	_player->ChangeState(make_shared<PlayerIdle>(_player));
 }
 
