@@ -7,6 +7,7 @@
 #include "TestScene.h"
 #include "MapToolScene.h"
 #include "DrainedLoadingScene.h"
+#include "AllMap.h"
 #include <iostream>
 #include <algorithm>
 
