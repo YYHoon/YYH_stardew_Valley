@@ -66,6 +66,14 @@ HRESULT Inventory::init()
 	_toolInven[9]->SetToolEnum(TOOLS::NONE);
 	_toolInven[10]->SetToolEnum(TOOLS::NONE);
 	_toolInven[11]->SetToolEnum(TOOLS::NONE);
+
+	//----------------------
+	
+	_tGetItem.ItemWindow = IMAGEMANAGER->findImage("GetItem");
+	_tGetItem.ItemWindowRc = RectMake(-100, 700, _tGetItem.ItemWindow->getWidth(), _tGetItem.ItemWindow->getHeight());
+	_tGetItem.Seetime = 0;
+	_tGetItem.isGet = false;
+
 	return S_OK;
 }
 
@@ -75,7 +83,6 @@ void Inventory::release()
 
 void Inventory::update()
 {
-
 	_frameCount++;
 
 	if (_frameCount % 4 == 0)
@@ -86,15 +93,6 @@ void Inventory::update()
 	}
 
 	_inventory.rc.top = _inventory.y;
-
-	for (int i = 0; i < _vInvenIndexRC.size(); ++i)
-	{
-		if (PtInRect(&_vInvenIndexRC[i], _ptMouse))
-		{
-			_Dialog->update(_toolInven[i]->GetName());
-		}
-	}
-
 
 	if (_player->GetPlayercollision().bottom - CAMERAMANAGER->getT() >= WINSIZEY - 100)
 	{
@@ -140,7 +138,7 @@ void Inventory::update()
 		{
 			if (PtInRect(&_vInvenIndexRC[i], _ptMouse))
 			{
-				
+
 				if (_toolInven[i]->GetToolEnum() != TOOLS::NONE)	//아이템이 있는 칸을 클릭했을 때의 인덱스 값 저장
 				{
 					_itemIndexNum = i;
@@ -222,20 +220,30 @@ void Inventory::update()
 		}
 		else
 		{
-			if (_inventory.invenTabNum != 1  && _inventory.invenTabNum != 2) _vInvenIndexRC.clear();
+			if (_inventory.invenTabNum != 1 && _inventory.invenTabNum != 2) _vInvenIndexRC.clear();
 		}
 
 	}
 	//////////////////////////////////////////////////////////////////////// <DayResetTest>
 	if (KEYMANAGER->isOnceKeyDown(VK_F7)) ENVIRONMENT->SetIsDayReset(true);
 	//////////////////////////////////////////////////////////////////////// </DayResetTest>
+	for (int i = 0; i < _vInvenIndexRC.size(); ++i)
+	{
+		_dialogRc[i] = RectMake(425 + (i * 64), 236, 45, 45);
+		if (PtInRect(&_dialogRc[i], _ptMouse) && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
+		{
+			_Dialog->update(_toolInven[i]->GetName());
+		}
+	}
+
+	_Dialog->setDialogClear(false);
 }
 
 void Inventory::render()
-{	
+{
 	SetTextColor(getMemDC(), WHITE);
 	char getsu[30]; //아이템 개수 표기용
-	
+
 	HFONT font1, oldFont1;
 	font1 = CreateFont(30, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
 		PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
@@ -251,134 +259,140 @@ void Inventory::render()
 
 		switch (_inventory.invenTabNum)
 		{
-			case 1:		//인벤토리 탭
+		case 1:		//인벤토리 탭
+		{
+			_vInvenDynamicRC.clear();
+
+			IMAGEMANAGER->findImage("UI_Inventory_Trashcan")->frameRender(getMemDC(), 1257, 464, _trashCanFrameX, 0);
+			IMAGEMANAGER->findImage("UI_Inventory_Sort")->render(getMemDC(), 1240, 280);
+			_trashCanRC = RectMake(1260, 446, 90, 140);		//쓰레기통 렉트
+			_sortRC = RectMake(1240, 280, 64, 64);
+			_vInvenDynamicRC.push_back(_trashCanRC);
+			_vInvenDynamicRC.push_back(_sortRC);
+
+			//아이템 정보보기//
+			for (int i = 0; i < _vInvenIndexRC.size(); ++i)
 			{
-				_vInvenDynamicRC.clear();
-
-				IMAGEMANAGER->findImage("UI_Inventory_Trashcan")->frameRender(getMemDC(), 1257, 464, _trashCanFrameX, 0);
-				IMAGEMANAGER->findImage("UI_Inventory_Sort")->render(getMemDC(), 1240, 280);
-				_trashCanRC = RectMake(1260, 446, 90, 140);		//쓰레기통 렉트
-				_sortRC = RectMake(1240, 280, 64, 64);
-				_vInvenDynamicRC.push_back(_trashCanRC);
-				_vInvenDynamicRC.push_back(_sortRC);
-
-				if (KEYMANAGER->isOnceKeyDown('Q')) _Dialog->setDialogClear(true);
-				if (KEYMANAGER->isOnceKeyUp('Q')) _Dialog->setDialogClear(false);
-
-				if (ENVIRONMENT->GetCluckValue() <= CLOCKTIMEHALF)
+				if (PtInRect(&_dialogRc[i], _ptMouse) && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
 				{
-					IMAGEMANAGER->findImage("UI_Inventory_Day")->render(getMemDC(), INVENIMAGECOOR);
+					 _Dialog->setDialogClear(true);	
+					 break;
 				}
-				else if (ENVIRONMENT->GetCluckValue() > CLOCKTIMEHALF)
+				else
 				{
-					IMAGEMANAGER->findImage("UI_Inventory_Night")->render(getMemDC(), INVENIMAGECOOR);
-				}
-
-				for (int i = 0; i < _toolInven.size(); ++i)
-				{
-					if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
-					{
-						_toolInven[i]->GetImageInven()->render(getMemDC(), 416 + (i * 64), 230);
-					}
-					//----아이템 개수 출력----------//
-					if (_toolInven[i]->GetToolEnum() == TOOLS::ACTIVEITEM || _toolInven[i]->GetToolEnum() == TOOLS::EATITEM ||
-						_toolInven[i]->GetToolEnum() == TOOLS::RESOURCEITEM)
-					{
-						SetTextColor(getMemDC(), WHITE);
-						sprintf_s(getsu, "%d", _toolInven[i]->GetNumber());
-						TextOut(getMemDC(), 453 + (i * 64), 275, getsu, strlen(getsu));
-					}
-				}
-
-				HFONT font2, oldFont2;
-				font2 = CreateFont(50, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
-					PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
-				oldFont2 = (HFONT)SelectObject(getMemDC(), font2);
-
-				SetTextColor(getMemDC(), BLACK);
-				TextOut(getMemDC(), 950, 570, pGold, strlen(pGold));
-
-				SelectObject(getMemDC(), oldFont2);
-				DeleteObject(oldFont2);
-			}
-			break;
-			case 2:		//제작 탭
-			{
-				_vInvenDynamicRC.clear();
-
-				IMAGEMANAGER->findImage("UI_Inventory_Trashcan")->frameRender(getMemDC(), 1257, 464, _trashCanFrameX, 0);
-
-				if (_inventory.craftPageNum == 1)				//1번 페이지
-				{
-					IMAGEMANAGER->findImage("UI_Inventory_Craft_top")->render(getMemDC(), INVENIMAGECOOR);
-				}
-				else if (_inventory.craftPageNum == 2)			//2번 페이지
-				{
-					IMAGEMANAGER->findImage("UI_Inventory_Craft_bot")->render(getMemDC(), INVENIMAGECOOR);
-				}
-
-				_menuUpRC = RectMake(1170, 233, 32, 35);		//제작 탭에서 위 화살표
-				_menuDownRC = RectMake(1170, 464, 32, 35);		//제작 탭에서 아래 화살표
-				_trashCanRC = RectMake(1260, 446, 90, 140);		//쓰레기통 렉트
-
-				_vInvenDynamicRC.push_back(_menuUpRC);
-				_vInvenDynamicRC.push_back(_menuDownRC);
-
-				if (KEYMANAGER->isOnceKeyDown('Q')) _Dialog->setDialogClear(true);
-				if (KEYMANAGER->isOnceKeyUp('Q')) _Dialog->setDialogClear(false);
-
-				for (int i = 0; i < _toolInven.size() - 1; ++i)
-				{
-					if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
-					{
-						_toolInven[i]->GetImageInven()->render(getMemDC(), 416 + (i * 64), 545);
-					}
-					//----아이템 개수 출력----------//
-					if (_toolInven[i]->GetToolEnum() == TOOLS::ACTIVEITEM || _toolInven[i]->GetToolEnum() == TOOLS::EATITEM ||
-						_toolInven[i]->GetToolEnum() == TOOLS::RESOURCEITEM)
-					{
-						sprintf_s(getsu, "%d", _toolInven[i]->GetNumber());
-						TextOut(getMemDC(), 453 + (i * 64), 590, getsu, strlen(getsu));
-					}
+					_Dialog->setDialogClear(false);
 				}
 			}
-			break;
-			case 3:		//키 알림 탭
+
+			if (ENVIRONMENT->GetCluckValue() <= CLOCKTIMEHALF)
 			{
-				_vInvenDynamicRC.clear();
-
-				IMAGEMANAGER->findImage("UI_Inventory_KeyInfo")->render(getMemDC(), INVENIMAGECOOR);
-				
-				SetTextColor(getMemDC(), BLACK);
-
-				TextOut(getMemDC(), 540, 220, "위로이동 : W", strlen("위로이동 : W"));
-				TextOut(getMemDC(), 420, 260, "오른쪽이동 : A                왼쪽이동 : D", strlen("오른쪽이동 : A                왼쪽이동 : D"));
-				TextOut(getMemDC(), 540, 300, "아래이동 : S", strlen("아래이동 : S"));
-				
-				TextOut(getMemDC(), 820, 220, "도구 사용, 상호작용 : 마우스 좌클릭", strlen("도구 사용, 상호작용 : 마우스 좌클릭"));
-
-				TextOut(getMemDC(), 420, 350, "인벤토리 열기, 메뉴 열기 : E", strlen("인벤토리 열기, 메뉴 열기 : E"));
-				TextOut(getMemDC(), 420, 380, "인벤토리 단축키 : 1 ~ 0,-,=", strlen("인벤토리 단축키 : 1 ~ 9,-,="));
-				TextOut(getMemDC(), 420, 410, "인벤토리 정보키 : 인벤토리 탭안에서 Q", strlen("인벤토리 정보키 : 인벤토리 탭안에서 Q"));
-
+				IMAGEMANAGER->findImage("UI_Inventory_Day")->render(getMemDC(), INVENIMAGECOOR);
 			}
-			break;
-			case 4:		//게임 종료탭
+			else if (ENVIRONMENT->GetCluckValue() > CLOCKTIMEHALF)
 			{
-				_vInvenDynamicRC.clear();
-
-				IMAGEMANAGER->findImage("UI_Inventory_Game_Close")->render(getMemDC(), INVENIMAGECOOR);
-
-				_titleRC = RectMake(665, 334, 272, 96);							//종료탭에서 [타이틀 메뉴로] 버튼
-				_closeRC = RectMake(699, 470, 204, 96);							//종료탭에서 [게임 종료] 버튼
-
+				IMAGEMANAGER->findImage("UI_Inventory_Night")->render(getMemDC(), INVENIMAGECOOR);
 			}
-			break;
+
+			for (int i = 0; i < _toolInven.size(); ++i)
+			{
+				if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
+				{
+					_toolInven[i]->GetImageInven()->render(getMemDC(), 416 + (i * 64), 230);
+				}
+				//----아이템 개수 출력----------//
+				if (_toolInven[i]->GetToolEnum() == TOOLS::ACTIVEITEM || _toolInven[i]->GetToolEnum() == TOOLS::EATITEM ||
+					_toolInven[i]->GetToolEnum() == TOOLS::RESOURCEITEM)
+				{
+					SetTextColor(getMemDC(), WHITE);
+					sprintf_s(getsu, "%d", _toolInven[i]->GetNumber());
+					TextOut(getMemDC(), 453 + (i * 64), 275, getsu, strlen(getsu));
+				}
+			}
+
+			HFONT font2, oldFont2;
+			font2 = CreateFont(50, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
+				PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
+			oldFont2 = (HFONT)SelectObject(getMemDC(), font2);
+
+			SetTextColor(getMemDC(), BLACK);
+			TextOut(getMemDC(), 950, 570, pGold, strlen(pGold));
+
+			SelectObject(getMemDC(), oldFont2);
+			DeleteObject(oldFont2);
+		}
+		break;
+		case 2:		//제작 탭
+		{
+			_vInvenDynamicRC.clear();
+
+			IMAGEMANAGER->findImage("UI_Inventory_Trashcan")->frameRender(getMemDC(), 1257, 464, _trashCanFrameX, 0);
+
+			if (_inventory.craftPageNum == 1)				//1번 페이지
+			{
+				IMAGEMANAGER->findImage("UI_Inventory_Craft_top")->render(getMemDC(), INVENIMAGECOOR);
+			}
+			else if (_inventory.craftPageNum == 2)			//2번 페이지
+			{
+				IMAGEMANAGER->findImage("UI_Inventory_Craft_bot")->render(getMemDC(), INVENIMAGECOOR);
+			}
+
+			_menuUpRC = RectMake(1170, 233, 32, 35);		//제작 탭에서 위 화살표
+			_menuDownRC = RectMake(1170, 464, 32, 35);		//제작 탭에서 아래 화살표
+			_trashCanRC = RectMake(1260, 446, 90, 140);		//쓰레기통 렉트
+
+			_vInvenDynamicRC.push_back(_menuUpRC);
+			_vInvenDynamicRC.push_back(_menuDownRC);
+
+			for (int i = 0; i < _toolInven.size() - 1; ++i)
+			{
+				if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
+				{
+					_toolInven[i]->GetImageInven()->render(getMemDC(), 416 + (i * 64), 545);
+				}
+				//----아이템 개수 출력----------//
+				if (_toolInven[i]->GetToolEnum() == TOOLS::ACTIVEITEM || _toolInven[i]->GetToolEnum() == TOOLS::EATITEM ||
+					_toolInven[i]->GetToolEnum() == TOOLS::RESOURCEITEM)
+				{
+					sprintf_s(getsu, "%d", _toolInven[i]->GetNumber());
+					TextOut(getMemDC(), 453 + (i * 64), 590, getsu, strlen(getsu));
+				}
+			}
+		}
+		break;
+		case 3:		//키 알림 탭
+		{
+			_vInvenDynamicRC.clear();
+
+			IMAGEMANAGER->findImage("UI_Inventory_KeyInfo")->render(getMemDC(), INVENIMAGECOOR);
+
+			SetTextColor(getMemDC(), BLACK);
+
+			TextOut(getMemDC(), 540, 220, "위로이동 : W", strlen("위로이동 : W"));
+			TextOut(getMemDC(), 420, 260, "오른쪽이동 : A                왼쪽이동 : D", strlen("오른쪽이동 : A                왼쪽이동 : D"));
+			TextOut(getMemDC(), 540, 300, "아래이동 : S", strlen("아래이동 : S"));
+
+			TextOut(getMemDC(), 820, 220, "도구 사용, 상호작용 : 마우스 좌클릭", strlen("도구 사용, 상호작용 : 마우스 좌클릭"));
+
+			TextOut(getMemDC(), 420, 350, "인벤토리 열기, 메뉴 열기 : E", strlen("인벤토리 열기, 메뉴 열기 : E"));
+			TextOut(getMemDC(), 420, 380, "인벤토리 단축키 : 1 ~ 0,-,=", strlen("인벤토리 단축키 : 1 ~ 9,-,="));
+		}
+		break;
+		case 4:		//게임 종료탭
+		{
+			_vInvenDynamicRC.clear();
+
+			IMAGEMANAGER->findImage("UI_Inventory_Game_Close")->render(getMemDC(), INVENIMAGECOOR);
+
+			_titleRC = RectMake(665, 334, 272, 96);							//종료탭에서 [타이틀 메뉴로] 버튼
+			_closeRC = RectMake(699, 470, 204, 96);							//종료탭에서 [게임 종료] 버튼
+
+		}
+		break;
 		}
 	}
 	else
 	{
-		if (SCENEMANAGER->GetNowScene() == "SHOP" && _store->getStoreOpen())
+		if (SCENEMANAGER->GetNowScene() == "CAVE" && _store->getStoreOpen())
 		{
 			for (int i = 0; i < _toolInven.size() - 1; ++i)
 			{
@@ -445,15 +459,42 @@ void Inventory::render()
 
 	SetTextColor(getMemDC(), BLACK);
 	TextOut(getMemDC(), 1370, 203, pGold, strlen(pGold));
-	
+
+	for (int i = 0; i < _qGetItem.size(); i++)
+	{
+		_tGetItem.ItemWindowRc = RectMake(-100, 700 - (i * 71), _tGetItem.ItemWindow->getWidth(), _tGetItem.ItemWindow->getHeight());
+
+		if (_qGetItem.front().ItemWindowRc.right <= 210)
+		{
+			_qGetItem.front().ItemWindowRc.left += 3;
+			_qGetItem.front().ItemWindowRc.right += 3;
+		}
+		if (_qGetItem.front().isGet)
+		{
+			_qGetItem.front().ItemWindow->render(getMemDC(), _qGetItem.front().ItemWindowRc.left, _qGetItem.front().ItemWindowRc.top);
+			_qGetItem.front().Item->render(getMemDC(), _qGetItem.front().ItemWindowRc.left + 5, _qGetItem.front().ItemWindowRc.top + 5);
+			TextOut(getMemDC(), _qGetItem.front().ItemWindowRc.left + 80, _qGetItem.front().ItemWindowRc.top + 20,
+				_qGetItem.front().ItemName.c_str(), strlen(_qGetItem.front().ItemName.c_str()));
+			_qGetItem.front().Seetime++;
+		}
+		if (_qGetItem.front().Seetime > 150)
+		{
+			_qGetItem.front().ItemWindowRc.left -= 7;
+			_qGetItem.front().ItemWindowRc.right -= 7;
+			if (_qGetItem.front().ItemWindowRc.right < -10)
+			{
+				_qGetItem.front().isGet = false;
+				_qGetItem.pop();
+			}
+		}
+	}
 	SelectObject(getMemDC(), oldFont3);
 	DeleteObject(oldFont3);
 
-
 	_Dialog->render();
+
 	SelectObject(getMemDC(), oldFont1);
 	DeleteObject(oldFont1);
-	
 
 	/////////////////////////////////////////////////////////////////////////// <Debug_Rect>
 
@@ -543,7 +584,7 @@ void Inventory::quickSlotMove()
 
 void Inventory::Decrease()
 {
-	_toolInven[_index]->SetNumber(- 1);
+	_toolInven[_index]->SetNumber(-1);
 	if (_toolInven[_index]->GetNumber() == 0)
 	{
 		_toolInven[_index] = new ToolItem;
@@ -593,9 +634,12 @@ void Inventory::PlayerLootItem(string itemName)
 			{
 				if (_toolInven[j]->GetName() == itemName)
 				{
-					
 					if (_toolInven[j]->GetNumber() > 99) continue;
 					_toolInven[j]->SetNumber(+1);
+					_tGetItem.Item = _toolInven[j]->GetImageInven();
+					_tGetItem.ItemName = _toolInven[j]->GetName();
+					_tGetItem.isGet = true;
+					_qGetItem.push(_tGetItem);
 					return;
 				}
 			}
@@ -605,6 +649,10 @@ void Inventory::PlayerLootItem(string itemName)
 				{
 					_toolInven[j] = _toolList[i];
 					_toolInven[j]->SetNumber(+1);
+					_tGetItem.Item = _toolInven[j]->GetImageInven();
+					_tGetItem.ItemName = _toolInven[j]->GetName();
+					_tGetItem.isGet = true;
+					_qGetItem.push(_tGetItem);
 					return;
 				}
 			}
@@ -623,9 +671,10 @@ void Inventory::setPlayerBuyItme(ToolItem* buyItme)
 			if (_toolInven[i]->GetName() == "PasnipSeed") _player->SetDecreaseMoney(50);
 			if (_toolInven[i]->GetName() == "PotatoSeed") _player->SetDecreaseMoney(50);
 			if (_toolInven[i]->GetName() == "KaleSeed") _player->SetDecreaseMoney(70);
-			if (_toolInven[i]->GetName() == "Rock") _player->SetDecreaseMoney(10);
+			if (_toolInven[i]->GetName() == "Stone") _player->SetDecreaseMoney(10);
 			if (_toolInven[i]->GetName() == "Wood")	_player->SetDecreaseMoney(5);
 			if (_toolInven[i]->GetName() == "Weed")	_player->SetDecreaseMoney(10);
+			if (_toolInven[i]->GetName() == "Sap")	_player->SetDecreaseMoney(200);
 			return;
 		}
 	}
@@ -641,9 +690,10 @@ void Inventory::setPlayerBuyItme(ToolItem* buyItme)
 				if (_toolInven[i]->GetName() == "PasnipSeed") _player->SetDecreaseMoney(50);
 				if (_toolInven[i]->GetName() == "PotatoSeed") _player->SetDecreaseMoney(50);
 				if (_toolInven[i]->GetName() == "KaleSeed") _player->SetDecreaseMoney(70);
-				if (_toolInven[i]->GetName() == "Rock") _player->SetDecreaseMoney(10);
+				if (_toolInven[i]->GetName() == "Stone") _player->SetDecreaseMoney(10);
 				if (_toolInven[i]->GetName() == "Wood")	_player->SetDecreaseMoney(5);
 				if (_toolInven[i]->GetName() == "Weed")	_player->SetDecreaseMoney(10);
+				if (_toolInven[i]->GetName() == "Sap")	_player->SetDecreaseMoney(200);
 				return;
 			}
 		}
@@ -666,6 +716,7 @@ void Inventory::setPlayerSellItem(int num)
 					if (_toolInven[i]->GetToolEnum() == TOOLS::RESOURCEITEM) _player->SetIncreaseMoney(2);
 					if (_toolInven[i]->GetToolEnum() == TOOLS::ACTIVEITEM) _player->SetIncreaseMoney(25);
 					if (_toolInven[i]->GetToolEnum() == TOOLS::EATITEM) _player->SetIncreaseMoney(100);
+					if (_toolInven[i]->GetToolEnum() == TOOLS::ITEM) _player->SetIncreaseMoney(50);
 				}
 
 				if (_toolInven[i]->GetNumber() == 0)

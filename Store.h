@@ -19,8 +19,8 @@ private:
 	vector<ToolItem*> _itemInfo;
 	vector<ToolItem*> _saleItem;
 
-	string _saleKoName[6]; //아이템 한글진열
-	int _saleMoney[6];     //돈
+	string _saleKoName[7]; //아이템 한글진열
+	int _saleMoney[7];     //돈
 
 	image* _StoreWindow;	  //상점창
 	image* _StorePortrait;	  //상점주인초상화
@@ -50,10 +50,10 @@ private:
 	int _StoreItmeFrameY3;
 	int _StoreItmeFrameY4;
 
+	int _bupp;
 	int _StoreSearchMin;	//상점물품 탐색영역
 
 	bool _storeOpen;		//상점 열었누!
-
 
 	RECT _SellRect[12];
 
@@ -67,8 +67,8 @@ public:
 	virtual void render();
 	virtual void OpenStoreRender();
 
-	RECT getStoreNpcRect() { return _StoreNpcRect; }
-	RECT getStoreNpcOpen() { return _StoreNpcOpen; }
+	RECT getStoreNpcRect() { return _StoreNpcRect; }  //열기위해 눌러야 되는남자
+	RECT getStoreNpcOpen() { return _StoreNpcOpen; }  //열수있는 영역내부~
 	vector<ToolItem*> getStoreSaleItem() { return _saleItem; }
 	bool getStoreOpen() { return _storeOpen; }
 
