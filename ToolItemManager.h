@@ -35,6 +35,11 @@ private:
 	Sap* _sap;
 	NormalFish* _normalFish;
 	RareFish* _rareFish;
+	//=============
+	//제작 음식
+	GrilledFish* _grilledFish;
+	RawFish* _rawFish;
+	Salad* _salad;
 	//==============
 
 	//ResoureceItem할당

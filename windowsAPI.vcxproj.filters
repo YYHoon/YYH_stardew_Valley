@@ -124,6 +124,12 @@
     <Filter Include="playGround\Enemy">
       <UniqueIdentifier>{9b35d53a-a851-4342-a7ea-d170caa52c8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\Inventory\Crafting">
+      <UniqueIdentifier>{b26f5214-dd13-4042-9449-2b769b980858}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Tool\EatItem\CraftedItem">
+      <UniqueIdentifier>{f511bed8-8b6b-43e9-a82b-f8e819172982}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -438,6 +444,18 @@
     <ClInclude Include="Slime.h">
       <Filter>playGround\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Crafting.h">
+      <Filter>playGround\Inventory\Crafting</Filter>
+    </ClInclude>
+    <ClInclude Include="Salad.h">
+      <Filter>playGround\Tool\EatItem\CraftedItem</Filter>
+    </ClInclude>
+    <ClInclude Include="RawFish.h">
+      <Filter>playGround\Tool\EatItem\CraftedItem</Filter>
+    </ClInclude>
+    <ClInclude Include="GrilledFish.h">
+      <Filter>playGround\Tool\EatItem\CraftedItem</Filter>
+    </ClInclude>
     <ClInclude Include="AllEnemy.h">
       <Filter>playGround\Enemy</Filter>
     </ClInclude>
@@ -733,6 +751,18 @@
     </ClCompile>
     <ClCompile Include="Slime.cpp">
       <Filter>playGround\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Crafting.cpp">
+      <Filter>playGround\Inventory\Crafting</Filter>
+    </ClCompile>
+    <ClCompile Include="Salad.cpp">
+      <Filter>playGround\Tool\EatItem\CraftedItem</Filter>
+    </ClCompile>
+    <ClCompile Include="GrilledFish.cpp">
+      <Filter>playGround\Tool\EatItem\CraftedItem</Filter>
+    </ClCompile>
+    <ClCompile Include="RawFish.cpp">
+      <Filter>playGround\Tool\EatItem\CraftedItem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

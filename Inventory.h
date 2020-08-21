@@ -5,6 +5,7 @@
 #include <vector>
 
 class Player;
+class Crafting;
 class ToolItemManager;
 class ToolItem;
 class Store;
@@ -61,6 +62,7 @@ private:
 
 	Player* _player;
 	Store* _store;
+	Crafting* _crafting;
 
 	/////////////////////////<Inventory>////////////////////////////
 
@@ -108,7 +110,6 @@ public:
 	void Merge(vector<ToolItem*> &vIndex, int left, int mid, int right);
 	void MergeSort(vector<ToolItem*> &vIndex, int left, int right);
 
-
 	void Decrease();
 
 	vector<RECT>	 GetVInvenIndexRC() { return _vInvenIndexRC; }
@@ -120,7 +121,6 @@ public:
 	void setPlayerSellItem(int num);
 	void SetStoreLink(Store* store) { _store = store; }
 	void setPlayer(Player* pp) { _player = pp; }
-
 
 	/////////////////////////<SAVE LOAD>///////////////////////////
 	void Save();

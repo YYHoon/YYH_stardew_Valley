@@ -11,88 +11,103 @@ void ToolItemManager::Init()
 
 {
 	//ToolItem=================================¤¡
-	if (_axe == nullptr)
+	if (_axe == nullptr)				//0
 	{
 		_axe = new Axe;
 		_toolList.push_back(_axe);
 	}
-	if (_pickax == nullptr)
+	if (_pickax == nullptr)				//1
 	{
 		_pickax = new Pickax;
 		_toolList.push_back(_pickax);
 	}
-	if (_fishingRod == nullptr)
+	if (_fishingRod == nullptr)			//2
 	{
 		_fishingRod = new FishingRod;
 		_toolList.push_back(_fishingRod);
 	}
-	if (_homi == nullptr)
+	if (_homi == nullptr)				//3
 	{
 		_homi = new Homi;
 		_toolList.push_back(_homi);
 	}
-	if (_waterSpray == nullptr)
+	if (_waterSpray == nullptr)			//4
 	{
 		_waterSpray = new WaterSpray;
 		_toolList.push_back(_waterSpray);
 	}
-	if (_sickle == nullptr)
+	if (_sickle == nullptr)				//5
 	{
 		_sickle = new Sickle;
 		_toolList.push_back(_sickle);
 	}
-	if (_sword == nullptr)
+	if (_sword == nullptr)				//6
 	{
 		_sword = new Sword;
 		_toolList.push_back(_sword);
 	}
-	//ToolItem=================================
+	//ToolItem==================================
 
-	//EatItem====================================
-	if (_pasnip == nullptr)
+	//EatItem===================================
+	if (_pasnip == nullptr)				//7
 	{
 		_pasnip = new Pasnip;
 		_toolList.push_back(_pasnip);
 	}
-	if (_potato == nullptr)
+	if (_potato == nullptr)				//8
 	{
 		_potato = new Potato;
 		_toolList.push_back(_potato);
 	}
-	if (_kale == nullptr)
+	if (_kale == nullptr)				//9
 	{
 		_kale = new Kale;
 		_toolList.push_back(_kale);
 	}
-	if (_normalFish == nullptr)
+	if (_normalFish == nullptr)			//10
 	{
 		_normalFish = new NormalFish;
 		_toolList.push_back(_normalFish);
 	}
-	if (_rareFish == nullptr)
+	if (_rareFish == nullptr)			//11
 	{
 		_rareFish = new RareFish;
 		_toolList.push_back(_rareFish);
 	}
-	if (_sap == nullptr)
+	if (_sap == nullptr)				//12
 	{
 		_sap = new Sap;
 		_toolList.push_back(_sap);
 	}
+	if (_grilledFish == nullptr)		//13
+	{
+		_grilledFish = new GrilledFish;
+		_toolList.push_back(_grilledFish);
+	}
+	if (_rawFish == nullptr)			//14
+	{
+		_rawFish = new RawFish;
+		_toolList.push_back(_rawFish);
+	}
+	if (_salad == nullptr)				//15
+	{
+		_salad = new Salad;
+		_toolList.push_back(_salad);
+	}
 	//EatItem====================================
 
 	//ActItem====================================
-	if (_pasnipSeed == nullptr)
+	if (_pasnipSeed == nullptr)			//16
 	{
 		_pasnipSeed = new PasnipSeed;
 		_toolList.push_back(_pasnipSeed);
 	}
-	if (_potatoSeed == nullptr)
+	if (_potatoSeed == nullptr)			//17
 	{
 		_potatoSeed = new PotatoSeed;
 		_toolList.push_back(_potatoSeed);
 	}
-	if (_kaleSeed == nullptr)
+	if (_kaleSeed == nullptr)			//18
 	{
 		_kaleSeed = new KaleSeed;
 		_toolList.push_back(_kaleSeed);
@@ -101,17 +116,17 @@ void ToolItemManager::Init()
 
 
 	//ResoureceItem================================
-	if (_rock == nullptr)
+	if (_rock == nullptr)				//19
 	{
 		_rock = new Rock;
 		_toolList.push_back(_rock);
 	}
-	if (_weed == nullptr)
+	if (_weed == nullptr)				//20
 	{
 		_weed = new Weed;
 		_toolList.push_back(_weed);
 	}
-	if (_wood == nullptr)
+	if (_wood == nullptr)				//21
 	{
 		_wood = new Wood;
 		_toolList.push_back(_wood);

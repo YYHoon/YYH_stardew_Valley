@@ -135,6 +135,14 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("UI_Inventory_Sort", "Image/Inventory/UI_Inventory_Sort.bmp", 64, 64, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("UI_Inventory_Trashcan", "image/Inventory/UI_Inventory_Trashcan.bmp", 368, 142, 4, 1, true, MAGENTA);
 
+	//제작
+	IMAGEMANAGER->addImage("GrilledFish", "Image/Crafting/GrilledFish.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("GrilledFish_before", "Image/Crafting/GrilledFish_before.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("RawFish", "Image/Crafting/RawFish.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("RawFish_before", "Image/Crafting/RawFish_before.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Salad", "Image/Crafting/Salad.bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Salad_before", "Image/Crafting/Salad_before.bmp", 64, 64, true, MAGENTA);
+
 	//상점관련
 	IMAGEMANAGER->addFrameImage("StoreOwnerPortrait", "image/상점/상점주인_초상화(420x630).bmp", 420, 630, 2, 3, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("StoreOwnerDot", "image/상점/상점주인_도트(250x750).bmp", 250, 750, 4, 6, true, MAGENTA);
@@ -263,4 +271,7 @@ void playGround::soundinit()
 	SOUNDMANAGER->addSound("RemoveRock", "Sounds/removeRock", false, false);
 	SOUNDMANAGER->addSound("RemoveWeed", "Sounds/removeGrass", false, false);
 	SOUNDMANAGER->addSound("RemoveBranch", "Sounds/breakTree", false, false);
+
+	SOUNDMANAGER->addSound("Menu_Open", "Sounds/menuopen.mp3", false, false);
+	SOUNDMANAGER->addSound("Menu_Close", "Sounds/menuclose.mp3", false, false);
 }

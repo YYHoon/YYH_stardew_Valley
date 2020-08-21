@@ -27,6 +27,10 @@
 #include "RareFish.h"
 #include "NormalFish.h"
 #include "Sap.h"
+
+#include "RawFish.h"
+#include "GrilledFish.h"
+#include "Salad.h"
 //====================
 
 //ResoureceItem«Ï¥ı====
