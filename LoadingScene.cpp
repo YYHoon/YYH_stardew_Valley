@@ -19,6 +19,7 @@ HRESULT LoadingScene::init()
 
     _player = new Player;
     _player->init();
+    _player->LoadPlayerInfo("playerSave");
     _LoadingBar = new progressBar;
     _LoadingBar->init(0, WINSIZEY - 10, WINSIZEX, 10);
     _LoadingBar->setGauge(0, 0);

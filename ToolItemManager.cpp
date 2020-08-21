@@ -112,6 +112,11 @@ void ToolItemManager::Init()
 		_kaleSeed = new KaleSeed;
 		_toolList.push_back(_kaleSeed);
 	}
+	if (_scareCrow == nullptr)
+	{
+		_scareCrow = new ScareCrow;
+		_toolList.push_back(_scareCrow);
+	}
 	//ActItem====================================
 
 
@@ -150,12 +155,10 @@ void ToolItemManager::Action(string name)
 	//_spreadList = _spreadItem->GetSpreadItemList();
 	for (int i = 0; i < _toolList.size(); ++i)
 	{
-	
 		if (_toolList[i]->GetName() == name)
 		{
 			_toolList[i]->Action();
 		}
-	
 	}
 }
 
@@ -163,7 +166,6 @@ void ToolItemManager::Update()
 {
 	for (int i = 0; i < _toolList.size(); ++i)
 	{
-
 		_toolList[i]->Update();
 	}
 }
@@ -172,12 +174,10 @@ void ToolItemManager::Render(string name)
 {
 	for (int i = 0; i < _toolList.size(); ++i)
 	{
-
 		if (_toolList[i]->GetName() == name)
 		{
 			_toolList[i]->ReAction();
 		}
-
 	}
 }
 

@@ -65,7 +65,8 @@ HRESULT Inventory::init()
 	_toolInven[4] = _toolList[4];
 	_toolInven[5] = _toolList[5];
 	_toolInven[6] = _toolList[6];
-	_toolInven[7]->SetToolEnum(TOOLS::NONE);
+	_toolInven[7] = _toolList[16];
+	_toolInven[7]->SetNumber(30);
 	_toolInven[8]->SetToolEnum(TOOLS::NONE);
 	_toolInven[9]->SetToolEnum(TOOLS::NONE);
 	_toolInven[10]->SetToolEnum(TOOLS::NONE);
@@ -264,28 +265,28 @@ void Inventory::render()
 
 		switch (_inventory.invenTabNum)
 		{
-		case 1:		//인벤토리 탭
-		{
-			_vInvenDynamicRC.clear();
-
-			IMAGEMANAGER->findImage("UI_Inventory_Trashcan")->frameRender(getMemDC(), 1257, 464, _trashCanFrameX, 0);
-			IMAGEMANAGER->findImage("UI_Inventory_Sort")->render(getMemDC(), 1240, 280);
-			_trashCanRC = RectMake(1260, 446, 90, 140);		//쓰레기통 렉트
-			_sortRC = RectMake(1240, 280, 64, 64);
-			_vInvenDynamicRC.push_back(_trashCanRC);
-			_vInvenDynamicRC.push_back(_sortRC);
-
-			if (KEYMANAGER->isOnceKeyDown('Q')) _Dialog->setDialogClear(true);
-			if (KEYMANAGER->isOnceKeyUp('Q')) _Dialog->setDialogClear(false);
-
-			if (ENVIRONMENT->GetCluckValue() <= CLOCKTIMEHALF)
+			case 1:		//인벤토리 탭
 			{
-				IMAGEMANAGER->findImage("UI_Inventory_Day")->render(getMemDC(), INVENIMAGECOOR);
-			}
-			else if (ENVIRONMENT->GetCluckValue() > CLOCKTIMEHALF)
-			{
-				IMAGEMANAGER->findImage("UI_Inventory_Night")->render(getMemDC(), INVENIMAGECOOR);
-			}
+				_vInvenDynamicRC.clear();
+
+				IMAGEMANAGER->findImage("UI_Inventory_Trashcan")->frameRender(getMemDC(), 1257, 464, _trashCanFrameX, 0);
+				IMAGEMANAGER->findImage("UI_Inventory_Sort")->render(getMemDC(), 1240, 280);
+				_trashCanRC = RectMake(1260, 446, 90, 140);		//쓰레기통 렉트
+				_sortRC = RectMake(1240, 280, 64, 64);
+				_vInvenDynamicRC.push_back(_trashCanRC);
+				_vInvenDynamicRC.push_back(_sortRC);
+
+				if (KEYMANAGER->isOnceKeyDown('Q')) _Dialog->setDialogClear(true);
+				if (KEYMANAGER->isOnceKeyUp('Q')) _Dialog->setDialogClear(false);
+
+				if (ENVIRONMENT->GetCluckValue() <= CLOCKTIMEHALF)
+				{
+					IMAGEMANAGER->findImage("UI_Inventory_Day")->render(getMemDC(), INVENIMAGECOOR);
+				}
+				else if (ENVIRONMENT->GetCluckValue() > CLOCKTIMEHALF)
+				{
+					IMAGEMANAGER->findImage("UI_Inventory_Night")->render(getMemDC(), INVENIMAGECOOR);
+				}
 
 			for (int i = 0; i < _toolInven.size(); ++i)
 			{
@@ -303,21 +304,21 @@ void Inventory::render()
 				}
 			}
 
-			HFONT font2, oldFont2;
-			font2 = CreateFont(50, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
-				PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
-			oldFont2 = (HFONT)SelectObject(getMemDC(), font2);
+				HFONT font2, oldFont2;
+				font2 = CreateFont(50, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_DEFAULT_PRECIS,
+					PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
+				oldFont2 = (HFONT)SelectObject(getMemDC(), font2);
 
-			SetTextColor(getMemDC(), BLACK);
-			TextOut(getMemDC(), 950, 570, pGold, strlen(pGold));
+				SetTextColor(getMemDC(), BLACK);
+				TextOut(getMemDC(), 950, 570, pGold, strlen(pGold));
 
-			SelectObject(getMemDC(), oldFont2);
-			DeleteObject(oldFont2);
-		}
-		break;
-		case 2:		//제작 탭
-		{
-			_vInvenDynamicRC.clear();
+				SelectObject(getMemDC(), oldFont2);
+				DeleteObject(oldFont2);
+			}
+			break;
+			case 2:		//제작 탭
+			{
+				_vInvenDynamicRC.clear();
 
 			IMAGEMANAGER->findImage("UI_Inventory_Trashcan")->frameRender(getMemDC(), 1257, 464, _trashCanFrameX, 0);
 
@@ -336,11 +337,11 @@ void Inventory::render()
 			_menuDownRC = RectMake(1170, 464, 32, 35);		//제작 탭에서 아래 화살표
 			_trashCanRC = RectMake(1260, 446, 90, 140);		//쓰레기통 렉트
 
-			_vInvenDynamicRC.push_back(_menuUpRC);
-			_vInvenDynamicRC.push_back(_menuDownRC);
+				_vInvenDynamicRC.push_back(_menuUpRC);
+				_vInvenDynamicRC.push_back(_menuDownRC);
 
-			if (KEYMANAGER->isOnceKeyDown('Q')) _Dialog->setDialogClear(true);
-			if (KEYMANAGER->isOnceKeyUp('Q')) _Dialog->setDialogClear(false);
+				if (KEYMANAGER->isOnceKeyDown('Q')) _Dialog->setDialogClear(true);
+				if (KEYMANAGER->isOnceKeyUp('Q')) _Dialog->setDialogClear(false);
 
 			for (int i = 0; i < _toolInven.size(); ++i)
 			{
@@ -372,23 +373,23 @@ void Inventory::render()
 
 			TextOut(getMemDC(), 820, 220, "도구 사용, 상호작용 : 마우스 좌클릭", strlen("도구 사용, 상호작용 : 마우스 좌클릭"));
 
-			TextOut(getMemDC(), 420, 350, "인벤토리 열기, 메뉴 열기 : E", strlen("인벤토리 열기, 메뉴 열기 : E"));
-			TextOut(getMemDC(), 420, 380, "인벤토리 단축키 : 1 ~ 0,-,=", strlen("인벤토리 단축키 : 1 ~ 9,-,="));
-			TextOut(getMemDC(), 420, 410, "인벤토리 정보키 : 인벤토리 탭안에서 Q", strlen("인벤토리 정보키 : 인벤토리 탭안에서 Q"));
+				TextOut(getMemDC(), 420, 350, "인벤토리 열기, 메뉴 열기 : E", strlen("인벤토리 열기, 메뉴 열기 : E"));
+				TextOut(getMemDC(), 420, 380, "인벤토리 단축키 : 1 ~ 0,-,=", strlen("인벤토리 단축키 : 1 ~ 9,-,="));
+				TextOut(getMemDC(), 420, 410, "인벤토리 정보키 : 인벤토리 탭안에서 Q", strlen("인벤토리 정보키 : 인벤토리 탭안에서 Q"));
 
-		}
-		break;
-		case 4:		//게임 종료탭
-		{
-			_vInvenDynamicRC.clear();
+			}
+			break;
+			case 4:		//게임 종료탭
+			{
+				_vInvenDynamicRC.clear();
 
-			IMAGEMANAGER->findImage("UI_Inventory_Game_Close")->render(getMemDC(), INVENIMAGECOOR);
+				IMAGEMANAGER->findImage("UI_Inventory_Game_Close")->render(getMemDC(), INVENIMAGECOOR);
 
-			_titleRC = RectMake(665, 334, 272, 96);							//종료탭에서 [타이틀 메뉴로] 버튼
-			_closeRC = RectMake(699, 470, 204, 96);							//종료탭에서 [게임 종료] 버튼
+				_titleRC = RectMake(665, 334, 272, 96);							//종료탭에서 [타이틀 메뉴로] 버튼
+				_closeRC = RectMake(699, 470, 204, 96);							//종료탭에서 [게임 종료] 버튼
 
-		}
-		break;
+			}
+			break;
 		}
 	}
 	else

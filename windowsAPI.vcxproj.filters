@@ -130,6 +130,9 @@
     <Filter Include="playGround\Tool\EatItem\CraftedItem">
       <UniqueIdentifier>{f511bed8-8b6b-43e9-a82b-f8e819172982}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\GameObject\Craft">
+      <UniqueIdentifier>{2ec3a891-8342-4e6d-ab8f-3f9ff531489e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -459,6 +462,21 @@
     <ClInclude Include="AllEnemy.h">
       <Filter>playGround\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="AllCraft.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ScareCrowObject.h">
+      <Filter>playGround\GameObject\Craft</Filter>
+    </ClInclude>
+    <ClInclude Include="ScareCrow.h">
+      <Filter>playGround\GameObject\Craft</Filter>
+    </ClInclude>
+    <ClInclude Include="CraftObject.h">
+      <Filter>playGround\GameObject\Craft</Filter>
+    </ClInclude>
+    <ClInclude Include="CraftManager.h">
+      <Filter>playGround\GameObject\Craft</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -763,6 +781,18 @@
     </ClCompile>
     <ClCompile Include="RawFish.cpp">
       <Filter>playGround\Tool\EatItem\CraftedItem</Filter>
+    </ClCompile>
+    <ClCompile Include="ScareCrowObject.cpp">
+      <Filter>playGround\GameObject\Craft</Filter>
+    </ClCompile>
+    <ClCompile Include="ScareCrow.cpp">
+      <Filter>playGround\GameObject\Craft</Filter>
+    </ClCompile>
+    <ClCompile Include="CraftObject.cpp">
+      <Filter>playGround\GameObject\Craft</Filter>
+    </ClCompile>
+    <ClCompile Include="CraftManager.cpp">
+      <Filter>playGround\GameObject\Craft</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

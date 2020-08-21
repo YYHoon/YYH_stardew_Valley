@@ -21,6 +21,7 @@ void WaterSpray::Action()
 	if (_map->GetTiles(_tileIndex[0]).object == MAPOBJECT::HOETILE)
 	{
 		_map->SetWet(_tileIndex[0],true);
+		EFFECTMANAGER->play("Water", _map->GetTiles(_tileIndex[0]).rc.left + 32, _map->GetTiles(_tileIndex[0]).rc.top + 32);
 	}
 
 }

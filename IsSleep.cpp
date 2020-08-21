@@ -31,7 +31,8 @@ void IsSleep::update()
 			if (PtInRect(&_isSleepYesRc, _ptMouse))
 			{
 				_isSleep = true;
-				ENVIRONMENT->SetIsDayReset(true);
+				ENVIRONMENT->SetHour(23);
+				ENVIRONMENT->SetMinute(5);
 				_alp = 255;
 			}
 

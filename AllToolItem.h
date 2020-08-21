@@ -17,6 +17,7 @@
 #include "KaleSeed.h"
 #include "PotatoSeed.h"
 #include "PasnipSeed.h"
+#include "ScareCrow.h"
 //===================
 
 //EatItem«Ï¥ı=========

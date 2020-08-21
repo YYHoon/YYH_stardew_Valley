@@ -58,6 +58,8 @@ void MapFarm::update()
 		}
 		_pm->Save();
 		_player->SetPosition(Vector2(1180, 780));
+		_player->SetHp(100);
+		_player->SetStamina(100);
 		_player->SavePlayerInfo("playerSave");
 		SCENEMANAGER->changeScene("HOME");
 	}
@@ -442,5 +444,6 @@ void MapFarm::render()
 	ZORDER->ZOrderRender();
 	EFFECTMANAGER->render();
 	ENVIRONMENT->render(getMemDC());
+	_pm->render();
 	_player->render();
 }

@@ -26,6 +26,7 @@ private:
 	KaleSeed* _kaleSeed;
 	PotatoSeed* _potatoSeed;
 	PasnipSeed* _pasnipSeed;
+	ScareCrow* _scareCrow;
 	//===========
 
 	//EatItem«“¥Á

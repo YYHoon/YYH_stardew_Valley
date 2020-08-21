@@ -14,6 +14,10 @@ DrainedLoadingScene::~DrainedLoadingScene()
 
 HRESULT DrainedLoadingScene::init()
 {
+
+    _player = new Player;
+    _player->init();
+
     _BackGround = IMAGEMANAGER->findImage("AlphaOnlyBlackWindow");
     _Loading = IMAGEMANAGER->findImage("DrainLoading");
     _Face = IMAGEMANAGER->findImage("DrainFace");
@@ -48,7 +52,9 @@ void DrainedLoadingScene::update()
 
     if (_currentCount == LOADINGMAX)
     {
-     //   _player->SetPosition(Vector2(1180, 780));
+        _player->SetPosition(Vector2(1180, 780));
+        _player->SetStamina(100);
+        _player->SavePlayerInfo("playerSave");
         SCENEMANAGER->changeScene("HOME");
     }
 

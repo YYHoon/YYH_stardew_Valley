@@ -175,11 +175,11 @@ void MapToolScene::Button()
 	}
 	if (PtInRect(&_saveBtn[1], _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
-		Save("Cave.map", _horizontal, _vertical, _vtiles);
+		Save("mapCave.map", _horizontal, _vertical, _vtiles);
 	}
 	if (PtInRect(&_saveBtn[2], _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{
-		Save("Cave.map", _horizontal, _vertical, _vtiles);
+		Save("mapCave.map", _horizontal, _vertical, _vtiles);
 	}
 	if (PtInRect(&_loadBtn, _ptMouse) && (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)))
 	{

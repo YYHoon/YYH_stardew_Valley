@@ -210,7 +210,7 @@ void PlayerItemIdle::Update()
 	
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
-		if (_map->GetPM()->GetPlantsList().size() > 0 && !_map->GetPM()->IsExist(_player->GetTileIndex()[0]))
+		if (_map->GetPM() != nullptr && _map->GetPM()->GetPlantsList().size() > 0 && !_map->GetPM()->IsExist(_player->GetTileIndex()[0]))
 		{
 			if (_map->GetPM()->GetPlantsName(_player->GetTileIndex()[0]) == "potatoObject")
 			{
@@ -227,7 +227,7 @@ void PlayerItemIdle::Update()
 			_map->GetPM()->Harvesting(_player->GetTileIndex()[0]);
 
 		}
-		else if ((int)_player->GetInfo().equipment == (int)8)
+		else if (_map->GetPM() != nullptr && (int)_player->GetInfo().equipment == (int)8)
 		{
 			_player->ChangeState(make_shared<PlayerPlanting>(_player));
 			return;
@@ -1147,7 +1147,6 @@ void PlayerFishingEnd::Init()
 		break;
 	}
 	_map = _player->GetMap();
-
 	if (!_player->GetInfo().anim->isPlay())_player->GetInfo().anim->start();
 	_player->GetTM()->SetNowTileMapMemoyrAddressLink(_map);
 	_player->GetTM()->SetImpactIndex(_player->GetHaveItem()->GetName(), _player->GetTileIndex()[0]);

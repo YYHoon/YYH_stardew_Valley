@@ -11,7 +11,7 @@ HRESULT Player::init()
 
 	_info.name = "Dos";
 	_info.shadowImg = IMAGEMANAGER->findImage("playerShadow");
-	_info.position = Vector2(10, 10);
+	_info.position = Vector2(1180, 720);
 	_info.direction = PLAYER_DIRECTION::DOWN;
 	_info.equipment = TOOLS::NONE;
 	_state = make_shared<PlayerIdle>(this);
