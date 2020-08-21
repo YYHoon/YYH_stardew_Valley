@@ -60,6 +60,8 @@ private:
 	//////////////////////////////////////////
 	RECT _indexRC[12];	    // Index RC     //
 	//////////////////////////////////////////
+	RECT _craftingRC[3];	// Crafting RC	//
+	/// //////////////////////////////////////
 
 	Player* _player;
 	Store* _store;
@@ -72,17 +74,20 @@ private:
 	ToolItemManager* _toolItemManager;
 
 	vector<ToolItem*> _toolList;	 // Á¤º¸
-	vector<ToolItem*> _toolInven;	 // °ª °¡Áö°í ÀÖ´Â°Íµé 
-	vector<SaveLoad> _toolLoad;	 // _toolLoad
+	vector<ToolItem*> _toolInven;	// °ª °¡Áö°í ÀÖ´Â°Íµé 
+	vector<SaveLoad> _toolLoad;		// _toolLoad
+	vector<Crafting*> _itemCrafting;
+
 	int _trashCanFrameX;			//¾²·¹±âÅë ÀÌ¹ÌÁö ÇÁ·¹ÀÓ
 	int _frameCount;				//ÀÌ¹ÌÁö ÇÁ·¹ÀÓ Ä«¿îÆ®
 	int _itemIndexNum;				//¾ÆÀÌÅÛ ÀÎµ¦½º ¹øÈ£ ÀúÀå¿ë
 
 	int _sorted[12];
-	int _test[12];
 /////////////////////////</Inventory>///////////////////////////
 
 	int _index;
+	int _index1;
+	int _index2;
 /////////////////////////<QuickSlot>////////////////////////////
 
 	tagQuickSlot _quickSlot;		//Äü½½·Ô
@@ -102,12 +107,12 @@ private:
 /////////////////////////<Get_Item>//////////////////////////
 	struct tagGetItem   //È¹µæÃ¢
 	{
-	image* ItemWindow; //È¹µæÃ¢ÀÌ¹ÌÁö~
-	image* Item;  //È¹µæ ÀÌ¹ÌÁö;
-	RECT   ItemWindowRc; //È¹µæÀÌ¹ÌÁö ÁÂÇ¥ÁöÁ¤¿ë ·ºÆ®~
-	string ItemName;
-	int Seetime; //º¸ÀÌ´Â ½Ã°£
-	bool isGet; //º¸ÀÌ°Ô ÇÏ´Â°¡
+		image* ItemWindow; //È¹µæÃ¢ÀÌ¹ÌÁö~
+		image* Item;  //È¹µæ ÀÌ¹ÌÁö;
+		RECT   ItemWindowRc; //È¹µæÀÌ¹ÌÁö ÁÂÇ¥ÁöÁ¤¿ë ·ºÆ®~
+		string ItemName;
+		int Seetime; //º¸ÀÌ´Â ½Ã°£
+		bool isGet; //º¸ÀÌ°Ô ÇÏ´Â°¡
 	};
 
 	tagGetItem _tGetItem; //¹éÅÍ Çª½¬¹é¿ë~

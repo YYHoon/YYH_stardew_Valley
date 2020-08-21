@@ -2,9 +2,7 @@
 #include "gameNode.h"
 #include "CraftingDialog.h"
 
-class Inventory;
 class ToolItem;
-class ToolItemManager;
 
 struct tagCrafting
 {
@@ -24,9 +22,6 @@ private:
 
 	vector<ToolItem*> _toolList;		// 정보
 
-	vector<int*> _itemNum;				//아이템 개수
-
-	Inventory* _inventory;
 	ToolItem* _toolItem;
 	CraftingDialog* _craftingDiaTree;
 
@@ -38,4 +33,12 @@ public:
 	void release();
 	void update();
 	void render();
+
+	bool GetGrilledFishIsPossible() { return _grilledFish.isPossible; }
+	bool GetRawFishIsPossible() { return _rawFish.isPossible; }
+	bool GetSaladIsPossible() { return _salad.isPossible; }
+
+	void SetGrilledFishIsPossible(bool set) { _grilledFish.isPossible = set; }
+	void SetRawFishIsPossible(bool set) { _rawFish.isPossible = set; }
+	void SetSaladIsPossible(bool set) { _salad.isPossible = set; }
 };
