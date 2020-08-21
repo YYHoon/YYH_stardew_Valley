@@ -17,37 +17,21 @@ void FishingRod::Init()
 
 void FishingRod::Action()
 {
-	if ((_map->GetTiles(_tileIndex[0]).terrain == TERRAIN::WATER))
-	{
-		_doing = _game->GetDoingFishing();
-		if (_player->GetStateName() == "FishingStart")
-		{
-			_game->Init(_playerCenter, _playerDir);
-			_game->Update();
-		}
-		if (_player->GetStateName() == "FishingProceeding")
-		{
-			_game->Update();
-		}
-		if (_player->GetStateName() == "PlayerFishingEnd")
-		{
-			_game->Update();
-		}
-		if (_player->GetStateName() == "PlayerFishingToIdle")
-		{
-			_game->Update();
 
-		}
+	_doing = _game->GetDoingFishing();
+
+	if (_player->GetStateName() == "FishingStart")
+	{
+		_game->Init(_playerCenter, _playerDir);
+		_game->Update();
 	}
 	else
 	{
-		_doing = FISHING::FIRST;
+		_game->Update();
 	}
-	//if (!_game->GetNowFishing())
-	//{
-	//	_game->Init(_playerCenter, _playerDir);
-	//}
-	//if (_game->GetNowFishing())_game->Update();
+
+
+
 }
 
 void FishingRod::ReAction()

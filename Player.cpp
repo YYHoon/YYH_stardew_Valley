@@ -54,6 +54,8 @@ void Player::update()
 {
 	_info.doing = _tool->GetDoingFishing();
 	_tool->SetFishingInfo(_info.position, _info.direction);
+	//cout << "¿©±â" << endl;
+	//_info.collision.centerSet(_info.position.x, _info.position.y - 50, _info.img->getFrameWidth(), _info.img->getFrameHeight());
 	if (KEYMANAGER->isOnceKeyDown(VK_F1))
 	{
 		_info.stamina = 100;
@@ -130,7 +132,7 @@ void Player::update()
 	_inven->update();
 	_gauge->update();
 	
-	if (!_info.anim->isPlay())_info.anim->start();
+	if (!_info.anim->isPlay() && _state->GetStateName() != "Fishing")_info.anim->start();
 	_tool->Update();
 	for (int i = 0; i < _tool->GetSpreadList().size(); ++i)
 	{
