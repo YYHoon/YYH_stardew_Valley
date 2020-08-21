@@ -41,7 +41,7 @@ void CraftingDialog::TxtOutPut(string itemName)
         }
         if (itemName == "Salad") //샐러드
         {
-            TextOut(getMemDC(), _CrDiaRc.left+10, _CrDiaRc.top+5,  "재료          감자 : 1EA", strlen("재료          감자 : 1EA"));
+            TextOut(getMemDC(), _CrDiaRc.left+10, _CrDiaRc.top+5,  "재료", strlen("재료"));
             TextOut(getMemDC(), _CrDiaRc.left+10, _CrDiaRc.top+25, "케일 : 1EA    파스닙 : 1EA", strlen("케일 : 1EA    파스닙 : 1EA"));
             TextOut(getMemDC(), _CrDiaRc.left+10, _CrDiaRc.top+60, "샐러드 (음식)", strlen("샐러드 (음식)"));
             TextOut(getMemDC(), _CrDiaRc.left + 10, _CrDiaRc.top + 84, "건강한 야채샐러드", strlen("건강한 야채샐러드"));
