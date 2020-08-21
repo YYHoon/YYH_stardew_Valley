@@ -31,7 +31,6 @@ void ObjectManager::Update()
 		vector<GameObject*>& objectList = iter->second;
 		for (int i = 0; i < objectList.size(); ++i)
 		{
-		//	cout << objectList[i]->GetActive() << endl;
 			if (objectList[i]->GetActive())
 				objectList[i]->Update();
 		}

@@ -39,7 +39,6 @@ vector<Plants*> PlantsManager::Load()
 		temp = &saveTile[i];
 		temp->SetImgToString(temp->GetName());
 		tmp.push_back(temp);
-//		cout << temp->GetName() << endl;
 	}
 	return tmp;
 }
@@ -69,6 +68,5 @@ void PlantsManager::LoadSize()
 	ReadFile(file, &size, sizeof(int), &read, NULL);
 
 	CloseHandle(file);
-//	cout << size << "Å©±â" << endl;
 }
 

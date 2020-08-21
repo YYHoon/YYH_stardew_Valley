@@ -80,6 +80,13 @@ HRESULT Store::init(int x, int y)
 	_saleMoney[4] = 5;
 	_saleMoney[5] = 10;
 
+	//------------------------------------------------------//
+
+	for (int i = 0; i < 12; i++)
+	{
+		_SellRect[i] = RectMake(638 + (i * 64), 539, 64, 64);
+	}
+
 	_storeOpen = false;
 
 	return S_OK;
@@ -102,6 +109,7 @@ void Store::update()
 
 	if (_storeOpen)
 	{
+		//-------플레이어 구매부분--------//
 		ENVIRONMENT->SetIsInventoryOpen(true);
 		if (PtInRect(&_Item[0], _ptMouse))
 		{
@@ -111,7 +119,6 @@ void Store::update()
 				if (_player->GetMoney() >= _saleMoney[_StoreSearchMin])
 				{
 					_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin]);
-					_player->SetDecreaseMoney(_saleMoney[_StoreSearchMin]);
 				}
 				if (_player->GetMoney() < _saleMoney[_StoreSearchMin])
 				{
@@ -127,7 +134,6 @@ void Store::update()
 				if (_player->GetMoney() >= _saleMoney[_StoreSearchMin + 1])
 				{
 					_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin + 1]);
-					_player->SetDecreaseMoney(_saleMoney[_StoreSearchMin + 1]);
 				}
 				if (_player->GetMoney() < _saleMoney[_StoreSearchMin + 1])
 				{
@@ -143,7 +149,6 @@ void Store::update()
 				if (_player->GetMoney() >= _saleMoney[_StoreSearchMin + 2])
 				{
 					_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin + 2]);
-					_player->SetDecreaseMoney(_saleMoney[_StoreSearchMin + 2]);
 				}
 				if (_player->GetMoney() < _saleMoney[_StoreSearchMin + 2])
 				{
@@ -159,11 +164,23 @@ void Store::update()
 				if (_player->GetMoney() >= _saleMoney[_StoreSearchMin + 3])
 				{
 					_inven->setPlayerBuyItme(_saleItem[_StoreSearchMin + 3]);
-					_player->SetDecreaseMoney(_saleMoney[_StoreSearchMin + 3]);
 				}
 				if (_player->GetMoney() < _saleMoney[_StoreSearchMin + 3])
 				{
 					_noMoneyAlpha = 255;
+				}
+			}
+		}
+		//---------------------------------//
+
+		for (int i = 0; i < 12; i++)
+		{
+			if (PtInRect(&_SellRect[i], _ptMouse))
+			{
+				if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+				{
+					_inven->setPlayerSellItem(i);
+					break;
 				}
 			}
 		}

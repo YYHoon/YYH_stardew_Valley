@@ -4,7 +4,8 @@
 #include "SpreadItem.h"
 class SpreadItem;
 class MapMain;
-class DummyMap;
+
+class Player;
 
 class ToolItemManager
 {
@@ -42,6 +43,8 @@ private:
 	Wood* _wood;
 	//================
 
+	Player* _player;
+
 	Vector2 _playerCenter;
 	PLAYER_DIRECTION _playerDir;
 	SpreadItem* _spreadItem;
@@ -72,11 +75,15 @@ public:
 	vector<ToolItem*> GetToolItem() { return _toolList; }
 	
 	//플레이어 센터좌표 방향 알아오는함수 낚시하기전에 꼭필요
-	virtual void GetFishingInfo(Vector2 c, PLAYER_DIRECTION d);
+	virtual void SetFishingInfo(Vector2 c, PLAYER_DIRECTION d);
 	
 	//이름에따른 이미지가져오는함수
 	virtual image* GetImageInven(string name);
 	virtual image* GetImageChar(string name);
+
+	virtual FISHING GetDoingFishing();
+	virtual void SetDoingFishing(FISHING tf);
+
 
 	virtual inline void SetImpactIndex(string name, int index);
 	virtual inline void SetImpactIndex(string name, int Center, int left, int right);
@@ -84,6 +91,8 @@ public:
 	inline vector<tagSpread> GetSpreadList() { return _spreadItem->GetSpreadItemList(); }
 	void SetIsActive(bool isAc, int idx) { _spreadItem->SetIsActive(isAc, idx); }
 	//void SetThisMemoryAddressLink(ToolItemManager* t) { tosstool = t; }
+
+	inline void SetPlayerAddressLink(Player* pla) { _player = pla; }
 
 	inline void SetNowTileMapMemoyrAddressLink(MapMain* scene) { _nowTileMap = scene; }
 	inline MapMain* GetNowTileMapMemoryAddressLink() { return _nowTileMap; }

@@ -8,7 +8,8 @@ HRESULT MapFarm::init()
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
-
+	_player->LoadPlayerInfo("playerSave");
+	
 
 	_pm = new PlantsManager;
     /////////////////////////////////
@@ -16,54 +17,54 @@ HRESULT MapFarm::init()
 	//////////////////////////////////
 	_pm->Init();
 	_pm->SetMapMemoryAddressLinked(this);
-	_count = 0;
 	
-
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
-
+	_count = 0;
 	return S_OK;
 }
 
 void MapFarm::release()
 {
-	_player->SavePlayerInfo("playerSave");
 	_map->Save("mapFarm.map", _horizon, _vertical,_tiles);
-	_pm->Save();
+	
 }
 
 void MapFarm::update()
 {
-	if (_player->GetIsNext())
+
+	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::PARM_TO_HOME)
 	{
+		_player->SetPosition(Vector2(670, 848));
+		_player->SavePlayerInfo("playerSave");
 		SCENEMANAGER->changeScene("HOME");
 	}
-	if (_player->GetIsPrev())
+	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::PARM_TO_CAVE)
 	{
+		_player->SetPosition(Vector2(1054, 900));
+		_player->SavePlayerInfo("playerSave");
 		SCENEMANAGER->changeScene("CAVE");
 	}
 
-
-	if (KEYMANAGER->isOnceKeyDown(VK_F1))
-	{
-		EFFECTMANAGER->play("RockDis", _ptMouse.x, _ptMouse.y);
-	}
-	_count++;
-	_player->update();
+	ENVIRONMENT->update();
 	_pm->Update();
+	_player->update();
+	
+	_count++;
 	if (ENVIRONMENT->GetIsDayIncrease())
 	{
 		for (int i = 0; i < _tiles.size(); i++)
 		{
 			_tiles[i].wet = false;
 		}
-
+		_pm->Save();
+		_player->SetPosition(Vector2(1180, 780));
+		_player->SavePlayerInfo("playerSave");
+		SCENEMANAGER->changeScene("HOME");
 	}
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
 	CAMERAMANAGER->setY(_player->GetInfo().position.y);
-	ENVIRONMENT->update();
+	
 	EFFECTMANAGER->update();
-
-	cout << _pm->GetPlantsList().size() << endl;
 }
 
 void MapFarm::render()
@@ -120,9 +121,18 @@ void MapFarm::render()
 				(_tiles[index].object == MAPOBJECT::TREE2) ||
 				(_tiles[index].object == MAPOBJECT::TREE3))
 			{
-				ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, IMAGEMANAGER->findImage("Tree"),
-					_tiles[index].rc.left - TILESIZE, _tiles[index].rc.top - TILESIZE * 5,
-					_tiles[index].objectframeX, _tiles[index].objectframeY, _tiles[index].rc.bottom);
+				if (_tiles[index].hp > 2)
+				{
+					ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, IMAGEMANAGER->findImage("Tree"),
+						_tiles[index].rc.left - TILESIZE, _tiles[index].rc.top - TILESIZE * 5,
+						_tiles[index].objectframeX, _tiles[index].objectframeY, _tiles[index].rc.bottom);
+				}
+				else
+				{
+					ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, IMAGEMANAGER->findImage("Stump"),
+						_tiles[index].rc.left, _tiles[index].rc.top-20,
+						_tiles[index].objectframeX, _tiles[index].objectframeY, _tiles[index].rc.bottom);
+				}
 			}
 			if (_tiles[index].object == MAPOBJECT::ROCK ||
 				_tiles[index].object == MAPOBJECT::WEED ||
@@ -431,6 +441,6 @@ void MapFarm::render()
 	}
 	ZORDER->ZOrderRender();
 	EFFECTMANAGER->render();
-	_player->render();
 	ENVIRONMENT->render(getMemDC());
+	_player->render();
 }

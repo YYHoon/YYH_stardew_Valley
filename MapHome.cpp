@@ -3,46 +3,50 @@
 
 HRESULT MapHome::init()
 {
+	_vertical = _horizon = 30;
+	_tiles = _map->Load("mapHome.map", _vertical, _horizon);	
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
-
-	_count = 0;
-	_vertical = _horizon = 30;
-
-	_player->GetPlayerInver()->setPlayer(_player);
-	_tiles = _map->Load("mapHome.map", _vertical, _horizon);	
-
-	for (int i = 0; i < _tiles.size(); i++)
-	{
-		if (_tiles[i].pos == POS::BED)
-		{
-			_player->SetPosition(Vector2(_tiles[i].rc.left, _tiles[i].rc.bottom));
-		}
-		if (_tiles[i].pos == POS::HOME_TO_PARM)
-		{
-			_player->SetPosition(Vector2(_tiles[i].rc.left + 32, _tiles[i].rc.top - 100));
-		}
-	}
-
+	_player->LoadPlayerInfo("playerSave");
+	_sleep = new IsSleep;
+	_sleep->init();
+	_test = false;
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
+	_count = 0;
 	return S_OK;
 }
 
 void MapHome::release()
 {
-	_player->SavePlayerInfo("playerSave");
+	
 }
 
 void MapHome::update()
 {
-
-	if (_player->GetIsNext())
+	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::HOME_TO_PARM)
 	{
+		_player->SetPosition(Vector2(610, 550));
+		_player->SavePlayerInfo("playerSave");
 		SCENEMANAGER->changeScene("FARM");
 	}
 
+	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::BED &&
+		!_sleep->getIsSelectOpen())
+	{
+		_test = true;
+	}
+	else if (_tiles[_player->GetPlayerOnTileIndex()].pos != POS::BED) _test = false;
+
+	if (_test)
+	{
+		_sleep->setIsSelectOpen(true);
+	}
+	else _sleep->setIsSelectOpen(false);
+	
+	
 	_count++;
+	_sleep->update();
 	_player->update();
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
 	CAMERAMANAGER->setY(_player->GetInfo().position.y);
@@ -96,6 +100,7 @@ void MapHome::render()
 		}
 	}
 	ZORDER->ZOrderRender();
-	_player->render();
 	ENVIRONMENT->render(getMemDC());
+	_sleep->render();
+	_player->render();
 }

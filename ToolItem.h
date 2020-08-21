@@ -3,6 +3,7 @@
 class MapMain;
 class SpreadItem;
 class ToolItemManager;
+class Player;
 //class DummyMap;//영향끼칠 맵
 
 class ToolItem
@@ -14,12 +15,15 @@ protected:
 	int _tileIndex[3] = { 0, }; //상호작용할 타일의 인덱스 저장할곳
 	bool _justSignal = false;//단일타일상호작용툴 체크
 	bool _slashSignal = false;//범위타일상호작용 체크
+	FISHING _doing;//찬영이씀 낚시 도중인지 체크하기위함
 	TOOLS _enumName = TOOLS::NONE;		//툴아이템의 이넘값
 	int _number = 0;
 	image* _imageI =nullptr;
 	image* _imageC = nullptr;
 
 	SpreadItem* _spreadItem;		//스프레드아이템
+
+	Player* _player;
 
 	Vector2 _playerCenter;
 	PLAYER_DIRECTION _playerDir;
@@ -56,11 +60,14 @@ public:
 	virtual void SetSpreadItem(SpreadItem* spread) { _spreadItem = spread; }
 	//virtual void SetSpreadInToolMemory(ToolItemManager* t) { _spreadItem->SetToolMemoryAddressLink(t); }
 
+	virtual inline FISHING GetDoingFishing() { return _doing; }
+	virtual inline void SetDoingFishing(FISHING tf) { _doing = tf; }
+
 	void SetImageI(string image) { _imageI = IMAGEMANAGER->findImage(image + "(64x64)"); }
 	void SetImageC(string image) { _imageI = IMAGEMANAGER->findImage(image); }
 
 	//플레이어 센터,방향 가져오는거
-	virtual inline void GetPlayerCenterNDir(Vector2 c, PLAYER_DIRECTION d) {
+	virtual inline void SetPlayerCenterNDir(Vector2 c, PLAYER_DIRECTION d) {
 		_playerCenter = c;
 		_playerDir = d;
 	}
@@ -84,6 +91,8 @@ public:
 	virtual inline bool GetTileChangeSignalSlash() { return _slashSignal; }
 
 	//타일속성 주고받는곳
+
+	virtual inline void SetPlayerAddress(Player* pla) { _player = pla; }
 	
 	virtual inline MAPOBJECT GetMapObject() { return _mapObject; }
 	virtual inline void SetMapObject(MAPOBJECT mapobj) { _mapObject = mapobj; }

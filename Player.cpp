@@ -25,16 +25,17 @@ HRESULT Player::init()
 	_info.HP = 100;
 	_info.stamina = 100;
 	_info.money = 500;
-	_info.velocity = 5.0f;
-	_isNext = false;
-	_isPrev = false;
+	_info.velocity = 7.0f;
+	_info.exMapName = "HOME";
 
 	_tool = new ToolItemManager;
 	_tool->SetNowTileMapMemoyrAddressLink(_Map);
+	_tool->SetPlayerAddressLink(this);
 	_tool->Init();
 	_inven = new Inventory;
 	//_inven->SetMemoryLinkedTool(_tool);
 	_inven->init();
+
 
 	_gauge = new HpStaminaBar;
 	
@@ -43,86 +44,97 @@ HRESULT Player::init()
 	
 	_inven->setPlayer(this);
 	_haveItem = _inven->GetInvenItem(0);
-
+	ChangeEquipment(_haveItem->GetToolEnum());
+	
 	return S_OK;
 }
 
 void Player::update()
 {
+	_info.doing = _tool->GetDoingFishing();
+	_tool->SetFishingInfo(_info.position, _info.direction);
 	//cout << "여기" << endl;
 
-	if (KEYMANAGER->isOnceKeyDown('1')) 
+	if (KEYMANAGER->isOnceKeyDown(VK_F1))
 	{
-		_haveItem = _inven->GetInvenItem(0);
-		ChangeEquipment(_haveItem->GetToolEnum());
+		_info.stamina = 100;
 	}
-	else if (KEYMANAGER->isOnceKeyDown('2'))
+	if (_state->GetStateTagName() == "move" || _state->GetStateTagName() == "idle")
 	{
-		_haveItem = _inven->GetInvenItem(1);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown('3')) 
-	{
-		_haveItem = _inven->GetInvenItem(2);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown('4'))
-	{
-		_haveItem = _inven->GetInvenItem(3);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown('5'))
-	{
-		_haveItem = _inven->GetInvenItem(4);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown('6'))
-	{
-		_haveItem = _inven->GetInvenItem(5);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown('7'))
-	{
-		_haveItem = _inven->GetInvenItem(6);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown('8'))
-	{
-		_haveItem = _inven->GetInvenItem(7);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown('9'))
-	{
-		_haveItem = _inven->GetInvenItem(8);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown('0'))
-	{
-		_haveItem = _inven->GetInvenItem(9);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown(VK_OEM_MINUS))
-	{
-		_haveItem = _inven->GetInvenItem(10);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown(VK_OEM_PLUS))
-	{
-		_haveItem = _inven->GetInvenItem(11);
-		ChangeEquipment(_haveItem->GetToolEnum());
+		if (KEYMANAGER->isOnceKeyDown('1'))
+		{
+			_haveItem = _inven->GetInvenItem(0);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('2'))
+		{
+			_haveItem = _inven->GetInvenItem(1);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('3'))
+		{
+			_haveItem = _inven->GetInvenItem(2);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('4'))
+		{
+			_haveItem = _inven->GetInvenItem(3);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('5'))
+		{
+			_haveItem = _inven->GetInvenItem(4);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('6'))
+		{
+			_haveItem = _inven->GetInvenItem(5);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('7'))
+		{
+			_haveItem = _inven->GetInvenItem(6);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('8'))
+		{
+			_haveItem = _inven->GetInvenItem(7);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('9'))
+		{
+			_haveItem = _inven->GetInvenItem(8);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('0'))
+		{
+			_haveItem = _inven->GetInvenItem(9);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown(VK_OEM_MINUS))
+		{
+			_haveItem = _inven->GetInvenItem(10);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown(VK_OEM_PLUS))
+		{
+			_haveItem = _inven->GetInvenItem(11);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
 	}
 	CheckTiles();
 	if (_state->GetStateName() == "eating" )
 	{
 		_inven->Decrease();
 	}
+	_state->Update();
 	_inven->update();
 	_gauge->update();
 	////////////////////////////////////
 	//*********** 구현 테스트때만 풀도록/////
 	//_inven->PlayerLootItem(_getItem);
 	////////////////////////////////////
-	_state->Update();
+	
 	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
 	_tool->Update();
@@ -135,7 +147,12 @@ void Player::update()
 			_inven->PlayerLootItem(_tool->GetSpreadList()[i].name);
 		}
 	}
+	if (_info.equipment == TOOLS::ACTIVEITEM || _info.equipment == TOOLS::EATITEM || _info.equipment == TOOLS::RESOURCEITEM)
+	{
+		ZORDER->ZOrderPush(getMemDC(), RenderType::RENDER, _haveItem->GetImageInven(), _info.shadowCollision.left - 20, _info.shadowCollision.top - 130, _info.shadowCollision.bottom);
+	}
 	ZORDER->ZOrderPush(getMemDC(), RenderType::KEYANIRENDER, _info.img ,_info.collision.left, _info.collision.top, _info.anim, _info.shadowCollision.bottom);
+	
 }
 
 void Player::render()
@@ -144,10 +161,18 @@ void Player::render()
 	_gauge->hpBarRender();
 	_gauge->staminaBarRender();
 	_tool->Render("FishingRod");
+	
 }
 
 void Player::release()
 {
+}
+
+
+
+string Player::GetStateName()
+{
+	return _state->GetStateName(); 
 }
 
 void Player::ChangeState(shared_ptr<State> state)
@@ -176,20 +201,20 @@ void Player::Move()
 			_info.position.x -= _info.velocity;
 			break;
 		case PLAYER_DIRECTION::UP_RIGHT:
-			_info.position.x += _info.velocity * 0.5;
-			_info.position.y -= _info.velocity * 0.5;
+			_info.position.x += _info.velocity * 0.6;
+			_info.position.y -= _info.velocity * 0.6;
 			break;
 		case PLAYER_DIRECTION::UP_LEFT:
-			_info.position.x -= _info.velocity * 0.5;
-			_info.position.y -= _info.velocity * 0.5;
+			_info.position.x -= _info.velocity * 0.6;
+			_info.position.y -= _info.velocity * 0.6;
 			break;
 		case PLAYER_DIRECTION::DOWN_RIGHT:
-			_info.position.x += _info.velocity * 0.5;
-			_info.position.y += _info.velocity * 0.5;
+			_info.position.x += _info.velocity * 0.6;
+			_info.position.y += _info.velocity * 0.6;
 			break;
 		case PLAYER_DIRECTION::DOWN_LEFT:
-			_info.position.x -= _info.velocity * 0.5;
-			_info.position.y += _info.velocity * 0.5;
+			_info.position.x -= _info.velocity * 0.6;
+			_info.position.y += _info.velocity * 0.6;
 			break;
 		default:
 			break;
@@ -474,12 +499,11 @@ void Player::SavePlayerInfo(string fileName)
 {
 	HANDLE file;
 	DWORD write;
-	//cout << &_info << endl;
 	file = CreateFile(fileName.c_str(), GENERIC_WRITE, NULL, NULL,
 		CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
 	WriteFile(file, &_info, sizeof(NecessaryInfo), &write, NULL);
-
+	
 	CloseHandle(file);
 }
 

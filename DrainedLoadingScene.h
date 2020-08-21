@@ -4,13 +4,15 @@
 #include "AllDefine.h"
 #include "AllEnum.h"
 
+class Player;
+
 class progressBar;
 
 class DrainedLoadingScene : public gameNode
 {
 private:
 	progressBar* _LoadingBar;
-
+	Player* _player;
 	image* _BackGround;
 	image* _Loading;
 	image* _Face;
@@ -19,7 +21,7 @@ private:
 	int _count;
 
 public:
-	DrainedLoadingScene() ;
+	DrainedLoadingScene();
 	~DrainedLoadingScene();
 
 	int _currentCount;

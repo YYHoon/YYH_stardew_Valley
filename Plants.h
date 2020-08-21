@@ -18,6 +18,7 @@ public:
 	void SavePosIndex(int saveIndex) { _tileIndex = saveIndex; }
 	void SetImgToString(string name) {_img = IMAGEMANAGER->findImage(name); }
 	void SetCanHarvest(bool can) { _isCanHarvest = can; }
+	void SetGrowCount(int count) { _growCount = count; }
 	bool GetIsWet() { return _isWet; }
 	bool GetCanHarvest() { return _isCanHarvest; }
 	int GetSaveIndex() { return _tileIndex; }

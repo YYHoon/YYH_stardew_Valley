@@ -121,6 +121,9 @@
     <Filter Include="playGround\Astar">
       <UniqueIdentifier>{408d422c-770e-4d67-ab98-abf6163e4364}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\Enemy">
+      <UniqueIdentifier>{9b35d53a-a851-4342-a7ea-d170caa52c8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -411,14 +414,29 @@
     <ClInclude Include="SpreadItem.h">
       <Filter>playGround\SpreadItem</Filter>
     </ClInclude>
+    <ClInclude Include="astar.h">
+      <Filter>playGround\Astar</Filter>
+    </ClInclude>
+    <ClInclude Include="DrainedLoadingScene.h">
+      <Filter>playGround\Scene\UI</Filter>
+    </ClInclude>
     <ClInclude Include="MapCave.h">
-      <Filter>playGround\Scene\MaptoolScene</Filter>
+      <Filter>playGround\Map</Filter>
     </ClInclude>
     <ClInclude Include="astar.h">
       <Filter>playGround\Astar</Filter>
     </ClInclude>
     <ClInclude Include="DrainedLoadingScene.h">
       <Filter>playGround\Scene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="IsSleep.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>playGround\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>playGround\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -689,14 +707,29 @@
     <ClCompile Include="Inventory + SaveLoad.cpp">
       <Filter>playGround\Inventory</Filter>
     </ClCompile>
+    <ClCompile Include="astar.cpp">
+      <Filter>playGround\Astar</Filter>
+    </ClCompile>
+    <ClCompile Include="DrainedLoadingScene.cpp">
+      <Filter>playGround\Scene\UI</Filter>
+    </ClCompile>
     <ClCompile Include="MapCave.cpp">
-      <Filter>playGround\Scene\MaptoolScene</Filter>
+      <Filter>playGround\Map</Filter>
     </ClCompile>
     <ClCompile Include="astar.cpp">
       <Filter>playGround\Astar</Filter>
     </ClCompile>
     <ClCompile Include="DrainedLoadingScene.cpp">
       <Filter>playGround\Scene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="IsSleep.cpp">
+      <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>playGround\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>playGround\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

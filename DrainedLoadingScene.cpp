@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "DrainedLoadingScene.h"
 #include "progressBar.h"
+#include "Player.h"
 
 DrainedLoadingScene::DrainedLoadingScene()
 	: _BackGround(nullptr), _LoadingBar(nullptr), _currentCount(NULL)
@@ -47,6 +48,7 @@ void DrainedLoadingScene::update()
 
     if (_currentCount == LOADINGMAX)
     {
+     //   _player->SetPosition(Vector2(1180, 780));
         SCENEMANAGER->changeScene("HOME");
     }
 

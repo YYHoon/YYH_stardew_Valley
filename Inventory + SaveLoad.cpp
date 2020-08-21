@@ -9,7 +9,6 @@ void Inventory::Save()
 	for (int i = 0; i < _toolInven.size(); i++)
 	{
 		saveTile[i] = *_toolInven[i];
-		//cout << saveTile[i].GetName() << endl;
 	}
 	HANDLE file;
 	DWORD write;
@@ -46,7 +45,6 @@ void Inventory::Load()
 void Inventory::SaveSize()
 {
 	size = _toolInven.size();
-	cout << "사이즈 : " <<size<< endl;
 	HANDLE file;
 	DWORD write;
 
@@ -69,5 +67,4 @@ void Inventory::LoadSize()
 	ReadFile(file, &size, sizeof(int), &read, NULL);
 
 	CloseHandle(file);
-	cout << size << "크기" << endl;
 }

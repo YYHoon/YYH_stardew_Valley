@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "LoadingScene.h"
 #include "progressBar.h"
+#include "Player.h"
 
 LoadingScene::LoadingScene()
     : _BackGround(nullptr), _LoadingBar(nullptr), _currentCount(NULL)
@@ -16,6 +17,8 @@ HRESULT LoadingScene::init()
     _BackGround = IMAGEMANAGER->findImage("AlphaOnlyBlackWindow");
     _Loading = IMAGEMANAGER->findImage("Loading");
 
+    _player = new Player;
+    _player->init();
     _LoadingBar = new progressBar;
     _LoadingBar->init(0, WINSIZEY - 10, WINSIZEX, 10);
     _LoadingBar->setGauge(0, 0);
@@ -46,7 +49,9 @@ void LoadingScene::update()
 
     if (_currentCount == LOADINGMAX)
     {
-        SCENEMANAGER->changeScene("FARM");
+        _player->SetPosition(Vector2(1180, 720));
+        _player->SavePlayerInfo("playerSave");
+        SCENEMANAGER->changeScene("HOME");
     }
 
     _count++;

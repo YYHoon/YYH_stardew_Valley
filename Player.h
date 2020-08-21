@@ -4,6 +4,8 @@
 #include "ToolItemManager.h"
 #include "Inventory.h"
 
+
+
 class HpStaminaBar;
 class State;
 class MapMain;
@@ -37,6 +39,8 @@ private:
 		int stamina;
 		int money;
 		float velocity;
+		string exMapName; // (주)건우가 썻습니다
+		FISHING doing; //찬영이씀 낚시 도중인지 체크하기위함
 	};
 
 private:
@@ -61,8 +65,6 @@ private:
 	int _tileIndex[3];
 	int _actTileIndex[3];
 	int _playerTileX, _playerTileY;
-	bool _isNext;
-	bool _isPrev;
 	bool _isKeyDown;
 public:
 	Player() {}
@@ -90,11 +92,12 @@ public:
 	int GetMoney() { return _info.money; }
 	MYRECT GetPlayercollision() { return _info.collision; }
 	Inventory* GetPlayerInver() { return _inven; }
-	bool GetIsNext() { return _isNext; }
-	bool GetIsPrev() { return _isPrev; }
 	int GetPlayerOnTileIndex() { return _playerOnTileIndex; }
 	PLAYER_SOUND_TILES GetSoundWalk() { return _playerSound; }
+	FISHING GetDoingFishing() { return _info.doing; }//찬영이씀 낚시 도중인지 체크하기위함
 
+
+	void SetDoingFishing(FISHING tf) { _info.doing = tf; }//찬영이씀 낚시 도중인지 체크하기위함
 	void SetName(string Name) { _info.name = Name; }
 	void SetImg(string imgName) { _info.img = IMAGEMANAGER->findImage(imgName); }
 	void SetAnim(string stringName) { _info.anim = KEYANIMANAGER->findAnimation(stringName); }
@@ -114,10 +117,19 @@ public:
 	void SetVelocity(float Velocity) { _info.velocity = Velocity; }
 	void SetItem(ToolItem* Velocity) { _haveItem = Velocity; }
 	void SetShadowImg(string imgName) { _info.shadowImg = IMAGEMANAGER->findImage(imgName); }
+	/// <summary>
+	string GetMapName() { return _info.exMapName; }
+	void SetMapName(string name) { _info.exMapName = name; }
+	/// </summary>
+	/// <returns></returns>
+
 
 	//void SetMapMemoryAddressLink()
 
 public:
+
+	string GetStateName();
+
 	void ChangeState(shared_ptr<State> state);
 	void ChangeEquipment(TOOLS equip) { _info.equipment = equip; }
 	void Move();
