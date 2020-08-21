@@ -293,5 +293,5 @@ void Dialog::render()
 	}
 
 	SelectObject(getMemDC(), OldTalkingOnlyFont);
-	DeleteObject(OldTalkingOnlyFont);
+	DeleteObject(TalkingOnlyFont);
 }

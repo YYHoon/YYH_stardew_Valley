@@ -48,7 +48,6 @@ void Environment::update()
 	if (!_isInventoryOpen)
 	{
 		_realTimeSecond += _elapsedTime;
-
 		//ClockHand
 		if (_clockCalculate >= _timeRatio)
 		{
@@ -177,7 +176,7 @@ void Environment::render(HDC _hdc)
 	if (_dayOfWeek % 7 == 0) 	TextOut(_hdc, 1492, 30, "老夸老", strlen("老夸老"));
 
 	SelectObject(_hdc, oldFont1);
-	DeleteObject(oldFont1);
+	DeleteObject(font1);
 
 	LineMake(_hdc, _clockHand.center.x, _clockHand.center.y, _clockHand.end.x, _clockHand.end.y);
 	//-----------------------------------------------------------------------------//

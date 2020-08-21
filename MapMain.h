@@ -49,4 +49,5 @@ public:
 	virtual void SetPlayerAdressLink(Player* player) { _player = player; }
 	virtual Player* GetPlayerAddressLink() { return _player; }
 	virtual int GetMapSize() { return _tiles.size(); }
+	virtual bool GetStoreOpen() { return _store->getStoreOpen(); }
 };

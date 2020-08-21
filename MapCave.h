@@ -10,5 +10,7 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render();
+
+
 };
 

@@ -36,7 +36,7 @@ HRESULT Player::init()
 	//_inven->SetMemoryLinkedTool(_tool);
 	_inven->init();
 
-
+	_isOpenStore = false;
 	_gauge = new HpStaminaBar;
 	
 	_gauge->setPlayerLink(this);
@@ -127,7 +127,11 @@ void Player::update()
 	{
 		_inven->Decrease();
 	}
-	_state->Update();
+	if (!(_inven->GetIsInvenOper() || _isOpenStore))
+	{
+		_state->Update();
+		Move();
+	}
 	_inven->update();
 	_gauge->update();
 	////////////////////////////////////
@@ -135,7 +139,6 @@ void Player::update()
 	//_inven->PlayerLootItem(_getItem);
 	////////////////////////////////////
 	
-	Move();
 	if (!_info.anim->isPlay())_info.anim->start();
 	_tool->Update();
 	// 아이템 줍는거

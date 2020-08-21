@@ -144,7 +144,9 @@ void astar::SetEndNode(Vector2 endIndex)
 void astar::SetNodeColor(node* node, COLORREF color)
 {
 	HBRUSH brush = CreateSolidBrush(color);
-	FillRect(getMemDC(), &node->_rc, brush);
+	RECT tmp = RectMake(CAMERAMANAGER->getRelativeX( node->_rc.left),CAMERAMANAGER->getRelativeY(node->_rc.top)
+	, node->_rc.right-node->_rc.left, node->_rc.bottom - node->_rc.top);
+	FillRect(getMemDC(), &tmp, brush);
 	DeleteObject(brush);
 	//FrameRect(getMemDC(), &node->_rc, RGB(0, 0, 0));
 }

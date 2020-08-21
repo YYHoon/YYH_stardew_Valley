@@ -5,7 +5,7 @@ HRESULT MapCave::init()
 {
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
 	_vertical = _horizon = 50;
-	_tiles = _map->Load("mapCave.map", _vertical, _horizon);
+	_tiles = _map->Load("mapCave.map",_horizon, _vertical);
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();	
@@ -17,12 +17,12 @@ HRESULT MapCave::init()
 	_store->init(1025, 100);
 
 	_player->GetPlayerInver()->SetStoreLink(_store);
-	_player->GetPlayerInver()->setPlayer(_player);
-
+	//_player->GetPlayerInver()->setPlayer(_player);
 	_slime = new Slime;
 	_slime->SetAddressLinkMap(this);
 	_slime->Init();
 	_slime->SetAddressLinkPlayer(_player);
+	_slime->SetAstarStartNode(Vector2(800 / 64, 500 / 64));
 	_count = 0;
 	return S_OK;
 }
@@ -49,13 +49,27 @@ void MapCave::update()
 			if(KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) _store->setStoreOpen(true);
 		}
 	}
+	
+	ENVIRONMENT->update();
+	_store->update();
+	_player->update();
 
 	_count++;
-	_player->update();
-	_store->update();
+	if (_store->getStoreOpen())
+	{
+		_player->SetOpenStore(true);
+	}
+	else 
+	{
+		_player->SetOpenStore(false);
+	}
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
 	CAMERAMANAGER->setY(_player->GetInfo().position.y);
-	ENVIRONMENT->update();
+	//_slime->Update();
+
+	_slime->SetAstarEndNode(Vector2(_player->GetPlayerOnTileIndex() % _vertical,
+		_player->GetPlayerOnTileIndex() / _vertical));
+	
 }
 
 void MapCave::render()
@@ -92,4 +106,5 @@ void MapCave::render()
 		_store->OpenStoreRender();
 	}
 	_player->render();
+	_slime->Render();
 }

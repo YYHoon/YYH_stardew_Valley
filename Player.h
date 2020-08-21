@@ -66,6 +66,7 @@ private:
 	int _actTileIndex[3];
 	int _playerTileX, _playerTileY;
 	bool _isKeyDown;
+	bool _isOpenStore;
 public:
 	Player() {}
 	~Player() {}
@@ -117,6 +118,7 @@ public:
 	void SetVelocity(float Velocity) { _info.velocity = Velocity; }
 	void SetItem(ToolItem* Velocity) { _haveItem = Velocity; }
 	void SetShadowImg(string imgName) { _info.shadowImg = IMAGEMANAGER->findImage(imgName); }
+	void SetOpenStore(bool open) { _isOpenStore = open; }
 	/// <summary>
 	string GetMapName() { return _info.exMapName; }
 	void SetMapName(string name) { _info.exMapName = name; }

@@ -17,9 +17,17 @@ void Slime::Init()
 	_astar->SetMap();
 }
 
+void Slime::Release()
+{
+}
+
 void Slime::Update()
 {
-	
+	if (count % 30 == 0) {
+		_astar->PathFind();
+	}
+	count++;
+	ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, _img, 800, 500,0,0, _rect.bottom);
 }
 
 void Slime::Render()

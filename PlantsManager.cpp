@@ -18,27 +18,27 @@ void PlantsManager::Update()
 		{
 			if (_vActivePlantsList[i]->GetGrowCount() >= 4)_vActivePlantsList[i]->SetGrowCount(4);
 			_vActivePlantsList[i]->SetImage(IMAGEMANAGER->findImage("parsnipObject"));
-			if (_vActivePlantsList[i]->GetImage()->getFrameX() >= 4)_vActivePlantsList[i]->SetCanHarvest(true);
+			if (_vActivePlantsList[i]->GetGrowCount() >= 4)_vActivePlantsList[i]->SetCanHarvest(true);
 			ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, _vActivePlantsList[i]->GetImage(), _vActivePlantsList[i]->GetPosition().x - 30, _vActivePlantsList[i]->GetPosition().y - 45,
 				_vActivePlantsList[i]->GetGrowCount(), _vActivePlantsList[i]->GetImage()->getFrameY(), _vActivePlantsList[i]->GetRc().bottom);
-
 		}
 		else if (_vActivePlantsList[i]->GetName() == "kaleObject")
 		{
 			if(_vActivePlantsList[i]->GetGrowCount() >= 4)_vActivePlantsList[i]->SetGrowCount(4);
 			_vActivePlantsList[i]->SetImage(IMAGEMANAGER->findImage("kaleObject"));
-			if (_vActivePlantsList[i]->GetImage()->getFrameX() >= 4)_vActivePlantsList[i]->SetCanHarvest(true);
+			if (_vActivePlantsList[i]->GetGrowCount() >= 4)_vActivePlantsList[i]->SetCanHarvest(true);
 			ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, _vActivePlantsList[i]->GetImage(), _vActivePlantsList[i]->GetPosition().x- 30, _vActivePlantsList[i]->GetPosition().y - 45,
 				_vActivePlantsList[i]->GetGrowCount(), _vActivePlantsList[i]->GetImage()->getFrameY(), _vActivePlantsList[i]->GetRc().bottom);
 		}
 		else if (_vActivePlantsList[i]->GetName() == "potatoObject")
 		{
-			if (_vActivePlantsList[i]->GetGrowCount() >= 4)_vActivePlantsList[i]->SetGrowCount(5);
+			if (_vActivePlantsList[i]->GetGrowCount() >= 5)_vActivePlantsList[i]->SetGrowCount(5);
 			_vActivePlantsList[i]->SetImage(IMAGEMANAGER->findImage("potatoObject"));
-			if (_vActivePlantsList[i]->GetImage()->getFrameX() >= 5)_vActivePlantsList[i]->SetCanHarvest(true);
+			if (_vActivePlantsList[i]->GetGrowCount() >= 5)_vActivePlantsList[i]->SetCanHarvest(true);
 			ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, _vActivePlantsList[i]->GetImage(), _vActivePlantsList[i]->GetPosition().x - 30, _vActivePlantsList[i]->GetPosition().y - 45,
 				_vActivePlantsList[i]->GetGrowCount(), _vActivePlantsList[i]->GetImage()->getFrameY(), _vActivePlantsList[i]->GetRc().bottom);
 		}
+		//cout << "수확 불값 : " <<_vActivePlantsList[i]->GetCanHarvest() << "이름 :" <<_vActivePlantsList[i]->GetName() <<endl;
 		if (_map->GetTiles()[_vActivePlantsList[i]->GetSaveIndex()].object != MAPOBJECT::HOETILE)
 		{
 			_viActivePlantsList = _vActivePlantsList.begin() + i;
@@ -67,6 +67,7 @@ bool PlantsManager::Planting(int index, string plantsName)
 		{
 			_parsnip = new ParsnipObject;
 			_parsnip->Init();
+			_parsnip->SetCanHarvest(false);
 			_parsnip->SetPosition(tileCenter);
 			_parsnip->SavePosIndex(index);
 			_vActivePlantsList.push_back(_parsnip);
@@ -108,6 +109,7 @@ void PlantsManager::Harvesting(int index)
 {
 	for (int i = 0; i < _vActivePlantsList.size(); ++i)
 	{
+		if (!_vActivePlantsList[i]->GetCanHarvest())continue;
 		if (_vActivePlantsList[i]->GetCanHarvest() && _vActivePlantsList[i]->GetSaveIndex() == index)
 		{
 			_vActivePlantsList.erase(_vActivePlantsList.begin() + i);

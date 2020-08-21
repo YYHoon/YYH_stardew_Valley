@@ -65,7 +65,6 @@ void MapFarm::update()
 	}
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
 	CAMERAMANAGER->setY(_player->GetInfo().position.y);
-	
 	EFFECTMANAGER->update();
 }
 

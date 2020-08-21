@@ -194,7 +194,6 @@ void Store::update()
 	}
 	else
 	{
-		ENVIRONMENT->SetIsInventoryOpen(false);
 		_bupp = 0;
 	}
 
@@ -203,6 +202,7 @@ void Store::update()
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
 			_storeOpen = false;
+			ENVIRONMENT->SetIsInventoryOpen(false);
 		}
 	}
 }
@@ -298,7 +298,7 @@ void Store::OpenStoreRender()
 	TextOut(getMemDC(), 392, 525, mo, strlen(mo));
 
 	SelectObject(getMemDC(), oldStoreFont1);
-	DeleteObject(oldStoreFont1);
+	DeleteObject(StoreFont1);
 
 	if (_StoreSearchMin < 0) _StoreSearchMin = 3;
 	if (_StoreSearchMin > _saleItem.size()) _StoreSearchMin = 0;
@@ -319,6 +319,6 @@ void Store::OpenStoreRender()
 	DrawText(getMemDC(), TEXT("피에르의 잡화점에   어서와"), 28, &rcText, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
 
 	SelectObject(getMemDC(), oldStoreFont2);
-	DeleteObject(oldStoreFont2);
+	DeleteObject(StoreFont2);
 	_CloseButton->render(getMemDC(), _CloseRc.left, _CloseRc.top);
 }

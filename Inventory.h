@@ -139,6 +139,7 @@ public:
 	void SetStoreLink(Store* store) { _store = store; }
 	void setPlayer(Player* pp) { _player = pp; }
 
+	bool GetIsInvenOper() { return _inventory.isInvenOpen; }
 	/////////////////////////<SAVE LOAD>///////////////////////////
 	void Save();
 	void SaveSize();

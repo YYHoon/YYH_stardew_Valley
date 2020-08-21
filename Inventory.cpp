@@ -66,9 +66,11 @@ HRESULT Inventory::init()
 	_toolInven[5] = _toolList[5];
 	_toolInven[6] = _toolList[6];
 	_toolInven[7] = _toolList[16];
-	_toolInven[7]->SetNumber(30);
-	_toolInven[8]->SetToolEnum(TOOLS::NONE);
-	_toolInven[9]->SetToolEnum(TOOLS::NONE);
+	_toolInven[7]->SetNumber(2);
+	_toolInven[8] = _toolList[17];
+	_toolInven[8]->SetNumber(2);
+	_toolInven[9] = _toolList[18];
+	_toolInven[9]->SetNumber(2);
 	_toolInven[10]->SetToolEnum(TOOLS::NONE);
 	_toolInven[11]->SetToolEnum(TOOLS::NONE);
 
@@ -333,7 +335,7 @@ void Inventory::render()
 			TextOut(getMemDC(), 950, 570, pGold, strlen(pGold));
 
 			SelectObject(getMemDC(), oldFont2);
-			DeleteObject(oldFont2);
+			DeleteObject(font2);
 		}
 		break;
 		case 2:		//Á¦ÀÛ ÅÇ
@@ -509,12 +511,12 @@ void Inventory::render()
 		}
 	}
 	SelectObject(getMemDC(), oldFont3);
-	DeleteObject(oldFont3);
+	DeleteObject(font3);
 
 	_Dialog->render();
 
 	SelectObject(getMemDC(), oldFont1);
-	DeleteObject(oldFont1);
+	DeleteObject(font1);
 
 	/////////////////////////////////////////////////////////////////////////// <Debug_Rect>
 
@@ -609,6 +611,7 @@ void Inventory::Decrease()
 	{
 		_toolInven[_index] = new ToolItem;
 		_toolInven[_index]->SetToolEnum(TOOLS::NONE);
+		_player->ChangeEquipment(TOOLS::NONE);
 	}
 }
 
