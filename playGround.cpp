@@ -262,4 +262,7 @@ void playGround::soundinit()
 	SOUNDMANAGER->addSound("RemoveRock", "Sounds/removeRock", false, false);
 	SOUNDMANAGER->addSound("RemoveWeed", "Sounds/removeGrass", false, false);
 	SOUNDMANAGER->addSound("RemoveBranch", "Sounds/breakTree", false, false);
+
+	SOUNDMANAGER->addSound("Menu_Open", "Sounds/menuopen.mp3", false, false);
+	SOUNDMANAGER->addSound("Menu_Close", "Sounds/menuclose.mp3", false, false);
 }
