@@ -101,6 +101,12 @@ void MapCave::render()
 					_tiles[index].rc.left, _tiles[index].rc.top - TILESIZE * 4,
 					_tiles[index].objectframeX, _tiles[index].objectframeY);
 			}
+			if (_tiles[index].object == MAPOBJECT::ROCK)
+			{
+				CAMERAMANAGER->frameRender(getMemDC(), IMAGEMANAGER->findImage("HoeTile"),
+					_tiles[index].rc.left, _tiles[index].rc.top,
+					_tiles[index].objectframeX, _tiles[index].objectframeY);
+			}
 		}
 	}
 
