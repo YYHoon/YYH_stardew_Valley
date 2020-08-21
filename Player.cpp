@@ -55,65 +55,72 @@ void Player::update()
 	_tool->SetFishingInfo(_info.position, _info.direction);
 	//cout << "¿©±â" << endl;
 
-	if (KEYMANAGER->isOnceKeyDown('1')) 
+	if (KEYMANAGER->isOnceKeyDown(VK_F1))
 	{
-		_haveItem = _inven->GetInvenItem(0);
-		ChangeEquipment(_haveItem->GetToolEnum());
+		_info.stamina = 100;
 	}
-	else if (KEYMANAGER->isOnceKeyDown('2'))
+	if (_state->GetStateTagName() == "move" || _state->GetStateTagName() == "idle")
 	{
-		_haveItem = _inven->GetInvenItem(1);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown('3')) 
-	{
-		_haveItem = _inven->GetInvenItem(2);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown('4'))
-	{
-		_haveItem = _inven->GetInvenItem(3);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown('5'))
-	{
-		_haveItem = _inven->GetInvenItem(4);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown('6'))
-	{
-		_haveItem = _inven->GetInvenItem(5);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown('7'))
-	{
-		_haveItem = _inven->GetInvenItem(6);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown('8'))
-	{
-		_haveItem = _inven->GetInvenItem(7);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown('9'))
-	{
-		_haveItem = _inven->GetInvenItem(8);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown('0'))
-	{
-		_haveItem = _inven->GetInvenItem(9);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown(VK_OEM_MINUS))
-	{
-		_haveItem = _inven->GetInvenItem(10);
-		ChangeEquipment(_haveItem->GetToolEnum());
-	}
-	else if (KEYMANAGER->isOnceKeyDown(VK_OEM_PLUS))
-	{
-		_haveItem = _inven->GetInvenItem(11);
-		ChangeEquipment(_haveItem->GetToolEnum());
+		if (KEYMANAGER->isOnceKeyDown('1'))
+		{
+			_haveItem = _inven->GetInvenItem(0);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('2'))
+		{
+			_haveItem = _inven->GetInvenItem(1);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('3'))
+		{
+			_haveItem = _inven->GetInvenItem(2);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('4'))
+		{
+			_haveItem = _inven->GetInvenItem(3);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('5'))
+		{
+			_haveItem = _inven->GetInvenItem(4);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('6'))
+		{
+			_haveItem = _inven->GetInvenItem(5);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('7'))
+		{
+			_haveItem = _inven->GetInvenItem(6);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('8'))
+		{
+			_haveItem = _inven->GetInvenItem(7);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('9'))
+		{
+			_haveItem = _inven->GetInvenItem(8);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown('0'))
+		{
+			_haveItem = _inven->GetInvenItem(9);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown(VK_OEM_MINUS))
+		{
+			_haveItem = _inven->GetInvenItem(10);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
+		else if (KEYMANAGER->isOnceKeyDown(VK_OEM_PLUS))
+		{
+			_haveItem = _inven->GetInvenItem(11);
+			ChangeEquipment(_haveItem->GetToolEnum());
+		}
 	}
 	CheckTiles();
 	if (_state->GetStateName() == "eating" )

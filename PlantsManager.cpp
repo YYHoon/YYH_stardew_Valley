@@ -16,8 +16,8 @@ void PlantsManager::Update()
 	{
 		if (_vActivePlantsList[i]->GetName() == "parsnipObject")
 		{
+			if (_vActivePlantsList[i]->GetGrowCount() >= 4)_vActivePlantsList[i]->SetGrowCount(4);
 			_vActivePlantsList[i]->SetImage(IMAGEMANAGER->findImage("parsnipObject"));
-		
 			if (_vActivePlantsList[i]->GetImage()->getFrameX() >= 4)_vActivePlantsList[i]->SetCanHarvest(true);
 			ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, _vActivePlantsList[i]->GetImage(), _vActivePlantsList[i]->GetPosition().x - 30, _vActivePlantsList[i]->GetPosition().y - 45,
 				_vActivePlantsList[i]->GetGrowCount(), _vActivePlantsList[i]->GetImage()->getFrameY(), _vActivePlantsList[i]->GetRc().bottom);
@@ -25,19 +25,19 @@ void PlantsManager::Update()
 		}
 		else if (_vActivePlantsList[i]->GetName() == "kaleObject")
 		{
+			if(_vActivePlantsList[i]->GetGrowCount() >= 4)_vActivePlantsList[i]->SetGrowCount(4);
 			_vActivePlantsList[i]->SetImage(IMAGEMANAGER->findImage("kaleObject"));
-			
 			if (_vActivePlantsList[i]->GetImage()->getFrameX() >= 4)_vActivePlantsList[i]->SetCanHarvest(true);
 			ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, _vActivePlantsList[i]->GetImage(), _vActivePlantsList[i]->GetPosition().x- 30, _vActivePlantsList[i]->GetPosition().y - 45,
 				_vActivePlantsList[i]->GetGrowCount(), _vActivePlantsList[i]->GetImage()->getFrameY(), _vActivePlantsList[i]->GetRc().bottom);
 		}
 		else if (_vActivePlantsList[i]->GetName() == "potatoObject")
 		{
+			if (_vActivePlantsList[i]->GetGrowCount() >= 4)_vActivePlantsList[i]->SetGrowCount(5);
 			_vActivePlantsList[i]->SetImage(IMAGEMANAGER->findImage("potatoObject"));
-		
 			if (_vActivePlantsList[i]->GetImage()->getFrameX() >= 5)_vActivePlantsList[i]->SetCanHarvest(true);
 			ZORDER->ZOrderPush(getMemDC(), RenderType::FRAMERENDER, _vActivePlantsList[i]->GetImage(), _vActivePlantsList[i]->GetPosition().x - 30, _vActivePlantsList[i]->GetPosition().y - 45,
-				_vActivePlantsList[i]->GetImage()->getFrameX(), _vActivePlantsList[i]->GetImage()->getFrameY(), _vActivePlantsList[i]->GetRc().bottom);
+				_vActivePlantsList[i]->GetGrowCount(), _vActivePlantsList[i]->GetImage()->getFrameY(), _vActivePlantsList[i]->GetRc().bottom);
 		}
 		if (_map->GetTiles()[_vActivePlantsList[i]->GetSaveIndex()].object != MAPOBJECT::HOETILE)
 		{
@@ -110,7 +110,6 @@ void PlantsManager::Harvesting(int index)
 	{
 		if (_vActivePlantsList[i]->GetCanHarvest() && _vActivePlantsList[i]->GetSaveIndex() == index)
 		{
-			//아이템 생성 어캐함?
 			_vActivePlantsList.erase(_vActivePlantsList.begin() + i);
 			return;
 		}
