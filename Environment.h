@@ -77,7 +77,7 @@ public:
 	int GetHour() { return _hour; }
 	bool GetIsDayIncrease() { return _isDayIncrease; }				//날짜가 증가하면
 	bool GetIsInventoryOpen() { return _isInventoryOpen; }			//인벤토리가 열리면
-
+	bool GetTimeOut() { return _timeOut; }
 	void SetIsInventoryOpen(bool open) { _isInventoryOpen = open; }	//인벤토리용
 	void SetIsDayReset(bool reset) { _isDayReset = reset; }			//날짜 넘기기
 	void SetHour(int hour) { _hour = hour; }

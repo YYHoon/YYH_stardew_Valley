@@ -10,7 +10,6 @@ HRESULT MapCave::init()
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();	
 	_player->LoadPlayerInfo("playerSave");
-
 	_store = new Store;
 	_store->setLinkPlayer(_player);	//소지금 참조용
 	_store->setLinkInventory(_player->GetPlayerInver()); //가방내용물 참고용 상점F5키입니다.

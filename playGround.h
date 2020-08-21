@@ -6,12 +6,8 @@
 #include "TitleScene.h"
 #include "TestScene.h"
 #include "MapToolScene.h"
-#include "MapManager.h"
 #include "DrainedLoadingScene.h"
-
-
 #include <iostream>
-
 #include <algorithm>
 
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
@@ -23,10 +19,7 @@ private:
 	TitleScene* _TitleScene;
 	TestScene* _Tset;
 	MapToolScene* _MaptoolScene;
-
-
 	LoadingScene* _LoadingScene;
-	MapFarm* map;
 	Inventory* _Inv;
 
 public:

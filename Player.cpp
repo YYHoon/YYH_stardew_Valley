@@ -43,6 +43,7 @@ HRESULT Player::init()
 	_gauge->init();
 	
 	_inven->setPlayer(this);
+	_inven->Load();
 	_haveItem = _inven->GetInvenItem(0);
 	ChangeEquipment(_haveItem->GetToolEnum());
 	
@@ -524,4 +525,6 @@ void Player::LoadPlayerInfo(string fileName)
 	this->SetImg("player");
 	this->SetAnim("down_Idle_Player");
 	this->SetShadowImg("playerShadow");
+	this->SetItem(_inven->GetInvenItem(0));
+	this->SetEquip(_inven->GetInvenItem(0)->GetToolEnum());
 }

@@ -45,6 +45,12 @@ void Environment::update()
 		_timeOut = true;
 		SCENEMANAGER->changeScene("FARM");
 	}
+
+	if (_timeOut)
+	{
+		_realTimeSecond += 6;
+		_clockCalculate += 22;
+	}
 	if (!_isInventoryOpen)
 	{
 		_realTimeSecond += _elapsedTime;
@@ -136,6 +142,7 @@ void Environment::update()
 
 	_clockHand.end.x = cosf(_clockHand.angle) * _clockHand.length + _clockHand.center.x;
 	_clockHand.end.y = -sinf(_clockHand.angle) * _clockHand.length + _clockHand.center.y;
+
 }
 
 void Environment::render(HDC _hdc)

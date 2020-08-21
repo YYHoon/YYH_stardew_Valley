@@ -9,7 +9,6 @@ HRESULT MapFarm::init()
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
 	_player->LoadPlayerInfo("playerSave");
-	
 
 	_pm = new PlantsManager;
     /////////////////////////////////
@@ -26,7 +25,6 @@ HRESULT MapFarm::init()
 void MapFarm::release()
 {
 	_map->Save("mapFarm.map", _horizon, _vertical,_tiles);
-	
 }
 
 void MapFarm::update()
@@ -36,12 +34,16 @@ void MapFarm::update()
 	{
 		_player->SetPosition(Vector2(670, 848));
 		_player->SavePlayerInfo("playerSave");
+		_pm->Save();
+		_player->GetPlayerInver()->Save();
 		SCENEMANAGER->changeScene("HOME");
 	}
 	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::PARM_TO_CAVE)
 	{
 		_player->SetPosition(Vector2(1054, 900));
 		_player->SavePlayerInfo("playerSave");
+		_pm->Save();
+		_player->GetPlayerInver()->Save();
 		SCENEMANAGER->changeScene("CAVE");
 	}
 
@@ -440,8 +442,10 @@ void MapFarm::render()
 			}
 		}
 	}
-	ZORDER->ZOrderRender();
-	EFFECTMANAGER->render();
-	ENVIRONMENT->render(getMemDC());
-	_player->render();
+		ZORDER->ZOrderRender();
+		EFFECTMANAGER->render();
+		ENVIRONMENT->render(getMemDC());
+	if (!ENVIRONMENT->GetTimeOut()) {
+		_player->render();
+	}
 }

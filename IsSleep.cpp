@@ -89,5 +89,5 @@ void IsSleep::render()
 	SelectObject(getMemDC(), oldSleepFont);
 	DeleteObject(oldSleepFont);
 
-	_black->alphaRender(getMemDC(), 0, 0, _alp);
+	//_black->alphaRender(getMemDC(), 0, 0, _alp);
 }

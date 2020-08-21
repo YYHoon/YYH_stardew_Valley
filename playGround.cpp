@@ -21,16 +21,16 @@ HRESULT playGround::init()
 	soundinit();
 
 	ENVIRONMENT->init();
-
-	SCENEMANAGER->addScene("Title", _TitleScene = new TitleScene);
-	SCENEMANAGER->addScene("맵툴", _MaptoolScene = new MapToolScene);
-	SCENEMANAGER->addScene("LOADING", _LoadingScene = new LoadingScene);
-	SCENEMANAGER->addScene("태스트", _Tset = new TestScene);
 	MapFarm* _farm;
 	MapHome* _home;
 	MapTest* _test;
 	MapCave* _cave;
 	DrainedLoadingScene* _DariLoading;
+
+	SCENEMANAGER->addScene("Title", _TitleScene = new TitleScene);
+	SCENEMANAGER->addScene("맵툴", _MaptoolScene = new MapToolScene);
+	SCENEMANAGER->addScene("LOADING", _LoadingScene = new LoadingScene);
+	SCENEMANAGER->addScene("태스트", _Tset = new TestScene);
 	SCENEMANAGER->addScene("FARM", _farm = new MapFarm);
 	SCENEMANAGER->addScene("HOME", _home = new MapHome);
 	SCENEMANAGER->addScene("CAVE", _cave = new MapCave);
@@ -53,19 +53,6 @@ void playGround::update()
 	SCENEMANAGER->update();
 	OBJECTMANAGER->Update();
 	KEYANIMANAGER->update();
-
-	
-
-	//if (!test->GetNowFishing())
-	//{
-	//	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-	//	{
-	//		Vector2 i(200, 200);
-	//		test->Init(i, PLAYER_DIRECTION::LEFT);
-	//	}
-	//}
-	//if(test->GetNowFishing())test->Update();
-
 }
 
 //그리기 전용
@@ -257,6 +244,127 @@ void playGround::imginit()
 	IMAGEMANAGER->addFrameImage("potatoObject", "image/plants/PotatoFrame.bmp", 384, 64, 6, 1, true, RGB(255, 0, 255));
 	/////////////////ENEMY
 	IMAGEMANAGER->addFrameImage("SLIME", "image/Enemy/Slime.bmp", 64,64, 1, 1, true, RGB(255, 0, 255));
+
+	/////////////////////////////////////PLAYER//////////////////////////////////////////////////////////////
+	/////////////////IDLE////////////////////
+	int rightIdle[] = { 0 };
+	KEYANIMANAGER->addArrayFrameAnimation("right_Idle_Player", "player", rightIdle, 1, 6, false);
+	int leftIdle[] = { 6 };
+	KEYANIMANAGER->addArrayFrameAnimation("left_Idle_Player", "player", leftIdle, 1, 6, false);
+	int upIdle[] = { 12 };
+	KEYANIMANAGER->addArrayFrameAnimation("up_Idle_Player", "player", upIdle, 1, 6, false);
+	int downIdle[] = { 23 };
+	KEYANIMANAGER->addArrayFrameAnimation("down_Idle_Player", "player", downIdle, 1, 6, false);
+	/////////////////MOVE////////////////////
+	int RightMove[] = { 1,2,3,4,5 };
+	KEYANIMANAGER->addArrayFrameAnimation("right_Move_Player", "player", RightMove, 5, 10, true);
+	int LeftMove[] = { 7,8,9,10,11 };
+	KEYANIMANAGER->addArrayFrameAnimation("left_Move_Player", "player", LeftMove, 5, 10, true);
+	int UpMove[] = { 13,14,15,16,17,18,19 };
+	KEYANIMANAGER->addArrayFrameAnimation("up_Move_Player", "player", UpMove, 7, 10, true);
+	int DownMove[] = { 21,22,23,24,25,26 };
+	KEYANIMANAGER->addArrayFrameAnimation("down_Move_Player", "player", DownMove, 6, 10, true);
+	/////////////////ITEMIDLE////////////////////
+	int ItemDownIdle[] = { 116 };
+	KEYANIMANAGER->addArrayFrameAnimation("down_Item_Idle_Player", "player", ItemDownIdle, 1, 6, false);
+	int ItemLeftIdle[] = { 120 };
+	KEYANIMANAGER->addArrayFrameAnimation("left_Item_Idle_Player", "player", ItemLeftIdle, 1, 6, false);
+	int ItemRightIdle[] = { 125 };
+	KEYANIMANAGER->addArrayFrameAnimation("right_Item_Idle_Player", "player", ItemRightIdle, 1, 6, false);
+	int ItemUpdle[] = { 134 };
+	KEYANIMANAGER->addArrayFrameAnimation("up_Item_Idle_Player", "player", ItemUpdle, 1, 6, false);
+	/////////////////ItemMOVE////////////////////
+	int leftItemMove[] = { 120,121,122,123 };
+	KEYANIMANAGER->addArrayFrameAnimation("left_Item_Move_Player", "player", leftItemMove, 4, 10, false);
+	int rightItemMove[] = { 125,126,127,128 };
+	KEYANIMANAGER->addArrayFrameAnimation("right_Item_Move_Player", "player", rightItemMove, 4, 10, false);
+	int upItemMove[] = { 132,133,134,135,136,137 };
+	KEYANIMANAGER->addArrayFrameAnimation("up_Item_Move_Player", "player", upItemMove, 6, 10, false);
+	int downItmeMove[] = { 139,140,141,142 };
+	KEYANIMANAGER->addArrayFrameAnimation("down_Item_Move_Player", "player", downItmeMove, 4, 10, false);
+	/////////////////FELLING////////////////////
+	int rightFelling[] = { 33,34,35,36 };
+	KEYANIMANAGER->addArrayFrameAnimation("right_Felling_Player", "player", rightFelling, 4, 10, false);
+	int leftFelling[] = { 38,39,40,41,42 };
+	KEYANIMANAGER->addArrayFrameAnimation("left_Felling_Player", "player", leftFelling, 4, 10, false);
+	int upFelling[] = { 43,44,45,46 };
+	KEYANIMANAGER->addArrayFrameAnimation("up_Felling_Player", "player", upFelling, 4, 10, false);
+	int downFelling[] = { 27,28,29,30,31,32 };
+	KEYANIMANAGER->addArrayFrameAnimation("down_Felling_Player", "player", downFelling, 6, 10, false);
+	/////////////////Plowing////////////////////
+	int downPlowing[] = { 48,49,50 };
+	KEYANIMANAGER->addArrayFrameAnimation("down_Plowing_Player", "player", downPlowing, 3, 10, false);
+	int upPlowing[] = { 51,52,53,54 };
+	KEYANIMANAGER->addArrayFrameAnimation("up_Plowing_Player", "player", upPlowing, 4, 10, false);
+	int rightPlowing[] = { 55,56,57,58,59 };
+	KEYANIMANAGER->addArrayFrameAnimation("right_Plowing_Player", "player", rightPlowing, 4, 10, false);
+	int leftPlowing[] = { 60,61,62,63,64 };
+	KEYANIMANAGER->addArrayFrameAnimation("left_Plowing_Player", "player", leftPlowing, 5, 10, false);
+	/////////////////MINING////////////////////
+	int downMining[] = { 168,169,170, 171, 172,173,174 };
+	KEYANIMANAGER->addArrayFrameAnimation("down_mining_Player", "player", downMining, 7, 10, false);
+	int upMining[] = { 175,176,177,178,179 };
+	KEYANIMANAGER->addArrayFrameAnimation("up_mining_Player", "player", upMining, 5, 10, false);
+	int rightMining[] = { 180,181,182,183,184 };
+	KEYANIMANAGER->addArrayFrameAnimation("right_mining_Player", "player", rightMining, 5, 10, false);
+	int leftMining[] = { 189,188,187,186,185 };
+	KEYANIMANAGER->addArrayFrameAnimation("left_mining_Player", "player", leftMining, 5, 10, false);
+	/////////////////SWING////////////////////
+	int downSickleSwing[] = { 65,66,67,68,69,70 };
+	KEYANIMANAGER->addArrayFrameAnimation("down_SickleSwing_Player", "player", downSickleSwing, 6, 10, false);
+	int rightSickleSwing[] = { 72,73,74,75,76,77 };
+	KEYANIMANAGER->addArrayFrameAnimation("right_SickleSwing_Player", "player", rightSickleSwing, 6, 10, false);
+	int lefSickleSwing[] = { 78,79,80,81,82 };
+	KEYANIMANAGER->addArrayFrameAnimation("left_SickleSwing_Player", "player", lefSickleSwing, 5, 10, false);
+	int upSickleSwing[] = { 84,85,86,87,88,89 };
+	KEYANIMANAGER->addArrayFrameAnimation("up_SickleSwing_Player", "player", upSickleSwing, 6, 10, false);
+	int downAttack[] = { 143,144,145,146,147,148, 149 };
+	KEYANIMANAGER->addArrayFrameAnimation("down_SwordSwing_Player", "player", downAttack, 7, 10, false);
+	int rightAttack[] = { 150,151,152,153,154,155 };
+	KEYANIMANAGER->addArrayFrameAnimation("right_SwordSwing_Player", "player", rightAttack, 6, 10, false);
+	int leftAttack[] = { 156,157,158,159,160,161 };
+	KEYANIMANAGER->addArrayFrameAnimation("left_SwordSwing_Player", "player", leftAttack, 6, 10, false);
+	int upAttack[] = { 162,163,164 };
+	KEYANIMANAGER->addArrayFrameAnimation("up_SwordSwing_Player", "player", upAttack, 3, 10, false);
+	/////////////////EATING////////////////////
+	int eating[] = { 192,193,194,195,196,197,198,199,200,201 };
+	KEYANIMANAGER->addArrayFrameAnimation("eating_Player", "player", eating, 10, 10, false);
+	/////////////////WATERING////////////////////
+	int rightWatering[] = { 90,91,92,93,94, 93, 94, 93, 94, 93, 94 };
+	KEYANIMANAGER->addArrayFrameAnimation("right_Watering_Player", "player", rightWatering, 11, 10, false);
+	int downWatering[] = { 96,97,98,99,100,101,102,103,104,105,106, 107 };
+	KEYANIMANAGER->addArrayFrameAnimation("down_Watering_Player", "player", downWatering, 12, 10, false);
+	int leftWatering[] = { 108,109,110,111,112 , 111, 112, 111, 112, 111, 112 };
+	KEYANIMANAGER->addArrayFrameAnimation("left_Watering_Player", "player", leftWatering, 11, 10, false);
+	int upWatering[] = { 113,114, 115, 115, 115, 115, 115, 115, 115 };
+	KEYANIMANAGER->addArrayFrameAnimation("up_Watering_Player", "player", upWatering, 9, 10, false);
+	/////////////////FISHINGSTART////////////////////
+	int downMiningS[] = { 168,169,170, 171, 172,173,174 };
+	KEYANIMANAGER->addArrayFrameAnimation("down_mining_Player", "player", downMiningS, 7, 10, false);
+	int upMiningS[] = { 175,176,177,178,179 };
+	KEYANIMANAGER->addArrayFrameAnimation("up_mining_Player", "player", upMiningS, 5, 10, false);
+	int rightMiningS[] = { 180,181,182,183,184 };
+	KEYANIMANAGER->addArrayFrameAnimation("right_mining_Player", "player", rightMiningS, 5, 10, false);
+	int leftMiningS[] = { 189,188,187,186,185 };
+	KEYANIMANAGER->addArrayFrameAnimation("left_mining_Player", "player", leftMiningS, 5, 10, false);
+	/////////////////FISHINGPROCEEDING////////////////////
+	int downMiningP[] = { 170 };
+	KEYANIMANAGER->addArrayFrameAnimation("own_mining_Player", "player", downMiningP, 1, 10, false);
+	int upMiningP[] = { 176 };
+	KEYANIMANAGER->addArrayFrameAnimation("p_mining_Player", "player", upMiningP, 1, 10, false);
+	int rightMiningP[] = { 181 };
+	KEYANIMANAGER->addArrayFrameAnimation("ight_mining_Player", "player", rightMiningP, 1, 10, false);
+	int leftMiningP[] = { 188 };
+	KEYANIMANAGER->addArrayFrameAnimation("eft_mining_Player", "player", leftMiningP, 1, 10, false);
+	/////////////////FISHINGEND////////////////////
+	int downMiningE[] = { 171, 172 };
+	KEYANIMANAGER->addArrayFrameAnimation("wn_mining_Player", "player", downMiningE, 2, 10, false);
+	int upMiningE[] = { 177,178 };
+	KEYANIMANAGER->addArrayFrameAnimation("_mining_Player", "player", upMiningE, 2, 10, false);
+	int rightMiningE[] = { 182,183 };
+	KEYANIMANAGER->addArrayFrameAnimation("ght_mining_Player", "player", rightMiningE, 2, 10, false);
+	int leftMiningE[] = { 187,186 };
+	KEYANIMANAGER->addArrayFrameAnimation("ft_mining_Player", "player", leftMiningE, 2, 10, false);
 }
 
 void playGround::soundinit()

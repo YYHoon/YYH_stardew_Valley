@@ -200,7 +200,6 @@
     <ClInclude Include="MapFarm.h" />
     <ClInclude Include="MapHome.h" />
     <ClInclude Include="MapMain.h" />
-    <ClInclude Include="MapManager.h" />
     <ClInclude Include="MapTest.h" />
     <ClInclude Include="MapToolScene.h" />
     <ClInclude Include="MiniGame.h" />
@@ -294,7 +293,6 @@
     <ClCompile Include="MapFarm.cpp" />
     <ClCompile Include="MapHome.cpp" />
     <ClCompile Include="MapMain.cpp" />
-    <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="MapTest.cpp" />
     <ClCompile Include="MapTool + SaveLoad.cpp" />
     <ClCompile Include="MapToolAuto.cpp" />

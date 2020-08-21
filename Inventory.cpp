@@ -57,7 +57,6 @@ HRESULT Inventory::init()
 		_toolInven[i] = new Axe;
 	}
 	_quickSlotUp = false;
-
 	_toolInven[0] = _toolList[0];
 	_toolInven[1] = _toolList[1];
 	_toolInven[2] = _toolList[2];
@@ -65,12 +64,10 @@ HRESULT Inventory::init()
 	_toolInven[4] = _toolList[4];
 	_toolInven[5] = _toolList[5];
 	_toolInven[6] = _toolList[6];
-	_toolInven[7] = _toolList[16];
-	_toolInven[7]->SetNumber(2);
-	_toolInven[8] = _toolList[17];
-	_toolInven[8]->SetNumber(2);
-	_toolInven[9] = _toolList[18];
-	_toolInven[9]->SetNumber(2);
+	_toolInven[7]->SetToolEnum(TOOLS::NONE);
+	_toolInven[8]->SetToolEnum(TOOLS::NONE);
+	_toolInven[9]->SetToolEnum(TOOLS::NONE);
+	_toolInven[9]->SetToolEnum(TOOLS::NONE);
 	_toolInven[10]->SetToolEnum(TOOLS::NONE);
 	_toolInven[11]->SetToolEnum(TOOLS::NONE);
 
@@ -80,8 +77,6 @@ HRESULT Inventory::init()
 	_tGetItem.ItemWindowRc = RectMake(-100, 700, _tGetItem.ItemWindow->getWidth(), _tGetItem.ItemWindow->getHeight());
 	_tGetItem.Seetime = 0;
 	_tGetItem.isGet = false;
-
-	//Load();
 	return S_OK;
 }
 
@@ -206,11 +201,13 @@ void Inventory::update()
 								{
 									_crafting->SetGrilledFishIsPossible(false);
 									_toolInven[i] = new ToolItem;
+									_toolInven[i]->SetToolEnum(TOOLS::NONE);
 								}
-								else if (_toolInven[j]->GetNumber() <= 0)
+								if (_toolInven[j]->GetNumber() <= 0)
 								{
 									_crafting->SetGrilledFishIsPossible(false);
 									_toolInven[j] = new ToolItem;
+									_toolInven[j]->SetToolEnum(TOOLS::NONE);
 								}
 							}
 							cout << "생선 구이" << endl;
@@ -236,6 +233,7 @@ void Inventory::update()
 							{
 								_crafting->SetRawFishIsPossible(false);
 								_toolInven[i] = new ToolItem;
+								_toolInven[i]->SetToolEnum(TOOLS::NONE);
 							}
 						}
 						cout << "생선 회" << endl;
@@ -264,11 +262,13 @@ void Inventory::update()
 								{
 									_crafting->SetSaladIsPossible(false);
 									_toolInven[i] = new ToolItem;
+									_toolInven[i]->SetToolEnum(TOOLS::NONE);
 								}
-								else if (_toolInven[j]->GetNumber() <= 0)
+								if (_toolInven[j]->GetNumber() <= 0)
 								{
 									_crafting->SetSaladIsPossible(false);
 									_toolInven[j] = new ToolItem;
+									_toolInven[j]->SetToolEnum(TOOLS::NONE);
 								}
 							}
 							cout << "샐러드" << endl;
@@ -661,57 +661,69 @@ void Inventory::quickSlotMove()
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		_quickSlotSelect.x = 423;
+		_index = 0;
 	}
 	if (KEYMANAGER->isOnceKeyDown('2'))
 	{
 		_quickSlotSelect.x = 423 + 64;
+		_index = 1;
 	}
 	if (KEYMANAGER->isOnceKeyDown('3'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 2;
+		_index = 2;
 	}
 	if (KEYMANAGER->isOnceKeyDown('4'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 3;
+		_index = 3;
 	}
 	if (KEYMANAGER->isOnceKeyDown('5'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 4;
+		_index = 4;
 	}
 	if (KEYMANAGER->isOnceKeyDown('6'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 5;
+		_index = 5;
 	}
 	if (KEYMANAGER->isOnceKeyDown('7'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 6;
+		_index = 6;
 	}
 	if (KEYMANAGER->isOnceKeyDown('8'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 7;
+		_index = 7;
 	}
 	if (KEYMANAGER->isOnceKeyDown('9'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 8;
+		_index = 8;
 	}
 	if (KEYMANAGER->isOnceKeyDown('0'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 9;
+		_index = 9;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_OEM_MINUS))
 	{
 		_quickSlotSelect.x = 423 + 64 * 10;
+		_index = 10;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_OEM_PLUS))
 	{
 		_quickSlotSelect.x = 423 + 64 * 11;
+		_index = 11;
 	}
 }
 
 void Inventory::Decrease()
 {
 	_toolInven[_index]->SetNumber(-1);
-	if (_toolInven[_index]->GetNumber() == 0)
+	if (_toolInven[_index]->GetNumber() <= 0)
 	{
 		_toolInven[_index] = new ToolItem;
 		_toolInven[_index]->SetToolEnum(TOOLS::NONE);

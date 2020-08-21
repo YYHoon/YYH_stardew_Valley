@@ -4,8 +4,6 @@
 
 void MiniGame::Update()
 {
-	cout << "낚시에서의 상태" << (int)_fishingState << endl;
-	
 	if (KEYMANAGER->isStayKeyDown(VK_LBUTTON)&& _fishingState == FISHING::FIRST)
 	{
 		_fishingState = FISHING::CHARGE;
@@ -181,8 +179,6 @@ void MiniGame::Init(Vector2 center, PLAYER_DIRECTION dir)
 
 	_playerCenter.x = center.x;			//플레이어 센터값 받아오는 변수
 	_playerCenter.y = center.y;			//플레이어 센터값 받아오는 변수
-	cout << _playerCenter.x << endl;
-	cout << _playerCenter.y << endl;
 
 	_fishfloat.x = _playerCenter.x;	//낚시 찌가 표기될 좌표
 	_fishfloat.y = _playerCenter.y-100;

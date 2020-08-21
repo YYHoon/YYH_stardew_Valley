@@ -58,6 +58,7 @@ void MapHome::update()
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
 	CAMERAMANAGER->setY(_player->GetInfo().position.y);
 	ENVIRONMENT->update();
+
 }
 
 void MapHome::render()
@@ -106,8 +107,10 @@ void MapHome::render()
 			}
 		}
 	}
-	ZORDER->ZOrderRender();
-	ENVIRONMENT->render(getMemDC());
-	_sleep->render();
-	_player->render();
+		ZORDER->ZOrderRender();
+		ENVIRONMENT->render(getMemDC());
+		_sleep->render();
+	if (!ENVIRONMENT->GetTimeOut()) {
+		_player->render();
+	}
 }

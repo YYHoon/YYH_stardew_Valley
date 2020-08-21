@@ -102,6 +102,7 @@ public:
 	void SetName(string Name) { _info.name = Name; }
 	void SetImg(string imgName) { _info.img = IMAGEMANAGER->findImage(imgName); }
 	void SetAnim(string stringName) { _info.anim = KEYANIMANAGER->findAnimation(stringName); }
+	void SetEquip(TOOLS tool) { _info.equipment; }
 	void SetPosition(Vector2 Pos) { _info.position = Pos; }
 	void SetDirection(PLAYER_DIRECTION Direction) { _info.direction = Direction; }
 	void SetDecreaseHp(int Hp) { _info.HP -= Hp; }

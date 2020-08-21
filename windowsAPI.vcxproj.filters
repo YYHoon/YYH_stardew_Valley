@@ -309,9 +309,6 @@
     <ClInclude Include="MapHome.h">
       <Filter>playGround\Map</Filter>
     </ClInclude>
-    <ClInclude Include="MapManager.h">
-      <Filter>playGround\Map</Filter>
-    </ClInclude>
     <ClInclude Include="AllMap.h">
       <Filter>playGround\Map</Filter>
     </ClInclude>
@@ -636,9 +633,6 @@
       <Filter>playGround\Map</Filter>
     </ClCompile>
     <ClCompile Include="MapTest.cpp">
-      <Filter>playGround\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="MapManager.cpp">
       <Filter>playGround\Map</Filter>
     </ClCompile>
     <ClCompile Include="HpStaminaBar.cpp">
