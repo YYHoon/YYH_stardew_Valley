@@ -3,6 +3,7 @@
 #include "Environment.h"
 #include "Dialog.h"
 #include <vector>
+#include <queue>
 
 class Player;
 class Crafting;
@@ -90,13 +91,29 @@ private:
 /////////////////////////</QuickSlot>///////////////////////////
 
 	bool _quickSlotUp;
-
 	int _quickSlotSelectYUP;
 
 	Dialog* _Dialog;
+	RECT _dialogRc[12];
 
-	/////////////////////////</SAVE LOAD>///////////////////////////	
+/////////////////////////</SAVE LOAD>///////////////////////////
 	int size;
+
+/////////////////////////<Get_Item>//////////////////////////
+	struct tagGetItem   //획득창
+	{
+	image* ItemWindow; //획득창이미지~
+	image* Item;  //획득 이미지;
+	RECT   ItemWindowRc; //획득이미지 좌표지정용 렉트~
+	string ItemName;
+	int Seetime; //보이는 시간
+	bool isGet; //보이게 하는가
+	};
+
+	tagGetItem _tGetItem; //백터 푸쉬백용~
+	queue<tagGetItem> _qGetItem;
+	bool _isGetItem; //획득했누?
+
 public:
 	Inventory() {};
 	~Inventory() {};

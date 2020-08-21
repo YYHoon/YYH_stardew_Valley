@@ -40,9 +40,16 @@ void MapHome::update()
 
 	if (_test)
 	{
-		_sleep->setIsSelectOpen(true);
+		_sleep->setIsSelectOpen(true);	
 	}
 	else _sleep->setIsSelectOpen(false);
+	
+
+	if (_sleep->getIsSelectOpen())
+	{
+		_player->SetHp(_player->GetMaxHp());
+		_player->SetStamina(_player->GetmaxStamina());
+	}
 	
 	
 	_count++;

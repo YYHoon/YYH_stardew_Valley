@@ -22,9 +22,6 @@ private:
 
 	bool _stringClear;          //쓰일지는 의문이다.
 
-	string scarchi[18] = { "Axe", "Pickax", "FishingRod", "Homi", "WaterSpray" };
-
-
 public:
 	Dialog() {};
 	~Dialog() {};

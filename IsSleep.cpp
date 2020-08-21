@@ -50,12 +50,17 @@ void IsSleep::update()
 		_isSleep = false;
 	}
 
-	_alp -= 2;
+	_alp -= 10;
 	if (_alp <= 0) _alp = 0;
 }
 
 void IsSleep::render()
 {
+	HFONT SleepFont, oldSleepFont;
+
+	SleepFont = CreateFont(40, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS,
+		CLIP_DEFAULT_PRECIS, PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll ¹Ì»ý"));
+	oldSleepFont = (HFONT)SelectObject(getMemDC(), SleepFont);
 	if (_isSelectOpen)
 	{
 		SetTextColor(getMemDC(), BLACK);
@@ -80,5 +85,9 @@ void IsSleep::render()
 		DeleteObject(myBrush);
 		DeleteObject(myPen);
 	}
+
+	SelectObject(getMemDC(), oldSleepFont);
+	DeleteObject(oldSleepFont);
+
 	_black->alphaRender(getMemDC(), 0, 0, _alp);
 }

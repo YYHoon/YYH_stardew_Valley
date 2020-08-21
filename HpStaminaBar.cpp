@@ -4,16 +4,16 @@
 
 HRESULT HpStaminaBar::init()
 {
-//---------------------------------------스테미나----------------------------------------//
+	//---------------------------------------스테미나----------------------------------------//
 
 	_StaminaBar.x = 1500;
 	_StaminaBar.y = 750;
-	
-	_StaminaBar.topImg = IMAGEMANAGER->addImage("StaminaHead", "image/StBarHead.bmp", 50,58, true, MAGENTA);
+
+	_StaminaBar.topImg = IMAGEMANAGER->addImage("StaminaHead", "image/StBarHead.bmp", 50, 58, true, MAGENTA);
 	_StaminaBar.midImg = IMAGEMANAGER->addImage("StaminaBody", "image/BarBody.bmp", 50, _pl->GetmaxStamina(), true, MAGENTA);
 	_StaminaBar.bottomImg = IMAGEMANAGER->addImage("StaminaBottom", "image/BarBottom.bmp", 50, 17, true, MAGENTA);
 
-	_StaminaBar.frontBarImg =  IMAGEMANAGER->addImage("FrontBar", "image/남은체력스테(25x171).bmp", 25, _pl->GetmaxStamina(), true, MAGENTA);
+	_StaminaBar.frontBarImg = IMAGEMANAGER->addImage("FrontBar", "image/남은체력스테(25x171).bmp", 25, _pl->GetmaxStamina(), true, MAGENTA);
 	_StaminaBar.BottomBarImg = IMAGEMANAGER->addImage("BottomBar", "image/체력스테뒷배경(25x171).bmp", 25, _pl->GetStamina(), true, MAGENTA);
 
 	//------파츠들----------//
@@ -24,7 +24,7 @@ HRESULT HpStaminaBar::init()
 	_StaminaBar.hit = 0;
 
 
-//------------------------------------------체력----------------------------------------//
+	//------------------------------------------체력----------------------------------------//
 
 	_HpBar.x = 1450;
 	_HpBar.y = 750;
@@ -53,7 +53,9 @@ void HpStaminaBar::update()
 {
 	if (_pl->GetStamina() <= 0)
 	{
-		_pl->SetStamina(100);
+		_pl->SetStamina(_pl->GetmaxStamina());
+		_pl->SetHp(_pl->GetMaxHp());
+
 		SCENEMANAGER->changeScene("DariLoading");
 	}
 }
@@ -69,20 +71,24 @@ void HpStaminaBar::staminaBarRender()
 
 
 	_StaminaBar.frontBarImg->render(getMemDC(), _StaminaBar.frontBarRc.left, _StaminaBar.frontBarRc.top); //연두색쪽이 플레이어MAX스테미나	
-	_StaminaBar.BottomBarImg->render(getMemDC(), _StaminaBar.bottomBarRc.left, _StaminaBar.bottomBarRc.top, 0, 0, 
-												 _StaminaBar.BottomBarImg->getWidth(), -_pl->GetStamina()+_pl->GetmaxStamina()); //뽀얀쪽이 길이조정HP
+	_StaminaBar.BottomBarImg->render(getMemDC(), _StaminaBar.bottomBarRc.left, _StaminaBar.bottomBarRc.top, 0, 0,
+		_StaminaBar.BottomBarImg->getWidth(), -_pl->GetStamina() + _pl->GetmaxStamina()); //뽀얀쪽이 길이조정HP
 
-	Font = CreateFont(35, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS,
+	HFONT STFont, OldSTFont;
+	STFont = CreateFont(35, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS,
 		CLIP_DEFAULT_PRECIS, PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
-	OldFont = (HFONT)SelectObject(getMemDC(), Font);
+	OldSTFont = (HFONT)SelectObject(getMemDC(), STFont);
 
-	char TT[40];
+	char TT[10];
 	sprintf_s(TT, "%d / %d", _pl->GetStamina(), _pl->GetmaxStamina());
 
 	if (PtInRect(&_StaminaBar.frontBarRc, _ptMouse))
-	{		
-		TextOut(getMemDC(), _ptMouse.x - 30, _ptMouse.y+30, TT, strlen(TT));
+	{
+		TextOut(getMemDC(), _ptMouse.x - 30, _ptMouse.y + 30, TT, strlen(TT));
 	}
+
+	SelectObject(getMemDC(), OldSTFont);
+	DeleteObject(OldSTFont);
 }
 
 void HpStaminaBar::hpBarRender()
@@ -92,13 +98,20 @@ void HpStaminaBar::hpBarRender()
 	_HpBar.bottomImg->render(getMemDC(), _HpBar.midRc.left, _HpBar.midRc.bottom - 8);
 
 	_HpBar.frontBarImg->render(getMemDC(), _HpBar.frontBarRc.left, _HpBar.frontBarRc.top); //연두색쪽이 플레이어MAXHP
-	_HpBar.BottomBarImg->render(getMemDC(), _HpBar.bottomBarRc.left, _HpBar.bottomBarRc.top, 0, 0, _HpBar.BottomBarImg->getWidth(), -_pl->GetHp()+_pl->GetMaxHp()); //뽀얀쪽이 길이조정HP
+	_HpBar.BottomBarImg->render(getMemDC(), _HpBar.bottomBarRc.left, _HpBar.bottomBarRc.top, 0, 0, _HpBar.BottomBarImg->getWidth(), -_pl->GetHp() + _pl->GetMaxHp()); //뽀얀쪽이 길이조정HP
 
-	char TT[40];
-	sprintf_s(TT, "%d / %d", _pl->GetHp(), _pl->GetMaxHp());
+	HFONT HpFont, OldHpFont;
+	HpFont = CreateFont(35, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS,
+		CLIP_DEFAULT_PRECIS, PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
+	OldHpFont = (HFONT)SelectObject(getMemDC(), HpFont);
+
+	char TT2[10];
+	sprintf_s(TT2, "%d / %d", _pl->GetHp(), _pl->GetMaxHp());
 
 	if (PtInRect(&_HpBar.frontBarRc, _ptMouse))
 	{
-		TextOut(getMemDC(), _ptMouse.x - 30, _ptMouse.y + 30, TT, strlen(TT));
+		TextOut(getMemDC(), _ptMouse.x - 30, _ptMouse.y + 30, TT2, strlen(TT2));
 	}
+	SelectObject(getMemDC(), OldHpFont);
+	DeleteObject(OldHpFont);
 }

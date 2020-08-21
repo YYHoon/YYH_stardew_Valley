@@ -25,5 +25,6 @@ public:
 	virtual void render();
 
 	bool getIsSelectOpen() { return _isSelectOpen; }
+	bool getSleep() { return _isSleep; }
 	virtual void setIsSelectOpen(bool open) { _isSelectOpen = open; }
 };

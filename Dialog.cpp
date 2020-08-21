@@ -6,7 +6,7 @@ HRESULT Dialog::init()
 	_infoBox = IMAGEMANAGER->findImage("ItemInfoWindow2");
 	_stringClear = false;
 
-    return S_OK;
+	return S_OK;
 }
 
 void Dialog::release()
@@ -271,18 +271,19 @@ void Dialog::update(string itemName)
 		_stringNum = 0;
 		_infoTxtOutPut.clear();
 	}
-	
+
 }
 
 
 void Dialog::render()
 {
 	SetTextColor(getMemDC(), BLACK);
-	HFONT TalkingOnlyFont, OldFont2;
+
+	HFONT TalkingOnlyFont, OldTalkingOnlyFont;
 
 	TalkingOnlyFont = CreateFont(27, 0, 0, 0, 300, false, false, false, DEFAULT_CHARSET, OUT_STRING_PRECIS,
 		CLIP_DEFAULT_PRECIS, PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll ¹Ì»ý"));
-	OldFont2 = (HFONT)SelectObject(getMemDC(), TalkingOnlyFont);
+	OldTalkingOnlyFont = (HFONT)SelectObject(getMemDC(), TalkingOnlyFont);
 
 	if (_stringClear)
 	{
@@ -291,6 +292,6 @@ void Dialog::render()
 		DrawText(getMemDC(), TEXT(_infoTxtOutPut.c_str()), _stringNum, &_TxtBoxRC, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
 	}
 
-	SelectObject(getMemDC(), OldFont2);
-	DeleteObject(OldFont2);
+	SelectObject(getMemDC(), OldTalkingOnlyFont);
+	DeleteObject(OldTalkingOnlyFont);
 }
