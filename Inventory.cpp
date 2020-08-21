@@ -35,7 +35,7 @@ HRESULT Inventory::init()
 
 	_itemIndexNum = 11;
 
-	_index = 0;
+	_index = _index1 = _index2 = 0;
 
 	//-----------------------QuickSlot-----------------------------------
 	_quickSlot.image = IMAGEMANAGER->findImage("QuickSlot");
@@ -57,16 +57,15 @@ HRESULT Inventory::init()
 		_toolInven[i] = new Axe;
 	}
 	_quickSlotUp = false;
-	
+
 	_toolInven[0] = _toolList[0];
 	_toolInven[1] = _toolList[1];
 	_toolInven[2] = _toolList[2];
 	_toolInven[3] = _toolList[3];
 	_toolInven[4] = _toolList[4];
 	_toolInven[5] = _toolList[5];
-	_toolInven[6] = _toolList[6];
-	_toolInven[7] = _toolList[16];
-	_toolInven[7]->SetNumber(30);
+	_toolInven[6]->SetToolEnum(TOOLS::NONE);
+	_toolInven[7]->SetToolEnum(TOOLS::NONE);
 	_toolInven[8]->SetToolEnum(TOOLS::NONE);
 	_toolInven[9]->SetToolEnum(TOOLS::NONE);
 	_toolInven[10]->SetToolEnum(TOOLS::NONE);
@@ -89,12 +88,28 @@ void Inventory::release()
 
 void Inventory::update()
 {
+	//////////////////////////////////////////////////////////////////// <Debud>
+	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD4))
+	{
+		_toolInven[8] = _toolList[10];
+		_toolInven[8]->SetNumber(1);
+	}
 	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD5))
 	{
-		_toolInven[7] = _toolList[10];
-		if (_toolInven[7]->GetName() == "NormalFish") _toolInven[7]->SetNumber(+1);
+		_toolInven[9] = _toolList[8];
+		_toolInven[9]->SetNumber(1);
 	}
-
+	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD6))
+	{
+		_toolInven[7] = _toolList[9];
+		_toolInven[7]->SetNumber(1);
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD8))
+	{
+		_toolInven[6] = _toolList[7];
+		_toolInven[6]->SetNumber(1);
+	}
+	//////////////////////////////////////////////////////////////////// </Debud>
 	_frameCount++;
 
 	if (_frameCount % 4 == 0)
@@ -158,20 +173,121 @@ void Inventory::update()
 				}
 			}
 		}
-		/////////////// <CraftPage>
-		if(_inventory.invenTabNum==2) _crafting->update();
+		/////////////////////////////////////////////////////////////////// <CraftPage>
+		if (_inventory.invenTabNum == 2)
+		{
+			_crafting->SetRawFishIsPossible(false);
+			_crafting->SetGrilledFishIsPossible(false);
+
+			_craftingRC[0] = RectMake(408, 230, 64, 64);
+			_craftingRC[1] = RectMake(508, 230, 64, 64);
+			_craftingRC[2] = RectMake(608, 230, 64, 64);
+
+			for (int i = 0; i < _toolInven.size(); ++i)				//생선 구이 제작
+			{
+				for (int j = 0; j < _toolInven.size(); ++j)
+				{
+					if ((_toolInven[i]->GetName() == "NormalFish" && _toolInven[i]->GetNumber() >= 1) &&
+						(_toolInven[j]->GetName() == "Potato" && _toolInven[j]->GetNumber() >= 1))
+					{
+						_crafting->SetGrilledFishIsPossible(true);
+
+						if (PtInRect(&_craftingRC[0], _ptMouse))
+						{
+							if (_toolInven[i]->GetNumber() >= 1 && _toolInven[j]->GetNumber() >= 1)
+							{
+								_toolInven[i]->SetNumber(-1);
+								_toolInven[j]->SetNumber(-1);
+
+								if (_toolInven[i]->GetNumber() <= 0)
+								{
+									_crafting->SetGrilledFishIsPossible(false);
+									_toolInven[i] = new ToolItem;
+								}
+								else if (_toolInven[j]->GetNumber() <= 0)
+								{
+									_crafting->SetGrilledFishIsPossible(false);
+									_toolInven[j] = new ToolItem;
+								}
+							}
+							cout << "생선 구이" << endl;
+							PlayerLootItem("GrilledFish");
+						}
+					}
+				}
+			}
+
+			for (int i = 0; i < _toolInven.size(); ++i)				//생선 회 제작
+			{
+				if (_toolInven[i]->GetName() == "NormalFish" && _toolInven[i]->GetNumber() >= 1)
+				{
+					_crafting->SetRawFishIsPossible(true);
+
+					if (PtInRect(&_craftingRC[1], _ptMouse))
+					{
+						if (_toolInven[i]->GetNumber() >= 1)
+						{
+							_toolInven[i]->SetNumber(-1);
+
+							if (_toolInven[i]->GetNumber() <= 0)
+							{
+								_crafting->SetRawFishIsPossible(false);
+								_toolInven[i] = new ToolItem;
+							}
+						}
+						cout << "생선 회" << endl;
+						PlayerLootItem("RawFish");
+					}
+				}
+			}
+
+			for (int i = 0; i < _toolInven.size(); ++i)				//샐러드 제작
+			{
+				for (int j = 0; j < _toolInven.size(); ++j)
+				{
+					if ((_toolInven[i]->GetName() == "Pasnip" && _toolInven[i]->GetNumber() >= 1) &&
+						(_toolInven[j]->GetName() == "Kale" && _toolInven[j]->GetNumber() >= 1))
+					{
+						_crafting->SetSaladIsPossible(true);
+
+						if (PtInRect(&_craftingRC[2], _ptMouse))
+						{
+							if (_toolInven[i]->GetNumber() >= 1 && _toolInven[j]->GetNumber() >= 1)
+							{
+								_toolInven[i]->SetNumber(-1);
+								_toolInven[j]->SetNumber(-1);
+
+								if (_toolInven[i]->GetNumber() <= 0)
+								{
+									_crafting->SetSaladIsPossible(false);
+									_toolInven[i] = new ToolItem;
+								}
+								else if (_toolInven[j]->GetNumber() <= 0)
+								{
+									_crafting->SetSaladIsPossible(false);
+									_toolInven[j] = new ToolItem;
+								}
+							}
+							cout << "샐러드" << endl;
+							PlayerLootItem("Salad");
+						}
+					}
+				}
+			}
+		}
+	
 
 		if (PtInRect(&_menuUpRC, _ptMouse)) _inventory.craftPageNum--;
 		if (PtInRect(&_menuDownRC, _ptMouse)) _inventory.craftPageNum++;
 
 		if (_inventory.craftPageNum <= 0) _inventory.craftPageNum = 1;
 		if (_inventory.craftPageNum >= 3) _inventory.craftPageNum = 2;
-		/////////////// </CraftPage>
+		/////////////////////////////////////////////////////////////////// </CraftPage>
 
 		if (PtInRect(&_titleRC, _ptMouse) && _inventory.invenTabNum == 4) SCENEMANAGER->changeScene("Title");	//[타이틀 메뉴로] 눌렀을 때
 		if (PtInRect(&_closeRC, _ptMouse) && _inventory.invenTabNum == 4) PostQuitMessage(0);					//[게임 종료] 눌렀을 때
 
-		///////////////////////////// <Sort>
+		/////////////////////////////////////////////////////////////////// <Sort>
 		if (PtInRect(&_sortRC, _ptMouse) && _inventory.invenTabNum == 1)
 		{
 			for (int i = 0; i < _toolInven.size(); i++)
@@ -179,7 +295,7 @@ void Inventory::update()
 				MergeSort(_toolInven, 0, 11);
 			}
 		}
-		///////////////////////////// </Sort>
+		/////////////////////////////////////////////////////////////////// </Sort>
 	}
 
 	if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON))
@@ -195,9 +311,9 @@ void Inventory::update()
 			}
 		}
 
-		if (PtInRect(&_trashCanRC, _ptMouse))							//쓰레기통에 버리기
+		if (PtInRect(&_trashCanRC, _ptMouse))							//쓰레기통에 버리기 (1번 탭에서만 할거에요)
 		{
-			if (_inventory.invenTabNum == 1 || _inventory.invenTabNum == 2)
+			if (_inventory.invenTabNum == 1)
 			{
 				_toolInven[_itemIndexNum]->SetNumber(-_toolInven[_itemIndexNum]->GetNumber());
 				_toolInven[_itemIndexNum] = new ToolItem;
@@ -340,8 +456,6 @@ void Inventory::render()
 		{
 			_vInvenDynamicRC.clear();
 
-			IMAGEMANAGER->findImage("UI_Inventory_Trashcan")->frameRender(getMemDC(), 1257, 464, _trashCanFrameX, 0);
-
 			if (_inventory.craftPageNum == 1)				//1번 페이지
 			{
 				IMAGEMANAGER->findImage("UI_Inventory_Craft_top")->render(getMemDC(), INVENIMAGECOOR);
@@ -355,7 +469,6 @@ void Inventory::render()
 
 			_menuUpRC = RectMake(1170, 233, 32, 35);		//제작 탭에서 위 화살표
 			_menuDownRC = RectMake(1170, 464, 32, 35);		//제작 탭에서 아래 화살표
-			_trashCanRC = RectMake(1260, 446, 90, 140);		//쓰레기통 렉트
 
 			_vInvenDynamicRC.push_back(_menuUpRC);
 			_vInvenDynamicRC.push_back(_menuDownRC);
@@ -533,6 +646,9 @@ void Inventory::render()
 	//Rectangle(getMemDC(), _menuDownRC);
 	//Rectangle(getMemDC(), _trashCanRC);
 	//Rectangle(getMemDC(), _sortRC);
+	//Rectangle(getMemDC(), _craftingRC[0]);
+	//Rectangle(getMemDC(), _craftingRC[1]);
+	//Rectangle(getMemDC(), _craftingRC[2]);
 
 	/////////////////////////////////////////////////////////////////////////// </Debug_Rect>
 
@@ -543,62 +659,50 @@ void Inventory::quickSlotMove()
 	if (KEYMANAGER->isOnceKeyDown('1'))
 	{
 		_quickSlotSelect.x = 423;
-		_index = 0;
 	}
 	if (KEYMANAGER->isOnceKeyDown('2'))
 	{
 		_quickSlotSelect.x = 423 + 64;
-		_index = 1;
 	}
 	if (KEYMANAGER->isOnceKeyDown('3'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 2;
-		_index = 2;
 	}
 	if (KEYMANAGER->isOnceKeyDown('4'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 3;
-		_index = 3;
 	}
 	if (KEYMANAGER->isOnceKeyDown('5'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 4;
-		_index = 4;
 	}
 	if (KEYMANAGER->isOnceKeyDown('6'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 5;
-		_index = 5;
 	}
 	if (KEYMANAGER->isOnceKeyDown('7'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 6;
-		_index = 6;
 	}
 	if (KEYMANAGER->isOnceKeyDown('8'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 7;
-		_index = 7;
 	}
 	if (KEYMANAGER->isOnceKeyDown('9'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 8;
-		_index = 8;
 	}
 	if (KEYMANAGER->isOnceKeyDown('0'))
 	{
 		_quickSlotSelect.x = 423 + 64 * 9;
-		_index = 9;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_OEM_MINUS))
 	{
 		_quickSlotSelect.x = 423 + 64 * 10;
-		_index = 10;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_OEM_PLUS))
 	{
 		_quickSlotSelect.x = 423 + 64 * 11;
-		_index = 11;
 	}
 }
 
