@@ -847,19 +847,19 @@ void PlayerEating::Release()
 	else if (_player->GetHaveItem()->GetName() == "Salad")
 	{
 		_player->SetIncreaseHp(10);
-		_player->SetStamina(70);
+		_player->SetIncreaseStamina(70);
 		_player->GetPlayerInver()->Decrease();
 	}
 	else if (_player->GetHaveItem()->GetName() == "RawFish")
 	{
 		_player->SetIncreaseHp(20);
-		_player->SetStamina(30);
+		_player->SetIncreaseStamina(30);
 		_player->GetPlayerInver()->Decrease();
 	}
 	else if (_player->GetHaveItem()->GetName() == "GrilledFish")
 	{
 		_player->SetIncreaseHp(40);
-		_player->SetStamina(50);
+		_player->SetIncreaseStamina(50);
 		_player->GetPlayerInver()->Decrease();
 	}
 
