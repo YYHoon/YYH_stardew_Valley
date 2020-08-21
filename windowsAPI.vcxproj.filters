@@ -477,6 +477,9 @@
     <ClInclude Include="CraftManager.h">
       <Filter>playGround\GameObject\Craft</Filter>
     </ClInclude>
+    <ClInclude Include="CraftingDialog.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -793,6 +796,9 @@
     </ClCompile>
     <ClCompile Include="CraftManager.cpp">
       <Filter>playGround\GameObject\Craft</Filter>
+    </ClCompile>
+    <ClCompile Include="CraftingDialog.cpp">
+      <Filter>playGround\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

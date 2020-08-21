@@ -50,7 +50,7 @@ HRESULT Store::init(int x, int y)
 	_noMoney = IMAGEMANAGER->findImage("LowMoney");
 	_noMoneyAlpha = 255;
 
-	_saleItem.resize(8); //물건7개만 1개는 nullptr
+	_saleItem.resize(9); //물건8개만 1개는 nullptr
 
 	for (int i = 0; i < _saleItem.size(); i++)
 	{
@@ -59,12 +59,12 @@ HRESULT Store::init(int x, int y)
 
 	//------------------물품--------------------------// 
 
-	_saleItem[0] = _itemInfo[13];  //파스닙
-	_saleItem[1] = _itemInfo[14];  //감자
-	_saleItem[2] = _itemInfo[15];  //케일
-	_saleItem[3] = _itemInfo[16];  //돌
-	_saleItem[4] = _itemInfo[17];  //잡초
-	_saleItem[5] = _itemInfo[18];  //나무
+	_saleItem[0] = _itemInfo[16];  //파스닙
+	_saleItem[1] = _itemInfo[17];  //감자
+	_saleItem[2] = _itemInfo[18];  //케일
+	_saleItem[3] = _itemInfo[20];  //돌
+	_saleItem[4] = _itemInfo[21];  //잡초
+	_saleItem[5] = _itemInfo[22];  //나무
 	_saleItem[6] = _itemInfo[12];  //수액
 
 	_saleKoName[0] = "파스닙 씨앗";

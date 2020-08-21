@@ -258,7 +258,7 @@ void Inventory::update()
 
 void Inventory::render()
 {
-	SetTextColor(getMemDC(), WHITE);
+	SetTextColor(getMemDC(), BLACK);
 	char getsu[30]; //아이템 개수 표기용
 
 	HFONT font1, oldFont1;
@@ -268,12 +268,12 @@ void Inventory::render()
 
 	char pGold[10];
 	sprintf_s(pGold, "%d", _player->GetMoney());
-
+	
 	if (_inventory.isInvenOpen)
 	{
 		IMAGEMANAGER->findImage("Inventory_BG")->alphaRender(getMemDC(), 100);
 		IMAGEMANAGER->findImage("Inventory_Close")->render(getMemDC(), 1240, 102);
-
+		TextOut(getMemDC(), 1370, 203, pGold, strlen(pGold));
 		switch (_inventory.invenTabNum)
 		{
 		case 1:		//인벤토리 탭
@@ -286,7 +286,7 @@ void Inventory::render()
 			_sortRC = RectMake(1240, 280, 64, 64);
 			_vInvenDynamicRC.push_back(_trashCanRC);
 			_vInvenDynamicRC.push_back(_sortRC);
-
+			
 			//아이템 정보보기//
 			for (int i = 0; i < _vInvenIndexRC.size(); ++i)
 			{
@@ -429,10 +429,12 @@ void Inventory::render()
 					sprintf_s(getsu, "%d", _toolInven[i]->GetNumber());
 					TextOut(getMemDC(), 675 + (i * 64), 583, getsu, strlen(getsu));
 				}
+				TextOut(getMemDC(), 1370, -100, pGold, strlen(pGold));
 			}
 		}
 		else
 		{
+			TextOut(getMemDC(), 1370, 203, pGold, strlen(pGold));
 			if (!_quickSlotUp)
 			{
 				_quickSlot.image->render(getMemDC(), 407, _quickSlot.y);
@@ -479,12 +481,9 @@ void Inventory::render()
 		PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("Sandoll 미생"));
 	oldFont3 = (HFONT)SelectObject(getMemDC(), font3);
 
-	SetTextColor(getMemDC(), BLACK);
-	TextOut(getMemDC(), 1370, 203, pGold, strlen(pGold));
-
 	for (int i = 0; i < _qGetItem.size(); i++)
 	{
-		_tGetItem.ItemWindowRc = RectMake(-100, 700 - (i * 71), _tGetItem.ItemWindow->getWidth(), _tGetItem.ItemWindow->getHeight());
+		_tGetItem.ItemWindowRc = RectMake(-100, 700, _tGetItem.ItemWindow->getWidth(), _tGetItem.ItemWindow->getHeight());
 
 		if (_qGetItem.front().ItemWindowRc.right <= 210)
 		{
@@ -695,8 +694,8 @@ void Inventory::setPlayerBuyItme(ToolItem* buyItme)
 			if (_toolInven[i]->GetName() == "PotatoSeed") _player->SetDecreaseMoney(50);
 			if (_toolInven[i]->GetName() == "KaleSeed") _player->SetDecreaseMoney(70);
 			if (_toolInven[i]->GetName() == "Stone") _player->SetDecreaseMoney(10);
-			if (_toolInven[i]->GetName() == "Wood")	_player->SetDecreaseMoney(5);
-			if (_toolInven[i]->GetName() == "Weed")	_player->SetDecreaseMoney(10);
+			if (_toolInven[i]->GetName() == "Wood")	_player->SetDecreaseMoney(10);
+			if (_toolInven[i]->GetName() == "Weed")	_player->SetDecreaseMoney(5);
 			if (_toolInven[i]->GetName() == "Sap")	_player->SetDecreaseMoney(200);
 			return;
 		}
@@ -714,8 +713,8 @@ void Inventory::setPlayerBuyItme(ToolItem* buyItme)
 				if (_toolInven[i]->GetName() == "PotatoSeed") _player->SetDecreaseMoney(50);
 				if (_toolInven[i]->GetName() == "KaleSeed") _player->SetDecreaseMoney(70);
 				if (_toolInven[i]->GetName() == "Stone") _player->SetDecreaseMoney(10);
-				if (_toolInven[i]->GetName() == "Wood")	_player->SetDecreaseMoney(5);
-				if (_toolInven[i]->GetName() == "Weed")	_player->SetDecreaseMoney(10);
+				if (_toolInven[i]->GetName() == "Wood")	_player->SetDecreaseMoney(10);
+				if (_toolInven[i]->GetName() == "Weed")	_player->SetDecreaseMoney(5);
 				if (_toolInven[i]->GetName() == "Sap")	_player->SetDecreaseMoney(200);
 				return;
 			}

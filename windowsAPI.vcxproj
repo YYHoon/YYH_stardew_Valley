@@ -167,6 +167,7 @@
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="commonMacroFunction.h" />
+    <ClInclude Include="CraftingDialog.h" />
     <ClInclude Include="CraftManager.h" />
     <ClInclude Include="CraftObject.h" />
     <ClInclude Include="Crafting.h" />
@@ -259,6 +260,7 @@
     <ClCompile Include="Axe.cpp" />
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="collision.cpp" />
+    <ClCompile Include="CraftingDialog.cpp" />
     <ClCompile Include="CraftManager.cpp" />
     <ClCompile Include="CraftObject.cpp" />
     <ClCompile Include="Crafting.cpp" />
