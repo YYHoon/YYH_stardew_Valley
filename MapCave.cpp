@@ -3,14 +3,17 @@
 
 HRESULT MapCave::init()
 {
+	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
 	_vertical = _horizon = 50;
 	_tiles = _map->Load("mapCave.map", _vertical, _horizon);
 	_player = new Player;
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();	
 	_player->LoadPlayerInfo("playerSave");
-
-	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
+	_slime = new Slime;
+	_slime->Init();
+	_slime->SetAddressLinkPlayer(_player);
+	_slime->SetAddressLinkMap(this);
 	_count = 0;
 	return S_OK;
 }

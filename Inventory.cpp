@@ -47,13 +47,13 @@ HRESULT Inventory::init()
 	_toolList = _toolItemManager->GetToolItem();
 
 	_toolInven.resize(12);							//사용 할 인벤토리 칸에서 + 1 해서 아이템 스왑 전용으로 사용
-
+	_toolLoad.resize(12);
 	for (int i = 0; i < _toolInven.size(); ++i)
 	{
 		_toolInven[i] = new Axe;
 	}
 	_quickSlotUp = false;
-
+	
 	_toolInven[0] = _toolList[0];
 	_toolInven[1] = _toolList[1];
 	_toolInven[2] = _toolList[2];
@@ -66,6 +66,7 @@ HRESULT Inventory::init()
 	_toolInven[9]->SetToolEnum(TOOLS::NONE);
 	_toolInven[10]->SetToolEnum(TOOLS::NONE);
 	_toolInven[11]->SetToolEnum(TOOLS::NONE);
+
 	return S_OK;
 }
 

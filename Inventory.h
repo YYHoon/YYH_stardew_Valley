@@ -25,6 +25,11 @@ struct tagQuickSlot
 	image* image;
 	int x, y, uY;
 };
+struct SaveLoad
+{
+	string name;
+	int num;
+};
 
 class Inventory : public gameNode
 {
@@ -65,6 +70,7 @@ private:
 
 	vector<ToolItem*> _toolList;	 // 정보
 	vector<ToolItem*> _toolInven;	 // 값 가지고 있는것들 
+	vector<SaveLoad> _toolLoad;	 // _toolLoad
 	int _trashCanFrameX;			//쓰레기통 이미지 프레임
 	int _frameCount;				//이미지 프레임 카운트
 	int _itemIndexNum;				//아이템 인덱스 번호 저장용

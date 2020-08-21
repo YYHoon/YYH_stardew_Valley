@@ -240,7 +240,8 @@ void playGround::imginit()
 	IMAGEMANAGER->addFrameImage("kaleObject", "image/plants/KaleFrame.bmp", 320, 64, 5, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("parsnipObject", "image/plants/ParsnipFrame.bmp", 320, 64, 5, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("potatoObject", "image/plants/PotatoFrame.bmp", 384, 64, 6, 1, true, RGB(255, 0, 255));
-
+	/////////////////ENEMY
+	IMAGEMANAGER->addFrameImage("SLIME", "image/Enemy/Slime.bmp", 64,64, 1, 1, true, RGB(255, 0, 255));
 }
 
 void playGround::soundinit()

@@ -1,45 +1,63 @@
 #include "stdafx.h"
 #include "Inventory.h"
 #include "ToolItem.h"
+#include "AllToolItem.h"
 void Inventory::Save()
 {
-	size = _toolInven.size();
-	ToolItem* saveTile = new ToolItem[size + 1];
-	SaveSize();
-	for (int i = 0; i < _toolInven.size(); i++)
+	SaveLoad* saveFile = new SaveLoad[13];
+	for (int i = 0; i < 12; ++i)
 	{
-		saveTile[i] = *_toolInven[i];
+		if (_toolInven[i]->GetName() == "")
+		{
+			saveFile[i].name = "";
+			saveFile[i].num = 0;
+		}
+		else
+		{
+			saveFile[i].name = _toolInven[i]->GetName();
+			saveFile[i].num = _toolInven[i]->GetNumber();
+		}
 	}
 	HANDLE file;
 	DWORD write;
 
-	file = CreateFile(("Player.inven"), GENERIC_WRITE, NULL, NULL,
+	file = CreateFile("Player.inven", GENERIC_WRITE, NULL, NULL,
 		CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
-	WriteFile(file, saveTile, sizeof(ToolItem) * size, &write, NULL);
+	WriteFile(file, saveFile, sizeof(SaveLoad) * 12, &write, NULL);
 	CloseHandle(file);
 }
 
 void Inventory::Load()
 {
-	LoadSize();
-	ToolItem* saveTile = new ToolItem[size + 1];
+	SaveLoad* loadFile = new SaveLoad[13];
 	HANDLE file;
 	DWORD read;
-	vector<ToolItem*> tmp;
-	file = CreateFile(("Player.inven"), GENERIC_READ, NULL, NULL,
+	file = CreateFile("Player.inven", GENERIC_READ, NULL, NULL,
 		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
-	ReadFile(file, saveTile, sizeof(ToolItem) * size, &read, NULL);
+	ReadFile(file, loadFile, sizeof(SaveLoad) * 12, &read, NULL);
 	CloseHandle(file);
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < 12; i++)
 	{
-		ToolItem* temp = new ToolItem;
-		temp = &saveTile[i];
-		temp->SetImageI(temp->GetName());
-		tmp.push_back(temp);
+		if (loadFile[i].name == "")
+		{
+			_toolInven[i] = new Axe;
+			_toolInven[i]->SetToolEnum(TOOLS::NONE);
+		}
+		else
+		{
+			for (int j = 0; j < _toolList.size(); ++j)
+			{
+				if (loadFile[i].name == _toolList[j]->GetName())
+				{
+					_toolInven[i] = _toolList[j];
+					_toolInven[i]->SetNumber(loadFile[i].num);
+					break;
+				}
+			}
+		}
 	}
-	_toolInven = tmp;
 }
 
 void Inventory::SaveSize()

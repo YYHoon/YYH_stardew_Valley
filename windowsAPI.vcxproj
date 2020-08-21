@@ -154,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AllDefine.h" />
+    <ClInclude Include="AllEnemy.h" />
     <ClInclude Include="AllEnum.h" />
     <ClInclude Include="AllMap.h" />
     <ClInclude Include="AllPlants.h" />
