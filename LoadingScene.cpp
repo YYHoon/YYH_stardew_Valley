@@ -53,6 +53,7 @@ void LoadingScene::update()
         _player->SetPosition(Vector2(1180, 720));
         _player->SavePlayerInfo("playerSave");
         SCENEMANAGER->changeScene("HOME");
+        SOUNDMANAGER->play("FarmMap");
     }
 
     _count++;

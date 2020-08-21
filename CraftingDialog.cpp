@@ -17,7 +17,7 @@ void CraftingDialog::release()
 
 void CraftingDialog::TxtOutPut(string itemName)
 {
-    _CrDiaRc = RectMake(_ptMouse.x, _ptMouse.y, _CrDiaWindow->getWidth(), _CrDiaWindow->getHeight());
+    _CrDiaRc = RectMake(_ptMouse.x +25, _ptMouse.y+35, _CrDiaWindow->getWidth(), _CrDiaWindow->getHeight());
     if (_SeeStrin)
     {
         _CrDiaWindow->render(getMemDC(), _CrDiaRc.left, _CrDiaRc.top);

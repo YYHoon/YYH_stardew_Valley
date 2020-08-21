@@ -12,6 +12,8 @@ HRESULT MapHome::init()
 	_sleep = new IsSleep;
 	_sleep->init();
 	_test = false;
+	_mouse = IMAGEMANAGER->findImage("mouse");
+	_mouseFrame = 0;
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
 	_count = 0;
 	return S_OK;
@@ -24,6 +26,8 @@ void MapHome::release()
 
 void MapHome::update()
 {
+	_mouseFrame = 0;
+
 	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::HOME_TO_PARM)
 	{
 		_player->SetPosition(Vector2(610, 550));
@@ -114,4 +118,6 @@ void MapHome::render()
 	if (!ENVIRONMENT->GetTimeOut()) {
 		_player->render();
 	}
+	_mouse->frameRender(getMemDC(), _ptMouse.x, _ptMouse.y, _mouseFrame, 0);
+	
 }
