@@ -64,13 +64,13 @@ HRESULT Inventory::init()
 	_toolInven[4] = _toolList[4];
 	_toolInven[5] = _toolList[5];
 	_toolInven[6] = _toolList[6];
-	_toolInven[7]->SetToolEnum(TOOLS::NONE);
+	_toolInven[7] = _toolList[15];
+	_toolInven[7]->SetNumber(10);
 	_toolInven[8]->SetToolEnum(TOOLS::NONE);
 	_toolInven[9]->SetToolEnum(TOOLS::NONE);
 	_toolInven[9]->SetToolEnum(TOOLS::NONE);
 	_toolInven[10]->SetToolEnum(TOOLS::NONE);
 	_toolInven[11]->SetToolEnum(TOOLS::NONE);
-
 	//----------------------
 	
 	_tGetItem.ItemWindow = IMAGEMANAGER->findImage("GetItem");

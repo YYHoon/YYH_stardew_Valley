@@ -11,9 +11,7 @@ HRESULT MapFarm::init()
 	_player->LoadPlayerInfo("playerSave");
 
 	_pm = new PlantsManager;
-    /////////////////////////////////
 	_pm->SetPlantsList( _pm->Load());
-	//////////////////////////////////
 	_pm->Init();
 	_pm->SetMapMemoryAddressLinked(this);
 	
@@ -29,7 +27,6 @@ void MapFarm::release()
 
 void MapFarm::update()
 {
-
 	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::PARM_TO_HOME)
 	{
 		_player->SetPosition(Vector2(670, 848));

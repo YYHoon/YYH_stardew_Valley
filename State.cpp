@@ -134,7 +134,6 @@ void PlayerItemIdle::Init()
 {
 	_tagName = "idle";
 	_name = "item_Idle";
-	
 
 	switch (_player->GetDirection())
 	{
@@ -151,21 +150,20 @@ void PlayerItemIdle::Init()
 		_player->SetAnim("left_Item_Idle_Player");
 		break;
 	}
-
 	_map = _player->GetMap();
 }
 
 void PlayerItemIdle::Update()
 {
 	if (_player->GetInfo().stamina <= 0)return;
-
 	if (!((int)_player->GetInfo().equipment >= (int)8
-		&& (int)_player->GetInfo().equipment <= (int)10
+		&& (int)_player->GetInfo().equipment <= (int)11
 		))
 	{
 		_player->ChangeState(make_shared<PlayerIdle>(_player));
 		return;
 	}
+	cout << (int)_player->GetInfo().equipment << endl;
 	if (KEYMANAGER->isOnceKeyDown('W'))
 	{
 		_player->SetDirection(PLAYER_DIRECTION::UP);
@@ -768,15 +766,19 @@ void PlayerSwing::Init()
 		{
 		case PLAYER_DIRECTION::UP:
 			_player->SetAnim("up_SwordSwing_Player");
+			_atkCollision.centerSet(_player->GetInfo().position.x, _player->GetInfo().position.y - 75, 192, 128);
 			break;
 		case PLAYER_DIRECTION::DOWN:
 			_player->SetAnim("down_SwordSwing_Player");
+			_atkCollision.centerSet(_player->GetInfo().position.x, _player->GetInfo().position.y + 35, 192, 128);
 			break;
 		case PLAYER_DIRECTION::RIGHT:
 			_player->SetAnim("right_SwordSwing_Player");
+			_atkCollision.centerSet(_player->GetInfo().position.x + 40, _player->GetInfo().position.y - 52, 128, 192);
 			break;
 		case PLAYER_DIRECTION::LEFT:
 			_player->SetAnim("left_SwordSwing_Player");
+			_atkCollision.centerSet(_player->GetInfo().position.x - 40, _player->GetInfo().position.y - 52, 128, 192);
 			break;
 		default:
 			break;
@@ -784,7 +786,6 @@ void PlayerSwing::Init()
 	}
 	_map = _player->GetMap();
 	SOUNDMANAGER->play("actSwing");
-
 	if (!_player->GetInfo().anim->isPlay())_player->GetInfo().anim->start();
 }
 
@@ -802,15 +803,12 @@ void PlayerSwing::Release()
 	_player->GetTM()->Action(_player->GetHaveItem()->GetName());
 }
 
-
-
 PlayerEating::PlayerEating(Player* pPlayer) : State(pPlayer) {}
 
 void PlayerEating::Init()
 {
 	_tagName = "acting";
 	_name = "eating";
-	
 	_player->SetAnim("eating_Player");
 	if (!_player->GetInfo().anim->isPlay())_player->GetInfo().anim->start();
 }
@@ -833,7 +831,6 @@ void PlayerEating::Release()
 		_player->SetIncreaseHp(20);
 		_player->SetIncreaseStamina(30);
 		_player->GetPlayerInver()->Decrease();
-		//decrease
 	}
 	else if (_player->GetHaveItem()->GetName() == "Kale")
 	{
@@ -847,6 +844,25 @@ void PlayerEating::Release()
 		_player->SetIncreaseStamina(10);
 		_player->GetPlayerInver()->Decrease();
 	}
+	else if (_player->GetHaveItem()->GetName() == "Salad")
+	{
+		_player->SetIncreaseHp(10);
+		_player->SetStamina(70);
+		_player->GetPlayerInver()->Decrease();
+	}
+	else if (_player->GetHaveItem()->GetName() == "RawFish")
+	{
+		_player->SetIncreaseHp(20);
+		_player->SetStamina(30);
+		_player->GetPlayerInver()->Decrease();
+	}
+	else if (_player->GetHaveItem()->GetName() == "GrilledFish")
+	{
+		_player->SetIncreaseHp(40);
+		_player->SetStamina(50);
+		_player->GetPlayerInver()->Decrease();
+	}
+
 }
 
 PlayerWatering::PlayerWatering(Player* pPlayer) : State(pPlayer) {}

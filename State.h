@@ -11,7 +11,7 @@ protected:
 	MapMain* _map;
 	string _name;
 	string _tagName;
-
+	MYRECT _atkCollision;
 public:
 	virtual void Init() = 0;
 	virtual void Update() = 0;
@@ -22,6 +22,7 @@ public:
 	string GetStateName() { return _name; }
 	string GetStateTagName() { return _tagName; }
 	shared_ptr<State> GetState() { return shared_from_this(); }
+	MYRECT GetAtkCol() { return _atkCollision; }
 };
 
 class PlayerIdle final : public State

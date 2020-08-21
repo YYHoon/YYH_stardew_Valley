@@ -55,7 +55,7 @@ inline void Rectangle(HDC hdc, RECT& rc)
 //left, top 기준으로 사각형그린다(뿌려줄DC, 기준점 X, 기준점 Y, 가로크기, 세로크기)
 inline void Rectangle(HDC hdc, RECT& rc, int destX,int destY)
 {
-	Rectangle(hdc, destX,destY, rc.right+destY,rc.bottom+destY);
+	Rectangle(hdc, destX,destY, rc.right+destX,rc.bottom+destY);
 }
 
 

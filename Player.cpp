@@ -54,8 +54,6 @@ void Player::update()
 {
 	_info.doing = _tool->GetDoingFishing();
 	_tool->SetFishingInfo(_info.position, _info.direction);
-	//cout << "여기" << endl;
-
 	if (KEYMANAGER->isOnceKeyDown(VK_F1))
 	{
 		_info.stamina = 100;
@@ -124,10 +122,6 @@ void Player::update()
 		}
 	}
 	CheckTiles();
-	if (_state->GetStateName() == "eating" )
-	{
-		_inven->Decrease();
-	}
 	if (!(_inven->GetIsInvenOper() || _isOpenStore))
 	{
 		_state->Update();
@@ -135,14 +129,9 @@ void Player::update()
 	}
 	_inven->update();
 	_gauge->update();
-	////////////////////////////////////
-	//*********** 구현 테스트때만 풀도록/////
-	//_inven->PlayerLootItem(_getItem);
-	////////////////////////////////////
 	
 	if (!_info.anim->isPlay())_info.anim->start();
 	_tool->Update();
-	// 아이템 줍는거
 	for (int i = 0; i < _tool->GetSpreadList().size(); ++i)
 	{
 		if (isCollision(_info.shadowCollision, _tool->GetSpreadList()[i].col))
@@ -156,7 +145,6 @@ void Player::update()
 		ZORDER->ZOrderPush(getMemDC(), RenderType::RENDER, _haveItem->GetImageInven(), _info.shadowCollision.left - 20, _info.shadowCollision.top - 130, _info.shadowCollision.bottom);
 	}
 	ZORDER->ZOrderPush(getMemDC(), RenderType::KEYANIRENDER, _info.img ,_info.collision.left, _info.collision.top, _info.anim, _info.shadowCollision.bottom);
-	
 }
 
 void Player::render()
@@ -165,6 +153,7 @@ void Player::render()
 	_gauge->hpBarRender();
 	_gauge->staminaBarRender();
 	_tool->Render("FishingRod");
+	CAMERAMANAGER->rectangle(getMemDC(), _state->GetAtkCol());
 	
 }
 
@@ -527,4 +516,5 @@ void Player::LoadPlayerInfo(string fileName)
 	this->SetShadowImg("playerShadow");
 	this->SetItem(_inven->GetInvenItem(0));
 	this->SetEquip(_inven->GetInvenItem(0)->GetToolEnum());
+	this->ChangeState(make_shared<PlayerIdle>(this));
 }
