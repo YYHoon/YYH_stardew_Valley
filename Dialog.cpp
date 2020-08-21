@@ -331,7 +331,7 @@ void Dialog::render()
 
 	if (_stringClear)
 	{
-		_TxtBoxRC = RectMake(_ptMouse.x + 5, _ptMouse.y + 20, 160, 130);
+		_TxtBoxRC = RectMake(_ptMouse.x + 35, _ptMouse.y + 45, 160, 130);
 		_infoBox->render(getMemDC(), _TxtBoxRC.left - 5, _TxtBoxRC.top - 10);
 		DrawText(getMemDC(), TEXT(_infoTxtOutPut.c_str()), _stringNum, &_TxtBoxRC, DT_LEFT | DT_WORDBREAK | DT_VCENTER);
 	}

@@ -7,6 +7,8 @@ private:
 
 	IsSleep* _sleep;
 	bool _test;
+	image* _mouse;
+	int _mouseFrame;
 
 public:
 	virtual HRESULT init();

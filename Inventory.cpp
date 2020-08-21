@@ -361,12 +361,27 @@ void Inventory::update()
 	//////////////////////////////////////////////////////////////////////// <DayResetTest>
 	if (KEYMANAGER->isOnceKeyDown(VK_F7)) ENVIRONMENT->SetIsDayReset(true);
 	//////////////////////////////////////////////////////////////////////// </DayResetTest>
-	for (int i = 0; i < _vInvenIndexRC.size(); ++i)
+	if (_inventory.invenTabNum == 1)
 	{
-		_dialogRc[i] = RectMake(425 + (i * 64), 236, 45, 45);
-		if (PtInRect(&_dialogRc[i], _ptMouse) && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
+		for (int i = 0; i < 12; ++i)
 		{
-			_Dialog->update(_toolInven[i]->GetName());
+			_dialogRc[i] = RectMake(425 + (i * 64), 236, 45, 45);
+			if (PtInRect(&_dialogRc[i], _ptMouse) && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
+			{
+				_Dialog->update(_toolInven[i]->GetName());
+			}
+		}
+	}
+
+	if (_inventory.invenTabNum == 2)
+	{
+		for (int i = 0; i < 12; ++i)
+		{
+			_dialogRc[i] = RectMake(425 + (i * 64), 550, 45, 45);
+			if (PtInRect(&_dialogRc[i], _ptMouse) && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
+			{
+				_Dialog->update(_toolInven[i]->GetName());
+			}
 		}
 	}
 
@@ -476,9 +491,6 @@ void Inventory::render()
 			_vInvenDynamicRC.push_back(_menuUpRC);
 			_vInvenDynamicRC.push_back(_menuDownRC);
 
-				if (KEYMANAGER->isOnceKeyDown('Q')) _Dialog->setDialogClear(true);
-				if (KEYMANAGER->isOnceKeyUp('Q')) _Dialog->setDialogClear(false);
-
 			for (int i = 0; i < _toolInven.size(); ++i)
 			{
 				if (_toolInven[i] != nullptr && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
@@ -491,6 +503,20 @@ void Inventory::render()
 				{
 					sprintf_s(getsu, "%d", _toolInven[i]->GetNumber());
 					TextOut(getMemDC(), 453 + (i * 64), 590, getsu, strlen(getsu));
+				}
+				//아이템 정보보기//
+				
+			}
+			for (int i = 0; i < 12; i++)
+			{
+				if (PtInRect(&_dialogRc[i], _ptMouse) && _toolInven[i]->GetToolEnum() != TOOLS::NONE)
+				{
+					_Dialog->setDialogClear(true);
+					break;
+				}
+				else
+				{
+					_Dialog->setDialogClear(false);
 				}
 			}
 		}

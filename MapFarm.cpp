@@ -17,7 +17,11 @@ HRESULT MapFarm::init()
 	_pm->Init();
 	_pm->SetMapMemoryAddressLinked(this);
 	
+	_mouse = IMAGEMANAGER->findImage("mouse");
+	_mouseFrame = 0;
+
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 50 * TILESIZE - WINSIZEX, 49 * TILESIZE - WINSIZEY);
+
 	_count = 0;
 	return S_OK;
 }
@@ -29,7 +33,7 @@ void MapFarm::release()
 
 void MapFarm::update()
 {
-
+	_mouseFrame = 0;
 	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::PARM_TO_HOME)
 	{
 		_player->SetPosition(Vector2(670, 848));
@@ -448,4 +452,5 @@ void MapFarm::render()
 	if (!ENVIRONMENT->GetTimeOut()) {
 		_player->render();
 	}
+	_mouse->frameRender(getMemDC(), _ptMouse.x, _ptMouse.y, _mouseFrame, 0);
 }
