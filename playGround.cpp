@@ -112,7 +112,7 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("DownArrow", "image/아래화살표.bmp", 40, 44, true, MAGENTA);
 	IMAGEMANAGER->addImage("ItemInfo", "image/일반아이템설명.bmp", 293, 258, true, MAGENTA);
 	IMAGEMANAGER->addImage("RecoveryItemInfo", "image/회복아이템설명.bmp", 293, 258, true, MAGENTA);
-	IMAGEMANAGER->addImage("ItemInfoWindow", "Image/ItemInfoWindow.bmp", 180, 130, true, MAGENTA);
+	IMAGEMANAGER->addImage("ItemInfoWindow", "Image/ItemInfoWindow.bmp", 276, 200, true, MAGENTA);
 	IMAGEMANAGER->addImage("SelectUI", "Image/selectUI.bmp", 1275, 276, true, MAGENTA);
 	IMAGEMANAGER->addImage("ItemInfoWindow2", "Image/ItemInfoWindow2.bmp", 180, 130, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("DrainLoading", "image/CombackHome(822x62).bmp", 822, 62, 3, 1, true, MAGENTA);

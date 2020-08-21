@@ -89,6 +89,7 @@ void HpStaminaBar::staminaBarRender()
 
 	SelectObject(getMemDC(), OldSTFont);
 	DeleteObject(OldSTFont);
+	DeleteObject(STFont);
 }
 
 void HpStaminaBar::hpBarRender()
@@ -114,4 +115,5 @@ void HpStaminaBar::hpBarRender()
 	}
 	SelectObject(getMemDC(), OldHpFont);
 	DeleteObject(OldHpFont);
+	DeleteObject(HpFont);
 }

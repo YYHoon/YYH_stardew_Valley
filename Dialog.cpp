@@ -230,7 +230,7 @@ void Dialog::update(string itemName)
 			}
 		}
 
-		if (itemName == "Rock")
+		if (itemName == "Stone")
 		{
 			if (_stringNum < _vInfoTxtInPut[16].length())
 			{
@@ -265,6 +265,50 @@ void Dialog::update(string itemName)
 				_stringNum = _vInfoTxtInPut[18].length();
 			}
 		}
+		if (itemName == "GrilledFish")
+		{
+			if (_stringNum < _vInfoTxtInPut[19].length())
+			{
+				_infoTxtOutPut.push_back(_vInfoTxtInPut[19].at(_stringNum++));
+			}
+			else
+			{
+				_stringNum = _vInfoTxtInPut[19].length();
+			}
+		}
+		if (itemName == "RawFish")
+		{
+			if (_stringNum < _vInfoTxtInPut[20].length())
+			{
+				_infoTxtOutPut.push_back(_vInfoTxtInPut[20].at(_stringNum++));
+			}
+			else
+			{
+				_stringNum = _vInfoTxtInPut[20].length();
+			}
+		}
+		if (itemName == "Salad")
+		{
+			if (_stringNum < _vInfoTxtInPut[21].length())
+			{
+				_infoTxtOutPut.push_back(_vInfoTxtInPut[21].at(_stringNum++));
+			}
+			else
+			{
+				_stringNum = _vInfoTxtInPut[21].length();
+			}
+		}
+		if (itemName == "ScareCrow")
+		{
+			if (_stringNum < _vInfoTxtInPut[22].length())
+			{
+				_infoTxtOutPut.push_back(_vInfoTxtInPut[22].at(_stringNum++));
+			}
+			else
+			{
+				_stringNum = _vInfoTxtInPut[22].length();
+			}
+		}
 	}
 	else
 	{
@@ -294,4 +338,5 @@ void Dialog::render()
 
 	SelectObject(getMemDC(), OldTalkingOnlyFont);
 	DeleteObject(OldTalkingOnlyFont);
+	DeleteObject(TalkingOnlyFont);
 }

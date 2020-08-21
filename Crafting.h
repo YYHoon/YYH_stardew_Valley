@@ -1,5 +1,6 @@
 #pragma once
 #include "gameNode.h"
+#include "CraftingDialog.h"
 
 class Inventory;
 class ToolItem;
@@ -27,6 +28,7 @@ private:
 
 	Inventory* _inventory;
 	ToolItem* _toolItem;
+	CraftingDialog* _craftingDiaTree;
 
 public:
 	Crafting() {};

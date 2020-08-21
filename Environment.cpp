@@ -178,6 +178,7 @@ void Environment::render(HDC _hdc)
 
 	SelectObject(_hdc, oldFont1);
 	DeleteObject(oldFont1);
+	DeleteObject(font1);
 
 	LineMake(_hdc, _clockHand.center.x, _clockHand.center.y, _clockHand.end.x, _clockHand.end.y);
 	//-----------------------------------------------------------------------------//

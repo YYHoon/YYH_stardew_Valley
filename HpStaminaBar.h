@@ -1,7 +1,6 @@
 #pragma once
 #include "gameNode.h"
 
-
 class Player;
 
 class HpStaminaBar : public gameNode
@@ -26,11 +25,6 @@ private:
 
 	tagBar _StaminaBar;
 	tagBar _HpBar;
-
-
-	HFONT Font, OldFont; //폰트변경용
-
-	POINT _CameraMouse = PointMake(_ptMouse.x + CAMERAMANAGER->getL(), _ptMouse.y + CAMERAMANAGER->getT());// 마우스 카메라 위치
 
 public:
 	HpStaminaBar() {};
