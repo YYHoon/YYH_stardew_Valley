@@ -121,6 +121,15 @@
     <Filter Include="playGround\Astar">
       <UniqueIdentifier>{408d422c-770e-4d67-ab98-abf6163e4364}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\Enemy">
+      <UniqueIdentifier>{9b35d53a-a851-4342-a7ea-d170caa52c8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Tool\Crafringitem">
+      <UniqueIdentifier>{7e7689c7-0760-40da-b307-0a2077c3ee86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\GameObject\Craft">
+      <UniqueIdentifier>{e9b84579-9eff-4ff2-aa22-791a287c0517}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -429,6 +438,27 @@
     <ClInclude Include="IsSleep.h">
       <Filter>playGround\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>playGround\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>playGround\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="ScareCrow.h">
+      <Filter>playGround\Tool\Crafringitem</Filter>
+    </ClInclude>
+    <ClInclude Include="CraftObject.h">
+      <Filter>playGround\GameObject\Craft</Filter>
+    </ClInclude>
+    <ClInclude Include="CraftManager.h">
+      <Filter>playGround\GameObject\Craft</Filter>
+    </ClInclude>
+    <ClInclude Include="AllCraft.h">
+      <Filter>playGround\GameObject\Craft</Filter>
+    </ClInclude>
+    <ClInclude Include="ScareCrowObject.h">
+      <Filter>playGround\GameObject\Craft</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -715,6 +745,24 @@
     </ClCompile>
     <ClCompile Include="IsSleep.cpp">
       <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>playGround\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>playGround\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ScareCrow.cpp">
+      <Filter>playGround\Tool\Crafringitem</Filter>
+    </ClCompile>
+    <ClCompile Include="CraftObject.cpp">
+      <Filter>playGround\GameObject\Craft</Filter>
+    </ClCompile>
+    <ClCompile Include="CraftManager.cpp">
+      <Filter>playGround\GameObject\Craft</Filter>
+    </ClCompile>
+    <ClCompile Include="ScareCrowObject.cpp">
+      <Filter>playGround\GameObject\Craft</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

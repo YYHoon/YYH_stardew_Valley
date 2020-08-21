@@ -26,7 +26,7 @@ HRESULT MapFarm::init()
 void MapFarm::release()
 {
 	_map->Save("mapFarm.map", _horizon, _vertical,_tiles);
-	_pm->Save();
+	
 }
 
 void MapFarm::update()
@@ -45,21 +45,27 @@ void MapFarm::update()
 		SCENEMANAGER->changeScene("CAVE");
 	}
 
+	ENVIRONMENT->update();
+	_pm->Update();
+	_player->update();
+	
+	_count++;
 	if (ENVIRONMENT->GetIsDayIncrease())
 	{
 		for (int i = 0; i < _tiles.size(); i++)
 		{
 			_tiles[i].wet = false;
 		}
-
+		_pm->Save();
+		_player->SetPosition(Vector2(1180, 780));
+		_player->SetHp(100);
+		_player->SetStamina(100);
+		_player->SavePlayerInfo("playerSave");
+		SCENEMANAGER->changeScene("HOME");
 	}
-
-	_count++;
-	_player->update();
-	_pm->Update();
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
 	CAMERAMANAGER->setY(_player->GetInfo().position.y);
-	ENVIRONMENT->update();
+	
 	EFFECTMANAGER->update();
 }
 
@@ -438,5 +444,6 @@ void MapFarm::render()
 	ZORDER->ZOrderRender();
 	EFFECTMANAGER->render();
 	ENVIRONMENT->render(getMemDC());
+	_pm->render();
 	_player->render();
 }

@@ -2,7 +2,7 @@
 #include "IsSleep.h"
 
 HRESULT IsSleep::init()
-{	
+{
 	_sleepSlect = IMAGEMANAGER->findImage("SelectUI");
 
 	_isSleepYesRc = RectMake(191, 680, 1215, 82);
@@ -10,6 +10,8 @@ HRESULT IsSleep::init()
 
 	_isSleep = false;
 	_isSelectOpen = false;
+
+
 
 	return S_OK;
 }
@@ -22,28 +24,28 @@ void IsSleep::update()
 {
 	if (_isSelectOpen)
 	{
-		if (PtInRect(&_isSleepYesRc, _ptMouse))
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 		{
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+			if (PtInRect(&_isSleepYesRc, _ptMouse))
 			{
 				_isSleep = true;
+				ENVIRONMENT->SetHour(23);
+				ENVIRONMENT->SetMinute(5);
 			}
-		}
-		if (PtInRect(&_non, _ptMouse))
-		{
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+
+			if (PtInRect(&_non, _ptMouse))
 			{
 				_isSelectOpen = false;
 			}
-
 		}
 	}
+	else _isSelectOpen = false;
+
 	if (_isSleep)
 	{
 		_isSelectOpen = false;
 		_isSleep = false;
 	}
-
 
 }
 
@@ -53,7 +55,6 @@ void IsSleep::render()
 	{
 		SetTextColor(getMemDC(), BLACK);
 		_sleepSlect->render(getMemDC(), 163, 600);
-
 
 		TextOut(getMemDC(), 200, 640, "하루를 마무리할까요?", strlen("하루를 마무리할까요?"));
 

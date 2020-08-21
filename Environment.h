@@ -37,6 +37,8 @@ private:
 
 	bool _isDayReset;
 
+	bool _timeOut;
+
 	float _delay;
 	float _count;
 
@@ -72,10 +74,13 @@ public:
 
 	int GetCluckValue() { return _clockHand.value; }				//시계 값
 	int GetDayCount() { return _dayCount; }							//날짜 값
+	int GetHour() { return _hour; }
 	bool GetIsDayIncrease() { return _isDayIncrease; }				//날짜가 증가하면
 	bool GetIsInventoryOpen() { return _isInventoryOpen; }			//인벤토리가 열리면
 
 	void SetIsInventoryOpen(bool open) { _isInventoryOpen = open; }	//인벤토리용
 	void SetIsDayReset(bool reset) { _isDayReset = reset; }			//날짜 넘기기
+	void SetHour(int hour) { _hour = hour; }
+	void SetMinute(int minute) { _minute = minute; }
 };
 

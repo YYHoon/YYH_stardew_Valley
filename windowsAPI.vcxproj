@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AllCraft.h" />
     <ClInclude Include="AllDefine.h" />
     <ClInclude Include="AllEnum.h" />
     <ClInclude Include="AllMap.h" />
@@ -165,10 +166,13 @@
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="commonMacroFunction.h" />
+    <ClInclude Include="CraftManager.h" />
+    <ClInclude Include="CraftObject.h" />
     <ClInclude Include="Dialog.h" />
     <ClInclude Include="DrainedLoadingScene.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Environment.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventManager.h" />
@@ -214,10 +218,13 @@
     <ClInclude Include="RareFish.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Rock.h" />
+    <ClInclude Include="ScareCrowObject.h" />
     <ClInclude Include="Sap.h" />
+    <ClInclude Include="ScareCrow.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="Sickle.h" />
     <ClInclude Include="singletonBase.h" />
+    <ClInclude Include="Slime.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="SpreadItem.h" />
     <ClInclude Include="State.h" />
@@ -247,10 +254,13 @@
     <ClCompile Include="Axe.cpp" />
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="collision.cpp" />
+    <ClCompile Include="CraftManager.cpp" />
+    <ClCompile Include="CraftObject.cpp" />
     <ClCompile Include="Dialog.cpp" />
     <ClCompile Include="DrainedLoadingScene.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -299,9 +309,12 @@
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="RareFish.cpp" />
     <ClCompile Include="Rock.cpp" />
+    <ClCompile Include="ScareCrowObject.cpp" />
     <ClCompile Include="Sap.cpp" />
+    <ClCompile Include="ScareCrow.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="Sickle.cpp" />
+    <ClCompile Include="Slime.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="SpreadItem.cpp" />
     <ClCompile Include="State.cpp" />

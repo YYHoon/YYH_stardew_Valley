@@ -8,9 +8,9 @@ class State : public enable_shared_from_this<State>
 {
 protected:
 	Player* _player;
+	MapMain* _map;
 	string _name;
 	string _tagName;
-	MapMain* _map;
 
 public:
 	virtual void Init() = 0;
@@ -134,15 +134,45 @@ public:
 	void Release()override;
 };
 
-class PlayerFishing final : public State
+class PlayerFishingStart final : public State
 {
 public:
-	PlayerFishing(class Player* pPlayer);
+	PlayerFishingStart(class Player* pPlayer);
 
 	void Init()override;
 	void Update()override;
 	void Release()override;
 };
+
+class PlayerFishingProceeding final : public State
+{
+public:
+	PlayerFishingProceeding(class Player* pPlayer);
+
+	void Init()override;
+	void Update()override;
+	void Release()override;
+};
+
+class PlayerFishingEnd final : public State
+{
+public:
+	PlayerFishingEnd(class Player* pPlayer);
+
+	void Init()override;
+	void Update()override;
+	void Release()override;
+};
+class PlayerFishingToIdle final : public State
+{
+public:
+	PlayerFishingToIdle(class Player* pPlayer);
+
+	void Init()override;
+	void Update()override;
+	void Release()override;
+};
+
 
 class PlayerEating final : public State
 {

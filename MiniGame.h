@@ -1,8 +1,13 @@
 #pragma once
 #include "gameNode.h"
 
-
-
+struct tagFish
+{
+	image* img;
+	Vector2 pos;
+	MYRECT rc;
+	bool Setting;
+};
 
 
 class MiniGame : public gameNode
@@ -30,6 +35,7 @@ private:
 	int _power=0;					 //이 변수만큼 찌가 날아감
 	PLAYER_DIRECTION _dir;			 //플레이어 상태받을 변수
 
+	tagFish _Fish;	//물고기 이미지와 좌표담은 구조체
 	MYRECT _test;
 
 	image* _backimg;					 //낚시 말풍선
@@ -63,6 +69,10 @@ public:
 	void DoingFishing();								//낚시하는도중
 	void Success();										//낚시 성공했을때
 
+	FISHING GetDoingFishing() { return _fishingState; }
+	void SetDoingFishing(FISHING fish) { _fishingState = fish; }
+
+	
 
 	void Update();
 	void Render();

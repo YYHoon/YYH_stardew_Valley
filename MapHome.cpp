@@ -9,10 +9,9 @@ HRESULT MapHome::init()
 	_player->SetMapMemoryAddressLink(this);
 	_player->init();
 	_player->LoadPlayerInfo("playerSave");
-	cout << _player->GetInfo().stamina << endl;
 	_sleep = new IsSleep;
 	_sleep->init();
-
+	_test = false;
 	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
 	_count = 0;
 	return S_OK;
@@ -25,7 +24,6 @@ void MapHome::release()
 
 void MapHome::update()
 {
-	cout << _player->GetInfo().stamina << endl;
 	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::HOME_TO_PARM)
 	{
 		_player->SetPosition(Vector2(610, 550));
@@ -33,11 +31,20 @@ void MapHome::update()
 		SCENEMANAGER->changeScene("FARM");
 	}
 
-	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::BED)
+	if (_tiles[_player->GetPlayerOnTileIndex()].pos == POS::BED &&
+		!_sleep->getIsSelectOpen())
+	{
+		_test = true;
+	}
+	else if (_tiles[_player->GetPlayerOnTileIndex()].pos != POS::BED) _test = false;
+
+	if (_test)
 	{
 		_sleep->setIsSelectOpen(true);
 	}
-
+	else _sleep->setIsSelectOpen(false);
+	
+	
 	_count++;
 	_sleep->update();
 	_player->update();

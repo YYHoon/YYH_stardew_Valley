@@ -40,6 +40,7 @@ private:
 		int money;
 		float velocity;
 		string exMapName; // (주)건우가 썻습니다
+		FISHING doing; //찬영이씀 낚시 도중인지 체크하기위함
 	};
 
 private:
@@ -93,7 +94,10 @@ public:
 	Inventory* GetPlayerInver() { return _inven; }
 	int GetPlayerOnTileIndex() { return _playerOnTileIndex; }
 	PLAYER_SOUND_TILES GetSoundWalk() { return _playerSound; }
+	FISHING GetDoingFishing() { return _info.doing; }//찬영이씀 낚시 도중인지 체크하기위함
 
+
+	void SetDoingFishing(FISHING tf) { _info.doing = tf; }//찬영이씀 낚시 도중인지 체크하기위함
 	void SetName(string Name) { _info.name = Name; }
 	void SetImg(string imgName) { _info.img = IMAGEMANAGER->findImage(imgName); }
 	void SetAnim(string stringName) { _info.anim = KEYANIMANAGER->findAnimation(stringName); }
@@ -123,6 +127,9 @@ public:
 	//void SetMapMemoryAddressLink()
 
 public:
+
+	string GetStateName();
+
 	void ChangeState(shared_ptr<State> state);
 	void ChangeEquipment(TOOLS equip) { _info.equipment = equip; }
 	void Move();

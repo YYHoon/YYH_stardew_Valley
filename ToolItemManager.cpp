@@ -97,6 +97,11 @@ void ToolItemManager::Init()
 		_kaleSeed = new KaleSeed;
 		_toolList.push_back(_kaleSeed);
 	}
+	if (_scareCrow == nullptr)
+	{
+		_scareCrow = new ScareCrow;
+		_toolList.push_back(_scareCrow);
+	}
 	//ActItem====================================
 
 
@@ -123,6 +128,7 @@ void ToolItemManager::Init()
 	{
 		_toolList[i]->SetNowMapMemoryAddressLink(_nowTileMap);
 		_toolList[i]->SetSpreadItem(_spreadItem);
+		_toolList[i]->SetPlayerAddress(_player);
 		//_toolList[i]->SetSpreadInToolMemory(tosstool);
 		_toolList[i]->Init();
 	}
@@ -134,12 +140,10 @@ void ToolItemManager::Action(string name)
 	//_spreadList = _spreadItem->GetSpreadItemList();
 	for (int i = 0; i < _toolList.size(); ++i)
 	{
-	
 		if (_toolList[i]->GetName() == name)
 		{
 			_toolList[i]->Action();
 		}
-	
 	}
 }
 
@@ -147,7 +151,6 @@ void ToolItemManager::Update()
 {
 	for (int i = 0; i < _toolList.size(); ++i)
 	{
-
 		_toolList[i]->Update();
 	}
 }
@@ -156,12 +159,10 @@ void ToolItemManager::Render(string name)
 {
 	for (int i = 0; i < _toolList.size(); ++i)
 	{
-
 		if (_toolList[i]->GetName() == name)
 		{
 			_toolList[i]->ReAction();
 		}
-
 	}
 }
 
@@ -209,14 +210,14 @@ int ToolItemManager::GetImpactIndexRight(string name)
 	
 }
 
-void ToolItemManager::GetFishingInfo(Vector2 c, PLAYER_DIRECTION d)
+void ToolItemManager::SetFishingInfo(Vector2 c, PLAYER_DIRECTION d)
 {
 	for (int i = 0; i < _toolList.size(); ++i)
 	{
 
 		if (_toolList[i]->GetName() == "FishingRod")
 		{
-			_toolList[i]->GetPlayerCenterNDir(c, d);
+			_toolList[i]->SetPlayerCenterNDir(c, d);
 		}
 
 	}
@@ -244,6 +245,32 @@ image* ToolItemManager::GetImageChar(string name)
 		if (_toolList[i]->GetName() == name)
 		{
 			return _toolList[i]->GetImageChar();
+		}
+
+	}
+}
+
+FISHING ToolItemManager::GetDoingFishing()
+{
+	for (int i = 0; i < _toolList.size(); ++i)
+	{
+
+		if (_toolList[i]->GetName() == "FishingRod")
+		{
+			return _toolList[i]->GetDoingFishing();
+		}
+
+	}
+}
+
+void ToolItemManager::SetDoingFishing(FISHING tf)
+{
+	for (int i = 0; i < _toolList.size(); ++i)
+	{
+
+		if (_toolList[i]->GetName() == "FishingRod")
+		{
+			return _toolList[i]->SetDoingFishing(tf);
 		}
 
 	}

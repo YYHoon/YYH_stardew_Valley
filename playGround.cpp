@@ -37,8 +37,6 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("Test", _test = new MapTest);
 	SCENEMANAGER->addScene("DariLoading", _DariLoading = new DrainedLoadingScene);
 	SCENEMANAGER->changeScene("Title");
-	//test = new MiniGame;
-	CAMERAMANAGER->setConfig(0, 0, WINSIZEX, WINSIZEY, 0, 0, 0, 0);
 	return S_OK;
 }
 
@@ -121,6 +119,7 @@ void playGround::imginit()
 	IMAGEMANAGER->addImage("DrainFace", "image/탈진상태(150x138).bmp", 150, 138, true, MAGENTA);
 
 
+
 	//환경
 	IMAGEMANAGER->addImage("Environment_Clock", "image/Environment/Environment_Clock.bmp", 288, 236, true, MAGENTA);
 
@@ -176,6 +175,15 @@ void playGround::imginit()
 	EFFECTMANAGER->addEffect("RockDis", "image/mapTool/Rock.bmp", 4400, 120,200,120 , 1.0f, 0.5f, 300);
 	EFFECTMANAGER->addEffect("BranchDis", "image/mapTool/Branch.bmp", 5301, 231,279,231 , 1.0f, 0.5f, 300);
 	EFFECTMANAGER->addEffect("WeedDis", "image/mapTool/Weed.bmp", 500, 137,100,137 , 1.0f, 0.2f, 300);
+	EFFECTMANAGER->addEffect("Water", "image/mapTool/WaterSplash.bmp", 640, 64, 64, 64, 1.0f, 0.2f, 300);
+
+	/// ///////////////////////////////////////////////////////////////////////////
+	IMAGEMANAGER->addImage("ScareCrow(64x64)", "Image/MapTool/ScareCrow(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("ScareCrow", "Image/MapTool/ScareCrow.bmp", 64, 128, true, MAGENTA);
+	IMAGEMANAGER->addImage("Flowerpot(64x64)", "Image/MapTool/Flowerpot(64x64).bmp", 64, 64, true, MAGENTA);
+	IMAGEMANAGER->addImage("Flowerpot", "Image/MapTool/Flowerpot.bmp", 64, 128, true, MAGENTA);
+	/// ///////////////////////////////////////////////////////////////////////////
+
 	// Player
 	IMAGEMANAGER->addFrameImage("player", "image/Player.bmp", 3000, 4500, 12, 18, true, MAGENTA);
 

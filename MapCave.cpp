@@ -28,6 +28,7 @@ void MapCave::update()
 		_player->SavePlayerInfo("playerSave");
 		SCENEMANAGER->changeScene("FARM");
 	}
+
 	_count++;
 	_player->update();
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
@@ -62,6 +63,6 @@ void MapCave::render()
 
 
 	ZORDER->ZOrderRender();
-	_player->render();
 	ENVIRONMENT->render(getMemDC());
+	_player->render();
 }
