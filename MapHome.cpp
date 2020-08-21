@@ -28,6 +28,7 @@ void MapHome::update()
 	{
 		_player->SetPosition(Vector2(610, 550));
 		_player->SavePlayerInfo("playerSave");
+		_player->GetPlayerInver()->Save();
 		SCENEMANAGER->changeScene("FARM");
 	}
 

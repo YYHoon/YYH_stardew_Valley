@@ -38,6 +38,7 @@ void MapCave::update()
 	{
 		_player->SetPosition(Vector2(2400, 680));
 		_player->SavePlayerInfo("playerSave");
+		_player->GetPlayerInver()->Save();
 		SCENEMANAGER->changeScene("FARM");
 	}
 
