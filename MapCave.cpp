@@ -19,13 +19,12 @@ HRESULT MapCave::init()
 	//_player->GetPlayerInver()->setPlayer(_player);
 	_slime = new Slime;
 	_slime->SetAddressLinkMap(this);
-	_slime->Init();
 	_slime->SetAddressLinkPlayer(_player);
-	_slime->SetAstarStartNode(Vector2(800 / 64, 500 / 64));
-
+	_slime->Init();
+	_slime->SetAstarStartNode(_slime->GetCurrentIdx());
+	ShowCursor(false);
 	_mouse = IMAGEMANAGER->findImage("mouse");
-
-
+	idx = 0;
 	_count = 0;
 	return S_OK;
 }
@@ -72,10 +71,18 @@ void MapCave::update()
 	}
 	CAMERAMANAGER->setX(_player->GetInfo().position.x);
 	CAMERAMANAGER->setY(_player->GetInfo().position.y);
-	//_slime->Update();
 
-	_slime->SetAstarEndNode(Vector2(_player->GetPlayerOnTileIndex() % _vertical,
-		_player->GetPlayerOnTileIndex() / _vertical));
+	if(_slime->GetHp())
+	_slime->Update();
+
+	if (idx % 30 == 0)
+	{
+		_slime->AstarSetMap();
+		_slime->SetAstarStartNode(_slime->GetCurrentIdx());
+		_slime->SetAstarEndNode(Vector2(_player->GetPlayerOnTileIndex() % _vertical,
+			_player->GetPlayerOnTileIndex() / _vertical));
+		_slime->AstarPath();
+	}
 	
 }
 
@@ -112,6 +119,8 @@ void MapCave::render()
 
 	
 	_store->render();
+	if (_slime->GetHp())
+	_slime->Render();
 	ZORDER->ZOrderRender();
 	ENVIRONMENT->render(getMemDC());
 	if (_store->getStoreOpen())
@@ -119,6 +128,5 @@ void MapCave::render()
 		_store->OpenStoreRender();
 	}
 	_player->render();
-	_slime->Render();
 	_mouse->frameRender(getMemDC(), _ptMouse.x, _ptMouse.y, _mouseFrame, 0);
 }

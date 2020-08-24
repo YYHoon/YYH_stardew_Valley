@@ -11,6 +11,7 @@ protected:
 	astar* _astar;
 	MapMain* _map;
 
+	Synthesize(float,_angle,Angle)
 	Synthesize(int, _damage, Damage)
 	Synthesize(int, _hp, Hp)
 	Synthesize(float, _speed, Speed)

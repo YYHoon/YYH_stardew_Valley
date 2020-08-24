@@ -762,6 +762,7 @@ void PlayerSwing::Init()
 	}
 	else if (_player->GetEquip() == TOOLS::SWORD)
 	{
+		
 		switch (_player->GetDirection())
 		{
 		case PLAYER_DIRECTION::UP:
@@ -801,6 +802,7 @@ void PlayerSwing::Release()
 	_player->GetTM()->SetNowTileMapMemoyrAddressLink(_map);
 	_player->GetTM()->SetImpactIndex(_player->GetHaveItem()->GetName(), _player->GetTileIndex()[0], _player->GetTileIndex()[2], _player->GetTileIndex()[1]);
 	_player->GetTM()->Action(_player->GetHaveItem()->GetName());
+	_atkCollision.centerSet(0, 0, 0, 0);
 }
 
 PlayerEating::PlayerEating(Player* pPlayer) : State(pPlayer) {}
@@ -862,7 +864,7 @@ void PlayerEating::Release()
 		_player->SetIncreaseStamina(50);
 		_player->GetPlayerInver()->Decrease();
 	}
-
+	_atkCollision.centerSet(0,0,0,0);
 }
 
 PlayerWatering::PlayerWatering(Player* pPlayer) : State(pPlayer) {}

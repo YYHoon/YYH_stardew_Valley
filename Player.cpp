@@ -43,7 +43,7 @@ HRESULT Player::init()
 	_gauge->init();
 	
 	_inven->setPlayer(this);
-	_inven->Load();
+	//_inven->Load();
 	_haveItem = _inven->GetInvenItem(0);
 	ChangeEquipment(_haveItem->GetToolEnum());
 	
@@ -56,9 +56,11 @@ void Player::update()
 	_tool->SetFishingInfo(_info.position, _info.direction);
 	//cout << "¿©±â" << endl;
 	//_info.collision.centerSet(_info.position.x, _info.position.y - 50, _info.img->getFrameWidth(), _info.img->getFrameHeight());
+	_info.equipment = _haveItem->GetToolEnum();
 	if (KEYMANAGER->isOnceKeyDown(VK_F1))
 	{
 		_info.stamina = 100;
+		_info.money = 500;
 	}
 	if (_state->GetStateTagName() == "move" || _state->GetStateTagName() == "idle")
 	{
@@ -155,12 +157,16 @@ void Player::render()
 	_gauge->hpBarRender();
 	_gauge->staminaBarRender();
 	_tool->Render("FishingRod");
-	CAMERAMANAGER->rectangle(getMemDC(), _state->GetAtkCol());
-	
+//	CAMERAMANAGER->rectangle(getMemDC(), _state->GetAtkCol());
 }
 
 void Player::release()
 {
+}
+
+MYRECT Player::GetAttackRect()
+{
+	return  _state->GetAtkCol();
 }
 
 

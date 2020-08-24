@@ -13,6 +13,7 @@ void astar::release()
 
 void astar::update()
 {
+	
 }
 
 void astar::render()
@@ -25,7 +26,6 @@ void astar::render()
 		for (int i = 0; i < _vpathList.size(); i++)
 		{
 			SetNodeColor(_vpathList[i], RGB(255, 255, 0));
-			
 		}
 	}
 	if (_endNode != nullptr) { SetNodeColor(_endNode, RGB(0, 0, 255)); }
@@ -42,6 +42,7 @@ void astar::PathFind()
 	_vcloseList.push_back(_startNode);
 	while (true)
 	{
+	
 		if (_currentNode == _endNode)
 		{
 			node* tmp = _endNode;
@@ -99,7 +100,6 @@ void astar::AddOpenList(Vector2 idx)
 	{
 		if (_vopenList[i] == tempNode) return;
 	}
-	
 	tempNode->_costFromStart = gCost;
 	tempNode->_costToGoal = (abs(tempNode->_idx.x - _endNode->_idx.x) + abs(tempNode->_idx.y - _endNode->_idx.y)) * 10;
 	tempNode->_totalCost = tempNode->_costFromStart + tempNode->_costToGoal;
@@ -116,6 +116,16 @@ void astar::AddOpenListDiagonal(Vector2 idx)
 		!_map->GetTiles()[_currentNode->_idx.x + (_currentNode->_idx.y + idx.y) * _map->GetHorizon()].collision &&
 		!_map->GetTiles()[_currentNode->_idx.x + idx.x + (_currentNode->_idx.y + idx.y) * _map->GetHorizon()].collision)
 		AddOpenList(Vector2(_currentNode->_idx.x + idx.x, _currentNode->_idx.y + idx.y));
+}
+
+Vector2 astar::GetNextMove()
+{
+	if(_vopenList.size()<2)return Vector2(-1, -1);
+	return _vopenList.front()->_idx;
+}
+
+void astar::MakeMove()
+{
 }
 
 void astar::SetStartNode(Vector2 startIndex)

@@ -5,7 +5,6 @@
 #include "Inventory.h"
 
 
-
 class HpStaminaBar;
 class State;
 class MapMain;
@@ -96,7 +95,7 @@ public:
 	int GetPlayerOnTileIndex() { return _playerOnTileIndex; }
 	PLAYER_SOUND_TILES GetSoundWalk() { return _playerSound; }
 	FISHING GetDoingFishing() { return _info.doing; }//찬영이씀 낚시 도중인지 체크하기위함
-
+	MYRECT GetAttackRect();
 
 	void SetDoingFishing(FISHING tf) { _info.doing = tf; }//찬영이씀 낚시 도중인지 체크하기위함
 	void SetName(string Name) { _info.name = Name; }
@@ -132,7 +131,7 @@ public:
 public:
 
 	string GetStateName();
-
+	
 	void ChangeState(shared_ptr<State> state);
 	void ChangeEquipment(TOOLS equip) { _info.equipment = equip; }
 	void Move();

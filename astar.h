@@ -56,6 +56,7 @@ public:
 	void AddOpenListDiagonal(Vector2 idx);
 	void SetMap()
 	{
+		_vtotalList.clear();
 		_mapSize = _map->GetVertical() * _map->GetHorizon();
 		for (int i = 0; i < _map->GetVertical(); ++i)
 		{
@@ -67,6 +68,11 @@ public:
 			}
 		}
 	}
+	Vector2 GetNextMove();
+	void MakeMove();
+
+	vector< node*> GetPathList() { return _vpathList; }
+
 	void SetStartNode(Vector2 startIndex);
 	void SetEndNode(Vector2 endIndex);
 	void SetNodeColor(node* node, COLORREF color);
