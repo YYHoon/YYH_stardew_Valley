@@ -26,7 +26,6 @@ HRESULT playGround::init()
 	MapTest* _test;
 	MapCave* _cave;
 	DrainedLoadingScene* _DariLoading;
-
 	SCENEMANAGER->addScene("Title", _TitleScene = new TitleScene);
 	SCENEMANAGER->addScene("맵툴", _MaptoolScene = new MapToolScene);
 	SCENEMANAGER->addScene("LOADING", _LoadingScene = new LoadingScene);
@@ -50,9 +49,11 @@ void playGround::release()
 void playGround::update()
 {
 	gameNode::update();
+	ShowCursor(false);
 	SCENEMANAGER->update();
 	OBJECTMANAGER->Update();
 	KEYANIMANAGER->update();
+	
 }
 
 //그리기 전용
@@ -66,7 +67,7 @@ void playGround::render()
 
 
 	/////////////////////////////////
-	TIMEMANAGER->render(getMemDC());
+	//TIMEMANAGER->render(getMemDC());
 	//////////////////////////////////
 	//ZORDER->ZOrderRender();
 	//test->Render();

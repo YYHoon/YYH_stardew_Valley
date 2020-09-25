@@ -1,0 +1,2 @@
+D:\YYH_stardeew\x64\Debug\windowsAPI.exe
+D:\YYH_stardeew\x64\Debug\windowsAPI.pdb

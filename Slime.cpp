@@ -30,14 +30,7 @@ void Slime::Release()
 void Slime::Update()
 {
 	_currentIdx = Vector2((int)((_position.x+1) / 64), (int)((_position.y+1) / 64));
-	//if (count % 30 == 0) {
-	//	_astar->SetMap();
-	//	_astar->SetStartNode(_currentIdx);
-	//	_astar->SetEndNode(Vector2(_player->GetPlayerOnTileIndex() % _map->GetHorizon(),
-	//		_player->GetPlayerOnTileIndex() / _map->GetHorizon()));
-	//	_astar->PathFind();
-	//	count = 1;
-	//}
+	
 	_astar->SetEndNode(Vector2(_player->GetPlayerOnTileIndex() % _map->GetHorizon(),
 		_player->GetPlayerOnTileIndex() / _map->GetHorizon()));
 
